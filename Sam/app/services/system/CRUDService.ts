@@ -76,7 +76,7 @@ module App.Services {
                     serviceName = serviceName.substr(0, serviceName.length - "Service".length);
                 if (app.api[serviceName])
                     this.apiService = app.api[serviceName];
-                else if (serviceName.StartsWith("nv", true)) {
+                else if (serviceName.StartsWith("sam", true)) {
                     serviceName = serviceName.substr(2, serviceName.length - 2);
                     this.apiService = app.api[serviceName];
                 }
@@ -93,7 +93,7 @@ module App.Services {
          * @param odata параметры запроса
          */
         protected prepareQuery(odata: OData): void {
-            
+            odata.$expand("CreatedBy");
         }
 
         /**
@@ -264,7 +264,8 @@ module App.Services {
             var isNew = !entity.Id;
             var savedEntity = angular.copy(<any>entity);
             this.prepareSave(savedEntity);
-            var savePromise = isNew ? this.ApiService.create(savedEntity) : this.ApiService.update(savedEntity);
+            //var savePromise = isNew ? this.ApiService.create(savedEntity) : this.ApiService.update(savedEntity);
+            var savePromise = this.ApiService.save(savedEntity);
             return savePromise.HandleError().then((res: any) => {
                 var result = this.Update(entity, res);
                 if (afterSave)

@@ -54,7 +54,7 @@ module App.Services {
             var resArray = [];
             if (this._expands && this._expands.length > 0) resArray.push(`$expand=${this._expands.join(',')}`);
             if (this._filter) resArray.push(`$filter=${this._filter}`);
-            if (this._orderBy && this._expands.length > 0) resArray.push(`$orderBy=${this._orderBy.join(',')}`);
+            if (this._orderBy && this._orderBy.length > 0) resArray.push(`$orderby=${this._orderBy.join(',')}`);
             if (this._top || this._top === 0) resArray.push(`$top=${this._top}`);
             if (this._skip) resArray.push(`$skip=${this._skip}`);
             var res = resArray.join('&');
@@ -239,31 +239,11 @@ module App.Services {
     class ODataEnum {
         constructor(protected name: string, protected value: number) {
             if (!this.name.Contains('.'))
-                this.name = 'NavisWeb.Models.' + this.name;
+                this.name = 'Sam.DbContext.' + this.name;
         }
         toString() {
             return `${this.name}'${this.value}'`;
         }
     }
-
-/*
-    var x = new Services.OData();
-//    var expr = x.prop("Field1").add(4).not().ge(5).and("Field2").eq(moment()).or("TTT").eq("O'Brian");
-    var expr0 = new ODataFilterCreator("Field1").ge(5).or().eq(1).and("Field2").year().eq(1900).toString();
-
-    var expr00 = new ODataFilterCreator("Field1").ge(5)
-        .or(ODataFilterCreator.create("Field1").eq(1).and("Field2").year().eq(1900))
-        .and("Field3").eq(3)
-        .toString();
-
-
-    var expr1 = new ODataFilterCreator("Field1").add(4).not().ge(5).toString();
-    var expr3 = new ODataFilterCreator("Field1").ge(moment()).toString();
-    var expr4 = new ODataFilterCreator("Field1").not().ge(new Date()).toString();
-    var expr2 = new ODataFilterCreator("Field1").concat('4').not().ge("O'Brian").toString();
-
-    var expr41 = 1;
-*/
-
 
 }

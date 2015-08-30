@@ -32,7 +32,7 @@ namespace Sam.Api
             return objId == null || (id is int && id.ToString() == "0");
         }
 
-        [AcceptVerbs("SAVE")]
+//        [AcceptVerbs("SAVE")]
         public virtual async Task<TEntity> SaveAsync(TEntity entity, bool? isNew)
         {
             if (!isNew.HasValue)

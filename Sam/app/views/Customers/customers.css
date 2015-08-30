@@ -1,0 +1,10 @@
+﻿#customers .dataTables_filter {
+  margin-top: -44px;
+  margin-right: 12px;
+}
+#customers .dataTables_wrapper.form-inline.dt-bootstrap .row {
+  margin-top: 0;
+}
+#customers .row.panel .panel-body {
+  padding: 0;
+}

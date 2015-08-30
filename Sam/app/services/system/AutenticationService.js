@@ -1,0 +1,40 @@
+'use strict';
+// ReSharper disable InconsistentNaming
+var App;
+(function (App) {
+    var AutenticationService = (function () {
+        function AutenticationService($rootScope, $location, $route) {
+            this.$rootScope = $rootScope;
+            this.$location = $location;
+            this.$route = $route;
+            this.LoggedUser = App.app['__loggedUser'];
+            App.app['__loggedUser'] = undefined;
+            App.app.$auth = this;
+            $rootScope.$auth = this;
+        }
+        Object.defineProperty(AutenticationService.prototype, "IsLoggedIn", {
+            get: function () { return !!this.LoggedUser; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AutenticationService.prototype, "LoggedUserId", {
+            get: function () { return this.LoggedUser ? this.LoggedUser.Id : undefined; },
+            enumerable: true,
+            configurable: true
+        });
+        AutenticationService.prototype.Login = function (login, password, rememberMe) {
+            var _this = this;
+            return App.app.api.Account.Login(login, password, rememberMe).ExtractError().then(function (user) { return _this.LoggedUser = user; });
+        };
+        AutenticationService.prototype.Logout = function () {
+            var _this = this;
+            var res = App.app.api.Account.Logout().HandleError().then(function () { return _this.LoggedUser = undefined; });
+            res.then(function () { return location.reload(); });
+            return res;
+        };
+        AutenticationService.$inject = ['$rootScope', '$location', '$route'];
+        return AutenticationService;
+    })();
+    App.Shared.commonModule.service('$auth', AutenticationService);
+})(App || (App = {}));
+//# sourceMappingURL=AutenticationService.js.map

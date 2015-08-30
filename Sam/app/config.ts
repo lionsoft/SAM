@@ -91,7 +91,22 @@ module App {
             return $delegate;
         }
     ]);
+
     //#endregion
+
+    app.run([() => {
+        $.extend($.fn.dataTable.defaults, {
+            info: false,
+            searching: true,
+            ordering: true,
+            paging: false,
+            processing: false,
+            //scrollCollapse: true,
+            //scrollY: 400,
+            //scrollX: false,
+        });
+    }]);
+
 }
 
 

@@ -122,32 +122,7 @@ namespace Sam
                 .IncludeDirectory("~/app/consts", "*.js")
                 .Include(
                       "~/app/l10n.js"
-                    // !--Bootstrapping-- >
                     , "~/app/app.js"
-/*
-                    , "~/app/config.js"
-                    , "~/app/config.exceptionHandler.js"
-                    , "~/app/config.l10n.js"
-                    , "~/app/config.route.js"
-
-                    // !--common Modules-- >
-                    , "~/app/common/common.js"
-                    , "~/app/common/commonConfig.js"
-                    , "~/app/services/AutenticationService.js"
-                    , "~/app/common/logger.js"
-                    , "~/app/common/spinner.js"
-
-
-                    // !--common.bootstrap Modules-- >
-                    , "~/app/common/bootstrap/bootstrap.dialog.js"
-*/
-            ));
-
-            bundles.Add(new ScriptBundle("~/bundles/app/routes").Include(
-                      "~/app/routes.js"
-                    , "~/app/routes/dashboard.js"
-                    , "~/app/routes/admin.js"
-                    , "~/app/routes/login.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap")
@@ -161,7 +136,6 @@ namespace Sam
                     // !--common Modules-- >
                     , "~/app/common/common.js"
                     , "~/app/common/commonConfig.js"
-                    , "~/app/services/AutenticationService.js"
                     , "~/app/common/logger.js"
                     , "~/app/common/spinner.js"
 
@@ -184,13 +158,6 @@ namespace Sam
                 )
             );
 
-            bundles.Add(new ScriptBundle("~/bundles/app/views").Include(
-                  "~/app/layout/shell.js"
-                , "~/app/layout/sidebar.js"
-//                , "~/app/views/admin/admin.js"
-//                , "~/app/views/dashboard/dashboard.js"
-            ));
-
             bundles.Add(new ScriptBundle("~/bundles/app/directives").Include(
                   "~/app/directives/cc/cc-img-person.js"
                 , "~/app/directives/cc/cc-menu-item-rendered.js"
@@ -203,13 +170,34 @@ namespace Sam
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/app/services").Include(
-                  "~/app/services/ODataFilterCreator.js"
-                , "~/app/services/OData.js"
-                , "~/app/services/CRUDService.js"
-                , "~/app/services/ApiServiceBase.js"
+                  "~/app/services/system/ODataFilterCreator.js"
+                , "~/app/services/system/OData.js"
+                , "~/app/services/system/AutenticationService.js"
+                , "~/app/services/system/CRUDService.js"
+                , "~/app/services/system/ApiServiceBase.js"
                 , "~/app/services/ApiService.js"
-                , "~/app/services/datacontext.js"
+
+                , "~/app/services/SamCompaniesService.js"
+                , "~/app/services/SamCustomersService.js"
+                , "~/app/services/SamDepartmentsService.js"
             ));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/app/routes").Include(
+                      "~/app/routes.js"
+                    , "~/app/routes/login.js"
+                    , "~/app/routes/customers.js"
+                    , "~/app/routes/admin.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/app/views").Include(
+                  "~/app/layout/shell.js"
+                , "~/app/layout/sidebar.js"
+
+                , "~/app/views/customers/customers.js"
+                , "~/app/views/admin/admin.js"
+            ));
+
         }
     }
 }
