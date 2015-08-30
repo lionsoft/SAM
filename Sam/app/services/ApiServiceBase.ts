@@ -9,11 +9,9 @@ module App {
     export interface IResourceClass<T> {
         query?(params?: Object): IPromise<ng.resource.IResourceArray<T>>;
         get?(id): IPromise<T>;
-/*
-        select(): IPromise<ng.resource.IResourceArray<T>>;
-        save(data: T): IPromise<T>;
-        save(params: Object, data: T): IPromise<T>;
-*/
+
+        save?(data: T): IPromise<T>;
+
         create?(data: T): IPromise<T>;
         update?(data: T): IPromise<T>;
 
@@ -255,6 +253,7 @@ module App {
                             transformResponse: (data, headers) => this.transformServiceResponse(data, headers) 
                         },
                         get: { method: "GET", transformResponse: (data, headers) => this.transformServiceResponse(data, headers) },
+                        save: { method: "SAVE", transformResponse: (data, headers) => this.transformServiceResponse(data, headers) },
                         create: { method: "POST", transformResponse: (data, headers) => this.transformServiceResponse(data, headers) },
                         update: { method: "PUT", transformResponse: (data, headers) => this.transformServiceResponse(data, headers) },
                         delete: { method: "DELETE", transformResponse: (data, headers) => this.transformServiceResponse(data, headers) },

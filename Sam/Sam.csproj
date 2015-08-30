@@ -204,6 +204,9 @@
   <ItemGroup>
     <Compile Include="Api\CRUDController.cs" />
     <Compile Include="Api\AppController.cs" />
+    <Compile Include="Api\Customers\CompanyApi.cs" />
+    <Compile Include="Api\Customers\DepartmentApi.cs" />
+    <Compile Include="Api\Customers\CustomerApi.cs" />
     <Compile Include="App_Start\BreezeWebApiConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -246,6 +249,7 @@
     <Compile Include="DbContext\ApplicationDb_Upgrade.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DbContext\Hooks\FillWithCurrentDateHook.cs" />
     <Compile Include="DbContext\Hooks\FillWithCurrentUserHook.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -255,8 +259,23 @@
     <Compile Include="DbContext\Migrations\ApplicationDbConfiguration.cs" />
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
+    <Compile Include="DbContext\Models\Area\Building.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DbContext\Models\Area\City.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DbContext\Models\Area\Country.cs" />
     <Compile Include="DbContext\Models\Common\EntityObjectId.cs" />
     <Compile Include="DbContext\Models\Common\IEntityObjectId.cs" />
+    <Compile Include="DbContext\Models\Area\Area.cs" />
+    <Compile Include="DbContext\Models\Customers\Department.cs" />
+    <Compile Include="DbContext\Models\Customers\Company.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DbContext\Models\Customers\Customer.cs" />
+    <Compile Include="DbContext\Models\Employee\Employee.cs" />
+    <Compile Include="DbContext\Models\Employee\EmployeeStatus.cs" />
     <Compile Include="DbContext\Models\Users\TypeScriptUser.cs">
       <SubType>Code</SubType>
     </Compile>

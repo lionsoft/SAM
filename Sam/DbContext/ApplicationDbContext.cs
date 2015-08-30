@@ -120,6 +120,7 @@ namespace Sam.DbContext
                     _hooks.Add(new DateTimeUtcHook());
                     _hooks.Add(new KeyValueHook());
                     _hooks.Add(new FillWithCurrentUserHook());
+                    _hooks.Add(new FillWithCurrentDateHook());
                 }
                 return _hooks;
             }

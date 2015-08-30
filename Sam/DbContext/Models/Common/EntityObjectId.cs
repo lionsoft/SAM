@@ -1,4 +1,6 @@
-﻿using T4TS;
+﻿using System;
+using Sam.DbContext.Hooks;
+using T4TS;
 
 namespace Sam.DbContext
 {
@@ -13,6 +15,22 @@ namespace Sam.DbContext
         /// Заполняется автоматически при сохранении нового объекта (для этого должен быть не заполнен перед сохранением).
         /// </summary>
         public TKey Id { get; set; }
+
+
+        [FillWithCurrentDate(OnCreateOnly = true)]
+        public DateTime CreatedDate { get; set; }
+
+        [FillWithCurrentUser(OnCreateOnly = true)]
+        public string CreatedById { get; set; }
+        public User CreatedBy { get; set; }
+
+
+        [FillWithCurrentDate(OnCreateOnly = false)]
+        public DateTime ModifiedDate { get; set; }
+
+        [FillWithCurrentUser(OnCreateOnly = false)]
+        public string ModifiedById { get; set; }
+        public User ModifiedBy { get; set; }
     }
 
 

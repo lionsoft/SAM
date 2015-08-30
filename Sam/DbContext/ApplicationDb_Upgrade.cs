@@ -33,6 +33,19 @@ namespace Sam.DbContext
                     SecurityStamp = Guid.NewGuid().ToString(),
                     PasswordHash = _userManager.PasswordHasher.HashPassword("1")
                 });
+
+
+                Customers.Add(new Customer { Name = "Customer 1" });
+                Customers.Add(new Customer { Name = "Customer 2" });
+
+                Companies.Add(new Company { Name = "Company 1", Address1 = "Address 1 of Company 1", Address2 = "Address 2 of Company 1", ZipCode = "111111", Customer = Customers.Local[0] });
+                Companies.Add(new Company { Name = "Company 2", Address1 = "Address 1 of Company 2", Address2 = "Address 2 of Company 2", ZipCode = "222222", Customer = Customers.Local[0] });
+                Companies.Add(new Company { Name = "Company 3", Address1 = "Address 1 of Company 3", Address2 = "Address 2 of Company 3", ZipCode = "333333", Customer = Customers.Local[1] });
+
+                Departments.Add(new Department { Name = "Department 1 of Company 1", Company = Companies.Local[0] });
+                Departments.Add(new Department { Name = "Department 2 of Company 1", Company = Companies.Local[0] });
+                Departments.Add(new Department { Name = "Department 1 of Company 2", Company = Companies.Local[1] });
+                Departments.Add(new Department { Name = "Department 1 of Company 3", Company = Companies.Local[2] });
             }
             // Updating database to version 2
             else if (toVersion == 2)

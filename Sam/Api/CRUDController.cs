@@ -26,14 +26,24 @@ namespace Sam.Api
 
         }
 
-        public virtual async Task<TEntity> SaveAsync(TEntity entity, bool isNew)
+        protected virtual bool IsNullId(T id)
         {
-            PrepareSave(entity, isNew);
-            Db.Attach(entity, isNew);
+            var objId = (object)(id);
+            return objId == null || (id is int && id.ToString() == "0");
+        }
+
+        [AcceptVerbs("SAVE")]
+        public virtual async Task<TEntity> SaveAsync(TEntity entity, bool? isNew)
+        {
+            if (!isNew.HasValue)
+                isNew = IsNullId(entity.Id);
+            PrepareSave(entity, isNew.Value);
+            Db.Attach(entity, isNew.Value);
             await Db.SaveChangesAsync();
             //await Db.Entry(e).GetDatabaseValuesAsync();
             return entity;
         }
+
 
         [HttpPost]
         public Task<TEntity> CreateAsync(TEntity entity)
@@ -61,5 +71,9 @@ namespace Sam.Api
     
     public class CRUDController<TEntity> : CRUDController<TEntity, string> where TEntity : class, IEntityObjectId
     {
+        protected override bool IsNullId(string id)
+        {
+            return string.IsNullOrWhiteSpace(id);
+        }
     }
 }

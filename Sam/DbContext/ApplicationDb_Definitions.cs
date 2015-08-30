@@ -34,7 +34,11 @@ namespace Sam.DbContext
 
 
 
+        public IDbSet<Customer> Customers { get; set; }
 
+        public IDbSet<Company> Companies { get; set; }
+
+        public IDbSet<Department> Departments { get; set; }
 
     }
 }

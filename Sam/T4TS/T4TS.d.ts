@@ -3,16 +3,71 @@
 ****************************************************************************/
 
 declare module App {
+    /** Generated from Sam.DbContext.Area **/
+    export interface IArea extends App.IEntityObjectId {
+        Name: string;
+        Email: string;
+        PinCode: number;
+        Status: any;
+        Image: string;
+        DepartmentId: string;
+        ManagerId: string;
+    }
+    /** Generated from Sam.DbContext.Building **/
+    export interface IBuilding extends App.IEntityObjectId {
+        Name: string;
+        Owner: string;
+        Address1: string;
+        Address2: string;
+        CityId: string;
+        City: App.ICity;
+    }
+    /** Generated from Sam.DbContext.City **/
+    export interface ICity extends App.IEntityObjectId {
+        Name: string;
+        ZipCode: string;
+        CountryId: string;
+        Country: App.ICountry;
+    }
+    /** Generated from Sam.DbContext.Country **/
+    export interface ICountry extends App.IEntityObjectId {
+        Name: string;
+    }
     /** Generated from Sam.DbContext.EntityObjectId **/
     export interface IEntityObjectId {
         Id: string;
     }
-    /** Generated from Sam.DbContext.Test **/
-    export interface ITest extends App.IEntityObjectId {
+    /** Generated from Sam.DbContext.Company **/
+    export interface ICompany extends App.IEntityObjectId {
         Name: string;
-        Test1: string;
-        Test2: any;
-        Test3: any;
+        ZipCode: string;
+        Address1: string;
+        Address2: string;
+        CustomerId: string;
+        Customer: App.ICustomer;
+    }
+    /** Generated from Sam.DbContext.Customer **/
+    export interface ICustomer extends App.IEntityObjectId {
+        Name: string;
+    }
+    /** Generated from Sam.DbContext.Department **/
+    export interface IDepartment extends App.IEntityObjectId {
+        Name: string;
+        CompanyId: string;
+        Company: App.ICompany;
+    }
+    /** Generated from Sam.DbContext.Employee **/
+    export interface IEmployee extends App.IEntityObjectId {
+        Name: string;
+        Email: string;
+        PinCode: number;
+        Status: any;
+        Image: string;
+        DepartmentId: string;
+        ManagerId: string;
+        UserId: string;
+        CreatedDate: string;
+        CreatedBy: string;
     }
     /** Generated from Sam.DbContext.TypeScriptUser **/
     export interface IUser {

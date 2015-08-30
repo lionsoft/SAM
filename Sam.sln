@@ -5,6 +5,18 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sam", "Sam\Sam.csproj", "{8388FE23-6F7E-4D0E-89AB-6D436DFAFA5B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{6C60B8C5-402E-4F2A-A048-A27771B531D0}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\SAM Estimation.xlsx = Documentation\SAM Estimation.xlsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mockups", "Mockups", "{261F684C-9B28-4B39-94E9-FF89EB07BBA1}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Mockups\My Mockups.bmpr = Documentation\Mockups\My Mockups.bmpr
+		Documentation\Mockups\SAM_Administration-1.bmpr = Documentation\Mockups\SAM_Administration-1.bmpr
+		Documentation\Mockups\SAM_UI_balsamiq_moqups.bmpr = Documentation\Mockups\SAM_UI_balsamiq_moqups.bmpr
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +30,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{261F684C-9B28-4B39-94E9-FF89EB07BBA1} = {6C60B8C5-402E-4F2A-A048-A27771B531D0}
 	EndGlobalSection
 EndGlobal
