@@ -9,14 +9,14 @@ var App;
 (function (App) {
     var Services;
     (function (Services) {
-        var DepartmentsService = (function (_super) {
-            __extends(DepartmentsService, _super);
-            function DepartmentsService() {
+        var CompaniesService = (function (_super) {
+            __extends(CompaniesService, _super);
+            function CompaniesService() {
                 _super.apply(this, arguments);
             }
-            return DepartmentsService;
+            return CompaniesService;
         })(Services.CRUDService);
-        App.app.service("samDepartments", DepartmentsService.Factory());
+        App.app.service("samCompanies", CompaniesService.Factory("samDepartments"));
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
-//# sourceMappingURL=DepartmentsService.js.map
+//# sourceMappingURL=SamCompaniesService.js.map

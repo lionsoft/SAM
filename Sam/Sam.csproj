@@ -511,6 +511,10 @@
     <None Include="app\css\fixes.less" />
     <None Include="app\css\navbar.less" />
     <None Include="app\css\splash.less" />
+    <Content Include="app\css\tables.css">
+      <DependentUpon>tables.less</DependentUpon>
+    </Content>
+    <Content Include="app\css\tables.less" />
     <None Include="app\css\toastr.less" />
     <Content Include="app\config.route.js">
       <DependentUpon>config.route.ts</DependentUpon>
@@ -575,23 +579,23 @@
     <Content Include="app\services\ApiService.js">
       <DependentUpon>ApiService.ts</DependentUpon>
     </Content>
+    <Content Include="app\services\SamCompaniesService.js">
+      <DependentUpon>SamCompaniesService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCustomersService.js">
+      <DependentUpon>SamCustomersService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDepartmentsService.js">
+      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
+    </Content>
     <Content Include="app\services\system\ApiServiceBase.js">
       <DependentUpon>ApiServiceBase.ts</DependentUpon>
     </Content>
     <Content Include="app\services\system\AutenticationService.js">
       <DependentUpon>AutenticationService.ts</DependentUpon>
     </Content>
-    <Content Include="app\services\CompaniesService.js">
-      <DependentUpon>SamCompaniesService.ts</DependentUpon>
-    </Content>
     <Content Include="app\services\system\CRUDService.js">
       <DependentUpon>CRUDService.ts</DependentUpon>
-    </Content>
-    <Content Include="app\services\CustomersService.js">
-      <DependentUpon>SamCustomersService.ts</DependentUpon>
-    </Content>
-    <Content Include="app\services\DepartmentsService.js">
-      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\system\OData.js">
       <DependentUpon>OData.ts</DependentUpon>
@@ -618,7 +622,9 @@
     <Content Include="app\views\Customers\customers.js">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\login\login.css" />
+    <Content Include="app\views\login\login.css">
+      <DependentUpon>login.less</DependentUpon>
+    </Content>
     <Content Include="app\views\login\login.html" />
     <Content Include="app\views\login\login.js">
       <DependentUpon>login.ts</DependentUpon>
@@ -1744,6 +1750,15 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\DataTables\css\dataTables.responsive.scss" />
     <Content Include="Content\DataTables\css\dataTables.jqueryui.scss" />
+    <Content Include="app\services\SamCompaniesService.js.map">
+      <DependentUpon>SamCompaniesService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCustomersService.js.map">
+      <DependentUpon>SamCustomersService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDepartmentsService.js.map">
+      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -1802,17 +1817,10 @@
     <Content Include="T4TS\T4TS.tt.settings.t4">
       <DependentUpon>T4TS.tt</DependentUpon>
     </Content>
-    <Content Include="app\services\CompaniesService.js.map">
-      <DependentUpon>SamCompaniesService.ts</DependentUpon>
-    </Content>
-    <Content Include="app\services\CustomersService.js.map">
-      <DependentUpon>SamCustomersService.ts</DependentUpon>
-    </Content>
-    <Content Include="app\services\DepartmentsService.js.map">
-      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
-    </Content>
+    <Content Include="app\views\login\login.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
+    <None Include="Properties\PublishProfiles\sam-system.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />

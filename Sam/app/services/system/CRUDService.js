@@ -97,7 +97,7 @@ var App;
             CRUDService.prototype.prepareSave = function (entity) {
                 for (var key in entity) {
                     if (entity.hasOwnProperty(key)) {
-                        if (key[0] === "$")
+                        if (key[0] === "$" || key[0] === "_")
                             // очищаем все приватные и внутренние поля
                             entity[key] = undefined;
                         else if (entity[key] !== null && typeof entity[key] === "object" && !entity[key]._isAMomentObject && !(entity[key] instanceof Date))
@@ -118,7 +118,7 @@ var App;
                 // Копируем все поля, кроме ссылочных, если они равны null
                 for (var key in res) {
                     if (res.hasOwnProperty(key)) {
-                        if (key[0] === "$")
+                        if (key[0] === "$" || key[0] === "_")
                             continue;
                         var priorValue = source[key];
                         var value = res[key];
@@ -161,8 +161,7 @@ var App;
                 var res;
                 odata.$filter(undefined).$skip(undefined).$top(undefined).$orderBy(undefined);
                 if (odata.toString()) {
-                    odata.$filter("Id eq '" + id + "'").$top(1);
-                    res = this.ApiService.query(odata).then(function (r) { return r.firstOrDefault(); });
+                    res = this.ApiService.query(odata.$id(id).$top(1)).then(function (r) { return r.firstOrDefault(); });
                 }
                 else {
                     res = this.ApiService.get(id /*, odata*/);

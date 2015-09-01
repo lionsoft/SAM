@@ -1,0 +1,80 @@
+﻿table.dataTable thead th,
+table.dataTable thead td {
+  padding: 5px 20px 5px 10px;
+  border-bottom: 2px solid #1d7dae;
+  border-right: 1px solid #075b87;
+  font-size: 13px;
+  color: #fff;
+}
+/*table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+        border-top: 1px solid #ddd;
+    }*/
+table.dataTable thead .sorting {
+  background: #1171a3 url("../../Content/DataTables/images/sort_both.png") no-repeat right center;
+}
+table.dataTable thead .sorting_desc {
+  background: #1171a3 url("../../Content/DataTables/images/sort_desc.png") no-repeat right center;
+}
+table.dataTable thead .sorting_asc {
+  background: #1171a3 url("../../Content/DataTables/images/sort_asc.png") no-repeat right center;
+}
+table.dataTable thead tr th:first-child {
+  display: table-cell;
+  line-height: 12px;
+}
+.dataTables_length,
+.dataTables_filter {
+  padding: 0 0 10px 20px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #333 !important;
+  border: 1px solid #dedede;
+  background: #eee;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: white !important;
+  border: 1px solid #206098!important;
+  background: #337ab7!important;
+}
+table.dataTable tbody td {
+  border-right: 1px solid #c1e3ff!important;
+  border-bottom: 1px solid #c1e3ff!important;
+  border-top: 0!important;
+  font-size: 13px;
+}
+table.dataTable tbody th:first-child {
+  border-top: 0;
+}
+table.dataTable tbody tr:nth-of-type(even) {
+  background: #fff!important;
+}
+table.dataTable tbody tr:nth-of-type(odd) {
+  background: #ecf5fe!important;
+}
+table.dataTable tbody tr:hover {
+  background: #c1e3ff!important;
+}
+table.dataTable tbody tr td:first-child {
+  display: table-cell;
+  border-left: 1px solid #c1e3ff!important;
+  text-align: center;
+  line-height: 18px;
+}
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #337ab7;
+}
+.dataTables_scrollBody table tbody {
+  border: 1px solid #1171a3!important;
+}
+.dataTables_scrollHeadInner {
+  background: #1171a3;
+  width: 100%!important;
+}
+.dataTable {
+  width: 100%!important;
+}
+.dropdown-menu li .ui-select-choices-row a:focus,
+.dropdown-menu li .ui-select-choices-row a:hover {
+  background: #428bca !important;
+}

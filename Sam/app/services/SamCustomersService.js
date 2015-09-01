@@ -16,7 +16,7 @@ var App;
             }
             return CustomersService;
         })(Services.CRUDService);
-        App.app.service("samCustomers", CustomersService.Factory());
+        App.app.service("samCustomers", CustomersService.Factory("samCompanies"));
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
-//# sourceMappingURL=CustomersService.js.map
+//# sourceMappingURL=SamCustomersService.js.map

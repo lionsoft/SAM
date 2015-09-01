@@ -38,13 +38,16 @@ body>div#main-layout>div[data-ng-include]>div,
 // Убираем min-height у .mainbar, который там стоит по умолчанию
 .mainbar {
     min-height: 0;
+
+    .matter {
+        overflow: auto;
+        padding: 0;
+    }
+
+    .matter > .container, .matter > .container-fluid {
+        margin: 0;
+        padding: 15px 15px 0;
+    }
+
 }
 
-.mainbar .matter {
-    overflow: auto;
-    padding: 0;
-}
-
-.mainbar .matter > .container {
-    margin: 15px 0;
-}

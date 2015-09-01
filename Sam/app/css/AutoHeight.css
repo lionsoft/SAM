@@ -33,6 +33,8 @@ body > div#main-layout > div[data-ng-include] > div,
   overflow: auto;
   padding: 0;
 }
-.mainbar .matter > .container {
-  margin: 15px 0;
+.mainbar .matter > .container,
+.mainbar .matter > .container-fluid {
+  margin: 0;
+  padding: 15px 15px 0;
 }

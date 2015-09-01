@@ -40,14 +40,15 @@
         </script>
     <![endif]-->
 
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/styles/css")
+
 
 </head>
 <body>
 
     @RenderBody()
 
-    @Styles.Render("~/app/css")
+    @Styles.Render("~/appstyles/css")
 
 
     <!-- Vendor Scripts -->
@@ -65,11 +66,12 @@
 
     @Scripts.Render("~/bundles/app/common")
 
-    @Scripts.Render("~/bundles/app/views")
-
+    @Scripts.Render("~/bundles/app/services")
+    
     @Scripts.Render("~/bundles/app/directives")
 
-    @Scripts.Render("~/bundles/app/services")
+    @Scripts.Render("~/bundles/app/views")
+
 
     <script>
         app._loggedUser = undefined;

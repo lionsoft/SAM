@@ -147,7 +147,7 @@ module App.Services {
         protected prepareSave(entity: T): void {
             for (let key in entity) {
                 if (entity.hasOwnProperty(key)) {
-                    if (key[0] === "$")
+                    if (key[0] === "$" || key[0] === "_")
                     // очищаем все приватные и внутренние поля
                         entity[key] = undefined;
                     // очищаем все ссылочные поля, кроме полей Moment и Date
@@ -170,7 +170,7 @@ module App.Services {
             // Копируем все поля, кроме ссылочных, если они равны null
             for (let key in res) {
                 if (res.hasOwnProperty(key)) {
-                    if (key[0] === "$") continue;
+                    if (key[0] === "$" || key[0] === "_") continue;
                     const priorValue = source[key];
                     const value = res[key];
                     if (typeof priorValue !== "object" || value)
@@ -212,8 +212,7 @@ module App.Services {
             var res;
             odata.$filter(undefined).$skip(undefined).$top(undefined).$orderBy(undefined);
             if (odata.toString()) {
-                odata.$filter(`Id eq '${id}'`).$top(1);
-                res = this.ApiService.query(odata).then(r => r.firstOrDefault());
+                res = this.ApiService.query(odata.$id(id).$top(1)).then(r => r.firstOrDefault());
             } else {
                 res = this.ApiService.get(id/*, odata*/);
             }

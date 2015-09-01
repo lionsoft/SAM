@@ -7,11 +7,13 @@ namespace Sam
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            BundleTable.EnableOptimizations = false;
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include("~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/styles/css").Include(
                   "~/content/reset.css"
                 , "~/content/ie10mobile.css"
                 , "~/content/bootstrap.min.css"
@@ -40,7 +42,7 @@ namespace Sam
 
 
 
-            bundles.Add(new StyleBundle("~/app/css").IncludeDirectory(
+            bundles.Add(new StyleBundle("~/appstyles/css").IncludeDirectory(
                   "~/app/css", "*.css"
             ));
 
