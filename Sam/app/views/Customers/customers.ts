@@ -67,6 +67,19 @@ module App.Controllers
 
         }
 
+        AddCustomer() {
+            alert('add customer');
+            
+        }
+
+        EditCustomer(c: ICustomer) {
+            alert('edit customer' + c.Name);
+            var scope = <any>this.$scope.$new();
+            scope.$item = c;
+            app.popup.popup('_edit.html', scope);
+        }
+
+
         DeleteCustomer(c: ICustomer) {
             if (!c) return;
             app.popup.ask(this.Translate("ASK.DELETE.CUSTOMER|{0}: Delete customer?").format(c.Name), false)

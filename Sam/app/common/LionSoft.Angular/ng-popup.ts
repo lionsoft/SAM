@@ -85,13 +85,8 @@ declare module angular {
 module LionSoftAngular {
 
     LionSoftAngular.Module
-        /**
-        * Регистрирует сервис ангуляра для вызова Popup-окон.
-        * Пример:
-        *     popupService.info('Info message');
-        */
-        .service("popupService", ["$modal", "$q", function($modal, $q) {
-
+        .config(["popupServiceProvider", 
+            (p) => {
                 LionSoftAngular.popupDefaults = {
                     backdrop: true,
                     keyboard: true,
@@ -99,6 +94,14 @@ module LionSoftAngular {
                     templateUrlBase: LionSoftJs.appFolder,
                     defaultDialogTemplateUrl: LionSoftAngular.rootFolder + 'html/ng-dialog.html'
                 };
+            }
+        ])
+        /**
+        * Регистрирует сервис ангуляра для вызова Popup-окон.
+        * Пример:
+        *     popupService.info('Info message');
+        */
+        .service("popupService", ["$modal", "$q", function($modal, $q) {
 
                 this.popupModal = (templateUrl: string, scope?: any, popupDefaults?: LionSoftAngular.IPopupDefaults): ng.IPromise<any> => {
                     popupDefaults = popupDefaults || {};

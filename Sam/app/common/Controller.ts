@@ -29,6 +29,11 @@ module App {
 
         $routeParams: any;
 
+        /**
+         * Каталог из которого был загружен контроллер
+         */
+        $currentDirectory: string;
+
         log: (msg: string, data?: any, showToast?: boolean) => void;
 
         /**
@@ -48,6 +53,11 @@ module App {
         init(callInit: boolean) {
             this.loading = true;
             this.title = this.$route.current['title'];
+            this.$currentDirectory = this.$route.current['loadedTemplateUrl'].ExtractDirectory();
+            if (LionSoftAngular.popupDefaults) {
+                LionSoftAngular.popupDefaults.templateUrlBase = this.$currentDirectory;
+            }
+            
             super.init(false);
             var controllerAs = this.$route.current.controllerAs;
             this.ngName = this.$route.current.controller.toString();

@@ -62,6 +62,15 @@ var App;
             };
             Customers.prototype.DepartmentChanged = function () {
             };
+            Customers.prototype.AddCustomer = function () {
+                alert('add customer');
+            };
+            Customers.prototype.EditCustomer = function (c) {
+                alert('edit customer' + c.Name);
+                var scope = this.$scope.$new();
+                scope.$item = c;
+                App.app.popup.popup('_edit.html', scope);
+            };
             Customers.prototype.DeleteCustomer = function (c) {
                 var _this = this;
                 if (!c)

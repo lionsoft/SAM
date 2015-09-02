@@ -58,8 +58,7 @@ module App.Controllers
         private activate()
         {
             var logger = this.common.logger.getLogFn(this.controllerId, 'success');
-            logger('Hot Towel Angular loaded!', null, true);
-
+            //logger('Hot Towel Angular loaded!', null, true);
             this.common.activateController([], this.controllerId);
         }
 

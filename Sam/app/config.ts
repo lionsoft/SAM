@@ -121,8 +121,8 @@ module App {
             ordering: true,
             paging: false,
             processing: false,
-            scrollCollapse: true,
-            scrollY: 300,
+            scrollCollapse: false,
+            scrollY: 160,
             //scrollX: false,
         });
     }]);

@@ -625,6 +625,7 @@
     <Content Include="app\views\Customers\customers.js">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\Customers\_edit.html" />
     <Content Include="app\views\login\login.css">
       <DependentUpon>login.less</DependentUpon>
     </Content>
