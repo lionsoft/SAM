@@ -1,0 +1,4 @@
+﻿.dropdown-menu li .ui-select-choices-row a:focus,
+.dropdown-menu li .ui-select-choices-row a:hover {
+  background: #428bca !important;
+}

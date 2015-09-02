@@ -40,8 +40,7 @@ var App;
                         res = "'" + res + "'";
                     }
                     else if (typeof value === "object" && (value instanceof Date || value['_isAMomentObject'])) {
-                        //res = moment(res).format('YYYY-MM-DD[T]HH:mm:ss');
-                        res = moment(res).toString();
+                        res = moment(value).format('YYYY-MM-DD[T]HH:mm:ss');
                         return "DateTime'" + res + "'";
                     }
                     // ToDo: somehow support enum values

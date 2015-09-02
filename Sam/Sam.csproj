@@ -555,6 +555,9 @@
     <Content Include="app\css\toastr.min.css">
       <DependentUpon>toastr.css</DependentUpon>
     </Content>
+    <Content Include="app\css\ui-select.css">
+      <DependentUpon>ui-select.less</DependentUpon>
+    </Content>
     <Content Include="app\l10n.js">
       <DependentUpon>l10n.ts</DependentUpon>
     </Content>
@@ -1759,6 +1762,7 @@
     <Content Include="app\services\SamDepartmentsService.js.map">
       <DependentUpon>SamDepartmentsService.ts</DependentUpon>
     </Content>
+    <Content Include="app\css\ui-select.less" />
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
