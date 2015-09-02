@@ -48,6 +48,15 @@ var App;
                         _this.samCompanies.Load(App.Services.OData.create.eq("CustomerId", _this.selectedCustomer.Id)).then(function (res) {
                             _this.companies = res;
                         });
+                    /*
+                                    var tableHeader0 = $($(".dataTables_scrollHeadInner")[0]);
+                                    var tableHeader = $($(".dataTables_scrollHeadInner table")[0]);
+                                    var tableHeaderWrapper = $($(".dataTables_scrollBody table")[0]);
+                                    Utils.ResizeListener.Attach(tableHeaderWrapper, () => {
+                                        tableHeader0.width(tableHeaderWrapper.width());
+                                        tableHeader.width(tableHeaderWrapper.width());
+                                    });
+                    */
                 });
             };
             Customers.prototype.LoadDepartments = function () {

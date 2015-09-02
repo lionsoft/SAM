@@ -460,6 +460,7 @@ module LionSoftAngular {
         }
     }
 
+
     /**
      * Наследуйте все директивы не имеющие html-темплейта от этого класса.
      * Скоуп, элемент и атрибуты директивы доступны через св-ва $scope, $element, $attrs.
@@ -595,6 +596,92 @@ module LionSoftAngular {
             return "html/{0}.html".format(this.getName(false));
         }
     }
+
+    /**
+     * Наследуйте все декораторы сервисов от этого класса.
+     * По умолчанию доступны сервисы Service + $delegate.
+     * В наследнике следует переопределить метод Decorate($delegate)
+     * 
+     * Пример инициализации:
+     * app.decorator('myService', MyServiceDecorator.Factory());
+     */
+    export class ServiceDecorator extends Service {
+        $delegate: any;
+
+        public static addFactoryInjections(injects: string[]) {
+            NgObject.addFactoryInjections(injects);
+            this.addInjection(injects, "$delegate");
+        }
+
+        protected getFactoryResult(): any {
+            return this.Decorate(this.$delegate) || this.$delegate;
+        }
+
+        protected Decorate($delegate: any): any {
+            return $delegate;
+        }
+    }
+
+    /**
+     * Наследуйте все декораторы директив от этого класса.
+     * По умолчанию доступны сервисы Directive + $delegate.
+     * В наследнике следует переопределить методы Compile, PreLink, Link
+     * Вызовы super.Compile(...), super.PreLink(...), super.Link(...) будут равносильны оригинальным вызовам 
+     * 
+     * Пример инициализации:
+     * app.decorator('mySuperDirective', MySuperDirectiveDecorator.Factory());
+     */
+    export class DirectiveDecorator extends Directive {
+
+        $delegate: any;
+
+        private _oldCompile: Function;
+        private _pre: Function;
+        private _post: Function;
+
+        public static addFactoryInjections(injects: string[]) {
+            NgObject.addFactoryInjections(injects);
+            this.addInjection(injects, "$delegate");
+        }
+
+        Compile(element: ng.IAugmentedJQuery, attrs: ng.IAttributes, transclude: ng.ITranscludeFunction) {
+            var pre_post = this._oldCompile(element, attrs, transclude);
+            if (pre_post) {
+                if (typeof pre_post === "function") {
+                    this._post = pre_post;
+                } else {
+                    this._pre = pre_post.pre;
+                    this._post = pre_post.post;
+                }
+            }
+        }
+
+        PreLink(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, controllers: any, transclude: ng.ITranscludeFunction) {
+            if (this._pre)
+                this._pre(scope, element, attrs, controllers, transclude);
+        }
+
+
+        Link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, controllers: any, transclude: ng.ITranscludeFunction) {
+            if (this._post)
+                this._post(scope, element, attrs, controllers, transclude);
+        }
+
+        protected getFactoryResult(): any {
+            var directive = this.$delegate[0];
+            this._oldCompile = directive.compile;
+
+            directive.compile = (element, attrs, transclude) => {
+                this.Compile(element, attrs, transclude);
+                return {
+                    pre: (scope, element, attrs, controllers, transcludeFn) => this.PreLink(scope, element, attrs, controllers, transcludeFn),
+                    post: (scope, element, attrs, controllers, transcludeFn) => this.Link(scope, element, attrs, controllers, transcludeFn)
+                };
+            }
+            return this.$delegate;
+        }
+    }
+
 }
 
 

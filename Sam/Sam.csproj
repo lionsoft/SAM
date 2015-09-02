@@ -558,6 +558,9 @@
     <Content Include="app\css\ui-select.css">
       <DependentUpon>ui-select.less</DependentUpon>
     </Content>
+    <Content Include="app\decorators\DTRendererService.js">
+      <DependentUpon>DTRendererService.ts</DependentUpon>
+    </Content>
     <Content Include="app\l10n.js">
       <DependentUpon>l10n.ts</DependentUpon>
     </Content>
@@ -1579,6 +1582,7 @@
     <Content Include="Scripts\version.json" />
     <TypeScriptCompile Include="app\common\Controller.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
+    <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
     <TypeScriptCompile Include="app\services\SamCompaniesService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -1764,6 +1768,9 @@
       <DependentUpon>SamDepartmentsService.ts</DependentUpon>
     </Content>
     <Content Include="app\css\ui-select.less" />
+    <Content Include="app\decorators\DTRendererService.js.map">
+      <DependentUpon>DTRendererService.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />

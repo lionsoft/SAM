@@ -152,6 +152,7 @@ namespace Sam
                     , "~/app/common/utils/Icon.js"
                     , "~/app/common/utils/Json.js"
                     , "~/app/common/utils/ng.js"
+                    , "~/app/common/utils/ResizeListener.js"
 
                     , "~/app/common/Controller.js"
                     , "~/app/common/Service.js"
@@ -169,6 +170,8 @@ namespace Sam
                 , "~/app/directives/cc/cc-widget-close.js"
                 , "~/app/directives/cc/cc-widget-header.js"
                 , "~/app/directives/cc/cc-widget-minimize.js"
+
+                , "~/app/decorators/DTRendererService.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/app/services").Include(

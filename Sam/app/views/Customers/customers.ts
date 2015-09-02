@@ -50,6 +50,16 @@ module App.Controllers
                     this.samCompanies.Load(Services.OData.create.eq("CustomerId", this.selectedCustomer.Id)).then(res => {
                         this.companies = res;
                     });
+
+/*
+                var tableHeader0 = $($(".dataTables_scrollHeadInner")[0]);
+                var tableHeader = $($(".dataTables_scrollHeadInner table")[0]);
+                var tableHeaderWrapper = $($(".dataTables_scrollBody table")[0]);
+                Utils.ResizeListener.Attach(tableHeaderWrapper, () => {
+                    tableHeader0.width(tableHeaderWrapper.width());
+                    tableHeader.width(tableHeaderWrapper.width());
+                });
+*/
             });
         }
 
