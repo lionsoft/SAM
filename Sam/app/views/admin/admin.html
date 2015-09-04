@@ -1,20 +1,37 @@
 ﻿<section class="mainbar">
     <section class="matter">
-        <div class="container">
-
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="widget wviolet">
-                        <div data-cc-widget-header title="{{$.Title}}"></div>
-                        <div class="widget-content user">
-                            <h3>TODO: Implement Your Features - {{$.Title}}</h3>
-                            <div translate>TEST | Дефолт тест АДМИН</div>
-                        </div>
-                        <div class="widget-foot">
-                            <div class="clearfix"></div>
-                        </div>
+
+                <div class="row panel panel-default sam-table">
+                    <h3 class="panel-heading">
+                        <button ng-click="$.AddUser()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                        <span translate>Users</span>
+                    </h3>
+                    <div class="panel-body">
+                        <table datatable="ng" class="row-border hover">
+                            <thead>
+                                <tr>
+                                    <th translate class="auto-size">Login</th>
+                                    <th translate>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in $.users track by user.Id"
+                                    ng-click="$.selectedUser=user"
+                                    ng-class="{active: $.selectedUser===user}">
+                                    <td>{{user.UserName}}</td>
+                                    <td class="action-buttons">
+                                        <button ng-click="$.EditUser(user)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                        <button ng-click="$.DeleteUser(user)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </section>

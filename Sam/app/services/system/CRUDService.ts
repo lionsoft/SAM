@@ -50,6 +50,18 @@ module App.Services {
          * @param id Идентификатор объекта.
          */
         Delete(id: string): IPromise<boolean>;
+
+        /**
+         * Вызывает всплывающий диалог для редактирования объекта.
+         * В случае закрытия диалога по кнопке OK сохраняет изменения.
+         * Объект доступен в скоупе диалога как $item.
+         * Дополнительно можно передать свой скоуп, который будет доступен в скоупе диалога как $scope.
+         * Также из исходного скоупа будут скопированы в скоуп диалога все поля, начинающиеся на $.
+         * Возвращает промис окончания сохранения объекта.
+         * @param entity редактируемый объект
+         * @param editTemplateUrl ссылка на шаблон формы редактирования
+         */
+        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope): IPromise<T>;
     }
 
     /**
@@ -307,6 +319,30 @@ module App.Services {
          */
         Delete(id: string): IPromise<boolean> {
             return this.ApiService.delete(id).HandleError();
+        }
+
+
+        /**
+         * Вызывает всплывающий диалог для редактирования объекта.
+         * В случае закрытия диалога по кнопке OK сохраняет изменения.
+         * Объект доступен в скоупе диалога как $item.
+         * Дополнительно можно передать свой скоуп, который будет доступен в скоупе диалога как $scope.
+         * Также из исходного скоупа будут скопированы в скоуп диалога все поля, начинающиеся на $.
+         * Возвращает промис окончания сохранения объекта.
+         * @param entity редактируемый объект
+         * @param editTemplateUrl ссылка на шаблон формы редактирования
+         */
+        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope): IPromise<T> {
+            entity = entity || <any>{};
+            scope = scope || app.get("$rootScope");
+            // ReSharper disable once QualifiedExpressionMaybeNull
+            scope = scope.$new();
+            scope['$item'] = angular.copy(entity);
+            return <IPromise<T>>app.popup.popupModal(editTemplateUrl, scope).then(() => {
+                return this.Save(scope['$item']).then(res => {
+                    return this.Update(entity, res);
+                });
+            });
         }
 
     }

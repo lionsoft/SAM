@@ -71,7 +71,7 @@ declare module App {
     }
     /** Generated from Sam.DbContext.TypeScriptUser **/
     export interface IUser {
-        Id?: string;
+        Id: string;
         UserName?: string;
         PasswordHash?: string;
         Email?: string;

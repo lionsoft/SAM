@@ -452,10 +452,10 @@ module LionSoftAngular {
     export class Filter extends NgObject {
 
         protected getFactoryResult(): any {
-            return value => this.Execute(value);
+            return (value, ...params) => this.Execute(value, ...params);
         }
 
-        public Execute(value: string, params?: any): string {
+        public Execute(value: string, ...params): string {
             return value;
         }
     }

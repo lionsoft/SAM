@@ -1,4 +1,4 @@
-﻿#customers .dataTables_filter {
+﻿#customers .dataTables_wrapper.dataTables_no_paging .dataTables_filter {
   margin-top: -44px;
   margin-right: 12px;
 }

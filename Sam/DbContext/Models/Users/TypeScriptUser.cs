@@ -5,7 +5,6 @@ namespace Sam.DbContext
     [TypeScriptInterface(Name = "User")]
     public class TypeScriptUser
     {
-        [TypeScriptMember(Optional = true)]
         public string Id { get; set; }
         
         [TypeScriptMember(Optional = true)]

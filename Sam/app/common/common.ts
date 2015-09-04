@@ -6,7 +6,8 @@ module App.Shared {
         activateController(promises: Array<ng.IPromise<any>>, controllerId: string)
         $broadcast(event: string, data: any);
         createSearchThrottle(viewmodel: any, list: string, filteredList: string, filter: string, delay: number): Function;
-        debouncedThrottle(key: string, callback: Function, delay: number, immediate: boolean): void;
+        debouncedThrottle(callback: Function, delay?: number, immediate?: boolean): void;
+        debouncedThrottle(key: string, callback: Function, delay?: number, immediate?: boolean): void;
         isNumber(val: any): boolean;
         textContains(text: string, searchText: string): boolean
         $q: ng.IQService;
@@ -98,8 +99,8 @@ module App.Shared {
             })();
         }
 
-        public debouncedThrottle(callback: Function, delay: number, immediate?: boolean): void;
-        public debouncedThrottle(key: string, callback: Function, delay: number, immediate?: boolean): void;
+        public debouncedThrottle(callback: Function, delay?: number, immediate?: boolean): void;
+        public debouncedThrottle(key: string, callback: Function, delay?: number, immediate?: boolean): void;
         public debouncedThrottle(p1, p2, p3?, p4?): void {
             var key: string;
             var callback: Function;

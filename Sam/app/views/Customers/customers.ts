@@ -25,9 +25,9 @@ module App.Controllers
         }
 
         Activated() {
-            this.$scope.$watch("$.customers", () => this.selectedCustomer = this.customers[0]);
-            this.$scope.$watch("$.companies", () => this.selectedCompany = this.companies[0]);
-            this.$scope.$watch("$.departments", () => this.selectedDepartment = this.departments[0]);
+            this.$scope.$watch("$.customers", () => this.selectedCustomer = this.customers.orderBy(x => x.Name).firstOrDefault());
+            this.$scope.$watch("$.companies", () => this.selectedCompany = this.companies.orderBy(x => x.Name).firstOrDefault());
+            this.$scope.$watch("$.departments", () => this.selectedDepartment = this.departments.orderBy(x => x.Name).firstOrDefault());
 
             this.$scope.$watch("$.selectedCustomer", () => this.LoadCompanies());
             this.$scope.$watch("$.selectedCompany", () => this.LoadDepartments());
@@ -37,9 +37,7 @@ module App.Controllers
         LoadCustomers() {
             this.customers = [];
             return this.$timeout(() => {
-                return this.samCustomers.Load().then(res => {
-                    this.customers = res;
-                });
+                return this.samCustomers.Load().then(res => this.customers = res);
             });
         }
 
@@ -50,16 +48,6 @@ module App.Controllers
                     this.samCompanies.Load(Services.OData.create.eq("CustomerId", this.selectedCustomer.Id)).then(res => {
                         this.companies = res;
                     });
-
-/*
-                var tableHeader0 = $($(".dataTables_scrollHeadInner")[0]);
-                var tableHeader = $($(".dataTables_scrollHeadInner table")[0]);
-                var tableHeaderWrapper = $($(".dataTables_scrollBody table")[0]);
-                Utils.ResizeListener.Attach(tableHeaderWrapper, () => {
-                    tableHeader0.width(tableHeaderWrapper.width());
-                    tableHeader.width(tableHeaderWrapper.width());
-                });
-*/
             });
         }
 
@@ -77,43 +65,42 @@ module App.Controllers
 
         }
 
-        AddCustomer() {
-            alert('add customer');
-            
-        }
+        AddCustomer() { this.samCustomers.EditModal(null, '_editCustomer.html').then(res => this.customers.push(res)); }
 
-        EditCustomer(c: ICustomer) {
-            alert('edit customer' + c.Name);
-            var scope = <any>this.$scope.$new();
-            scope.$item = c;
-            app.popup.popup('_edit.html', scope);
-        }
+        EditCustomer(c: ICustomer) { this.samCustomers.EditModal(c, '_editCustomer.html'); }
 
 
         DeleteCustomer(c: ICustomer) {
             if (!c) return;
-            app.popup.ask(this.Translate("ASK.DELETE.CUSTOMER|{0}: Delete customer?").format(c.Name), false)
-                .then(r => {
-                        if (r)
-                            return this.samCustomers.Delete(c.Id);
-                        else
-                            return false;
-                    }
-                ).then(r => {
-                   if (r) {
-                       this.customers.Remove(c);
-                   }
-                });
-            ;
-
+            app.popup.ask(this.Translate("Ask.Delete.Customer").format(c.Name), false)
+                .then(r => r ? this.samCustomers.Delete(c.Id) : false)
+                .then(r => r ? this.customers.Remove(c) : false);
         }
+
+
+        AddCompany() { this.samCompanies.EditModal(null, '_editCompany.html').then(res => this.companies.push(res)); }
+
+        EditCompany(c: ICompany) { this.samCompanies.EditModal(c, '_editCompany.html'); }
 
         DeleteCompany(c: ICompany) {
-
+            if (!c) return;
+            app.popup.ask(this.Translate("Ask.Delete.Company|{0}: Delete company?").format(c.Name), false)
+                .then(r => r ? this.samCompanies.Delete(c.Id) : false)
+                .then(r => r ? this.companies.Remove(c) : false);
         }
 
-        DeleteDepartment(d: IDepartment) {
+        AddDepartment() {
+            if (this.selectedCompany)
+                this.samDepartments.EditModal( <any>{ CompanyId: this.selectedCompany.Id }, '_editDepartment.html').then(res => this.departments.push(res));
+        }
 
+        EditDepartment(d: IDepartment) { this.samDepartments.EditModal(d, '_editDepartment.html'); }
+
+        DeleteDepartment(d: IDepartment) {
+            if (!d) return;
+            app.popup.ask(this.Translate("Ask.Delete.Department|{0}: Delete department?").format(d.Name), false)
+                .then(r => r ? this.samDepartments.Delete(d.Id) : false)
+                .then(r => r ? this.departments.Remove(d) : false);
         }
 
     }

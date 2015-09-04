@@ -230,6 +230,29 @@ var App;
             CRUDService.prototype.Delete = function (id) {
                 return this.ApiService.delete(id).HandleError();
             };
+            /**
+             * Вызывает всплывающий диалог для редактирования объекта.
+             * В случае закрытия диалога по кнопке OK сохраняет изменения.
+             * Объект доступен в скоупе диалога как $item.
+             * Дополнительно можно передать свой скоуп, который будет доступен в скоупе диалога как $scope.
+             * Также из исходного скоупа будут скопированы в скоуп диалога все поля, начинающиеся на $.
+             * Возвращает промис окончания сохранения объекта.
+             * @param entity редактируемый объект
+             * @param editTemplateUrl ссылка на шаблон формы редактирования
+             */
+            CRUDService.prototype.EditModal = function (entity, editTemplateUrl, scope) {
+                var _this = this;
+                entity = entity || {};
+                scope = scope || App.app.get("$rootScope");
+                // ReSharper disable once QualifiedExpressionMaybeNull
+                scope = scope.$new();
+                scope['$item'] = angular.copy(entity);
+                return App.app.popup.popupModal(editTemplateUrl, scope).then(function () {
+                    return _this.Save(scope['$item']).then(function (res) {
+                        return _this.Update(entity, res);
+                    });
+                });
+            };
             return CRUDService;
         })(App.Service);
         Services.CRUDService = CRUDService;

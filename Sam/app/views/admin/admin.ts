@@ -4,45 +4,49 @@ module App.Controllers {
 
     export class Admin extends Controller {
 
-        Test;
-    
-        Test1;
+        //#region Variables
+        samUsers: Services.IUsersService;
 
-        Text: string = '333';
+        public selectedUser: IUser;
+        public users: IUser[] = [];
 
-        SearchTextValue;
-
-        Disabled: boolean = false;
-
-        Init() {
-            //this.title = GetAdminName("Admin");
-        }
-
-        //#region private methods
-        Activated() {
-            this.log('Activated Admin View');
-            this.Test1 = ['1111111111', '22222222222222', '333333333333333'];
-/*
-            this.$timeout(() => { this.Test = []; this.Test1 = this.Test.orderBy(s => s).toArray(); }, 1000);
-            this.$timeout(() => { this.Test.push('5'); this.Test1 = this.Test.orderBy(s => s).toArray(); }, 4000);
-            this.$timeout(() => { this.Test.push('4'); this.Test1 = this.Test.orderBy(s => s).toArray(); }, 2000);
-            this.$timeout(() => { this.Test.push('3'); this.Test1 = this.Test.orderBy(s => s).toArray(); }, 3000);
-*/
-        }
         //#endregion
 
-        SearchText(value) {
-           // alert(value);
+        Init() {
+            // Queue all promises and wait for them to finish before loading the view
+            this.activate(this.LoadUsers());
         }
 
-        Clear() {
-            this.SearchTextValue = '';
+        Activated() {
+            this.$scope.$watch("$.users", () => this.selectedUser = this.users.orderBy(x => x.UserName).firstOrDefault());
+
+            this.$scope.$watch("$.selectedUser", () => this.UserChanged());
         }
 
-        Switch() {
-            //this.Disabled = !this.Disabled;
-//            this.SearchTextValue = '1111';
+        LoadUsers() {
+            this.users = [];
+            return this.$timeout(() => {
+                return this.samUsers.Load().then(res => this.users = res);
+            });
         }
+
+        AddUser() { this.samUsers.EditModal(null, '_editUser.html').then(res => this.users.push(res)); }
+
+        EditUser(c: IUser) { this.samUsers.EditModal(c, '_editUser.html'); }
+
+
+        DeleteUser(c: IUser) {
+            if (!c) return;
+            app.popup.ask(this.Translate("Ask.Delete").format(c.UserName), false)
+                .then(r => r ? this.samUsers.Delete(c.Id) : false)
+                .then(r => r ? this.users.Remove(c) : false);
+        }
+
+
+        UserChanged() {
+            
+        }
+
     }
 
     // Register with angular

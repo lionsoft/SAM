@@ -186,17 +186,26 @@ var App;
                 var urlBase = "{0}/{1}/".format(baseUrl, x.key);
                 var methods = {
                     // Добавляем стандартные методы
+                    head: { method: "HEAD", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
+                    // получение списка объектов
                     query: {
                         method: "GET",
                         isArray: true,
                         transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); }
                     },
+                    // получение  объекта по его Id
                     get: { method: "GET", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
-                    save: { method: "SAVE", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
+                    // создание нового объекта
                     create: { method: "POST", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
+                    // изменение существующего объекта. Поле Id должно быть заполнено. В противном случае или если объект не найден в базе - ошибка
                     update: { method: "PUT", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
+                    // удаление объекта по его Id
                     delete: { method: "DELETE", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
-                    head: { method: "HEAD", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
+                    // удаление объекта по его Id
+                    remove: { method: "DELETE", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
+                    // сохранение объекта. Если Id заполнено и такой объект есть в базе равносильно Update. В противном случае - Create.
+                    save: { method: "PATCH", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },
+                    // сохранение объекта. Если Id заполнено и такой объект есть в базе равносильно Update. В противном случае - Create.
                     patch: { method: "PATCH", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } }
                 };
                 // Добавляем дополнительные методы

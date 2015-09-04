@@ -7,6 +7,8 @@ module App.Decorators {
 
         private _renderDataTable: any;
 
+        common: Shared.ICommon;
+
         protected Decorate($delegate) {
             this._renderDataTable = this.$delegate.renderDataTable;
             this.$delegate.renderDataTable = ($elem, options) => this.renderDataTable($elem, options);
@@ -16,18 +18,29 @@ module App.Decorators {
         renderDataTable($elem, options): any {
             var res = this._renderDataTable($elem, options);
             var dataTable = res.DataTable;
-            dataTable.on("draw", () => {
-                if (dataTable.__ok) return; 
-                dataTable.__ok = true;
-                var el = $('#' + dataTable.table().container().id);
-                var tableHeaderWrapper = el.find(".dataTables_scrollBody table");
-                Utils.ResizeListener.Attach(tableHeaderWrapper, () => dataTable.draw(false));
-            });
+            var scrollY = dataTable.settings().scrollY;
+            if (scrollY === undefined) scrollY = $.fn.dataTable.defaults.scrollY;
+            var paging = dataTable.settings().paging;
+            if (paging === undefined) paging = $.fn.dataTable.defaults.paging;
+            var container = dataTable.table().container();
+            var el = $('#' + container.id);
+
+            if (paging) el.addClass("dataTables_paging"); else el.addClass("dataTables_no_paging");
+            if (scrollY) el.addClass("dataTables_scrollY"); else el.addClass("dataTables_no_scrollY");
+
+            if (scrollY > 0) {
+                dataTable.draw(false);
+                var tableHeaderWrapper = el;
+                Utils.ResizeListener.Attach(tableHeaderWrapper, () => {
+                    //    this.common.debouncedThrottle(container.id, () => dataTable.draw(false), 50);
+                    res.dataTable.fnAdjustColumnSizing(false);
+                });
+            }
             return res;
         }
 
     }
 
-    app.decorator("DTRendererService", DTRendererServiceDecorator.Factory());
+    app.decorator("DTRendererService", DTRendererServiceDecorator.Factory("common"));
 }
  

@@ -117,12 +117,12 @@ module App {
     app.run(['$injector', (i) => {
         $.extend($.fn.dataTable.defaults, {
             info: false,
+            processing: true,
             searching: true,
             ordering: true,
-            paging: false,
-            processing: false,
+            paging: true,
+            //scrollY: 160,
             scrollCollapse: false,
-            scrollY: 160,
             //scrollX: false,
         });
     }]);

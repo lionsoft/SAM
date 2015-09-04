@@ -24,19 +24,35 @@ var App;
             DTRendererServiceDecorator.prototype.renderDataTable = function ($elem, options) {
                 var res = this._renderDataTable($elem, options);
                 var dataTable = res.DataTable;
-                dataTable.on("draw", function () {
-                    if (dataTable.__ok)
-                        return;
-                    dataTable.__ok = true;
-                    var el = $('#' + dataTable.table().container().id);
-                    var tableHeaderWrapper = el.find(".dataTables_scrollBody table");
-                    App.Utils.ResizeListener.Attach(tableHeaderWrapper, function () { return dataTable.draw(false); });
-                });
+                var scrollY = dataTable.settings().scrollY;
+                if (scrollY === undefined)
+                    scrollY = $.fn.dataTable.defaults.scrollY;
+                var paging = dataTable.settings().paging;
+                if (paging === undefined)
+                    paging = $.fn.dataTable.defaults.paging;
+                var container = dataTable.table().container();
+                var el = $('#' + container.id);
+                if (paging)
+                    el.addClass("dataTables_paging");
+                else
+                    el.addClass("dataTables_no_paging");
+                if (scrollY)
+                    el.addClass("dataTables_scrollY");
+                else
+                    el.addClass("dataTables_no_scrollY");
+                if (scrollY > 0) {
+                    dataTable.draw(false);
+                    var tableHeaderWrapper = el;
+                    App.Utils.ResizeListener.Attach(tableHeaderWrapper, function () {
+                        //    this.common.debouncedThrottle(container.id, () => dataTable.draw(false), 50);
+                        res.dataTable.fnAdjustColumnSizing(false);
+                    });
+                }
                 return res;
             };
             return DTRendererServiceDecorator;
         })(LionSoftAngular.ServiceDecorator);
-        App.app.decorator("DTRendererService", DTRendererServiceDecorator.Factory());
+        App.app.decorator("DTRendererService", DTRendererServiceDecorator.Factory("common"));
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));
 //# sourceMappingURL=DTRendererService.js.map

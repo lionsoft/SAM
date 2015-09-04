@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace Sam.DbContext
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class User : IdentityUser, IEntityObjectId
+    public class User : IdentityUser, IEntityObjectId<string>
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {

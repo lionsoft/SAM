@@ -24,9 +24,9 @@ var App;
             };
             Customers.prototype.Activated = function () {
                 var _this = this;
-                this.$scope.$watch("$.customers", function () { return _this.selectedCustomer = _this.customers[0]; });
-                this.$scope.$watch("$.companies", function () { return _this.selectedCompany = _this.companies[0]; });
-                this.$scope.$watch("$.departments", function () { return _this.selectedDepartment = _this.departments[0]; });
+                this.$scope.$watch("$.customers", function () { return _this.selectedCustomer = _this.customers.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
+                this.$scope.$watch("$.companies", function () { return _this.selectedCompany = _this.companies.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
+                this.$scope.$watch("$.departments", function () { return _this.selectedDepartment = _this.departments.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
                 this.$scope.$watch("$.selectedCustomer", function () { return _this.LoadCompanies(); });
                 this.$scope.$watch("$.selectedCompany", function () { return _this.LoadDepartments(); });
                 this.$scope.$watch("$.selectedDepartment", function () { return _this.DepartmentChanged(); });
@@ -35,9 +35,7 @@ var App;
                 var _this = this;
                 this.customers = [];
                 return this.$timeout(function () {
-                    return _this.samCustomers.Load().then(function (res) {
-                        _this.customers = res;
-                    });
+                    return _this.samCustomers.Load().then(function (res) { return _this.customers = res; });
                 });
             };
             Customers.prototype.LoadCompanies = function () {
@@ -48,15 +46,6 @@ var App;
                         _this.samCompanies.Load(App.Services.OData.create.eq("CustomerId", _this.selectedCustomer.Id)).then(function (res) {
                             _this.companies = res;
                         });
-                    /*
-                                    var tableHeader0 = $($(".dataTables_scrollHeadInner")[0]);
-                                    var tableHeader = $($(".dataTables_scrollHeadInner table")[0]);
-                                    var tableHeaderWrapper = $($(".dataTables_scrollBody table")[0]);
-                                    Utils.ResizeListener.Attach(tableHeaderWrapper, () => {
-                                        tableHeader0.width(tableHeaderWrapper.width());
-                                        tableHeader.width(tableHeaderWrapper.width());
-                                    });
-                    */
                 });
             };
             Customers.prototype.LoadDepartments = function () {
@@ -72,34 +61,44 @@ var App;
             Customers.prototype.DepartmentChanged = function () {
             };
             Customers.prototype.AddCustomer = function () {
-                alert('add customer');
+                var _this = this;
+                this.samCustomers.EditModal(null, '_editCustomer.html').then(function (res) { return _this.customers.push(res); });
             };
-            Customers.prototype.EditCustomer = function (c) {
-                alert('edit customer' + c.Name);
-                var scope = this.$scope.$new();
-                scope.$item = c;
-                App.app.popup.popup('_edit.html', scope);
-            };
+            Customers.prototype.EditCustomer = function (c) { this.samCustomers.EditModal(c, '_editCustomer.html'); };
             Customers.prototype.DeleteCustomer = function (c) {
                 var _this = this;
                 if (!c)
                     return;
-                App.app.popup.ask(this.Translate("ASK.DELETE.CUSTOMER|{0}: Delete customer?").format(c.Name), false)
-                    .then(function (r) {
-                    if (r)
-                        return _this.samCustomers.Delete(c.Id);
-                    else
-                        return false;
-                }).then(function (r) {
-                    if (r) {
-                        _this.customers.Remove(c);
-                    }
-                });
-                ;
+                App.app.popup.ask(this.Translate("Ask.Delete.Customer").format(c.Name), false)
+                    .then(function (r) { return r ? _this.samCustomers.Delete(c.Id) : false; })
+                    .then(function (r) { return r ? _this.customers.Remove(c) : false; });
             };
+            Customers.prototype.AddCompany = function () {
+                var _this = this;
+                this.samCompanies.EditModal(null, '_editCompany.html').then(function (res) { return _this.companies.push(res); });
+            };
+            Customers.prototype.EditCompany = function (c) { this.samCompanies.EditModal(c, '_editCompany.html'); };
             Customers.prototype.DeleteCompany = function (c) {
+                var _this = this;
+                if (!c)
+                    return;
+                App.app.popup.ask(this.Translate("Ask.Delete.Company|{0}: Delete company?").format(c.Name), false)
+                    .then(function (r) { return r ? _this.samCompanies.Delete(c.Id) : false; })
+                    .then(function (r) { return r ? _this.companies.Remove(c) : false; });
             };
+            Customers.prototype.AddDepartment = function () {
+                var _this = this;
+                if (this.selectedCompany)
+                    this.samDepartments.EditModal({ CompanyId: this.selectedCompany.Id }, '_editDepartment.html').then(function (res) { return _this.departments.push(res); });
+            };
+            Customers.prototype.EditDepartment = function (d) { this.samDepartments.EditModal(d, '_editDepartment.html'); };
             Customers.prototype.DeleteDepartment = function (d) {
+                var _this = this;
+                if (!d)
+                    return;
+                App.app.popup.ask(this.Translate("Ask.Delete.Department|{0}: Delete department?").format(d.Name), false)
+                    .then(function (r) { return r ? _this.samDepartments.Delete(d.Id) : false; })
+                    .then(function (r) { return r ? _this.departments.Remove(d) : false; });
             };
             return Customers;
         })(App.Controller);

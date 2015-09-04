@@ -1,0 +1,54 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <h1 translate>{{$item.Id ? 'Edit Customer' : 'New Customer'}}</h1>
+        <hr>
+        <form class="form-horizontal" role="form" name="form">
+
+            <!-- #region - Name - -->
+            <div class="form-group" ng-class="{ 'has-warning' : form.name.$invalid }">
+                <label class="control-label" translate>Name</label>
+                <div>
+                    <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+                    <span ng-show="form.name.$invalid" class="red" translate>Name must be set</span>
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <!-- #region - Address1 - -->
+            <div class="form-group">
+                <label class="control-label" translate>Address 1</label>
+                <div>
+                    <input class="form-control" type="text" ng-model="$item.Address1" />
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <!-- #region - Address2 - -->
+            <div class="form-group">
+                <label class="control-label" translate>Address 2</label>
+                <div>
+                    <input class="form-control" type="text" ng-model="$item.Address2" />
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <!-- #region - ZipCode - -->
+            <div class="form-group">
+                <label class="control-label" translate>Zip code</label>
+                <div>
+                    <input class="form-control" type="text" ng-model="$item.ZipCode" />
+                </div>
+            </div>
+            <!-- #endregion -->
+
+
+            <!-- #region - Buttons - -->
+            <div class="form-group pull-right">
+                <button class="btn btn-primary"ng-click="ok()" translate>Save Changes</button>
+                <span></span>
+                <button class="btn btn-default" ng-click="cancel()" translate>Cancel</button>
+            </div>
+            <!-- #endregion -->
+        </form>
+    </div>
+</div>

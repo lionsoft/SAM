@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.OData;
@@ -32,13 +33,16 @@ namespace Sam.Api
             return objId == null || (id is int && id.ToString() == "0");
         }
 
-//        [AcceptVerbs("SAVE")]
-        public virtual async Task<TEntity> SaveAsync(TEntity entity, bool? isNew)
+        [HttpPatch]
+        public Task<TEntity> SaveAsync(TEntity entity)
         {
-            if (!isNew.HasValue)
-                isNew = IsNullId(entity.Id);
-            PrepareSave(entity, isNew.Value);
-            Db.Attach(entity, isNew.Value);
+            return SaveAsync(entity, IsNullId(entity.Id));
+        }
+
+        public virtual async Task<TEntity> SaveAsync(TEntity entity, bool isNew)
+        {
+            PrepareSave(entity, isNew);
+            Db.Attach(entity, isNew);
             await Db.SaveChangesAsync();
             //await Db.Entry(e).GetDatabaseValuesAsync();
             return entity;
@@ -62,7 +66,11 @@ namespace Sam.Api
         {
             var e = await GetAsync(id);
             if (e != null)
+            {
                 Db.Set<TEntity>().Remove(e);
+                await Db.SaveChangesAsync();
+            }
+                
             return e != null;
         }
 
@@ -75,5 +83,19 @@ namespace Sam.Api
         {
             return string.IsNullOrWhiteSpace(id);
         }
+
+        public override async Task<TEntity> SaveAsync(TEntity entity, bool isNew)
+        {
+            PrepareSave(entity, isNew);
+            Db.Attach(entity, isNew);
+            await Db.SaveChangesAsync();
+            //await Db.Entry(entity).GetDatabaseValuesAsync();
+            entity = Db.Set<TEntity>()
+                .Include(x => x.CreatedBy)
+                .Include(x => x.ModifiedBy)
+                .First(x => x.Id == entity.Id);
+            return entity;
+        }
+
     }
 }

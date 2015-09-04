@@ -509,6 +509,10 @@
     <None Include="app\css\buttons.less" />
     <None Include="app\css\Colors.less" />
     <None Include="app\css\fixes.less" />
+    <Content Include="app\css\globals.css">
+      <DependentUpon>globals.less</DependentUpon>
+    </Content>
+    <Content Include="app\css\globals.less" />
     <None Include="app\css\navbar.less" />
     <None Include="app\css\splash.less" />
     <Content Include="app\css\tables.css">
@@ -585,6 +589,9 @@
     <Content Include="app\services\ApiService.js">
       <DependentUpon>ApiService.ts</DependentUpon>
     </Content>
+    <Content Include="app\services\SamUsersService.js">
+      <DependentUpon>SamUsersService.ts</DependentUpon>
+    </Content>
     <Content Include="app\services\SamCompaniesService.js">
       <DependentUpon>SamCompaniesService.ts</DependentUpon>
     </Content>
@@ -628,7 +635,9 @@
     <Content Include="app\views\Customers\customers.js">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\_edit.html" />
+    <Content Include="app\views\Customers\_editDepartment.html" />
+    <Content Include="app\views\Customers\_editCompany.html" />
+    <Content Include="app\views\Customers\_editCustomer.html" />
     <Content Include="app\views\login\login.css">
       <DependentUpon>login.less</DependentUpon>
     </Content>
@@ -1583,6 +1592,7 @@
     <TypeScriptCompile Include="app\common\Controller.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
+    <TypeScriptCompile Include="app\services\SamUsersService.ts" />
     <TypeScriptCompile Include="app\services\SamCompaniesService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -1770,6 +1780,9 @@
     <Content Include="app\css\ui-select.less" />
     <Content Include="app\decorators\DTRendererService.js.map">
       <DependentUpon>DTRendererService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamUsersService.js.map">
+      <DependentUpon>SamUsersService.ts</DependentUpon>
     </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />

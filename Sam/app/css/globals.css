@@ -1,0 +1,12 @@
+﻿.nowrap {
+  white-space: nowrap;
+}
+.action-buttons {
+  white-space: nowrap;
+  margin: 0!important;
+  padding: 0!important;
+}
+.action-buttons button {
+  width: 50%;
+  float: left;
+}

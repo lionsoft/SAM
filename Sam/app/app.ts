@@ -56,6 +56,17 @@ module App {
             $rootScope.isDebugMode = app.isDebugMode;
             $rootScope.App = App;
             app.$injector = $injector;
+            app.$q = $q;
+            app.$log = $log;
+            app.$timeout = $timeout;
+            app.$window = $window;
+            app.get = (name) => $injector.get(name);
+            app.defer = () => $q.defer();
+            app.promiseFromResult = (res) => {
+                var d = $q.defer();
+                d.resolve(res);
+                return d.promise;
+            }
         }]);    
     //#endregion
 

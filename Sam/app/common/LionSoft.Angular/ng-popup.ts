@@ -132,16 +132,30 @@ module LionSoftAngular {
                     if (tempDialogOptions.yesButtonContent && (tempDialogOptions.noButtonContent || tempDialogOptions.cancelButtonContent)) {
                         tempPopupDefaults.backdrop = 'static';
                         tempPopupDefaults.keyboard = false;
-                    } else if (tempPopupDefaults.noCancelPromise === undefined) {
+                    }
+/*
+                    else if (tempPopupDefaults.noCancelPromise === undefined) {
                         tempPopupDefaults.noCancelPromise = true;
                     }
+*/
 
                     (<any>tempPopupDefaults).templateUrl = tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase) + "?" + Math.random();
 
                     (<any>tempPopupDefaults).controller = ["$scope", "$modalInstance", ($scope, $modalInstance: LionSoftAngular.IModalInstance) => {
                         angular.extend($scope, tempDialogOptions);
+                        $scope.$scope = tempDialogOptions.scope;
+
+                        if (tempDialogOptions.scope) {
+                            for (var prop in tempDialogOptions.scope) {
+                                if (tempDialogOptions.scope.hasOwnProperty(prop)) {
+                                    if (prop[0] === "$" && !$scope[prop])
+                                        $scope[prop] = tempDialogOptions.scope[prop];
+                                }
+                            }
+                        }
+
                         $scope.$modalInstance = $modalInstance;
-                        $scope.ok = result => { $modalInstance.close(result); };
+                        $scope.ok = result => { $modalInstance.close(result === undefined ? true : result); };
                         $scope.cancel = result => { $modalInstance.dismiss(result); };
                         $scope.close = () => { $modalInstance.close(undefined); };
                         $scope.hasYesButtonContent = isAssigned(tempDialogOptions.yesButtonContent);
@@ -153,7 +167,6 @@ module LionSoftAngular {
 
                     var res = $modal.open(tempPopupDefaults).result;
                     if (tempPopupDefaults.noCancelPromise) {
-                        //var resDeffered = App.defer<boolean>();
                         var resDeffered = $q.defer();
                         res.then(r => resDeffered.resolve(r)).catch(r => resDeffered.resolve(r));
                         return resDeffered.promise;
