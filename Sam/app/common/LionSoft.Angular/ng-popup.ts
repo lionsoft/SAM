@@ -103,6 +103,18 @@ module LionSoftAngular {
         */
         .service("popupService", ["$modal", "$q", function($modal, $q) {
 
+                // ReSharper disable once InconsistentNaming
+                var __loadedCss = [];
+                var loadCss = (cssPath: string) => {
+                    if (!__loadedCss.contains(cssPath)) {
+                        $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', cssPath.ExpandPath(LionSoftAngular.rootFolder)));
+                        __loadedCss.push(cssPath);
+                    }
+                        
+                }
+
+
+
                 this.popupModal = (templateUrl: string, scope?: any, popupDefaults?: LionSoftAngular.IPopupDefaults): ng.IPromise<any> => {
                     popupDefaults = popupDefaults || {};
                     popupDefaults.backdrop = 'static';
@@ -141,6 +153,10 @@ module LionSoftAngular {
 
                     (<any>tempPopupDefaults).templateUrl = tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase) + "?" + Math.random();
 
+                    loadCss("css/ng-dialog.css");
+
+                    
+
                     (<any>tempPopupDefaults).controller = ["$scope", "$modalInstance", ($scope, $modalInstance: LionSoftAngular.IModalInstance) => {
                         angular.extend($scope, tempDialogOptions);
                         $scope.$scope = tempDialogOptions.scope;
@@ -155,7 +171,9 @@ module LionSoftAngular {
                         }
 
                         $scope.$modalInstance = $modalInstance;
-                        $scope.ok = result => { $modalInstance.close(result === undefined ? true : result); };
+                        $scope.ok = result => {
+                            //$modalInstance.close(result === undefined ? true : result);
+                        };
                         $scope.cancel = result => { $modalInstance.dismiss(result); };
                         $scope.close = () => { $modalInstance.close(undefined); };
                         $scope.hasYesButtonContent = isAssigned(tempDialogOptions.yesButtonContent);

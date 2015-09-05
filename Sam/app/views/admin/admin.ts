@@ -50,5 +50,5 @@ module App.Controllers {
     }
 
     // Register with angular
-    app.controller('admin', Admin.Factory());
+    app.controller('admin', Admin.Factory("samUsers"));
 }

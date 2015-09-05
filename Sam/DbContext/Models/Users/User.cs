@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -19,6 +20,16 @@ namespace Sam.DbContext
             userIdentity.SetClaimValue("Role", UserRole.AsInt().ToString());
 */
             return userIdentity;
+        }
+
+        public User() : base()
+        {
+          this.Id = null;
+        }
+
+        public User(string userName) : base(userName)
+        {
+          this.Id = Guid.NewGuid().ToString();
         }
     }
 }

@@ -21,6 +21,9 @@ var App;
                 enumerable: true,
                 configurable: true
             });
+            UsersService.prototype.prepareQuery = function (odata) {
+                odata.clear();
+            };
             return UsersService;
         })(Services.CRUDService);
         App.app.service("samUsers", UsersService.Factory());

@@ -17,6 +17,11 @@ module App.Services {
             return app.api.Account;
         }
 
+        protected prepareQuery(odata: OData): void {
+            odata.clear();
+        }
+
+
     }
 
     app.service("samUsers", UsersService.Factory());

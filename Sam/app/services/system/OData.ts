@@ -32,6 +32,7 @@ module App.Services {
          * Создаёт объект OData
          */
         constructor(params?: IODataParams) {
+            this.clear();
             if (params) {
                 if (params.$expand) this._expands = params.$expand.split(',').select(s => (s || "").trim()).where(s => s !== "").toArray();
                 this._filter = (params.$filter || "").trim();
@@ -43,6 +44,18 @@ module App.Services {
 
         toString() {
             return this.query;
+        }
+
+        /**
+         * Очищает все заданные параметры
+         */
+        clear() {
+            this.prop(undefined);
+            this._expands = [];
+            this._filter = "";
+            this._orderBy = [];
+            this._top = undefined;
+            this._skip = undefined;
         }
 
         /**

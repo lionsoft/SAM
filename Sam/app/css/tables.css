@@ -9,6 +9,16 @@
   padding: 3px 6px;
   margin: 0;
 }
+.sam-table .dataTables_wrapper.dataTables_no_paging .dataTables_filter {
+  margin-top: -44px;
+  margin-right: 12px;
+}
+.sam-table .dataTables_wrapper.form-inline.dt-bootstrap .row {
+  margin-top: 0;
+}
+.sam-table .panel-body {
+  padding: 0;
+}
 .dataTables_wrapper .dataTables_scroll {
   border: 1px solid #075b87 !important;
 }

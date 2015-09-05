@@ -35,6 +35,9 @@ module App {
         "datatables",
         "datatables.factory",
         "datatables.bootstrap",
+
+        "smart-table",
+
         "oc.lazyLoad"
     ]);
 

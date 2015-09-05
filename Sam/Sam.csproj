@@ -344,6 +344,9 @@
     <Content Include="app\common\Directive.js">
       <DependentUpon>Directive.ts</DependentUpon>
     </Content>
+    <Content Include="app\common\LionSoft.Angular\css\ng-dialog.css">
+      <DependentUpon>ng-dialog.less</DependentUpon>
+    </Content>
     <Content Include="app\common\LionSoft.Angular\fieldset.js">
       <DependentUpon>fieldset.ts</DependentUpon>
     </Content>
@@ -506,6 +509,7 @@
       <DependentUpon>AutoHeight.less</DependentUpon>
     </Content>
     <Content Include="app\css\AutoHeight.less" />
+    <Content Include="app\common\LionSoft.Angular\css\ng-dialog.less" />
     <None Include="app\css\buttons.less" />
     <None Include="app\css\Colors.less" />
     <None Include="app\css\fixes.less" />
@@ -515,10 +519,14 @@
     <Content Include="app\css\globals.less" />
     <None Include="app\css\navbar.less" />
     <None Include="app\css\splash.less" />
+    <Content Include="app\css\smart-tables.css">
+      <DependentUpon>smart-tables.less</DependentUpon>
+    </Content>
     <Content Include="app\css\tables.css">
       <DependentUpon>tables.less</DependentUpon>
     </Content>
     <Content Include="app\css\tables.less" />
+    <Content Include="app\css\smart-tables.less" />
     <None Include="app\css\toastr.less" />
     <Content Include="app\config.route.js">
       <DependentUpon>config.route.ts</DependentUpon>
@@ -616,15 +624,18 @@
     <Content Include="app\services\system\ODataFilterCreator.js">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\admin\admin.css">
+      <DependentUpon>admin.less</DependentUpon>
+    </Content>
     <Content Include="app\views\admin\admin.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-dialog.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-prompt-dialog.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tag.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tags.html" />
-    <Content Include="app\views\admin\admin.css" />
     <Content Include="app\views\admin\admin.js">
       <DependentUpon>admin.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\admin\_editUser.html" />
     <Content Include="app\views\Customers\customers.css">
       <DependentUpon>customers.less</DependentUpon>
     </Content>
@@ -1588,6 +1599,8 @@
     <Content Include="Scripts\select.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\smart-table.js" />
+    <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\version.json" />
     <TypeScriptCompile Include="app\common\Controller.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
@@ -1784,6 +1797,7 @@
     <Content Include="app\services\SamUsersService.js.map">
       <DependentUpon>SamUsersService.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\admin\admin.less" />
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -1884,7 +1898,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\common\LionSoft.Angular\css\" />
     <Folder Include="app\filters\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
@@ -2003,11 +2016,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>65429</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:65429/</IISUrl>
+          <IISUrl>http://localhost:65430/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

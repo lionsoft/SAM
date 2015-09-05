@@ -83,6 +83,9 @@ namespace Sam
                 , "~/Scripts/DataTables/angular-datatables.js"
                 , "~/Scripts/DataTables/plugins/bootstrap/angular-datatables.bootstrap.js"
 
+                , "~/Scripts/smart-table.js"
+
+
 
                 , "~/Scripts/linq.js"
                 , "~/Scripts/linq.jquery.js"
@@ -182,6 +185,7 @@ namespace Sam
                 , "~/app/services/system/ApiServiceBase.js"
                 , "~/app/services/ApiService.js"
 
+                , "~/app/services/SamUsersService.js"
                 , "~/app/services/SamCompaniesService.js"
                 , "~/app/services/SamCustomersService.js"
                 , "~/app/services/SamDepartmentsService.js"

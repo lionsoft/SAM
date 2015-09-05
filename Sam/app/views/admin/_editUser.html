@@ -1,0 +1,44 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <form class="form-horizontal" role="form" name="form" novalidate>
+            <div class="form-group">
+                <h1 translate>{{$item.Id ? 'Edit User' : 'New User'}}</h1>
+                <hr>
+            </div>
+
+            <!-- #region - Login - -->
+            <div class="form-group" ng-class="{ 'has-warning' : form.login.$invalid  }">
+                <label class="control-label" translate>Login</label>
+                <div>
+                    <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.UserName" name="login"/>
+                    <span ng-show="form.login.$invalid && form.login.$dirty" class="red" translate>Login must be set</span>
+                </div>
+            </div>
+            <!-- #endregion -->
+            <!-- #region - Email - -->
+            <div class="form-group" ng-class="{ 'has-warning' : form.Email.$invalid }">
+                <label class="control-label" translate>Email</label>
+                <div>
+                    <input class="form-control" type="text" placeholder="required" required ng-model="$item.Email" name="Email"/>
+                    <span ng-show="form.Email.$invalid && form.Email.$dirty" class="red" translate>Email must be set</span>
+                </div>
+            </div>
+            <!-- #endregion -->
+            <!-- #region - Password - -->
+            <div class="form-group" ng-class="{ 'has-warning' : form.password.$invalid }" ng-hide="$item.Id">
+                <label class="control-label" translate>Password</label>
+                <div>
+                    <input class="form-control" type="password" placeholder="required" required ng-model="$item.PasswordHash" name="password"/>
+                    <span ng-show="form.password.$invalid && form.password.$dirty" class="red" translate>Password must be set</span>
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <div class="form-group pull-right">
+                <button class="btn btn-primary" ng-click="ok(form.$valid)" translate>Save Changes</button>
+                <span></span>
+                <button class="btn btn-default" ng-click="cancel()" translate>Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

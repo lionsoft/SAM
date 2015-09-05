@@ -11,6 +11,7 @@ var App;
                 this._expands = [];
                 this._filter = "";
                 this._orderBy = [];
+                this.clear();
                 if (params) {
                     if (params.$expand)
                         this._expands = params.$expand.split(',').select(function (s) { return (s || "").trim(); }).where(function (s) { return s !== ""; }).toArray();
@@ -33,6 +34,17 @@ var App;
             });
             OData.prototype.toString = function () {
                 return this.query;
+            };
+            /**
+             * Очищает все заданные параметры
+             */
+            OData.prototype.clear = function () {
+                this.prop(undefined);
+                this._expands = [];
+                this._filter = "";
+                this._orderBy = [];
+                this._top = undefined;
+                this._skip = undefined;
             };
             Object.defineProperty(OData.prototype, "query", {
                 /**

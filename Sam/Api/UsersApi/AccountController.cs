@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.OData;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -13,6 +16,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Sam.DbContext;
+using Sam.Extensions.EntityFramework;
 using Sam.Models;
 using Sam.Providers;
 using Sam.Results;
@@ -51,13 +55,85 @@ namespace Sam.Api
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+        [HttpGet, EnableQuery]
+        public IQueryable<User> Get()
+        {
+            return Db.Set<User>();
+        }
+
+        [HttpGet, Route("{id}")]
+        public async Task<User> GetAsync(string id)
+        {
+            var res = await Db.Set<User>().FindAsync(id);
+            res.PasswordHash = null;
+            return res;
+        }
+
+        public virtual async Task<IHttpActionResult> SaveAsync(User user, bool isNew)
+        {
+            if (isNew)
+            {
+                // PasswordHash must contains user password NOT hash.
+                //user.Email = user.Email ?? string.Format("{0}@{0}.{0}", user.UserName);
+                IdentityResult result = await UserManager.CreateAsync(user, user.PasswordHash);
+
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+            else
+            {
+                // ToDo: PasswordHash must be equal current password hash value for checking access. (not implemented yet)
+                // This method doesn't change user password. Use ChangePassword instead.
+                var currentUserPasswordHash = Db.Users.Where(x => x.Id == user.Id).Select(x => x.PasswordHash).FirstOrDefault();
+                user.PasswordHash = user.PasswordHash ?? currentUserPasswordHash;
+                Db.Attach(user, false);
+                await Db.SaveChangesAsync();
+            }
+            return Ok(user);
+        }
+
+        [HttpPatch]
+        public Task<IHttpActionResult> SaveAsync(User entity)
+        {
+            return SaveAsync(entity, entity.Id.IsNullOrWhiteSpace());
+        }
+
+        [HttpPost]
+        public Task<IHttpActionResult> CreateAsync(User entity)
+        {
+            return SaveAsync(entity, true);
+        }
+
+        [HttpPut]
+        public virtual Task<IHttpActionResult> UpdateAsync(User entity)
+        {
+            return SaveAsync(entity, false);
+        }
+
+        [HttpDelete, Route("{id}")]
+        public virtual async Task<IHttpActionResult> DeleteAsync(string id)
+        {
+            var e = await GetAsync(id);
+            if (e != null)
+            {
+                var result = await UserManager.DeleteAsync(e);
+                if (!result.Succeeded) return GetErrorResult(result);
+            }
+            return Ok(e != null);
+        }
+
+
+
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             var user = new User { UserName = model.Login, Email = model.Login };
 
+/*
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
@@ -66,6 +142,8 @@ namespace Sam.Api
             }
 
             return Ok(new { Id = user.Id, Login = user.UserName, Name = user.UserName });
+*/
+            return CreateAsync(user);
         }
 
         // POST api/Account/Register
