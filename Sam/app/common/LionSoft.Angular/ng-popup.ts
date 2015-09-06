@@ -162,17 +162,36 @@ module LionSoftAngular {
                         $scope.$scope = tempDialogOptions.scope;
 
                         if (tempDialogOptions.scope) {
+                            $scope['$'] = tempDialogOptions.scope['$'];
                             for (var prop in tempDialogOptions.scope) {
                                 if (tempDialogOptions.scope.hasOwnProperty(prop)) {
-                                    if (prop[0] === "$" && !$scope[prop])
+                                    if (prop[0] === "$" && prop[1] !== "$" && $scope[prop] === undefined)
                                         $scope[prop] = tempDialogOptions.scope[prop];
                                 }
                             }
                         }
 
                         $scope.$modalInstance = $modalInstance;
+                        $scope.submit = (form : ng.INgModelController) => {
+                            if (form.$invalid) {
+                                for (var errorName in form.$error) {
+                                    if (form.$error.hasOwnProperty(errorName)) {
+                                        var errors = form.$error[errorName];
+                                        for (var control of errors) {
+                                            // ReSharper disable once QualifiedExpressionIsNull
+                                            control.$setTouched();
+                                        }
+                                    }
+                                }
+                            } else {
+                                $modalInstance.close(true);
+                            }
+                        };
                         $scope.ok = result => {
-                            //$modalInstance.close(result === undefined ? true : result);
+                            if (result && result.$invalid)
+                                $scope.submit(result);
+                            else
+                                $modalInstance.close(result === undefined ? true : result);
                         };
                         $scope.cancel = result => { $modalInstance.dismiss(result); };
                         $scope.close = () => { $modalInstance.close(undefined); };

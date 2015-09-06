@@ -40,5 +40,11 @@ namespace Sam.DbContext
 
         public IDbSet<Department> Departments { get; set; }
 
+        public IDbSet<Country> Countries { get; set; }
+
+        public IDbSet<City> Cities { get; set; }
+
+        public IDbSet<Building> Buildings { get; set; }
+        public IDbSet<Area> Areas { get; set; }
     }
 }

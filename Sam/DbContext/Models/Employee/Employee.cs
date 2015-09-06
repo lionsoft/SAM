@@ -18,9 +18,5 @@ namespace Sam.DbContext
         public string ManagerId { get; set; }
         public string UserId { get; set; }
 
-
-        public DateTime CreatedDate { get; set; }
-        public DateTime CreatedBy { get; set; }
-
     }
 }

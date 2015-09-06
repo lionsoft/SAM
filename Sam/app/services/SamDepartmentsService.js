@@ -13,7 +13,13 @@ var App;
             __extends(DepartmentsService, _super);
             function DepartmentsService() {
                 _super.apply(this, arguments);
+                this.TypeDescription = "Department";
             }
+            Object.defineProperty(DepartmentsService.prototype, "ApiService", {
+                get: function () { return App.app.api.Departments; },
+                enumerable: true,
+                configurable: true
+            });
             return DepartmentsService;
         })(Services.CRUDService);
         App.app.service("samDepartments", DepartmentsService.Factory());

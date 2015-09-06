@@ -14,11 +14,24 @@ module App {
     export interface ICompaniesApi extends IResourceClass<ICompany> { }
     export interface IDepartmentsApi extends IResourceClass<IDepartment> { }
 
+    export interface ICountriesApi extends IResourceClass<ICountry> { }
+    export interface ICitiesApi extends IResourceClass<ICity> { }
+    export interface IBuildingsApi extends IResourceClass<IBuilding> { }
+    export interface IAreasApi extends IResourceClass<IArea> { }
+ 
+
     export interface IApiService {
 
         Account: IAccountApi;
 
         Customers: ICustomersApi;
+        Companies: ICompaniesApi;
+        Departments: IDepartmentsApi;
+
+        Countries: ICountriesApi;
+        Cities: ICitiesApi;
+        Buildings: IBuildingsApi;
+        Areas: IAreasApi;
     }
 
     export class ApiService extends ApiServiceBase implements IApiService {
@@ -32,6 +45,11 @@ module App {
         Customers: ICustomersApi = {};
         Companies: ICompaniesApi = {};
         Departments: IDepartmentsApi = {};
+
+        Countries: ICountriesApi = {};
+        Cities: ICitiesApi = {};
+        Buildings: IBuildingsApi = {};
+        Areas: IAreasApi = {};
 
         Init() {
             super.Init(URL.API);

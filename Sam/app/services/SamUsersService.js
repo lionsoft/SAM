@@ -13,11 +13,11 @@ var App;
             __extends(UsersService, _super);
             function UsersService() {
                 _super.apply(this, arguments);
+                this.TypeDescription = "User";
             }
+            UsersService.prototype.GetDescription = function (user) { return user.UserName; };
             Object.defineProperty(UsersService.prototype, "ApiService", {
-                get: function () {
-                    return App.app.api.Account;
-                },
+                get: function () { return App.app.api.Account; },
                 enumerable: true,
                 configurable: true
             });

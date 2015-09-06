@@ -6,16 +6,14 @@ declare module App {
 
 module App.Services {
 
-
-
     export interface IUsersService extends ICRUDService<IUser> {
     }
 
     class UsersService extends CRUDService<IUser> implements IUsersService {
-
-        get ApiService(): IResourceClass<IUser> {
-            return app.api.Account;
-        }
+        TypeDescription = "User";
+        GetDescription(user: IUser): string { return user.UserName; }
+        
+        get ApiService() { return app.api.Account; }
 
         protected prepareQuery(odata: OData): void {
             odata.clear();

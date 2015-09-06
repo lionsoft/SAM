@@ -1,0 +1,18 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <form class="form-horizontal" role="form" name="form" novalidate>
+            <div class="form-group form-title">
+                <h1>{{$item.Id ? 'Edit' : 'New' | translate}} {{$entityTypeName | translate}}</h1>
+                <hr>
+            </div>
+
+            <div ng-include="$templateUrl"></div>
+
+            <div class="form-group pull-right">
+                <button type="submit" class="btn btn-primary" ng-click="submit(form)" translate>SaveChanges</button>
+                <span></span>
+                <button class="btn btn-default" ng-click="cancel()" translate>Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

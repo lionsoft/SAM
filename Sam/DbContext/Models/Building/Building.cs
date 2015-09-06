@@ -8,12 +8,14 @@ namespace Sam.DbContext
     {
         public string Name { get; set; }
 
-        public string Owner { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
 
         public string CityId { get; set; }
 
         public City City { get; set; }
+
+        public string OwnerId { get; set; }
+        public User Owner { get; set; }
     }
 }

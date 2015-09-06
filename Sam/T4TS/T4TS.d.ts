@@ -4,41 +4,49 @@
 
 declare module App {
     /** Generated from Sam.DbContext.Area **/
-    export interface IArea extends App.IEntityObjectId {
+    export interface IArea extends App.IEntityObjectBaseId {
         Name: string;
-        Email: string;
-        PinCode: number;
-        Status: any;
-        Image: string;
-        DepartmentId: string;
-        ManagerId: string;
+        BuildingId: string;
+        Building: App.IBuilding;
+        OwnerId: string;
+        Owner: any;
     }
     /** Generated from Sam.DbContext.Building **/
-    export interface IBuilding extends App.IEntityObjectId {
+    export interface IBuilding extends App.IEntityObjectBaseId {
         Name: string;
-        Owner: string;
         Address1: string;
         Address2: string;
         CityId: string;
         City: App.ICity;
+        OwnerId: string;
+        Owner: any;
     }
     /** Generated from Sam.DbContext.City **/
-    export interface ICity extends App.IEntityObjectId {
+    export interface ICity extends App.IEntityObjectBaseId {
         Name: string;
         ZipCode: string;
         CountryId: string;
         Country: App.ICountry;
     }
     /** Generated from Sam.DbContext.Country **/
-    export interface ICountry extends App.IEntityObjectId {
+    export interface ICountry extends App.IEntityObjectBaseId {
         Name: string;
     }
+    /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
+    export interface IEntityObjectBaseId {
+        Id: any;
+        CreatedDate: string;
+        CreatedById: string;
+        CreatedBy: any;
+        ModifiedDate: string;
+        ModifiedById: string;
+        ModifiedBy: any;
+    }
     /** Generated from Sam.DbContext.EntityObjectId **/
-    export interface IEntityObjectId {
-        Id: string;
+    export interface IEntityObjectId extends App.IEntityObjectBaseId {
     }
     /** Generated from Sam.DbContext.Company **/
-    export interface ICompany extends App.IEntityObjectId {
+    export interface ICompany extends App.IEntityObjectBaseId {
         Name: string;
         ZipCode: string;
         Address1: string;
@@ -47,17 +55,17 @@ declare module App {
         Customer: App.ICustomer;
     }
     /** Generated from Sam.DbContext.Customer **/
-    export interface ICustomer extends App.IEntityObjectId {
+    export interface ICustomer extends App.IEntityObjectBaseId {
         Name: string;
     }
     /** Generated from Sam.DbContext.Department **/
-    export interface IDepartment extends App.IEntityObjectId {
+    export interface IDepartment extends App.IEntityObjectBaseId {
         Name: string;
         CompanyId: string;
         Company: App.ICompany;
     }
     /** Generated from Sam.DbContext.Employee **/
-    export interface IEmployee extends App.IEntityObjectId {
+    export interface IEmployee extends App.IEntityObjectBaseId {
         Name: string;
         Email: string;
         PinCode: number;
@@ -66,8 +74,6 @@ declare module App {
         DepartmentId: string;
         ManagerId: string;
         UserId: string;
-        CreatedDate: string;
-        CreatedBy: string;
     }
     /** Generated from Sam.DbContext.TypeScriptUser **/
     export interface IUser {

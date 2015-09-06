@@ -6,10 +6,9 @@ module App.Services {
     }
 
     class CustomersService extends CRUDService<ICustomer> implements ICustomersService {
-
-        samCompanies: ICompaniesService;
-
+        TypeDescription = "Customer";
+        get ApiService() { return app.api.Customers; }
     }
 
-    app.service("samCustomers", CustomersService.Factory("samCompanies"));
+    app.service("samCustomers", CustomersService.Factory());
 } 

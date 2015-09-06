@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -31,5 +32,11 @@ namespace Sam.DbContext
         {
           this.Id = Guid.NewGuid().ToString();
         }
+
+
+
+        public ICollection<Building> Buildings { get; set; }
+
+        public ICollection<Area> Areas { get; set; }
     }
 }

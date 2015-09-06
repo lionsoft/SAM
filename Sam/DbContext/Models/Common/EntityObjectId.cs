@@ -8,6 +8,7 @@ namespace Sam.DbContext
     /// Базовый класс для всех сущностей БД, имеющих не строковое ключевое поле Id.
     /// </summary>
     /// <typeparam name="TKey">Тип ключевого поля.</typeparam>
+    [TypeScriptInterface(Name = "EntityObjectBaseId")]
     public class EntityObjectId<TKey> : IEntityObjectId<TKey>
     {
         /// <summary>

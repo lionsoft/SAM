@@ -202,6 +202,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\BuildingsApi\AreasController.cs" />
+    <Compile Include="Api\BuildingsApi\CountriesController.cs" />
+    <Compile Include="Api\BuildingsApi\CitiesController.cs" />
+    <Compile Include="Api\BuildingsApi\BuildingsController.cs" />
     <Compile Include="Api\System\AppController.cs" />
     <Compile Include="Api\CustomersApi\CompaniesController.cs">
       <SubType>Code</SubType>
@@ -265,16 +269,16 @@
     <Compile Include="DbContext\Migrations\ApplicationDbConfiguration.cs" />
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
-    <Compile Include="DbContext\Models\Area\Building.cs">
+    <Compile Include="DbContext\Models\Building\Building.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbContext\Models\Area\City.cs">
+    <Compile Include="DbContext\Models\Building\City.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbContext\Models\Area\Country.cs" />
+    <Compile Include="DbContext\Models\Building\Country.cs" />
     <Compile Include="DbContext\Models\Common\EntityObjectId.cs" />
     <Compile Include="DbContext\Models\Common\IEntityObjectId.cs" />
-    <Compile Include="DbContext\Models\Area\Area.cs" />
+    <Compile Include="DbContext\Models\Building\Area.cs" />
     <Compile Include="DbContext\Models\Customers\Department.cs" />
     <Compile Include="DbContext\Models\Customers\Company.cs">
       <SubType>Code</SubType>
@@ -350,6 +354,7 @@
     <Content Include="app\common\LionSoft.Angular\fieldset.js">
       <DependentUpon>fieldset.ts</DependentUpon>
     </Content>
+    <Content Include="app\common\LionSoft.Angular\html\edit-form.html" />
     <Content Include="app\common\LionSoft.Angular\LionSoft.Angular-0.1.1.js">
       <DependentUpon>LionSoft.Angular-0.1.1.ts</DependentUpon>
     </Content>
@@ -585,8 +590,11 @@
     <Content Include="app\routes.js">
       <DependentUpon>routes.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\admin.js">
-      <DependentUpon>admin.ts</DependentUpon>
+    <Content Include="app\routes\users.js">
+      <DependentUpon>users.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\doors.js">
+      <DependentUpon>doors.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\customers.js">
       <DependentUpon>customers.ts</DependentUpon>
@@ -596,6 +604,18 @@
     </Content>
     <Content Include="app\services\ApiService.js">
       <DependentUpon>ApiService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCountriesService.js">
+      <DependentUpon>SamCountriesService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCitiesService.js">
+      <DependentUpon>SamCitiesService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamBuildingsService.js">
+      <DependentUpon>SamBuildingsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamAreasService.js">
+      <DependentUpon>SamAreasService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamUsersService.js">
       <DependentUpon>SamUsersService.ts</DependentUpon>
@@ -624,18 +644,18 @@
     <Content Include="app\services\system\ODataFilterCreator.js">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\admin\admin.css">
-      <DependentUpon>admin.less</DependentUpon>
+    <Content Include="app\views\Users\users.css">
+      <DependentUpon>users.less</DependentUpon>
     </Content>
-    <Content Include="app\views\admin\admin.html" />
+    <Content Include="app\views\Users\users.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-dialog.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-prompt-dialog.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tag.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tags.html" />
-    <Content Include="app\views\admin\admin.js">
-      <DependentUpon>admin.ts</DependentUpon>
+    <Content Include="app\views\Users\users.js">
+      <DependentUpon>users.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\admin\_editUser.html" />
+    <Content Include="app\views\Users\_editUser.html" />
     <Content Include="app\views\Customers\customers.css">
       <DependentUpon>customers.less</DependentUpon>
     </Content>
@@ -649,6 +669,17 @@
     <Content Include="app\views\Customers\_editDepartment.html" />
     <Content Include="app\views\Customers\_editCompany.html" />
     <Content Include="app\views\Customers\_editCustomer.html" />
+    <Content Include="app\views\Doors\doors.css">
+      <DependentUpon>doors.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Doors\doors.html" />
+    <Content Include="app\views\Doors\doors.js">
+      <DependentUpon>doors.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Doors\_editBuilding.html" />
+    <Content Include="app\views\Doors\_editArea.html" />
+    <Content Include="app\views\Doors\_editCountry.html" />
+    <Content Include="app\views\Doors\_editCity.html" />
     <Content Include="app\views\login\login.css">
       <DependentUpon>login.less</DependentUpon>
     </Content>
@@ -1605,6 +1636,12 @@
     <TypeScriptCompile Include="app\common\Controller.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
+    <TypeScriptCompile Include="app\directives\autofocus.ts" />
+    <TypeScriptCompile Include="app\routes\doors.ts" />
+    <TypeScriptCompile Include="app\services\SamCountriesService.ts" />
+    <TypeScriptCompile Include="app\services\SamCitiesService.ts" />
+    <TypeScriptCompile Include="app\services\SamBuildingsService.ts" />
+    <TypeScriptCompile Include="app\services\SamAreasService.ts" />
     <TypeScriptCompile Include="app\services\SamUsersService.ts" />
     <TypeScriptCompile Include="app\services\SamCompaniesService.ts">
       <SubType>Code</SubType>
@@ -1797,7 +1834,22 @@
     <Content Include="app\services\SamUsersService.js.map">
       <DependentUpon>SamUsersService.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\admin\admin.less" />
+    <Content Include="app\views\Users\users.less" />
+    <Content Include="app\routes\doors.js.map">
+      <DependentUpon>doors.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCountriesService.js.map">
+      <DependentUpon>SamCountriesService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCitiesService.js.map">
+      <DependentUpon>SamCitiesService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamBuildingsService.js.map">
+      <DependentUpon>SamBuildingsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamAreasService.js.map">
+      <DependentUpon>SamAreasService.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -1813,8 +1865,8 @@
     <Content Include="app\layout\sidebar.js.map">
       <DependentUpon>sidebar.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\admin.js.map">
-      <DependentUpon>admin.ts</DependentUpon>
+    <Content Include="app\routes\users.js.map">
+      <DependentUpon>users.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\customers.js.map">
       <DependentUpon>customers.ts</DependentUpon>
@@ -1840,8 +1892,8 @@
     <Content Include="app\services\system\ODataFilterCreator.js.map">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\admin\admin.js.map">
-      <DependentUpon>admin.ts</DependentUpon>
+    <Content Include="app\views\Users\users.js.map">
+      <DependentUpon>users.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Customers\customers.js.map">
       <DependentUpon>customers.ts</DependentUpon>
@@ -1857,6 +1909,10 @@
       <DependentUpon>T4TS.tt</DependentUpon>
     </Content>
     <Content Include="app\views\login\login.less" />
+    <Content Include="app\views\Doors\doors.js.map">
+      <DependentUpon>doors.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Doors\doors.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />
@@ -1913,13 +1969,14 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\services\system\OData.ts" />
     <TypeScriptCompile Include="app\services\system\ODataFilterCreator.ts" />
+    <TypeScriptCompile Include="app\views\Doors\doors.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>T4TS.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="app\views\admin\admin.ts" />
+    <TypeScriptCompile Include="app\views\Users\users.ts" />
     <TypeScriptCompile Include="app\app.ts" />
     <TypeScriptCompile Include="app\services\system\AutenticationService.ts" />
     <TypeScriptCompile Include="app\common\bootstrap\bootstrap.dialog.ts" />
@@ -1950,7 +2007,7 @@
     <TypeScriptCompile Include="app\layout\shell.ts" />
     <TypeScriptCompile Include="app\layout\sidebar.ts" />
     <TypeScriptCompile Include="app\routes.ts" />
-    <TypeScriptCompile Include="app\routes\admin.ts" />
+    <TypeScriptCompile Include="app\routes\users.ts" />
     <TypeScriptCompile Include="app\routes\customers.ts" />
     <TypeScriptCompile Include="app\routes\login.ts" />
     <TypeScriptCompile Include="app\views\login\login.ts" />

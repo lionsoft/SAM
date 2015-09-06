@@ -7,6 +7,18 @@ module App.Services {
     }
 
     export interface ICRUDService<T extends IEntityObjectId> {
+
+        /**
+         * Описание типа
+         */
+        TypeDescription: string;
+
+        /**
+         * Описание объекта
+         * @param entity Объект
+         */
+        GetDescription(entity: T): string;
+
         /**
         .* Получение объекта по его Id с сервера.
          * @param id идентификатор объекта
@@ -62,12 +74,40 @@ module App.Services {
          * @param editTemplateUrl ссылка на шаблон формы редактирования
          */
         EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope): IPromise<T>;
+
+        /**
+         * Вызывает всплывающий диалог для удаления объекта.
+         * В случае закрытия диалога по кнопке YES - удаляет объект из базы и вызывает промис.
+         * @param entity удаляемый объект
+         */
+        DeleteModal(entity: T): IPromise<void>;
     }
 
     /**
      * Базовый класс для всех прикладных сервисов.
      */
     export class CRUDService<T extends IEntityObjectId> extends Service implements ICRUDService<T> {
+
+        /**
+         * Описание типа
+         */
+        TypeDescription: string;
+
+        /**
+         * Описание объекта
+         * @param entity Объект
+         */
+        GetDescription(entity: T): string {
+            return entity['Description'] || entity['Name'];
+        }
+
+        $filter: ng.IFilterService;
+
+        public static addFactoryInjections(injects: string[]) {
+            Service.addFactoryInjections(injects);
+            this.addInjection(injects, "$filter");
+        }
+
 
         /**
          * Ресурс для работы с бекэндом сервиса.
@@ -179,14 +219,20 @@ module App.Services {
          * По умолчанию - это объект, пришедший с сервера (не исходный).
          */
         protected afterSave(res: T, source: T, wasNew: boolean): T {
-            // Копируем все поля, кроме ссылочных, если они равны null
+            // Копируем все поля
             for (let key in res) {
                 if (res.hasOwnProperty(key)) {
                     if (key[0] === "$" || key[0] === "_") continue;
                     const priorValue = source[key];
                     const value = res[key];
+                    // кроме ссылочных, если они равны null
                     if (typeof priorValue !== "object" || value)
-                        source[key] = res[key];
+                        source[key] = value;
+                    // или если их Id составляющая равна null
+                    else if (priorValue) {
+                        if (!res[key + 'Id'])
+                            source[key] = value;
+                    }
                 }
             }
             return res;
@@ -338,12 +384,37 @@ module App.Services {
             // ReSharper disable once QualifiedExpressionMaybeNull
             scope = scope.$new();
             scope['$item'] = angular.copy(entity);
-            return <IPromise<T>>app.popup.popupModal(editTemplateUrl, scope).then(() => {
-                return this.Save(scope['$item']).then(res => {
-                    return this.Update(entity, res);
-                });
-            });
+            scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+            scope['$entityTypeName'] = this.TypeDescription;
+            return <IPromise<T>>app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
+                .then(() => this.Save(scope['$item']))
+                .then(res => this.Load(res.Id))
+                .then(res => this.Update(entity, res));
         }
+
+        /**
+         * Вызывает всплывающий диалог для удаления объекта.
+         * В случае закрытия диалога по кнопке YES - удаляет объект из базы и вызывает промис.
+         * @param entity удаляемый объект
+         */
+        DeleteModal(entity: T): IPromise<void> {
+            var def = this.defer<void>();
+            if (!entity || !entity.Id) {
+                def.reject();
+            } else {
+                app.popup.ask(this.$filter('translate')("AskDelete").format(this.TypeDescription.toLocaleLowerCase(), this.GetDescription(entity)), false)
+                    .then(r => r ? this.Delete(entity.Id) : false)
+                    .then(r => {
+                        if (r)
+                            def.resolve();
+                        else
+                            def.reject();
+                    })
+                    .catch(r => def.reject(r));
+            }
+            return <any>def.promise;
+        }
+
 
     }
 

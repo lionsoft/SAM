@@ -6,8 +6,9 @@ module App.Services {
     }
 
     class CompaniesService extends CRUDService<ICompany> implements ICompaniesService {
-        samDepartments: IDepartmentsService;
+        TypeDescription = "Company";
+        get ApiService() { return app.api.Companies; }
     }
 
-    app.service("samCompanies", CompaniesService.Factory("samDepartments"));
+    app.service("samCompanies", CompaniesService.Factory());
 } 

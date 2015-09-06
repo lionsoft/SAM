@@ -1,24 +1,9 @@
-﻿<div class="container-fluid">
-    <div class="row">
-        <h1 translate>{{$item.Id ? 'Edit Department' : 'New Department'}}</h1>
-        <hr>
-        <form class="form-horizontal" role="form" name="form">
-
-            <!-- #region - Name - -->
-            <div class="form-group" ng-class="{ 'has-warning' : form.name.$invalid }">
-                <label class="control-label" translate>Name</label>
-                <div>
-                    <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
-                    <span ng-show="form.name.$invalid" class="red" translate>Name must be set</span>
-                </div>
-            </div>
-            <!-- #endregion -->
-
-            <div class="form-group pull-right">
-                <button class="btn btn-primary"ng-click="ok()" translate>Save Changes</button>
-                <span></span>
-                <button class="btn btn-default" ng-click="cancel()" translate>Cancel</button>
-            </div>
-        </form>
+﻿<!-- #region - Name - -->
+<div class="form-group" ng-class="{ 'has-warning' : form.name.$invalid }">
+    <label class="control-label" translate>Name</label>
+    <div>
+        <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+        <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
     </div>
 </div>
+<!-- #endregion -->

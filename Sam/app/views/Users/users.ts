@@ -2,7 +2,7 @@
 
 module App.Controllers {
 
-    export class Admin extends Controller {
+    export class Users extends Controller {
 
         //#region Variables
         samUsers: Services.IUsersService;
@@ -29,19 +29,9 @@ module App.Controllers {
                 return this.samUsers.Load().then(res => this.users = res);
             });
         }
-
         AddUser() { this.samUsers.EditModal(null, '_editUser.html').then(res => this.users.push(res)); }
-
         EditUser(c: IUser) { this.samUsers.EditModal(c, '_editUser.html'); }
-
-
-        DeleteUser(c: IUser) {
-            if (!c) return;
-            app.popup.ask(this.Translate("Ask.Delete").format(c.UserName), false)
-                .then(r => r ? this.samUsers.Delete(c.Id) : false)
-                .then(r => r ? this.users.Remove(c) : false);
-        }
-
+        DeleteUser(c: IUser) { this.samUsers.DeleteModal(c).then(() => this.users.Remove(c)); }
 
         UserChanged() {
             
@@ -50,5 +40,5 @@ module App.Controllers {
     }
 
     // Register with angular
-    app.controller('admin', Admin.Factory("samUsers"));
+    app.controller('users', Users.Factory("samUsers"));
 }

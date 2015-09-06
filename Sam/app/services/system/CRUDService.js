@@ -17,6 +17,17 @@ var App;
             function CRUDService() {
                 _super.apply(this, arguments);
             }
+            /**
+             * Описание объекта
+             * @param entity Объект
+             */
+            CRUDService.prototype.GetDescription = function (entity) {
+                return entity['Description'] || entity['Name'];
+            };
+            CRUDService.addFactoryInjections = function (injects) {
+                App.Service.addFactoryInjections(injects);
+                this.addInjection(injects, "$filter");
+            };
             Object.defineProperty(CRUDService.prototype, "ApiService", {
                 /**
                  * Возвращает ресурс для работы с бекэндом сервиса.
@@ -115,15 +126,20 @@ var App;
              * По умолчанию - это объект, пришедший с сервера (не исходный).
              */
             CRUDService.prototype.afterSave = function (res, source, wasNew) {
-                // Копируем все поля, кроме ссылочных, если они равны null
+                // Копируем все поля
                 for (var key in res) {
                     if (res.hasOwnProperty(key)) {
                         if (key[0] === "$" || key[0] === "_")
                             continue;
                         var priorValue = source[key];
                         var value = res[key];
+                        // кроме ссылочных, если они равны null
                         if (typeof priorValue !== "object" || value)
-                            source[key] = res[key];
+                            source[key] = value;
+                        else if (priorValue) {
+                            if (!res[key + 'Id'])
+                                source[key] = value;
+                        }
                     }
                 }
                 return res;
@@ -247,11 +263,36 @@ var App;
                 // ReSharper disable once QualifiedExpressionMaybeNull
                 scope = scope.$new();
                 scope['$item'] = angular.copy(entity);
-                return App.app.popup.popupModal(editTemplateUrl, scope).then(function () {
-                    return _this.Save(scope['$item']).then(function (res) {
-                        return _this.Update(entity, res);
-                    });
-                });
+                scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+                scope['$entityTypeName'] = this.TypeDescription;
+                return App.app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
+                    .then(function () { return _this.Save(scope['$item']); })
+                    .then(function (res) { return _this.Load(res.Id); })
+                    .then(function (res) { return _this.Update(entity, res); });
+            };
+            /**
+             * Вызывает всплывающий диалог для удаления объекта.
+             * В случае закрытия диалога по кнопке YES - удаляет объект из базы и вызывает промис.
+             * @param entity удаляемый объект
+             */
+            CRUDService.prototype.DeleteModal = function (entity) {
+                var _this = this;
+                var def = this.defer();
+                if (!entity || !entity.Id) {
+                    def.reject();
+                }
+                else {
+                    App.app.popup.ask(this.$filter('translate')("AskDelete").format(this.TypeDescription.toLocaleLowerCase(), this.GetDescription(entity)), false)
+                        .then(function (r) { return r ? _this.Delete(entity.Id) : false; })
+                        .then(function (r) {
+                        if (r)
+                            def.resolve();
+                        else
+                            def.reject();
+                    })
+                        .catch(function (r) { return def.reject(r); });
+                }
+                return def.promise;
             };
             return CRUDService;
         })(App.Service);

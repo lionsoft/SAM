@@ -161,20 +161,23 @@ namespace Sam
                     , "~/app/common/Service.js"
                     , "~/app/common/Directive.js"
                     , "~/app/common/TemplatedDirective.js"
-                )
-            );
+
+                    , "~/app/decorators/DTRendererService.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/app/directives").Include(
-                  "~/app/directives/cc/cc-img-person.js"
-                , "~/app/directives/cc/cc-menu-item-rendered.js"
-                , "~/app/directives/cc/cc-scroll-to-top.js"
+                  "~/app/directives/cc/cc-menu-item-rendered.js"
                 , "~/app/directives/cc/cc-sidebar.js"
                 , "~/app/directives/cc/cc-spinner.js"
+/*
+                ,  "~/app/directives/cc/cc-scroll-to-top.js"
+                , "~/app/directives/cc/cc-img-person.js"
                 , "~/app/directives/cc/cc-widget-close.js"
                 , "~/app/directives/cc/cc-widget-header.js"
                 , "~/app/directives/cc/cc-widget-minimize.js"
+*/
 
-                , "~/app/decorators/DTRendererService.js"
+                , "~/app/directives/autofocus.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/app/services").Include(
@@ -186,9 +189,16 @@ namespace Sam
                 , "~/app/services/ApiService.js"
 
                 , "~/app/services/SamUsersService.js"
+
                 , "~/app/services/SamCompaniesService.js"
                 , "~/app/services/SamCustomersService.js"
                 , "~/app/services/SamDepartmentsService.js"
+
+                , "~/app/services/SamCountriesService.js"
+                , "~/app/services/SamCitiesService.js"
+                , "~/app/services/SamBuildingsService.js"
+                , "~/app/services/SamAreasService.js"
+
             ));
 
 
@@ -196,7 +206,8 @@ namespace Sam
                       "~/app/routes.js"
                     , "~/app/routes/login.js"
                     , "~/app/routes/customers.js"
-                    , "~/app/routes/admin.js"
+                    , "~/app/routes/doors.js"
+                    , "~/app/routes/users.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/app/views").Include(
@@ -204,7 +215,8 @@ namespace Sam
                 , "~/app/layout/sidebar.js"
 
                 , "~/app/views/customers/customers.js"
-                , "~/app/views/admin/admin.js"
+                , "~/app/views/doors/doors.js"
+                , "~/app/views/users/users.js"
             ));
 
         }

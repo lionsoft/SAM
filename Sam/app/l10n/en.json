@@ -1,8 +1,10 @@
 ﻿{
     "APP_TITLE": "SAM System",
 
-    "Save Changes": "Save",
+    "SaveChanges": "Save Changes",
     "Cancel": "Cancel",
+    "AskDelete": "{1}: Delete {0}?",
+    "MustBeSet": "Field must be set",
 
     "Name": "Name",
 
@@ -16,9 +18,7 @@
         "Customers": "Customers",
         "Edit Customer": "Edit Customer",
         "Delete Customer": "Edit Customer",
-        "Ask.Delete.Customer": "{0}: Delete customer?",
         "New Customer": "New Customer",
-        "Name must be set": "Name must be set",
 
         "Companies": "Companies",
         "Departments": "Departments"
