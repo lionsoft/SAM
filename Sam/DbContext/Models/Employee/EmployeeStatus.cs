@@ -1,5 +1,8 @@
-﻿namespace Sam.DbContext
+﻿using T4TS;
+
+namespace Sam.DbContext
 {
+    [TypeScriptEnum]
     public enum EmployeeStatus
     {
         New = 0,

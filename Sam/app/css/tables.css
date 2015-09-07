@@ -110,6 +110,10 @@
 }
 .dataTables_wrapper table.dataTable th.auto-size {
   width: auto;
+  white-space: inherit;
+}
+.dataTables_wrapper table.dataTable td {
+  white-space: nowrap;
 }
 .dataTables_wrapper .dataTables_scrollHeadInner {
   background: #1171a3;

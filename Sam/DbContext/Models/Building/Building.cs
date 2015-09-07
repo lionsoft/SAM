@@ -12,10 +12,12 @@ namespace Sam.DbContext
         public string Address2 { get; set; }
 
         public string CityId { get; set; }
-
         public City City { get; set; }
 
+        public string CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
         public string OwnerId { get; set; }
-        public User Owner { get; set; }
+        public Employee Owner { get; set; }
     }
 }

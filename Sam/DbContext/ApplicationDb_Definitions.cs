@@ -46,5 +46,7 @@ namespace Sam.DbContext
 
         public IDbSet<Building> Buildings { get; set; }
         public IDbSet<Area> Areas { get; set; }
+
+        public IDbSet<Employee> Employees { get; set; }
     }
 }

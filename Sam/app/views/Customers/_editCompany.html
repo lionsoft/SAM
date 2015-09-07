@@ -1,5 +1,5 @@
 ﻿<!-- #region - Name - -->
-<div class="form-group" ng-class="{ 'has-warning' : form.name.$invalid }">
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
     <label class="control-label" translate>Name</label>
     <div>
         <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
@@ -10,7 +10,7 @@
 
 <!-- #region - Address1 - -->
 <div class="form-group">
-    <label class="control-label" translate>Address 1</label>
+    <label class="control-label" translate>Address1</label>
     <div>
         <input class="form-control" type="text" ng-model="$item.Address1" />
     </div>
@@ -19,7 +19,7 @@
 
 <!-- #region - Address2 - -->
 <div class="form-group">
-    <label class="control-label" translate>Address 2</label>
+    <label class="control-label" translate>Address2</label>
     <div>
         <input class="form-control" type="text" ng-model="$item.Address2" />
     </div>
@@ -28,7 +28,7 @@
 
 <!-- #region - ZipCode - -->
 <div class="form-group">
-    <label class="control-label" translate>Zip code</label>
+    <label class="control-label" translate>ZipCode</label>
     <div>
         <input class="form-control" type="text" ng-model="$item.ZipCode" />
     </div>

@@ -23,6 +23,7 @@ namespace Sam.DbContext
 
         [FillWithCurrentUser(OnCreateOnly = true)]
         public string CreatedById { get; set; }
+        [TypeScriptMember(Type = "App.IUser")]
         public User CreatedBy { get; set; }
 
 
@@ -31,6 +32,7 @@ namespace Sam.DbContext
 
         [FillWithCurrentUser(OnCreateOnly = false)]
         public string ModifiedById { get; set; }
+        [TypeScriptMember(Type = "App.IUser")]
         public User ModifiedBy { get; set; }
     }
 

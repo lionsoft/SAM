@@ -1,20 +1,23 @@
 ﻿<!-- #region - Name - -->
-<div class="form-group" ng-class="{ 'has-warning' : form.name.$invalid }">
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched}">
     <label class="control-label" translate>Name</label>
     <div>
         <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
         <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
     </div>
+</div>
+<!-- #endregion -->
 
+<!-- #region - Owner - -->
+<div class="form-group">
     <label class="control-label" translate>Owner</label>
     <ui-select class="form-control" ng-model="$item.OwnerId" ng-disabled="!$.owners">
         <ui-select-match allow-clear="true">
             {{$select.selected.UserName}}
         </ui-select-match>
-        <ui-select-choices repeat="owner.Id as owner in $.owners track by owner.Id">
-            {{owner.UserName}}
+        <ui-select-choices repeat="owner.Id as owner in $.areaOwners track by owner.Id">
+            {{owner.Name}}
         </ui-select-choices>
     </ui-select>
-
 </div>
 <!-- #endregion -->

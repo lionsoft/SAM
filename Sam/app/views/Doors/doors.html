@@ -48,6 +48,7 @@
                             <thead>
                                 <tr>
                                     <th translate class="auto-size">Name</th>
+                                    <th translate>ZipCode</th>
                                     <th translate>CreatedBy</th>
                                     <th translate>CreatedDate</th>
                                     <th>Action</th>
@@ -58,6 +59,7 @@
                                     ng-click="$.selectedCity=city"
                                     ng-class="{active: $.selectedCity===city}">
                                     <td>{{city.Name}}</td>
+                                    <td>{{city.ZipCode}}</td>
                                     <td>{{::city.CreatedBy.UserName}}</td>
                                     <td>{{::city.CreatedDate | date}}</td>
                                     <td class="action-buttons">
@@ -93,7 +95,7 @@
                                     ng-click="$.selectedBuilding=building"
                                     ng-class="{active: $.selectedBuilding===building}">
                                     <td>{{building.Name}}</td>
-                                    <td>{{building.Owner.UserName}}</td>
+                                    <td>{{building.Owner.Name}}</td>
                                     <td>{{::building.CreatedBy.UserName}}</td>
                                     <td>{{::building.CreatedDate | date}}</td>
                                     <td class="action-buttons">
@@ -129,7 +131,7 @@
                                     ng-click="$.selectedArea=area"
                                     ng-class="{active: $.selectedArea===area}">
                                     <td>{{area.Name}}</td>
-                                    <td>{{area.Owner.UserName}}</td>
+                                    <td>{{area.Owner.Name}}</td>
                                     <td>{{::area.CreatedBy.UserName}}</td>
                                     <td>{{::area.CreatedDate | date}}</td>
                                     <td class="action-buttons">

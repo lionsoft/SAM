@@ -10,3 +10,9 @@
   width: 50%;
   float: left;
 }
+.form-group.has-error > div input.form-control {
+  position: relative;
+}
+.form-group.has-error > div span.red {
+  position: absolute;
+}

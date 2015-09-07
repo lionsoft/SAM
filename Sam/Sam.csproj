@@ -286,6 +286,7 @@
     <Compile Include="DbContext\Models\Customers\Customer.cs" />
     <Compile Include="DbContext\Models\Employee\Employee.cs" />
     <Compile Include="DbContext\Models\Employee\EmployeeStatus.cs" />
+    <Compile Include="DbContext\Models\Employee\UserRole.cs" />
     <Compile Include="DbContext\Models\Users\TypeScriptUser.cs">
       <SubType>Code</SubType>
     </Compile>

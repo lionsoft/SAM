@@ -1,9 +1,9 @@
 ﻿<!-- #region - Name - -->
-<div class="form-group" ng-class="{ 'has-warning' : form.name.$invalid }">
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
     <label class="control-label" translate>Name</label>
     <div>
         <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
-        <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
+        <span class="red" ng-show="form.name.$invalid && form.name.$touched" translate>MustBeSet</span>
     </div>
 </div>
 <!-- #endregion -->

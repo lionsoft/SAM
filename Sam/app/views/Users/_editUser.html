@@ -1,14 +1,15 @@
 ﻿<!-- #region - Login - -->
-<div class="form-group" ng-class="{ 'has-error' : form.login.$invalid  }">
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.login.$invalid && form.login.$touched }">
     <label class="control-label" translate>Login</label>
     <div>
-        <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.UserName" name="login"/>
+        <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.UserName" name="login" />
         <span ng-show="form.login.$invalid && form.login.$touched" class="red" translate>MustBeSet</span>
     </div>
 </div>
 <!-- #endregion -->
+
 <!-- #region - Email - -->
-<div class="form-group" ng-class="{ 'has-error' : form.Email.$invalid }">
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.Email.$invalid && form.Email.$touched }">
     <label class="control-label" translate>Email</label>
     <div>
         <input class="form-control" type="text" placeholder="required" required ng-model="$item.Email" name="Email" />
@@ -16,8 +17,9 @@
     </div>
 </div>
 <!-- #endregion -->
+
 <!-- #region - Password - -->
-<div class="form-group" ng-class="{ 'has-error' : form.password.$invalid }" ng-hide="$item.Id">
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.password.$invalid && form.password.$touched }" ng-hide="$item.Id">
     <label class="control-label" translate>Password</label>
     <div>
         <input class="form-control" type="password" placeholder="required" required ng-model="$item.PasswordHash" name="password" />

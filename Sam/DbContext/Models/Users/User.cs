@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using T4TS;
 
 namespace Sam.DbContext
 {
@@ -33,10 +34,6 @@ namespace Sam.DbContext
           this.Id = Guid.NewGuid().ToString();
         }
 
-
-
-        public ICollection<Building> Buildings { get; set; }
-
-        public ICollection<Area> Areas { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

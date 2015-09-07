@@ -3,13 +3,28 @@
 ****************************************************************************/
 
 declare module App {
+    /** Generated from Sam.DbContext.EmployeeStatus **/
+    const enum EmployeeStatus {
+        New = 0,
+        Normal = 1,
+        Resigned = 2,
+    }
+    /** Generated from Sam.DbContext.UserRole **/
+    const enum UserRole {
+        Normal = 1,
+        BuildingOwner = 2,
+        AreaOwner = 4,
+        DoorOwner = 8,
+        Manager = 16,
+        Admin = 32,
+    }
     /** Generated from Sam.DbContext.Area **/
     export interface IArea extends App.IEntityObjectBaseId {
         Name: string;
         BuildingId: string;
         Building: App.IBuilding;
         OwnerId: string;
-        Owner: any;
+        Owner: App.IEmployee;
     }
     /** Generated from Sam.DbContext.Building **/
     export interface IBuilding extends App.IEntityObjectBaseId {
@@ -18,8 +33,10 @@ declare module App {
         Address2: string;
         CityId: string;
         City: App.ICity;
+        CustomerId: string;
+        Customer: App.ICustomer;
         OwnerId: string;
-        Owner: any;
+        Owner: App.IEmployee;
     }
     /** Generated from Sam.DbContext.City **/
     export interface ICity extends App.IEntityObjectBaseId {
@@ -37,10 +54,10 @@ declare module App {
         Id: any;
         CreatedDate: string;
         CreatedById: string;
-        CreatedBy: any;
+        CreatedBy: App.IUser;
         ModifiedDate: string;
         ModifiedById: string;
-        ModifiedBy: any;
+        ModifiedBy: App.IUser;
     }
     /** Generated from Sam.DbContext.EntityObjectId **/
     export interface IEntityObjectId extends App.IEntityObjectBaseId {
@@ -65,15 +82,20 @@ declare module App {
         Company: App.ICompany;
     }
     /** Generated from Sam.DbContext.Employee **/
-    export interface IEmployee extends App.IEntityObjectBaseId {
+    export interface IEmployee {
+        Id: string;
         Name: string;
-        Email: string;
-        PinCode: number;
-        Status: any;
-        Image: string;
-        DepartmentId: string;
-        ManagerId: string;
-        UserId: string;
+        Email?: string;
+        PinCode?: number;
+        Status: App.EmployeeStatus;
+        Image?: string;
+        UserRole: App.UserRole;
+        DepartmentId?: string;
+        Department: App.IDepartment;
+        ManagerId?: string;
+        Manager: App.IEmployee;
+        UserId?: string;
+        User: App.IUser;
     }
     /** Generated from Sam.DbContext.TypeScriptUser **/
     export interface IUser {
