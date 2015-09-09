@@ -123,7 +123,7 @@ module App {
             paging: true,
             //scrollY: 160,
             scrollCollapse: false,
-            //scrollX: false,
+            scrollX: true,
         });
     }]);
 

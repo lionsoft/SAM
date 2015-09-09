@@ -3,12 +3,14 @@
 var App;
 (function (App) {
     var AutenticationService = (function () {
-        function AutenticationService($rootScope, $location, $route) {
+        function AutenticationService($rootScope, $location, $route, samUsers) {
             this.$rootScope = $rootScope;
             this.$location = $location;
             this.$route = $route;
+            this.samUsers = samUsers;
             this.LoggedUser = App.app['__loggedUser'];
             App.app['__loggedUser'] = undefined;
+            samUsers.Update(this.LoggedUser);
             App.app.$auth = this;
             $rootScope.$auth = this;
         }
@@ -24,15 +26,24 @@ var App;
         });
         AutenticationService.prototype.Login = function (login, password, rememberMe) {
             var _this = this;
-            return App.app.api.Account.Login(login, password, rememberMe).ExtractError().then(function (user) { return _this.LoggedUser = user; });
+            return App.app.api.Account
+                .Login(login, password, rememberMe)
+                .ExtractError()
+                .then(function (user) {
+                _this.LoggedUser = user;
+                _this.samUsers.Update(_this.LoggedUser);
+            });
         };
         AutenticationService.prototype.Logout = function () {
             var _this = this;
-            var res = App.app.api.Account.Logout().HandleError().then(function () { return _this.LoggedUser = undefined; });
+            var res = App.app.api.Account
+                .Logout()
+                .HandleError()
+                .then(function () { return _this.LoggedUser = undefined; });
             res.then(function () { return location.reload(); });
             return res;
         };
-        AutenticationService.$inject = ['$rootScope', '$location', '$route'];
+        AutenticationService.$inject = ['$rootScope', '$location', '$route', 'samUsers'];
         return AutenticationService;
     })();
     App.Shared.commonModule.service('$auth', AutenticationService);

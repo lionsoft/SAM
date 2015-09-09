@@ -1,12 +1,31 @@
 ﻿'use strict';
 
 declare module App {
-    export interface IUser extends IEntityObjectId { }
+    export interface IUser extends IEntityObjectId {
+
+        /**
+         * Employee.Name if it connected with user, User.UserName otherwise.
+         */
+        Name: string;
+
+        /**
+         * An employee linked with the user
+         */
+        Employee?: IEmployee;
+    }
 }
 
 module App.Services {
 
     export interface IUsersService extends ICRUDService<IUser> {
+        /**
+         * Add property Employee to the user object and fill it with linked employee
+         */
+        UpdateEmployee(user: IUser): IPromise<IUser>;
+        /**
+         * Add property Employee to the users in array and fill it with linked employee
+         */
+        UpdateEmployee(users: IUser[]): IPromise<IUser[]>;
     }
 
     class UsersService extends CRUDService<IUser> implements IUsersService {
@@ -19,6 +38,33 @@ module App.Services {
             odata.clear();
         }
 
+        protected afterQuery(query: IPromise<IUser[]>): IPromise<IUser[]> {
+            return query.HandleError().then(x => this.UpdateEmployee(x));
+        }
+
+        protected afterGet(query: IPromise<IUser>): IPromise<IUser> {
+            return query.then(res => this.UpdateEmployee(res));
+        }
+
+        UpdateEmployee(user: IUser): IPromise<IUser>;
+        UpdateEmployee(users: IUser[]): IPromise<IUser[]>;
+        UpdateEmployee(p): any {
+            if (!p)
+                return this.promiseFromResult(p);
+            if (angular.isArray(p)) {
+                var users = p;
+                return this.$q.all<IUser>(users.select(u => this.UpdateEmployee(u)).toArray());
+            } else {
+                var user = p;
+                user.Name = user.UserName;
+                return App.app.api.Employees.query(OData.create.eq("UserId", user.Id).$top(1)).then(x => {
+                    user.Employee = x.firstOrDefault();
+                    if (user.Employee && user.Employee.Name)
+                        user.Name = user.Employee.Name;
+                    return user;
+                });
+            }
+        }
 
     }
 

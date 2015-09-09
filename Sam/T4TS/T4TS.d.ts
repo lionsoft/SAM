@@ -49,6 +49,14 @@ declare module App {
     export interface ICountry extends App.IEntityObjectBaseId {
         Name: string;
     }
+    /** Generated from Sam.DbContext.Door **/
+    export interface IDoor extends App.IEntityObjectBaseId {
+        Name: string;
+        AreaId: string;
+        Area: App.IArea;
+        OwnerId: string;
+        Owner: App.IEmployee;
+    }
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {
         Id: any;
@@ -82,8 +90,7 @@ declare module App {
         Company: App.ICompany;
     }
     /** Generated from Sam.DbContext.Employee **/
-    export interface IEmployee {
-        Id: string;
+    export interface IEmployee extends App.IEntityObjectBaseId {
         Name: string;
         Email?: string;
         PinCode?: number;

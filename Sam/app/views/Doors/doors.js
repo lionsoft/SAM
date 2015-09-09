@@ -17,22 +17,53 @@ var App;
                 this.cities = [];
                 this.buildings = [];
                 this.areas = [];
+                this.doors = [];
+                this.customers = [];
             }
             //#endregion
             Doors.prototype.Init = function () {
-                var _this = this;
                 // Queue all promises and wait for them to finish before loading the view
-                this.activate(this.LoadCountries());
-                this.samUsers.Load().then(function (res) { return _this.owners = res; });
+                this.activate(this.LoadCustomers(), this.LoadCountries());
             };
             Doors.prototype.Activated = function () {
                 var _this = this;
+                this.$scope.$watch("$.selectedCustomerId", function () { return _this.CustomerChanged(); });
                 this.$scope.$watch("$.countries", function () { return _this.selectedCountry = _this.countries.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
                 this.$scope.$watch("$.cities", function () { return _this.selectedCity = _this.cities.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
                 this.$scope.$watch("$.buildings", function () { return _this.selectedBuilding = _this.buildings.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
+                this.$scope.$watch("$.areas", function () {
+                    _this.selectedArea = _this.areas.orderBy(function (x) { return x.Name; }).firstOrDefault();
+                });
                 this.$scope.$watch("$.selectedCountry", function () { return _this.LoadCities(); });
                 this.$scope.$watch("$.selectedCity", function () { return _this.LoadBuildings(); });
                 this.$scope.$watch("$.selectedBuilding", function () { return _this.LoadAreas(); });
+                this.$scope.$watch("$.selectedArea", function () {
+                    _this.LoadDoors();
+                });
+            };
+            Doors.prototype.LoadCustomers = function () {
+                var _this = this;
+                return this.samCustomers.Load().then(function (res) {
+                    _this.customers = res.orderBy(function (x) { return x.Name; }).toArray();
+                    _this.selectedCustomerId = res.select(function (x) { return x.Id; }).firstOrDefault();
+                });
+            };
+            Doors.prototype.CustomerChanged = function () {
+                this.LoadOwners(this.selectedCustomerId);
+            };
+            Doors.prototype.LoadOwners = function (customerId) {
+                var _this = this;
+                this.buildingOwners = [];
+                this.areaOwners = [];
+                this.doorOwners = [];
+                if (customerId) {
+                    this.samEmployees.LoadByCustomer(customerId).then(function (res) {
+                        _this.buildingOwners = res.where(function (x) { return x.UserRole === 2 /* BuildingOwner */; }).toArray();
+                        _this.areaOwners = res.where(function (x) { return x.UserRole === 4 /* AreaOwner */; }).toArray();
+                        _this.doorOwners = res.where(function (x) { return x.UserRole === 8 /* DoorOwner */; }).toArray();
+                    });
+                }
+                this.LoadBuildings();
             };
             //#region - Country -
             Doors.prototype.LoadCountries = function () {
@@ -77,9 +108,14 @@ var App;
             Doors.prototype.LoadBuildings = function () {
                 var _this = this;
                 this.buildings = [];
+                if (!this.selectedCustomerId)
+                    return;
                 this.$timeout(function () {
                     if (_this.selectedCity)
-                        _this.samBuildings.Load(App.Services.OData.create.eq("CityId", _this.selectedCity.Id)).then(function (res) {
+                        _this.samBuildings.Load(App.Services.OData.create
+                            .eq("CityId", _this.selectedCity.Id)
+                            .eq("CustomerId", _this.selectedCustomerId))
+                            .then(function (res) {
                             _this.buildings = res;
                         });
                 });
@@ -114,10 +150,33 @@ var App;
                 var _this = this;
                 this.samAreas.DeleteModal(a).then(function () { return _this.areas.Remove(a); });
             };
+            //#endregion 
+            //#region - Door -
+            Doors.prototype.LoadDoors = function () {
+                var _this = this;
+                this.doors = [];
+                this.$timeout(function () {
+                    if (_this.selectedArea)
+                        _this.samDoors.Load(App.Services.OData.create.eq("AreaId", _this.selectedArea.Id)).then(function (res) {
+                            _this.doors = res;
+                        });
+                });
+            };
+            Doors.prototype.AddDoor = function () {
+                var _this = this;
+                this.samDoors.EditModal({ AreaId: this.selectedArea.Id }, '_editDoor.html', this.$scope).then(function (res) { return _this.doors.push(res); });
+            };
+            Doors.prototype.EditDoor = function (d) {
+                this.samDoors.EditModal(d, '_editDoor.html', this.$scope);
+            };
+            Doors.prototype.DeleteDoor = function (d) {
+                var _this = this;
+                this.samDoors.DeleteModal(d).then(function () { return _this.doors.Remove(d); });
+            };
             return Doors;
         })(App.Controller);
         // register controller with angular
-        App.app.controller('doors', Doors.Factory("samCountries", "samCities", "samBuildings", "samAreas", "samUsers"));
+        App.app.controller('doors', Doors.Factory("samCustomers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samEmployees"));
     })(Controllers = App.Controllers || (App.Controllers = {}));
 })(App || (App = {}));
 //# sourceMappingURL=doors.js.map

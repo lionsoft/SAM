@@ -33,6 +33,7 @@ namespace Sam.DbContext
          }
 
 
+        public IDbSet<Employee> Employees { get; set; }
 
         public IDbSet<Customer> Customers { get; set; }
 
@@ -46,7 +47,6 @@ namespace Sam.DbContext
 
         public IDbSet<Building> Buildings { get; set; }
         public IDbSet<Area> Areas { get; set; }
-
-        public IDbSet<Employee> Employees { get; set; }
+        public IDbSet<Door> Doors { get; set; }
     }
 }

@@ -13,6 +13,7 @@
                             <thead>
                                 <tr>
                                     <th translate class="auto-size">Login</th>
+                                    <th translate class="auto-size">Employee</th>
                                     <th translate>Action</th>
                                 </tr>
                             </thead>
@@ -21,6 +22,7 @@
                                     ng-click="$.selectedUser=user"
                                     ng-class="{active: $.selectedUser===user}">
                                     <td>{{user.UserName}}</td>
+                                    <td>{{user.Employee.Name}}</td>
                                     <td class="action-buttons">
                                         <button ng-click="$.EditUser(user)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
                                         <button ng-click="$.DeleteUser(user)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>

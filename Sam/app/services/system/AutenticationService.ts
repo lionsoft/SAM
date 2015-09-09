@@ -18,11 +18,12 @@ module App {
 
     class AutenticationService implements IAutenticationService {
 
-        static $inject = ['$rootScope', '$location', '$route'];
+        static $inject = ['$rootScope', '$location', '$route', 'samUsers'];
 
-        constructor(private $rootScope, private $location: ng.ILocationService, private $route: ng.route.IRouteService) {
+        constructor(private $rootScope, private $location: ng.ILocationService, private $route: ng.route.IRouteService, private samUsers: Services.IUsersService) {
             this.LoggedUser = app['__loggedUser'];
             app['__loggedUser'] = undefined;
+            samUsers.Update(this.LoggedUser);
             app.$auth = this;
             $rootScope.$auth = this;
         }
@@ -34,11 +35,20 @@ module App {
         get LoggedUserId() { return this.LoggedUser ? this.LoggedUser.Id : undefined; }
 
         Login(login: string, password: string, rememberMe: boolean): ng.IPromise<void> {
-            return <any>app.api.Account.Login(login, password, rememberMe).ExtractError().then(user => this.LoggedUser = user);
+            return <any>app.api.Account
+                .Login(login, password, rememberMe)
+                .ExtractError()
+                .then(user => {
+                    this.LoggedUser = user;
+                    this.samUsers.Update(this.LoggedUser);
+                });
         }
 
         Logout(): ng.IPromise<void> {
-            var res = app.api.Account.Logout().HandleError().then(() => this.LoggedUser = undefined);
+            var res = app.api.Account
+                .Logout()
+                .HandleError()
+                .then(() => this.LoggedUser = undefined);
             res.then(() => location.reload());
             return res;
         }

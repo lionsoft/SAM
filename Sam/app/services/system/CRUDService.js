@@ -60,7 +60,7 @@ var App;
              * @param odata параметры запроса
              */
             CRUDService.prototype.prepareQuery = function (odata) {
-                odata.$expand("CreatedBy");
+                odata.$expand("CreatedBy").$orderBy("Name");
             };
             /**
              * Этот метод вызывается ПЕРЕД отправкой запроса get на сервер.
@@ -77,7 +77,17 @@ var App;
              * @param query промис запроса
              */
             CRUDService.prototype.afterQuery = function (query) {
-                return query.HandleError();
+                var _this = this;
+                this._samUsers = this._samUsers || this.get("samUsers");
+                return query.HandleError().then(function (x) {
+                    if (x && x.length > 0) {
+                        var d = _this.defer();
+                        _this._samUsers.UpdateEmployee(x.select(function (r) { return r["CreatedBy"]; }).toArray()).finally(function () { return d.resolve(x); });
+                        return d.promise;
+                    }
+                    else
+                        return x;
+                });
             };
             /**
              * Этот метод вызывается ПЕРЕД отправкой запроса get на сервер.
@@ -86,7 +96,17 @@ var App;
              * @param query промис запроса
              */
             CRUDService.prototype.afterGet = function (query) {
-                return query;
+                var _this = this;
+                this._samUsers = this._samUsers || this.get("samUsers");
+                return query.then(function (r) {
+                    if (r) {
+                        var d = _this.defer();
+                        _this._samUsers.UpdateEmployee(r["CreatedBy"]).finally(function () { return d.resolve(r); });
+                        return d.promise;
+                    }
+                    else
+                        return r;
+                });
             };
             /**
              * Этот метод вызывается ПОСЛЕ получения объекта или объектов с сервера.
@@ -228,6 +248,8 @@ var App;
                 var _this = this;
                 var destination = p1;
                 var source = p2;
+                if (!destination)
+                    return undefined;
                 var isNew = !destination.Id;
                 if (!isNew && !source) {
                     return this.Load(destination.Id).then(function (r) { return _this.Update(destination, r); });

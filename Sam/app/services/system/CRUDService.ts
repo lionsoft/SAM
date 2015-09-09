@@ -145,7 +145,7 @@ module App.Services {
          * @param odata параметры запроса
          */
         protected prepareQuery(odata: OData): void {
-            odata.$expand("CreatedBy");
+            odata.$expand("CreatedBy").$orderBy("Name");
         }
 
         /**
@@ -157,6 +157,8 @@ module App.Services {
             this.prepareQuery(odata);
         }
 
+        private _samUsers: IUsersService;
+
         /**
          * Этот метод вызывается ПЕРЕД отправкой запроса query на сервер.
          * Перекрыв его в классе наследнике можно глобально влиять на пришедший ответ.
@@ -164,7 +166,15 @@ module App.Services {
          * @param query промис запроса
          */
         protected afterQuery(query: IPromise<T[]>): IPromise<T[]> {
-            return query.HandleError();
+            this._samUsers = this._samUsers || this.get("samUsers");
+            return query.HandleError().then(x => {
+                if (x && x.length > 0) {
+                    var d = this.defer();
+                    this._samUsers.UpdateEmployee(x.select(r => r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
+                    return d.promise;
+                } else
+                    return x;
+            });
         }
 
         /**
@@ -174,7 +184,15 @@ module App.Services {
          * @param query промис запроса
          */
         protected afterGet(query: IPromise<T>): IPromise<T> {
-            return query;
+            this._samUsers = this._samUsers || this.get("samUsers");
+            return query.then(r => {
+                if (r) {
+                    var d = this.defer();
+                    this._samUsers.UpdateEmployee(r["CreatedBy"]).finally(() => d.resolve(r));
+                    return d.promise;
+                } else
+                    return r;
+            });
         }
 
         /**
@@ -348,6 +366,7 @@ module App.Services {
         Update(p1, p2?: T) {
             var destination = p1;
             var source = p2;
+            if (!destination) return undefined;
             var isNew = !destination.Id;
             if (!isNew && !source) {
                 return this.Load(destination.Id).then(r => this.Update(destination, <any>r));

@@ -3,9 +3,8 @@
 namespace Sam.DbContext
 {
     [TypeScriptInterface]
-    public class Employee : IEntityObjectId<string>
+    public class Employee : EntityObjectId
     {
-        public string Id { get; set; }
         public string Name { get; set; }
 
         [TypeScriptMember(Optional = true)]

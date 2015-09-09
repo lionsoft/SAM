@@ -23,7 +23,7 @@
                                     ng-click="$.selectedCustomer=customer"
                                     ng-class="{active: $.selectedCustomer===customer}">
                                     <td>{{customer.Name}}</td>
-                                    <td>{{::customer.CreatedBy.UserName}}</td>
+                                    <td>{{::customer.CreatedBy.Name}}</td>
                                     <td>{{::customer.CreatedDate | date}}</td>
                                     <td class="action-buttons">
                                         <button ng-click="$.EditCustomer(customer)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
@@ -63,7 +63,7 @@
                                     <td>{{company.Address1}}</td>
                                     <td>{{company.Address2}}</td>
                                     <td>{{company.ZipCode}}</td>
-                                    <td>{{::company.CreatedBy.UserName}}</td>
+                                    <td>{{::company.CreatedBy.Name}}</td>
                                     <td>{{::company.CreatedDate | date}}</td>
                                     <td class="action-buttons">
                                         <button ng-click="$.EditCompany(company)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
@@ -96,7 +96,7 @@
                                     ng-click="$.selectedDepartment=department"
                                     ng-class="{active: $.selectedDepartment===department}">
                                     <td>{{department.Name}}</td>
-                                    <td>{{::department.CreatedBy.UserName}}</td>
+                                    <td>{{::department.CreatedBy.Name}}</td>
                                     <td>{{::department.CreatedDate | date}}</td>
                                     <td class="action-buttons">
                                         <button ng-click="$.EditDepartment(department)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>

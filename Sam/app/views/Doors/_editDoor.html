@@ -11,11 +11,11 @@
 <!-- #region - Owner - -->
 <div class="form-group">
     <label class="control-label" translate>Owner</label>
-    <ui-select class="form-control" ng-model="$item.OwnerId" ng-disabled="!$.areaOwners">
+    <ui-select class="form-control" ng-model="$item.OwnerId" ng-disabled="!$.doorOwners">
         <ui-select-match allow-clear="true">
             {{$select.selected.Name}}
         </ui-select-match>
-        <ui-select-choices repeat="owner.Id as owner in $.areaOwners track by owner.Id">
+        <ui-select-choices repeat="owner.Id as owner in $.doorOwners track by owner.Id">
             {{owner.Name}}
         </ui-select-choices>
     </ui-select>

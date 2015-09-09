@@ -202,6 +202,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\BuildingsApi\DoorsController.cs" />
     <Compile Include="Api\BuildingsApi\AreasController.cs" />
     <Compile Include="Api\BuildingsApi\CountriesController.cs" />
     <Compile Include="Api\BuildingsApi\CitiesController.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Api\System\CRUDController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Api\UsersApi\EmployeesController.cs" />
     <Compile Include="App_Start\BreezeWebApiConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="DbContext\Migrations\ApplicationDbConfiguration.cs" />
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
+    <Compile Include="DbContext\Models\Building\Door.cs" />
     <Compile Include="DbContext\Models\Building\Building.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -579,6 +582,18 @@
     <Content Include="app\decorators\DTRendererService.js">
       <DependentUpon>DTRendererService.ts</DependentUpon>
     </Content>
+    <Content Include="app\directives\autofocus.js">
+      <DependentUpon>autofocus.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\cc\cc-menu-item-rendered.js">
+      <DependentUpon>cc-menu-item-rendered.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\cc\cc-sidebar.js">
+      <DependentUpon>cc-sidebar.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\cc\cc-spinner.js">
+      <DependentUpon>cc-spinner.ts</DependentUpon>
+    </Content>
     <Content Include="app\l10n.js">
       <DependentUpon>l10n.ts</DependentUpon>
     </Content>
@@ -590,6 +605,9 @@
     </Content>
     <Content Include="app\routes.js">
       <DependentUpon>routes.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\employees.js">
+      <DependentUpon>employees.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\users.js">
       <DependentUpon>users.ts</DependentUpon>
@@ -606,6 +624,9 @@
     <Content Include="app\services\ApiService.js">
       <DependentUpon>ApiService.ts</DependentUpon>
     </Content>
+    <Content Include="app\services\SamDoorsService.js">
+      <DependentUpon>SamDoorsService.ts</DependentUpon>
+    </Content>
     <Content Include="app\services\SamCountriesService.js">
       <DependentUpon>SamCountriesService.ts</DependentUpon>
     </Content>
@@ -617,6 +638,9 @@
     </Content>
     <Content Include="app\services\SamAreasService.js">
       <DependentUpon>SamAreasService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamEmployeesService.js">
+      <DependentUpon>SamEmployeesService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamUsersService.js">
       <DependentUpon>SamUsersService.ts</DependentUpon>
@@ -645,6 +669,7 @@
     <Content Include="app\services\system\ODataFilterCreator.js">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\Doors\_editDoor.html" />
     <Content Include="app\views\Users\users.css">
       <DependentUpon>users.less</DependentUpon>
     </Content>
@@ -1638,11 +1663,14 @@
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
     <TypeScriptCompile Include="app\directives\autofocus.ts" />
+    <TypeScriptCompile Include="app\routes\employees.ts" />
     <TypeScriptCompile Include="app\routes\doors.ts" />
+    <TypeScriptCompile Include="app\services\SamDoorsService.ts" />
     <TypeScriptCompile Include="app\services\SamCountriesService.ts" />
     <TypeScriptCompile Include="app\services\SamCitiesService.ts" />
     <TypeScriptCompile Include="app\services\SamBuildingsService.ts" />
     <TypeScriptCompile Include="app\services\SamAreasService.ts" />
+    <TypeScriptCompile Include="app\services\SamEmployeesService.ts" />
     <TypeScriptCompile Include="app\services\SamUsersService.ts" />
     <TypeScriptCompile Include="app\services\SamCompaniesService.ts">
       <SubType>Code</SubType>
@@ -1851,6 +1879,27 @@
     <Content Include="app\services\SamAreasService.js.map">
       <DependentUpon>SamAreasService.ts</DependentUpon>
     </Content>
+    <Content Include="app\services\SamEmployeesService.js.map">
+      <DependentUpon>SamEmployeesService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\employees.js.map">
+      <DependentUpon>employees.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\autofocus.js.map">
+      <DependentUpon>autofocus.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\cc\cc-menu-item-rendered.js.map">
+      <DependentUpon>cc-menu-item-rendered.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\cc\cc-sidebar.js.map">
+      <DependentUpon>cc-sidebar.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\cc\cc-spinner.js.map">
+      <DependentUpon>cc-spinner.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDoorsService.js.map">
+      <DependentUpon>SamDoorsService.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -1997,14 +2046,9 @@
     <TypeScriptCompile Include="app\config.ts" />
     <TypeScriptCompile Include="app\consts\URL.ts" />
     <TypeScriptCompile Include="app\views\Customers\customers.ts" />
-    <TypeScriptCompile Include="app\directives\cc\cc-img-person.ts" />
     <TypeScriptCompile Include="app\directives\cc\cc-menu-item-rendered.ts" />
-    <TypeScriptCompile Include="app\directives\cc\cc-scroll-to-top.ts" />
     <TypeScriptCompile Include="app\directives\cc\cc-sidebar.ts" />
     <TypeScriptCompile Include="app\directives\cc\cc-spinner.ts" />
-    <TypeScriptCompile Include="app\directives\cc\cc-widget-close.ts" />
-    <TypeScriptCompile Include="app\directives\cc\cc-widget-header.ts" />
-    <TypeScriptCompile Include="app\directives\cc\cc-widget-minimize.ts" />
     <TypeScriptCompile Include="app\layout\shell.ts" />
     <TypeScriptCompile Include="app\layout\sidebar.ts" />
     <TypeScriptCompile Include="app\routes.ts" />

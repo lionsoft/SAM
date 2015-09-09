@@ -209,6 +209,15 @@ module App {
                         }
                     }
                 }
+
+                // Исправляем багу, когда для POST, PUT, PATCH запросов при передаче ВСЕХ параметров через
+                // строку запроса - формируется запрос с параметрами в теле.
+                // Для этого тупо добавим ещё один пустой параметр.
+                // По хорошему неплохо бы проверить, что action это действительно POST, PUT, PATCH, но я не нашёл как это сделать
+                if (args.length === defaultParamNames.length && args.length > 0) {
+                    args.push(undefined);
+                }
+
                 var oldResult = serviceFactory["__" + methodName].apply(_this, args.length === 0 ? arguments : <any>args);
                 // Преобразование старого результата в нормальный промис
                 return _this.configServiceResult(oldResult);
