@@ -158,49 +158,56 @@ var App;
              * @param value Значение ключевого поля
              */
             OData.prototype.$id = function (value) {
-                this.prop("Id").eq(value);
+                if (value !== undefined)
+                    this.prop("Id").eq(value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'равно' по указанному полю.
              */
             OData.prototype.eq = function (propName, value) {
-                this.prop(propName).eq(value);
+                if (value !== undefined)
+                    this.prop(propName).eq(value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'не равно' по указанному полю.
              */
             OData.prototype.ne = function (propName, value) {
-                this.prop(propName).ne(value);
+                if (value !== undefined)
+                    this.prop(propName).ne(value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'больше' по указанному полю.
              */
             OData.prototype.gt = function (propName, value) {
-                this.prop(propName).gt(value);
+                if (value !== undefined)
+                    this.prop(propName).gt(value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'больше или равно' по указанному полю.
              */
             OData.prototype.ge = function (propName, value) {
-                this.prop(propName).ge(value);
+                if (value !== undefined)
+                    this.prop(propName).ge(value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'меньше' по указанному полю.
              */
             OData.prototype.lt = function (propName, value) {
-                this.prop(propName).lt(value);
+                if (value !== undefined)
+                    this.prop(propName).lt(value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'меньше или равно' по указанному полю.
              */
             OData.prototype.le = function (propName, value) {
-                this.prop(propName).le(value);
+                if (value !== undefined)
+                    this.prop(propName).le(value);
                 return this;
             };
             OData.prototype.$filter = function (p1, p2) {
@@ -223,8 +230,11 @@ var App;
                 return this;
             };
             OData.prototype.prop = function (propName) {
-                if (this._filterCreator)
-                    this.$filter("and", this._filterCreator.query);
+                if (this._filterCreator) {
+                    var query = this._filterCreator.query;
+                    if (query)
+                        this.$filter("and", query);
+                }
                 if (propName) {
                     this._filterCreator = new Services.ODataFilterCreator(propName);
                 }

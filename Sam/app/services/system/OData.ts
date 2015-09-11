@@ -158,7 +158,8 @@ module App.Services {
          * @param value Значение ключевого поля
          */
         $id(value: string): OData {
-            this.prop("Id").eq(value);
+            if (value !== undefined)
+                this.prop("Id").eq(value);
             return this;
         }
 
@@ -166,42 +167,48 @@ module App.Services {
          * Добавляет условие отбора 'равно' по указанному полю.
          */
         eq<T>(propName: string, value: T): OData {
-            this.prop(propName).eq(value);
+            if (value !== undefined)
+                this.prop(propName).eq(value);
             return this;
         }
         /**
          * Добавляет условие отбора 'не равно' по указанному полю.
          */
         ne<T>(propName: string, value: T): OData {
-            this.prop(propName).ne(value);
+            if (value !== undefined)
+                this.prop(propName).ne(value);
             return this;
         }
         /**
          * Добавляет условие отбора 'больше' по указанному полю.
          */
         gt<T>(propName: string, value: T): OData {
-            this.prop(propName).gt(value);
+            if (value !== undefined)
+                this.prop(propName).gt(value);
             return this;
         }
         /**
          * Добавляет условие отбора 'больше или равно' по указанному полю.
          */
         ge<T>(propName: string, value: T): OData {
-            this.prop(propName).ge(value);
+            if (value !== undefined)
+                this.prop(propName).ge(value);
             return this;
         }
         /**
          * Добавляет условие отбора 'меньше' по указанному полю.
          */
         lt<T>(propName: string, value: T): OData {
-            this.prop(propName).lt(value);
+            if (value !== undefined)
+                this.prop(propName).lt(value);
             return this;
         }
         /**
          * Добавляет условие отбора 'меньше или равно' по указанному полю.
          */
         le<T>(propName: string, value: T): OData {
-            this.prop(propName).le(value);
+            if (value !== undefined)
+                this.prop(propName).le(value);
             return this;
         }
 
@@ -237,8 +244,12 @@ module App.Services {
 
 
         prop(propName: string): IODataFilterCreator {
-            if (this._filterCreator)
-                this.$filter("and", this._filterCreator.query);
+            if (this._filterCreator) {
+                var query = this._filterCreator.query;
+                if (query)
+                    this.$filter("and", query);
+            }
+                
             if (propName) {
                 this._filterCreator = new ODataFilterCreator(propName);
             } else {

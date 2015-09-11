@@ -243,6 +243,7 @@ module App.Services {
          * @param value operand value
          */
         private aop(op: string, value: number): IODataTypedOperators<number> {
+            if (value === undefined) return this;
             this.args = this._(value);
             this.opName = op;
             return new ODataFilterCreator(undefined, this);
@@ -254,6 +255,7 @@ module App.Services {
          * @param value operand value
          */
         private lop<T>(op: string, value: T): IODataLogical {
+            if (value === undefined) return this;
             this.args = this._(value);
             this.opName = op;
             return new ODataFilterCreator(undefined, this);

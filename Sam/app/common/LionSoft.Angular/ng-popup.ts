@@ -154,22 +154,26 @@ module LionSoftAngular {
                     (<any>tempPopupDefaults).templateUrl = tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase) + "?" + Math.random();
 
                     loadCss("css/ng-dialog.css");
+                    loadCss(tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase).ChangeFileExt('css'));
 
                     
 
                     (<any>tempPopupDefaults).controller = ["$scope", "$modalInstance", ($scope, $modalInstance: LionSoftAngular.IModalInstance) => {
                         angular.extend($scope, tempDialogOptions);
+                        tempDialogOptions.scope = tempDialogOptions.scope || {};
                         $scope.$scope = tempDialogOptions.scope;
-
-                        if (tempDialogOptions.scope) {
-                            $scope['$'] = tempDialogOptions.scope['$'];
-                            for (var prop in tempDialogOptions.scope) {
-                                if (tempDialogOptions.scope.hasOwnProperty(prop)) {
-                                    if (prop[0] === "$" && prop[1] !== "$" && $scope[prop] === undefined)
-                                        $scope[prop] = tempDialogOptions.scope[prop];
-                                }
+                        $scope.$ = tempDialogOptions.scope.$;
+                        for (var prop in tempDialogOptions.scope) {
+                            if (tempDialogOptions.scope.hasOwnProperty(prop)) {
+                                if (prop[0] === "$" && prop[1] !== "$" && $scope[prop] === undefined)
+                                    $scope[prop] = tempDialogOptions.scope[prop];
                             }
                         }
+                        if ($scope.$templateUrl) {
+                            var css = $scope.$templateUrl.ChangeFileExt('css');
+                            loadCss(css);
+                        }
+                            
 
                         $scope.$modalInstance = $modalInstance;
                         $scope.submit = (form : ng.INgModelController) => {
@@ -184,14 +188,33 @@ module LionSoftAngular {
                                     }
                                 }
                             } else {
-                                $modalInstance.close(true);
+                                var submit = tempDialogOptions.scope.$submit || $scope.$submit;
+                                if (typeof submit === "function") {
+                                    submit($scope.$item)
+                                        .then(res => {
+                                            if (res || res === undefined)
+                                                $modalInstance.close(res || false);
+                                        })
+                                        .catch(e => {
+                                            if (e) alert(e);
+                                        });
+                                    
+                                }
+                                else
+                                    $modalInstance.close(true);
                             }
                         };
                         $scope.ok = result => {
+                            if (angular.isObject(result))
+                                $scope.submit(result);
+                            else
+                                $modalInstance.close(result === undefined ? true : result);
+/*
                             if (result && result.$invalid)
                                 $scope.submit(result);
                             else
                                 $modalInstance.close(result === undefined ? true : result);
+*/
                         };
                         $scope.cancel = result => { $modalInstance.dismiss(result); };
                         $scope.close = () => { $modalInstance.close(undefined); };

@@ -170,7 +170,7 @@ namespace Sam.DbContext
                     Name = "Manager Number Two",
                     Email = "mgr2@larsen.com",
                     PinCode = null,
-                    Status = EmployeeStatus.Normal,
+                    Status = EmployeeStatus.Resigned,
                     Image = null,
                     UserRole = UserRole.Manager,
                     Department = Departments.Local[4],
@@ -181,23 +181,23 @@ namespace Sam.DbContext
                 {
                     Name = "John Dow",
                     Email = "john@larsen.com",
-                    PinCode = null,
+                    PinCode = 1234,
                     Status = EmployeeStatus.Normal,
                     Image = null,
                     UserRole = UserRole.Normal,
-                    Department = Departments.Local[3],
+                    Department = Departments.Local[0],
                     Manager = Employees.Local.FirstOrDefault(m => m.UserRole == UserRole.Manager),
                     User = Users.Local[8]
                 });
                 Employees.Add(new Employee
                 {
-                    Name = "Manager Number Two",
-                    Email = "mgr2@larsen.com",
-                    PinCode = null,
-                    Status = EmployeeStatus.Normal,
+                    Name = "Jack Daniels",
+                    Email = "jack@daniels.com",
+                    PinCode = 2341,
+                    Status = EmployeeStatus.New,
                     Image = null,
-                    UserRole = UserRole.Manager,
-                    Department = Departments.Local[4],
+                    UserRole = UserRole.Normal,
+                    Department = Departments.Local[0],
                     Manager = Employees.Local.Where(m => m.UserRole == UserRole.Manager).Skip(1).FirstOrDefault(),
                     User = Users.Local[9]
                 });

@@ -22,7 +22,12 @@ var App;
                 configurable: true
             });
             EmployeesService.prototype.LoadByCustomer = function (customerId) {
-                return _super.prototype.Load.call(this, Services.OData.create.eq("Department.Company.CustomerId", customerId));
+                var expands = [];
+                for (var _i = 1; _i < arguments.length; _i++) {
+                    expands[_i - 1] = arguments[_i];
+                }
+                return _super.prototype.Load.call(this, (_a = Services.OData.create).$expand.apply(_a, expands).eq("Department.Company.CustomerId", customerId));
+                var _a;
             };
             return EmployeesService;
         })(Services.CRUDService);

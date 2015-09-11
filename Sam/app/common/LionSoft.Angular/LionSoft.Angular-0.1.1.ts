@@ -15,6 +15,11 @@ declare module angular
     }
 }
 
+interface IKeyValue {
+    Key: any;
+    Value: any;
+}
+
 module LionSoftAngular {
     "use strict";
 
@@ -455,7 +460,7 @@ module LionSoftAngular {
             return (value, ...params) => this.Execute(value, ...params);
         }
 
-        public Execute(value: string, ...params): string {
+        public Execute(value: any[]|any, ...params): any[]|any {
             return value;
         }
     }

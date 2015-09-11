@@ -1,7 +1,7 @@
 ﻿'use strict';
 module App.Directives {
 
-    class NvAutoFocus extends LionSoftAngular.Directive
+    class AutoFocus extends LionSoftAngular.Directive
     {
         restrict = 'A';
 
@@ -12,5 +12,5 @@ module App.Directives {
         }
     }
 
-    app.directive("autofocus", NvAutoFocus.Factory());
+    app.directive("autofocus", AutoFocus.Factory());
 }

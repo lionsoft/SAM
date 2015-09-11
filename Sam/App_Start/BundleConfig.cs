@@ -107,6 +107,7 @@ namespace Sam
                 , "~/scripts/toastr.js"
                 , "~/Scripts/loading-bar.js"
                 , "~/Scripts/oclazyload.js"
+                , "~/Scripts/angular-file-upload.min.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/LionSoftJs")
@@ -159,6 +160,8 @@ namespace Sam
                     , "~/app/common/utils/ResizeListener.js"
 
                     , "~/app/common/Controller.js"
+                    , "~/app/common/Filter.js"
+                    , "~/app/common/EnumFilter.js"
                     , "~/app/common/Service.js"
                     , "~/app/common/Directive.js"
                     , "~/app/common/TemplatedDirective.js"

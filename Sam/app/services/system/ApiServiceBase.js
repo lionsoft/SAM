@@ -27,12 +27,12 @@ var App;
                     error = (err.data.result.ExceptionMessage == undefined) ? err.data.result.Message : err.data.result.ExceptionMessage;
                 }
             }
-            else if (err.statusText != undefined) {
+            else if (err.statusText != undefined)
                 error = err.statusText.toString();
-            }
-            else if (err.data != undefined) {
+            else if (err.data != undefined)
                 error = err.data.toString().substr(0, 100);
-            }
+            else if (err.Message != undefined)
+                error = err.Message.toString();
             return error;
         };
         /**

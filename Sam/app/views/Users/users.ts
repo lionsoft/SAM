@@ -2,7 +2,7 @@
 
 module App.Controllers {
 
-    export class Users extends Controller {
+    class Users extends Controller {
 
         //#region Variables
         samUsers: Services.IUsersService;

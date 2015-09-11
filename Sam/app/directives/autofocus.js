@@ -9,20 +9,20 @@ var App;
 (function (App) {
     var Directives;
     (function (Directives) {
-        var NvAutoFocus = (function (_super) {
-            __extends(NvAutoFocus, _super);
-            function NvAutoFocus() {
+        var AutoFocus = (function (_super) {
+            __extends(AutoFocus, _super);
+            function AutoFocus() {
                 _super.apply(this, arguments);
                 this.restrict = 'A';
             }
-            NvAutoFocus.prototype.Link = function ($scope, $element) {
+            AutoFocus.prototype.Link = function ($scope, $element) {
                 this.$timeout(function () {
                     $element[0].focus();
                 });
             };
-            return NvAutoFocus;
+            return AutoFocus;
         })(LionSoftAngular.Directive);
-        App.app.directive("autofocus", NvAutoFocus.Factory());
+        App.app.directive("autofocus", AutoFocus.Factory());
     })(Directives = App.Directives || (App.Directives = {}));
 })(App || (App = {}));
 //# sourceMappingURL=autofocus.js.map

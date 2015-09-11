@@ -40,7 +40,8 @@ var App;
                     el.addClass("dataTables_scrollY");
                 else
                     el.addClass("dataTables_no_scrollY");
-                if (scrollY > 0) {
+                //if (scrollY > 0)
+                {
                     dataTable.draw(false);
                     var tableHeaderWrapper = el;
                     App.Utils.ResizeListener.Attach(tableHeaderWrapper, function () {

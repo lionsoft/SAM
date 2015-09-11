@@ -1,0 +1,70 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- #region - Customer - -->
+                <div class="form-group">
+                    <label class="control-label" translate>Customer</label>
+                    <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
+                        <ui-select-match allow-clear="true" placeholder="All Customers">
+                            {{$select.selected.Name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
+                            {{customer.Name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <!-- #endregion -->
+
+                <div class="row panel panel-default sam-table">
+                    <h3 class="panel-heading">
+                        <button ng-click="$.AddEmployee()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                        <span translate>Employees</span>
+                    </h3>
+                    <div class="panel-body">
+                        <table datatable="ng" class="row-border hover">
+                            <thead>
+                                <tr>
+                                    <th translate class="auto-size">Name</th>
+                                    <th translate>Email</th>
+                                    <th translate>Department</th>
+                                    <th translate>Manager</th>
+                                    <th translate>PinCode</th>
+                                    <th translate>Image</th>
+                                    <th translate>Status</th>
+                                    <th translate>Role</th>
+                                    <th translate>User</th>
+                                    <th translate>CreatedBy</th>
+                                    <th translate>CreatedDate</th>
+                                    <th translate>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="employee in $.employees track by employee.Id">
+                                    <td>{{employee.Name}}</td>
+                                    <td>{{employee.Email}}</td>
+                                    <td>{{employee.Department.Name}}</td>
+                                    <td>{{employee.Manager.Name}}</td>
+                                    <td>{{employee.PinCode}}</td>
+                                    <td>{{employee.Image}}</td>
+                                    <td>{{employee.Status | EmployeeStatus}}</td>
+                                    <td>{{employee.UserRole | UserRole}}</td>
+                                    <td>{{employee.User.UserName}}</td>
+                                    <td>{{::employee.CreatedBy.Name}}</td>
+                                    <td>{{::employee.CreatedDate | date}}</td>
+                                    <td class="action-buttons">
+                                        <button ng-click="$.EditEmployee(employee)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                        <button ng-click="$.DeleteEmployee(employee)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>

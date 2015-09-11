@@ -7,7 +7,7 @@ module App.Services {
          * Load employees for the specified customer only
          * @param customerId customer Id
          */
-        LoadByCustomer(customerId: string): IPromise<IEmployee[]>;
+        LoadByCustomer(customerId: string, ...expands: string[]): IPromise<IEmployee[]>;
     }
 
     class EmployeesService extends CRUDService<IEmployee> implements IEmployeesService {
@@ -16,10 +16,10 @@ module App.Services {
         
         get ApiService() { return app.api.Employees; }
 
-
-        LoadByCustomer(customerId: string): IPromise<IEmployee[]> {
-            return super.Load(OData.create.eq("Department.Company.CustomerId", customerId));
+        LoadByCustomer(customerId: string, ...expands: string[]): IPromise<IEmployee[]> {
+            return super.Load(OData.create.$expand(...expands).eq("Department.Company.CustomerId", customerId));
         }
+
     }
 
     app.service("samEmployees", EmployeesService.Factory());

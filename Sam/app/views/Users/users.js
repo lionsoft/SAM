@@ -45,7 +45,6 @@ var App;
             };
             return Users;
         })(App.Controller);
-        Controllers.Users = Users;
         // Register with angular
         App.app.controller('users', Users.Factory("samUsers"));
     })(Controllers = App.Controllers || (App.Controllers = {}));

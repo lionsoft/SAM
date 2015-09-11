@@ -22,6 +22,7 @@ module App {
         "pascalprecht.translate",  // translate provider
 
         'angular-loading-bar',
+        'angularFileUpload',
 
         // Custom modules 
         'common',                  // common functions, logger, spinner

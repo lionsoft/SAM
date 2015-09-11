@@ -116,6 +116,8 @@ var App;
              * @param value operand value
              */
             ODataFilterCreator.prototype.aop = function (op, value) {
+                if (value === undefined)
+                    return this;
                 this.args = this._(value);
                 this.opName = op;
                 return new ODataFilterCreator(undefined, this);
@@ -126,6 +128,8 @@ var App;
              * @param value operand value
              */
             ODataFilterCreator.prototype.lop = function (op, value) {
+                if (value === undefined)
+                    return this;
                 this.args = this._(value);
                 this.opName = op;
                 return new ODataFilterCreator(undefined, this);

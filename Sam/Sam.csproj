@@ -349,6 +349,12 @@
     <Content Include="app\common\Controller.js">
       <DependentUpon>Controller.ts</DependentUpon>
     </Content>
+    <Content Include="app\common\EnumFilter.js">
+      <DependentUpon>EnumFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\common\Filter.js">
+      <DependentUpon>Filter.ts</DependentUpon>
+    </Content>
     <Content Include="app\common\Directive.js">
       <DependentUpon>Directive.ts</DependentUpon>
     </Content>
@@ -357,6 +363,9 @@
     </Content>
     <Content Include="app\common\LionSoft.Angular\fieldset.js">
       <DependentUpon>fieldset.ts</DependentUpon>
+    </Content>
+    <Content Include="app\common\LionSoft.Angular\html\edit-form.css">
+      <DependentUpon>edit-form.less</DependentUpon>
     </Content>
     <Content Include="app\common\LionSoft.Angular\html\edit-form.html" />
     <Content Include="app\common\LionSoft.Angular\LionSoft.Angular-0.1.1.js">
@@ -519,6 +528,13 @@
     </Content>
     <Content Include="app\css\AutoHeight.less" />
     <Content Include="app\common\LionSoft.Angular\css\ng-dialog.less" />
+    <Content Include="app\common\Filter.js.map">
+      <DependentUpon>Filter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\common\EnumFilter.js.map">
+      <DependentUpon>EnumFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\common\LionSoft.Angular\html\edit-form.less" />
     <None Include="app\css\buttons.less" />
     <None Include="app\css\Colors.less" />
     <None Include="app\css\fixes.less" />
@@ -593,6 +609,21 @@
     </Content>
     <Content Include="app\directives\cc\cc-spinner.js">
       <DependentUpon>cc-spinner.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\ng-thumb.js">
+      <DependentUpon>ng-thumb.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\Console.js">
+      <DependentUpon>Console.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ManagersOfDepartment.js">
+      <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\UserRoleFilter.js">
+      <DependentUpon>UserRoleFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\EmployeeStatusFilter.js">
+      <DependentUpon>EmployeeStatusFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\l10n.js">
       <DependentUpon>l10n.ts</DependentUpon>
@@ -670,6 +701,17 @@
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Doors\_editDoor.html" />
+    <Content Include="app\views\Employees\_editEmployee.css">
+      <DependentUpon>_editEmployee.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Employees\employees.css">
+      <DependentUpon>employees.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Employees\employees.html" />
+    <Content Include="app\views\Employees\employees.js">
+      <DependentUpon>employees.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Employees\_editEmployee.html" />
     <Content Include="app\views\Users\users.css">
       <DependentUpon>users.less</DependentUpon>
     </Content>
@@ -784,11 +826,13 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="gruntfile.js" />
     <Content Include="gulpfile.js" />
+    <Content Include="images\employees\noimage.png" />
     <Content Include="Scripts\angular-aria.js" />
     <Content Include="Scripts\angular-aria.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-csp.css" />
+    <Content Include="Scripts\angular-file-upload.min.js" />
     <Content Include="Scripts\angular-loader.js" />
     <Content Include="Scripts\angular-loader.min.js" />
     <Content Include="Scripts\angular-message-format.js" />
@@ -1660,9 +1704,16 @@
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\version.json" />
     <TypeScriptCompile Include="app\common\Controller.ts" />
+    <TypeScriptCompile Include="app\common\EnumFilter.ts" />
+    <TypeScriptCompile Include="app\common\Filter.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
     <TypeScriptCompile Include="app\directives\autofocus.ts" />
+    <TypeScriptCompile Include="app\directives\ng-thumb.ts" />
+    <TypeScriptCompile Include="app\filters\ManagersOfDepartment.ts" />
+    <TypeScriptCompile Include="app\filters\Console.ts" />
+    <TypeScriptCompile Include="app\filters\UserRoleFilter.ts" />
+    <TypeScriptCompile Include="app\filters\EmployeeStatusFilter.ts" />
     <TypeScriptCompile Include="app\routes\employees.ts" />
     <TypeScriptCompile Include="app\routes\doors.ts" />
     <TypeScriptCompile Include="app\services\SamDoorsService.ts" />
@@ -1900,6 +1951,21 @@
     <Content Include="app\services\SamDoorsService.js.map">
       <DependentUpon>SamDoorsService.ts</DependentUpon>
     </Content>
+    <Content Include="app\filters\EmployeeStatusFilter.js.map">
+      <DependentUpon>EmployeeStatusFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\UserRoleFilter.js.map">
+      <DependentUpon>UserRoleFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\Console.js.map">
+      <DependentUpon>Console.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ManagersOfDepartment.js.map">
+      <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\ng-thumb.js.map">
+      <DependentUpon>ng-thumb.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -1963,9 +2029,15 @@
       <DependentUpon>doors.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Doors\doors.less" />
+    <Content Include="app\views\Employees\employees.less" />
+    <Content Include="app\views\Employees\employees.js.map">
+      <DependentUpon>employees.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Employees\_editEmployee.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />
+    <Content Include="Scripts\angular-file-upload.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -2004,7 +2076,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\filters\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -2020,6 +2091,7 @@
     <TypeScriptCompile Include="app\services\system\OData.ts" />
     <TypeScriptCompile Include="app\services\system\ODataFilterCreator.ts" />
     <TypeScriptCompile Include="app\views\Doors\doors.ts" />
+    <TypeScriptCompile Include="app\views\Employees\employees.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">
       <AutoGen>True</AutoGen>

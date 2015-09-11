@@ -28,7 +28,8 @@ module App.Decorators {
             if (paging) el.addClass("dataTables_paging"); else el.addClass("dataTables_no_paging");
             if (scrollY) el.addClass("dataTables_scrollY"); else el.addClass("dataTables_no_scrollY");
 
-            if (scrollY > 0) {
+            //if (scrollY > 0)
+            {
                 dataTable.draw(false);
                 var tableHeaderWrapper = el;
                 Utils.ResizeListener.Attach(tableHeaderWrapper, () => {
