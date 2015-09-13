@@ -36,7 +36,7 @@
                 </div>
 
                     <table st-table
-                            sam-st-service="{service: 'samCards', editTemplate: '_editCard.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}"
+                            sam-st-table="{service: 'samCards', editTemplate: '_editCard.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}"
                             class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr class="table-heading">
@@ -64,7 +64,7 @@
                         </tbody>
                         <tbody ng-hide="$loading">
                         <tr ng-repeat="card in $items track by card.Id">
-                            <td>{{card.Number}}</td>
+                            <td>{{card.Number | CardNumber}}</td>
                             <td>
                                 <div class="truncate-10em">{{card.ActivationCode}}</div></td>
                             <td>

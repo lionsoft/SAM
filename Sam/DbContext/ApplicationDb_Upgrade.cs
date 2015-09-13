@@ -32,6 +32,7 @@ namespace Sam.DbContext
             // Creating database from scratch
             if (fromVersion == 0)
             {
+                SequentialIdProvider.Create(Card.NumberSeq);
                 FillWithCurrentUserHook.DefaultUserId = SequentialGuid.NewGuid().ToString();
                 Users.Add(new User
                 {

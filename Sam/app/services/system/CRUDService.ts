@@ -174,12 +174,15 @@ module App.Services {
         protected afterQuery(query: IPromise<T[]>): IPromise<T[]> {
             this._samUsers = this._samUsers || this.get("samUsers");
             return query.HandleError().then(x => {
-                if (x && x.length > 0) {
-                    var d = this.defer();
+                var d = this.defer();
+                if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results'])) {
+                    this._samUsers.UpdateEmployee(x[0]['Results'].select(r => r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
+                }
+                else if (x && x.length > 0) {
                     this._samUsers.UpdateEmployee(x.select(r => r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
-                    return d.promise;
                 } else
-                    return x;
+                    d.resolve(x);
+                return d.promise;
             });
         }
 

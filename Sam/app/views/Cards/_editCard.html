@@ -5,7 +5,7 @@
         <div class="form-group">
             <label class="control-label" translate>Number</label>
             <div>
-                <input class="form-control" type="text" ng-model="$item.Number" />
+                <input class="form-control" type="text" ng-init="$num = $item.Id ? $.$filter('CardNumber')($item.Number) : ''" ng-model="$num" placeholder="{{'Number will be assigned after saving' | translate}}" readonly />
             </div>
         </div>
     </div>

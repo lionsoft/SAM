@@ -1,12 +1,16 @@
-﻿using T4TS;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using T4TS;
 
 namespace Sam.DbContext
 {
     [TypeScriptInterface]
     public class Card : EntityObjectId
     {
+        public const string NumberSeq = "CardNumbers";
+
         [TypeScriptMember(Optional = true)]
-        public string Number { get; set; }
+        [Index(IsUnique = true)]
+        public long Number { get; set; }
 
         [TypeScriptMember(Optional = true)]
         public string ActivationCode { get; set; }
@@ -21,5 +25,6 @@ namespace Sam.DbContext
 
         [TypeScriptMember(Optional = true)]
         public Customer Customer { get; set; }
+
     }
 }

@@ -2,7 +2,7 @@
 
 module App.Directives {
 
-    interface ISamStServiceParams<T extends IEntityObjectId> {
+    interface ISamStTableParams<T extends IEntityObjectId> {
         /**
          * Ссылка на CRUDService класса. (В разметке можно указань название сервиса).
          */
@@ -34,27 +34,27 @@ module App.Directives {
     }
 
 
-    interface ISamStServiceScope<T extends IEntityObjectId> extends ng.IScope {
+    interface ISamStTableScope<T extends IEntityObjectId> extends ng.IScope {
         $table: st.IController;
         $loading: boolean;
         $: Controller;
-        $params: ISamStServiceParams<T>;
+        $params: ISamStTableParams<T>;
         $items: T[];
         $edit: (item: T) => void;
         $delete: (item: T) => void;
     }
 
-    class SamStService extends LionSoftAngular.Directive
+    class SamStTable extends LionSoftAngular.Directive
     {
         restrict = 'A';
         require = '^stTable';
         scope = true;
         stConfig: st.IConfig;
 
-        PreLink(scope: ISamStServiceScope<IEntityObjectId>, element, attrs, ctrl: st.IController) {
+        PreLink(scope: ISamStTableScope<IEntityObjectId>, element, attrs, ctrl: st.IController) {
             var pipePromise = null;
             scope.$table = ctrl;
-            scope.$params = scope.$eval(attrs.samStService);
+            scope.$params = scope.$eval(attrs.samStTable);
             scope.$params.service = angular.isString(scope.$params.service) ? this.get(<any>scope.$params.service) : scope.$params.service;
             scope.$items = scope.$eval(attrs.stTable) || [];
             scope.$edit = item => this.Edit(scope, item);
@@ -85,7 +85,7 @@ module App.Directives {
             }            
         }
 
-        Load(scope: ISamStServiceScope<IEntityObjectId>) {
+        Load(scope: ISamStTableScope<IEntityObjectId>) {
             scope.$loading = true;
             var tableState = scope.$table.tableState();
             tableState.pagination.start = tableState.pagination.start || 0;     // This is NOT the page number, but the index of item in the list that you want to use to display the table.
@@ -107,7 +107,7 @@ module App.Directives {
             scope.$params.service.SmartLoad(tableState, scope.$items, odata).then(() => scope.$loading = false);
         }
 
-        Edit(scope: ISamStServiceScope<IEntityObjectId>, item: IEntityObjectId) {
+        Edit(scope: ISamStTableScope<IEntityObjectId>, item: IEntityObjectId) {
             item = item || <IEntityObjectId>{};
             var res = undefined;
             if (scope.$params.prepareEdit) {
@@ -122,10 +122,14 @@ module App.Directives {
                 res.then(() => scope.$table.pipe());
         }
 
-        Delete(scope: ISamStServiceScope<IEntityObjectId>, item: IEntityObjectId) {
+        Delete(scope: ISamStTableScope<IEntityObjectId>, item: IEntityObjectId) {
             scope.$params.service.DeleteModal(item).then(() => scope.$table.pipe());
         }
     }
 
-    app.directive("samStService", SamStService.Factory('stConfig'));
+    app
+        .config(["stConfig", (stConfig: st.IConfig) => {
+            stConfig.pagination.template = 'sam-tables-pagination-tmpl.html'.ExpandPath(URL.DIRECTIVES_ROOT + "smart-table");
+        }])
+        .directive("samStTable", SamStTable.Factory('stConfig'));
 }

@@ -82,13 +82,16 @@ var App;
                 var _this = this;
                 this._samUsers = this._samUsers || this.get("samUsers");
                 return query.HandleError().then(function (x) {
-                    if (x && x.length > 0) {
-                        var d = _this.defer();
+                    var d = _this.defer();
+                    if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results'])) {
+                        _this._samUsers.UpdateEmployee(x[0]['Results'].select(function (r) { return r["CreatedBy"]; }).toArray()).finally(function () { return d.resolve(x); });
+                    }
+                    else if (x && x.length > 0) {
                         _this._samUsers.UpdateEmployee(x.select(function (r) { return r["CreatedBy"]; }).toArray()).finally(function () { return d.resolve(x); });
-                        return d.promise;
                     }
                     else
-                        return x;
+                        d.resolve(x);
+                    return d.promise;
                 });
             };
             /**

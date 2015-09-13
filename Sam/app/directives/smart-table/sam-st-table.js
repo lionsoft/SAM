@@ -9,19 +9,19 @@ var App;
 (function (App) {
     var Directives;
     (function (Directives) {
-        var SamStService = (function (_super) {
-            __extends(SamStService, _super);
-            function SamStService() {
+        var SamStTable = (function (_super) {
+            __extends(SamStTable, _super);
+            function SamStTable() {
                 _super.apply(this, arguments);
                 this.restrict = 'A';
                 this.require = '^stTable';
                 this.scope = true;
             }
-            SamStService.prototype.PreLink = function (scope, element, attrs, ctrl) {
+            SamStTable.prototype.PreLink = function (scope, element, attrs, ctrl) {
                 var _this = this;
                 var pipePromise = null;
                 scope.$table = ctrl;
-                scope.$params = scope.$eval(attrs.samStService);
+                scope.$params = scope.$eval(attrs.samStTable);
                 scope.$params.service = angular.isString(scope.$params.service) ? this.get(scope.$params.service) : scope.$params.service;
                 scope.$items = scope.$eval(attrs.stTable) || [];
                 scope.$edit = function (item) { return _this.Edit(scope, item); };
@@ -34,10 +34,10 @@ var App;
                     return pipePromise;
                 };
             };
-            SamStService.prototype.Link = function (scope, element, attrs, ctrl) {
+            SamStTable.prototype.Link = function (scope, element, attrs, ctrl) {
                 ctrl.pipe();
             };
-            SamStService.prototype.addWatchers = function (scope, expressions) {
+            SamStTable.prototype.addWatchers = function (scope, expressions) {
                 for (var _i = 0; _i < expressions.length; _i++) {
                     var expr = expressions[_i];
                     if (!expr.StartsWith("$."))
@@ -49,7 +49,7 @@ var App;
                     }
                 }
             };
-            SamStService.prototype.Load = function (scope) {
+            SamStTable.prototype.Load = function (scope) {
                 scope.$loading = true;
                 var tableState = scope.$table.tableState();
                 tableState.pagination.start = tableState.pagination.start || 0; // This is NOT the page number, but the index of item in the list that you want to use to display the table.
@@ -70,7 +70,7 @@ var App;
                 }
                 scope.$params.service.SmartLoad(tableState, scope.$items, odata).then(function () { return scope.$loading = false; });
             };
-            SamStService.prototype.Edit = function (scope, item) {
+            SamStTable.prototype.Edit = function (scope, item) {
                 item = item || {};
                 var res = undefined;
                 if (scope.$params.prepareEdit) {
@@ -84,12 +84,16 @@ var App;
                 if (res)
                     res.then(function () { return scope.$table.pipe(); });
             };
-            SamStService.prototype.Delete = function (scope, item) {
+            SamStTable.prototype.Delete = function (scope, item) {
                 scope.$params.service.DeleteModal(item).then(function () { return scope.$table.pipe(); });
             };
-            return SamStService;
+            return SamStTable;
         })(LionSoftAngular.Directive);
-        App.app.directive("samStService", SamStService.Factory('stConfig'));
+        App.app
+            .config(["stConfig", function (stConfig) {
+                stConfig.pagination.template = 'sam-tables-pagination-tmpl.html'.ExpandPath(App.URL.DIRECTIVES_ROOT + "smart-table");
+            }])
+            .directive("samStTable", SamStTable.Factory('stConfig'));
     })(Directives = App.Directives || (App.Directives = {}));
 })(App || (App = {}));
-//# sourceMappingURL=sam-st-service.js.map
+//# sourceMappingURL=sam-st-table.js.map
