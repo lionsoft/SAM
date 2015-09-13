@@ -207,6 +207,10 @@
     <Compile Include="Api\BuildingsApi\CountriesController.cs" />
     <Compile Include="Api\BuildingsApi\CitiesController.cs" />
     <Compile Include="Api\BuildingsApi\BuildingsController.cs" />
+    <Compile Include="Api\CardsApi\CardsController.cs" />
+    <Compile Include="Api\System\QueryableAttribute.cs" />
+    <Compile Include="Api\System\ODataMetadata.cs" />
+    <Compile Include="Api\UploadController.cs" />
     <Compile Include="Api\System\AppController.cs" />
     <Compile Include="Api\CustomersApi\CompaniesController.cs">
       <SubType>Code</SubType>
@@ -271,25 +275,28 @@
     <Compile Include="DbContext\Migrations\ApplicationDbConfiguration.cs" />
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
-    <Compile Include="DbContext\Models\Building\Door.cs" />
-    <Compile Include="DbContext\Models\Building\Building.cs">
+    <Compile Include="DbContext\Models\Buildings\Door.cs" />
+    <Compile Include="DbContext\Models\Buildings\Building.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbContext\Models\Building\City.cs">
+    <Compile Include="DbContext\Models\Buildings\City.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbContext\Models\Building\Country.cs" />
+    <Compile Include="DbContext\Models\Buildings\Country.cs" />
+    <Compile Include="DbContext\Models\Cards\Card.cs" />
+    <Compile Include="DbContext\Models\Cards\CardStatus.cs" />
+    <Compile Include="DbContext\Models\Cards\CardType.cs" />
     <Compile Include="DbContext\Models\Common\EntityObjectId.cs" />
     <Compile Include="DbContext\Models\Common\IEntityObjectId.cs" />
-    <Compile Include="DbContext\Models\Building\Area.cs" />
+    <Compile Include="DbContext\Models\Buildings\Area.cs" />
     <Compile Include="DbContext\Models\Customers\Department.cs" />
     <Compile Include="DbContext\Models\Customers\Company.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DbContext\Models\Customers\Customer.cs" />
-    <Compile Include="DbContext\Models\Employee\Employee.cs" />
-    <Compile Include="DbContext\Models\Employee\EmployeeStatus.cs" />
-    <Compile Include="DbContext\Models\Employee\UserRole.cs" />
+    <Compile Include="DbContext\Models\Employees\Employee.cs" />
+    <Compile Include="DbContext\Models\Employees\EmployeeStatus.cs" />
+    <Compile Include="DbContext\Models\Employees\UserRole.cs" />
     <Compile Include="DbContext\Models\Users\TypeScriptUser.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -613,8 +620,23 @@
     <Content Include="app\directives\ng-thumb.js">
       <DependentUpon>ng-thumb.ts</DependentUpon>
     </Content>
+    <Content Include="app\directives\smart-table\sam-st-table.js">
+      <DependentUpon>sam-st-table.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\smart-table\sam-st-table1.js">
+      <DependentUpon>sam-st-table1.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\smart-table\st-sort-default.js">
+      <DependentUpon>st-sort-default.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardTypeFilter.js">
+      <DependentUpon>CardTypeFilter.ts</DependentUpon>
+    </Content>
     <Content Include="app\filters\Console.js">
       <DependentUpon>Console.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardStatusFilter.js">
+      <DependentUpon>CardStatusFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\ManagersOfDepartment.js">
       <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
@@ -637,6 +659,9 @@
     <Content Include="app\routes.js">
       <DependentUpon>routes.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\cards.js">
+      <DependentUpon>cards.ts</DependentUpon>
+    </Content>
     <Content Include="app\routes\employees.js">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
@@ -654,6 +679,9 @@
     </Content>
     <Content Include="app\services\ApiService.js">
       <DependentUpon>ApiService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCardsService.js">
+      <DependentUpon>SamCardsService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamDoorsService.js">
       <DependentUpon>SamDoorsService.ts</DependentUpon>
@@ -700,6 +728,17 @@
     <Content Include="app\services\system\ODataFilterCreator.js">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\Cards\cards.css">
+      <DependentUpon>cards.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Cards\cards.html" />
+    <Content Include="app\views\Cards\cards.js">
+      <DependentUpon>cards.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Cards\_editCard.css">
+      <DependentUpon>_editCard.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Cards\_editCard.html" />
     <Content Include="app\views\Doors\_editDoor.html" />
     <Content Include="app\views\Employees\_editEmployee.css">
       <DependentUpon>_editEmployee.less</DependentUpon>
@@ -826,7 +865,6 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="gruntfile.js" />
     <Content Include="gulpfile.js" />
-    <Content Include="images\employees\noimage.png" />
     <Content Include="Scripts\angular-aria.js" />
     <Content Include="Scripts\angular-aria.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -1710,12 +1748,20 @@
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
     <TypeScriptCompile Include="app\directives\autofocus.ts" />
     <TypeScriptCompile Include="app\directives\ng-thumb.ts" />
+    <TypeScriptCompile Include="app\directives\smart-table\st-sort-default.ts" />
+    <TypeScriptCompile Include="app\directives\smart-table\smart-table.d.ts" />
+    <TypeScriptCompile Include="app\directives\smart-table\sam-st-table.ts" />
+    <TypeScriptCompile Include="app\directives\smart-table\sam-st-table1.ts" />
+    <TypeScriptCompile Include="app\filters\CardTypeFilter.ts" />
+    <TypeScriptCompile Include="app\filters\CardStatusFilter.ts" />
     <TypeScriptCompile Include="app\filters\ManagersOfDepartment.ts" />
     <TypeScriptCompile Include="app\filters\Console.ts" />
     <TypeScriptCompile Include="app\filters\UserRoleFilter.ts" />
     <TypeScriptCompile Include="app\filters\EmployeeStatusFilter.ts" />
+    <TypeScriptCompile Include="app\routes\cards.ts" />
     <TypeScriptCompile Include="app\routes\employees.ts" />
     <TypeScriptCompile Include="app\routes\doors.ts" />
+    <TypeScriptCompile Include="app\services\SamCardsService.ts" />
     <TypeScriptCompile Include="app\services\SamDoorsService.ts" />
     <TypeScriptCompile Include="app\services\SamCountriesService.ts" />
     <TypeScriptCompile Include="app\services\SamCitiesService.ts" />
@@ -1966,6 +2012,32 @@
     <Content Include="app\directives\ng-thumb.js.map">
       <DependentUpon>ng-thumb.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\cards.js.map">
+      <DependentUpon>cards.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Cards\_editCard.less" />
+    <Content Include="app\views\Cards\cards.less" />
+    <Content Include="app\views\Cards\cards.js.map">
+      <DependentUpon>cards.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCardsService.js.map">
+      <DependentUpon>SamCardsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardStatusFilter.js.map">
+      <DependentUpon>CardStatusFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardTypeFilter.js.map">
+      <DependentUpon>CardTypeFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\smart-table\sam-st-table.js.map">
+      <DependentUpon>sam-st-table.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\smart-table\sam-st-table1.js.map">
+      <DependentUpon>sam-st-table1.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\smart-table\st-sort-default.js.map">
+      <DependentUpon>st-sort-default.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -2077,6 +2149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\employees\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2090,6 +2163,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\services\system\OData.ts" />
     <TypeScriptCompile Include="app\services\system\ODataFilterCreator.ts" />
+    <TypeScriptCompile Include="app\views\Cards\cards.ts" />
     <TypeScriptCompile Include="app\views\Doors\doors.ts" />
     <TypeScriptCompile Include="app\views\Employees\employees.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />

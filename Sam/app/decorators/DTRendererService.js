@@ -22,6 +22,7 @@ var App;
             };
             // Makes table haders to be resizable when table width changed
             DTRendererServiceDecorator.prototype.renderDataTable = function ($elem, options) {
+                var _this = this;
                 var res = this._renderDataTable($elem, options);
                 var dataTable = res.DataTable;
                 var scrollY = dataTable.settings().scrollY;
@@ -40,13 +41,12 @@ var App;
                     el.addClass("dataTables_scrollY");
                 else
                     el.addClass("dataTables_no_scrollY");
-                //if (scrollY > 0)
-                {
+                if (scrollY > 0) {
                     dataTable.draw(false);
                     var tableHeaderWrapper = el;
                     App.Utils.ResizeListener.Attach(tableHeaderWrapper, function () {
-                        //    this.common.debouncedThrottle(container.id, () => dataTable.draw(false), 50);
-                        res.dataTable.fnAdjustColumnSizing(false);
+                        _this.common.debouncedThrottle(container.id, function () { return dataTable.draw(false); }, 50);
+                        //res.dataTable.fnAdjustColumnSizing(false);
                     });
                 }
                 return res;

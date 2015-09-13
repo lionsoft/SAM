@@ -59,8 +59,10 @@ var App;
              * Перекрыв его в классе наследнике можно глобально влиять на запросы к бекенду данного класса.
              * @param odata параметры запроса
              */
-            CRUDService.prototype.prepareQuery = function (odata) {
-                odata.$expand("CreatedBy").$orderBy("Name");
+            CRUDService.prototype.prepareQuery = function (odata, isSmartLoad) {
+                odata.$expand("CreatedBy");
+                if (!isSmartLoad)
+                    odata.$orderBy("Name");
             };
             /**
              * Этот метод вызывается ПЕРЕД отправкой запроса get на сервер.
@@ -168,10 +170,10 @@ var App;
             .* Получение списка объектов с сервера.
              * @param query параметры запроса
              */
-            CRUDService.prototype.$query = function (query) {
+            CRUDService.prototype.$query = function (query, isSmartLoad) {
                 var _this = this;
                 var odata = query instanceof Services.OData ? query : new Services.OData(query);
-                this.prepareQuery(odata);
+                this.prepareQuery(odata, isSmartLoad);
                 var res = this.afterQuery(this.ApiService.query(odata));
                 if (!this.prepareResult.isEmpty()) {
                     res = res.then(function (r) {
@@ -214,6 +216,37 @@ var App;
                 })
                     .catch(function (err) { return resQ.reject(err); });
                 return resQ.promise;
+            };
+            CRUDService.prototype.SmartLoad = function (tableState, dataSource, odata) {
+                odata = (odata || Services.OData.create).$inlinecount();
+                if (tableState.sort && angular.isString(tableState.sort.predicate)) {
+                    odata.$orderBy(tableState.sort.predicate + (tableState.sort.reverse ? " desc" : ""));
+                }
+                if (tableState.pagination) {
+                    odata.$skip(tableState.pagination.start);
+                    odata.$top(tableState.pagination.number);
+                }
+                if (tableState.search) {
+                }
+                return this.$query(odata, true).then(function (res) {
+                    var result = res[0];
+                    if (result && angular.isArray(result.Results)) {
+                        tableState.pagination.numberOfPages = Math.ceil(result.Count / tableState.pagination.number); //set the number of pages so the pagination can update
+                        if (dataSource && angular.isArray(dataSource)) {
+                            dataSource.Clear();
+                            dataSource.AddRange(result.Results);
+                        }
+                        res = result.Results;
+                    }
+                    else {
+                        tableState.pagination.numberOfPages = 0;
+                    }
+                    if (dataSource && angular.isArray(dataSource)) {
+                        dataSource.Clear();
+                        dataSource.AddRange(res);
+                    }
+                    return res;
+                });
             };
             CRUDService.prototype.Load = function (p, p1) {
                 if (angular.isString(p))
@@ -277,8 +310,10 @@ var App;
              * Возвращает промис окончания сохранения объекта.
              * @param entity редактируемый объект
              * @param editTemplateUrl ссылка на шаблон формы редактирования
+             * @param scope ссылка на скоуп
+             * @param updateAfterSave нужно ли обновлять объект после сохраниения. По умолчанию - true.
              */
-            CRUDService.prototype.EditModal = function (entity, editTemplateUrl, scope) {
+            CRUDService.prototype.EditModal = function (entity, editTemplateUrl, scope, updateAfterSave) {
                 var _this = this;
                 entity = entity || {};
                 scope = scope || App.app.get("$rootScope");
@@ -287,10 +322,14 @@ var App;
                 scope['$item'] = angular.copy(entity);
                 scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
                 scope['$entityTypeName'] = this.TypeDescription;
-                return App.app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
-                    .then(function () { return _this.Save(scope['$item']); })
-                    .then(function (res) { return _this.Load(res.Id); })
-                    .then(function (res) { return _this.Update(entity, res); });
+                var res = App.app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
+                    .then(function () { return _this.Save(scope['$item']); });
+                if (updateAfterSave === undefined || updateAfterSave) {
+                    res = res
+                        .then(function (res) { return _this.Load(res.Id); })
+                        .then(function (res) { return _this.Update(entity, res); });
+                }
+                return res;
             };
             /**
              * Вызывает всплывающий диалог для удаления объекта.

@@ -28,7 +28,7 @@ module App.Controllers {
             // Queue all promises and wait for them to finish before loading the view
             this.activate(this.LoadCustomers());
             this.samUsers.Load().then(res => this.users = res);
-            this.uploader = new this.FileUploader();
+            this.uploader = new this.FileUploader({ url: '/api/Employees/UploadImage' });
             this.uploader.onAfterAddingFile = item => {
                 this.uploader.queue.Remove(x => x !== item);
             }
@@ -58,17 +58,20 @@ module App.Controllers {
         $submit(item: IEmployee): IPromise<boolean> {
             if (this.uploader.queue.length > 0) {
                 var d = this.defer<boolean>();
-                this.uploader.onSuccessItem = () => d.resolve(true);
-                this.uploader.onErrorItem = (item, response) => {
+                this.uploader.onSuccessItem = (x, response) => {
+                    if (response)
+                        item.Image = response[0];
+                    this.uploader.queue = [];
+                    d.resolve(true);
+                };
+                this.uploader.onErrorItem = (x, response) => {
                     ApiServiceBase.HandleError(response);
                     d.reject();
-                    //d.reject(ApiServiceBase.ExctractError(response));
                 };
                 this.uploader.onCompleteItem = () => {
                     this.uploader.onSuccessItem = undefined;
                     this.uploader.onErrorItem = undefined;
                 };
-                this.uploader.queue[0].url = `/api/Employees/UploadImage/${item.Id}`;
                 this.uploader.queue[0].upload();
                 return <any>d.promise;
             }
@@ -76,13 +79,13 @@ module App.Controllers {
         }
 
         AddEmployee() {
-            //this.uploader.queue = [];
+            this.uploader.queue = [];
             this.samEmployees
                 .EditModal(<IEmployee>{ Status: EmployeeStatus.New, UserRole: UserRole.Normal }, '_editEmployee.html', this.$scope)
                 .then(res => this.employees.push(res));
         }
         EditEmployee(c: IEmployee) {
-            //this.uploader.queue = [];
+            this.uploader.queue = [];
             this.samEmployees.EditModal(c, '_editEmployee.html', this.$scope);
         }
         DeleteEmployee(c: IEmployee) { this.samEmployees.DeleteModal(c).then(() => this.employees.Remove(c)); }

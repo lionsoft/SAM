@@ -1,0 +1,99 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="row">
+                    <!-- #region - CardStatus - -->
+                    <div class="col-md-6 col">
+                        <div class="form-group">
+                            <label class="control-label" translate>Cards</label>
+                            <ui-select class="form-control" ng-model="$.selectedCardStatus">
+                                <ui-select-match allow-clear="true" placeholder="SelectCardStatus">
+                                    {{$select.selected | CardStatus}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="status in [] | CardStatus">
+                                    {{status | CardStatus}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <!-- #endregion -->
+                    </div>
+                    <!-- #region - Customer - -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" translate>Customer</label>
+                            <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
+                                <ui-select-match allow-clear="true" placeholder="All Customers">
+                                    {{$select.selected.Name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
+                                    {{customer.Name}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div> <!-- #endregion -->
+                </div>
+
+                    <table st-table
+                            sam-st-service="{service: 'samCards', editTemplate: '_editCard.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}"
+                            class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr class="table-heading">
+                                <th colspan="7">
+                                    <h3>
+                                        <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                                        <span translate>Cards</span>
+                                    </h3>
+                                </th>
+                            </tr>
+                        <tr>
+                            <th translate st-sort-default st-sort="Number">Number</th>
+                            <th translate st-sort="ActivationCode">ActivationCode</th>
+                            <th translate st-sort="Status">Status</th>
+                            <th translate st-sort="CardType">CardType</th>
+                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                            <th translate>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-show="$loading">
+                        <tr>
+                            <td colspan="6" class="text-center">Loading ... </td>
+                        </tr>
+                        </tbody>
+                        <tbody ng-hide="$loading">
+                        <tr ng-repeat="card in $items track by card.Id">
+                            <td>{{card.Number}}</td>
+                            <td>
+                                <div class="truncate-10em">{{card.ActivationCode}}</div></td>
+                            <td>
+                                <div class="truncate-6em">{{card.Status | CardStatus}}</div></td>
+                            <td>
+                                <div class="truncate-8em">{{card.CardType | CardType}}</div></td>
+                            <td>
+                                <div class="col-created-by">{{::card.CreatedBy.Name}}</div></td>
+                            <td>
+                                <div class="col-created-date">{{::card.CreatedDate | date}}</div> </td>
+                            <td class="action-buttons">
+                                <button ng-click="$edit(card)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                <button ng-click="$delete(card)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+
+
+                        <tfoot>
+                        <tr>
+                            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="7"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+
+                </div>
+
+            </div>
+    </section>
+</section>

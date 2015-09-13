@@ -19,6 +19,8 @@ module App.Services {
          */
         GetDescription(entity: T): string;
 
+        SmartLoad(tableState: st.ITableState, dataSource?: T[], odata?: OData): IPromise<T[]>;
+
         /**
         .* Получение объекта по его Id с сервера.
          * @param id идентификатор объекта
@@ -72,8 +74,10 @@ module App.Services {
          * Возвращает промис окончания сохранения объекта.
          * @param entity редактируемый объект
          * @param editTemplateUrl ссылка на шаблон формы редактирования
+         * @param scope ссылка на скоуп
+         * @param updateAfterSave нужно ли обновлять объект после сохраниения. По умолчанию - true.
          */
-        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope): IPromise<T>;
+        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope, updateAfterSave?: boolean): IPromise<T>;
 
         /**
          * Вызывает всплывающий диалог для удаления объекта.
@@ -144,8 +148,10 @@ module App.Services {
          * Перекрыв его в классе наследнике можно глобально влиять на запросы к бекенду данного класса.
          * @param odata параметры запроса
          */
-        protected prepareQuery(odata: OData): void {
-            odata.$expand("CreatedBy").$orderBy("Name");
+        protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
+            odata.$expand("CreatedBy");
+            if (!isSmartLoad)
+                odata.$orderBy("Name");
         }
 
         /**
@@ -260,9 +266,9 @@ module App.Services {
         .* Получение списка объектов с сервера.
          * @param query параметры запроса
          */
-        protected $query(query?: OData | IODataParams): IPromise<T[]> {
+        protected $query(query?: OData | IODataParams, isSmartLoad?: boolean): IPromise<T[]> {
             var odata = query instanceof OData ? query : new OData(<IODataParams>query);
-            this.prepareQuery(odata);
+            this.prepareQuery(odata, isSmartLoad);
             var res = this.afterQuery(this.ApiService.query(odata));
             if (!this.prepareResult.isEmpty()) {
                 res = res.then(r => {
@@ -306,6 +312,36 @@ module App.Services {
             return <any>resQ.promise;
         }
 
+        SmartLoad(tableState: st.ITableState, dataSource?: T[], odata?: OData): IPromise<T[]> {
+            odata = (odata || OData.create).$inlinecount();
+            if (tableState.sort && angular.isString(tableState.sort.predicate)) {
+                odata.$orderBy(tableState.sort.predicate + (tableState.sort.reverse ? " desc" : ""));
+            }
+            if (tableState.pagination) {
+                odata.$skip(tableState.pagination.start);
+                odata.$top(tableState.pagination.number);
+            }
+            if (tableState.search) {
+            }
+            return this.$query(odata, true).then(res => {
+                var result: IODataMetadata<T> = <any>res[0];
+                if (result && angular.isArray(result.Results)) {
+                    tableState.pagination.numberOfPages = Math.ceil(result.Count / tableState.pagination.number);//set the number of pages so the pagination can update
+                    if (dataSource && angular.isArray(dataSource)) {
+                        dataSource.Clear();
+                        dataSource.AddRange(result.Results);
+                    }
+                    res = result.Results;
+                } else {
+                    tableState.pagination.numberOfPages = 0;
+                }
+                if (dataSource && angular.isArray(dataSource)) {
+                    dataSource.Clear();
+                    dataSource.AddRange(res);
+                }
+                return res;
+            });
+        }
 
         /**
         .* Получение объекта по его Id с сервера.
@@ -325,6 +361,7 @@ module App.Services {
             else
                 return this.$query(p);
         }
+
 
         /**
          * Сохранение объекта.
@@ -396,8 +433,10 @@ module App.Services {
          * Возвращает промис окончания сохранения объекта.
          * @param entity редактируемый объект
          * @param editTemplateUrl ссылка на шаблон формы редактирования
+         * @param scope ссылка на скоуп
+         * @param updateAfterSave нужно ли обновлять объект после сохраниения. По умолчанию - true.
          */
-        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope): IPromise<T> {
+        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope, updateAfterSave?: boolean): IPromise<T> {
             entity = entity || <any>{};
             scope = scope || app.get("$rootScope");
             // ReSharper disable once QualifiedExpressionMaybeNull
@@ -405,10 +444,14 @@ module App.Services {
             scope['$item'] = angular.copy(entity);
             scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
             scope['$entityTypeName'] = this.TypeDescription;
-            return <IPromise<T>>app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
-                .then(() => this.Save(scope['$item']))
-                .then(res => this.Load(res.Id))
-                .then(res => this.Update(entity, res));
+            var res = <IPromise<T>>app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
+                .then(() => this.Save(scope['$item']));
+            if (updateAfterSave === undefined || updateAfterSave) {
+                res = res
+                    .then(res => this.Load(res.Id))
+                    .then(res => this.Update(entity, res));
+            }
+            return res;
         }
 
         /**

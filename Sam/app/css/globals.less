@@ -2,6 +2,33 @@
     white-space: nowrap; 
 }
 
+.truncate() {
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+.truncate {
+    .truncate();
+}
+
+.truncate-to();
+
+.truncate-to(@i: 1) when (@i =< 80) {
+    @px: @i*10;
+    .truncate-@{px}px {
+        .truncate();
+        width: @i*10px;
+    }
+    .truncate-@{i}em {
+        .truncate();
+        width: @i*1em;
+    }
+    .truncate-to(@i + 1);
+}
+
+
+
 .action-buttons {
     white-space: nowrap; 
     margin: 0!important;

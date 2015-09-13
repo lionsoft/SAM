@@ -7,22 +7,27 @@ module App.Controllers {
         //#region Variables
         samUsers: Services.IUsersService;
 
+/*
         public selectedUser: IUser;
         public users: IUser[] = [];
+*/
 
         //#endregion
 
         Init() {
             // Queue all promises and wait for them to finish before loading the view
-            this.activate(this.LoadUsers());
+            //this.activate(this.LoadUsers());
         }
 
         Activated() {
+/*
             this.$scope.$watch("$.users", () => this.selectedUser = this.users.orderBy(x => x.UserName).firstOrDefault());
 
             this.$scope.$watch("$.selectedUser", () => this.UserChanged());
+*/
         }
 
+/*
         LoadUsers() {
             this.users = [];
             return this.$timeout(() => {
@@ -36,6 +41,7 @@ module App.Controllers {
         UserChanged() {
             
         }
+*/
 
     }
 

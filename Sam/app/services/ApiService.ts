@@ -20,6 +20,7 @@ module App {
     export interface IBuildingsApi extends IResourceClass<IBuilding> { }
     export interface IAreasApi extends IResourceClass<IArea> { }
     export interface IDoorsApi extends IResourceClass<IDoor> { }
+    export interface ICardsApi extends IResourceClass<ICard> { }
  
 
     export interface IApiService {
@@ -36,6 +37,8 @@ module App {
         Buildings: IBuildingsApi;
         Areas: IAreasApi;
         Doors: IDoorsApi;
+
+        Cards: ICardsApi;
     }                                                 
 
     export class ApiService extends ApiServiceBase implements IApiService {
@@ -57,6 +60,7 @@ module App {
         Buildings: IBuildingsApi = {};
         Areas: IAreasApi = {};
         Doors: IDoorsApi = {};
+        Cards: ICardsApi = {};
 
         Init() {
             super.Init(URL.API);

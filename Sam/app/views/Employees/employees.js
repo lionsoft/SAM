@@ -23,7 +23,7 @@ var App;
                 // Queue all promises and wait for them to finish before loading the view
                 this.activate(this.LoadCustomers());
                 this.samUsers.Load().then(function (res) { return _this.users = res; });
-                this.uploader = new this.FileUploader();
+                this.uploader = new this.FileUploader({ url: '/api/Employees/UploadImage' });
                 this.uploader.onAfterAddingFile = function (item) {
                     _this.uploader.queue.Remove(function (x) { return x !== item; });
                 };
@@ -52,17 +52,20 @@ var App;
                 var _this = this;
                 if (this.uploader.queue.length > 0) {
                     var d = this.defer();
-                    this.uploader.onSuccessItem = function () { return d.resolve(true); };
-                    this.uploader.onErrorItem = function (item, response) {
+                    this.uploader.onSuccessItem = function (x, response) {
+                        if (response)
+                            item.Image = response[0];
+                        _this.uploader.queue = [];
+                        d.resolve(true);
+                    };
+                    this.uploader.onErrorItem = function (x, response) {
                         App.ApiServiceBase.HandleError(response);
                         d.reject();
-                        //d.reject(ApiServiceBase.ExctractError(response));
                     };
                     this.uploader.onCompleteItem = function () {
                         _this.uploader.onSuccessItem = undefined;
                         _this.uploader.onErrorItem = undefined;
                     };
-                    this.uploader.queue[0].url = "/api/Employees/UploadImage/" + item.Id;
                     this.uploader.queue[0].upload();
                     return d.promise;
                 }
@@ -70,13 +73,13 @@ var App;
             };
             Employees.prototype.AddEmployee = function () {
                 var _this = this;
-                //this.uploader.queue = [];
+                this.uploader.queue = [];
                 this.samEmployees
                     .EditModal({ Status: 0 /* New */, UserRole: 1 /* Normal */ }, '_editEmployee.html', this.$scope)
                     .then(function (res) { return _this.employees.push(res); });
             };
             Employees.prototype.EditEmployee = function (c) {
-                //this.uploader.queue = [];
+                this.uploader.queue = [];
                 this.samEmployees.EditModal(c, '_editEmployee.html', this.$scope);
             };
             Employees.prototype.DeleteEmployee = function (c) {

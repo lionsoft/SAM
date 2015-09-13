@@ -11,7 +11,7 @@ module App {
                 templateUrl: '/app/views/customers/customers.html',
                 settings: {
                     nav: 1,
-                    content: 'MENU.CUSTOMERS|<i class="fa fa-dashboard"></i> Customers'
+                    content: 'MENU.CUSTOMERS|<i class="fa fa-briefcase"></i> Customers'
                 },
                 files: [
                 ]

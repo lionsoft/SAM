@@ -6,24 +6,11 @@
 @table-row-selected-color: #81dff6;
 @table-row-odd-color: #ecf5fe;
 @table-row-even-color: #fff;
-/*
-.sam-table {
-    // Removes space between group header and table inside group
-    .panel-heading {
-        border-bottom-width: 0;
-    }
-    // Removes space between bottom of the table and bottom of the group 
-    .dataTables_wrapper.dataTables_no_paging>div:last-child {
-        height: 0;
-        overflow: hidden;
-    }
 
-    td button {
-        padding: 3px 6px;
-        margin: 0;
-    }
-}
-*/
+
+
+
+
 table[st-table] {
     /* this can vary */
     height: 160px;
@@ -64,8 +51,13 @@ table[st-table] {
             border-right: none;
         }
 
-            
     }
+
+    tr.table-heading th {
+        background-color: #f5f5f5;
+        border: solid #ddd 1px;
+    }
+
 
 
 

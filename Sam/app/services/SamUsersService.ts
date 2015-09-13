@@ -35,11 +35,16 @@ module App.Services {
         get ApiService() { return app.api.Account; }
 
         protected prepareQuery(odata: OData): void {
-            odata.clear();
+            
         }
 
         protected afterQuery(query: IPromise<IUser[]>): IPromise<IUser[]> {
-            return query.HandleError().then(x => this.UpdateEmployee(x));
+            return query.HandleError().then(x => {
+                if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results']))
+                    return this.UpdateEmployee(<IUser[]>(x[0]['Results'])).then(() => x);
+                else
+                    return this.UpdateEmployee(x);
+            });
         }
 
         protected afterGet(query: IPromise<IUser>): IPromise<IUser> {

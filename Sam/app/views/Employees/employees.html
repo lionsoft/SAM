@@ -43,16 +43,16 @@
                             <tbody>
                                 <tr ng-repeat="employee in $.employees track by employee.Id">
                                     <td>{{employee.Name}}</td>
-                                    <td>{{employee.Email}}</td>
-                                    <td>{{employee.Department.Name}}</td>
-                                    <td>{{employee.Manager.Name}}</td>
-                                    <td>{{employee.PinCode}}</td>
-                                    <td>{{employee.Image}}</td>
-                                    <td>{{employee.Status | EmployeeStatus}}</td>
-                                    <td>{{employee.UserRole | UserRole}}</td>
-                                    <td>{{employee.User.UserName}}</td>
-                                    <td>{{::employee.CreatedBy.Name}}</td>
-                                    <td>{{::employee.CreatedDate | date}}</td>
+                                    <td><div class="truncate-10em">{{employee.Email}}</div></td>
+                                    <td><div class="truncate-10em">{{employee.Department.Name}}</div></td>
+                                    <td><div class="truncate-10em">{{employee.Manager.Name}}</div></td>
+                                    <td><div class="truncate-5em">{{employee.PinCode}}</div></td>
+                                    <td><div class="truncate-15em">{{employee.Image}}</div></td>
+                                    <td><div class="truncate-6em">{{employee.Status | EmployeeStatus}}</div></td>
+                                    <td><div class="truncate-8em">{{employee.UserRole | UserRole}}</div></td>
+                                    <td><div class="truncate-10em">{{employee.User.UserName}}</div></td>
+                                    <td><div class="col-created-by">{{::employee.CreatedBy.Name}}</div></td>
+                                    <td><div class="col-created-date">{{::employee.CreatedDate | date}}</div></td>
                                     <td class="action-buttons">
                                         <button ng-click="$.EditEmployee(employee)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
                                         <button ng-click="$.DeleteEmployee(employee)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>

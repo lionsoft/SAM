@@ -3,6 +3,17 @@
 ****************************************************************************/
 
 declare module App {
+    /** Generated from Sam.DbContext.CardStatus **/
+    const enum CardStatus {
+        Active = 0,
+        Inactive = 1,
+        Lost = 2,
+    }
+    /** Generated from Sam.DbContext.CardType **/
+    const enum CardType {
+        Internal = 0,
+        Guest = 1,
+    }
     /** Generated from Sam.DbContext.EmployeeStatus **/
     const enum EmployeeStatus {
         New = 0,
@@ -56,6 +67,15 @@ declare module App {
         Area: App.IArea;
         OwnerId: string;
         Owner: App.IEmployee;
+    }
+    /** Generated from Sam.DbContext.Card **/
+    export interface ICard extends App.IEntityObjectBaseId {
+        Number?: string;
+        ActivationCode?: string;
+        Status?: App.CardStatus;
+        CardType?: App.CardType;
+        CustomerId: string;
+        Customer?: App.ICustomer;
     }
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {

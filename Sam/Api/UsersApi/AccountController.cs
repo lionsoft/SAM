@@ -55,7 +55,7 @@ namespace Sam.Api
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        [HttpGet, EnableQuery]
+        [HttpGet, Queryable]
         public IQueryable<User> Get()
         {
             return Db.Set<User>();

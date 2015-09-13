@@ -48,5 +48,7 @@ namespace Sam.DbContext
         public IDbSet<Building> Buildings { get; set; }
         public IDbSet<Area> Areas { get; set; }
         public IDbSet<Door> Doors { get; set; }
+
+        public IDbSet<Card> Cards { get; set; }
     }
 }

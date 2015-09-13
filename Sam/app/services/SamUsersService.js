@@ -22,11 +22,15 @@ var App;
                 configurable: true
             });
             UsersService.prototype.prepareQuery = function (odata) {
-                odata.clear();
             };
             UsersService.prototype.afterQuery = function (query) {
                 var _this = this;
-                return query.HandleError().then(function (x) { return _this.UpdateEmployee(x); });
+                return query.HandleError().then(function (x) {
+                    if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results']))
+                        return _this.UpdateEmployee((x[0]['Results'])).then(function () { return x; });
+                    else
+                        return _this.UpdateEmployee(x);
+                });
             };
             UsersService.prototype.afterGet = function (query) {
                 var _this = this;

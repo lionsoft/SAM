@@ -2,37 +2,42 @@
     <section class="matter">
         <div class="container-fluid">
             <div class="row">
+                <table st-table
+                       sam-st-service="{service: 'samUsers', editTemplate: '_editUser.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}"
+                       class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr class="table-heading">
+                            <th colspan="3">
+                                <h3>
+                                    <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                                    <span translate>Users</span>
+                                </h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th translate st-sort-default st-sort="UserName" class="auto-size">Login</th>
+                            <th translate class="auto-size">Employee</th>
+                            <th translate>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-show="$loading"><tr><td colspan="3" class="text-center">Loading ... </td></tr></tbody>
+                    <tbody ng-hide="$loading">
+                        <tr ng-repeat="user in $items track by user.Id">
+                            <td>{{user.UserName}}</td>
+                            <td>{{user.Employee.Name}}</td>
+                            <td class="action-buttons">
+                                <button ng-click="$edit(user)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                <button ng-click="$delete(user)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
 
-                <div class="row panel panel-default sam-table">
-                    <h3 class="panel-heading">
-                        <button ng-click="$.AddUser()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
-                        <span translate>Users</span>
-                    </h3>
-                    <div class="panel-body">
-                        <table datatable="ng" class="row-border hover">
-                            <thead>
-                                <tr>
-                                    <th translate class="auto-size">Login</th>
-                                    <th translate class="auto-size">Employee</th>
-                                    <th translate>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="user in $.users track by user.Id"
-                                    ng-click="$.selectedUser=user"
-                                    ng-class="{active: $.selectedUser===user}">
-                                    <td>{{user.UserName}}</td>
-                                    <td>{{user.Employee.Name}}</td>
-                                    <td class="action-buttons">
-                                        <button ng-click="$.EditUser(user)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
-                                        <button ng-click="$.DeleteUser(user)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
+                    <tfoot>
+                        <tr>
+                            <td class="text-right" st-pagination st-items-by-page="5" colspan="3"></td>
+                        </tr>
+                    </tfoot>
+                </table>
 
             </div>
         </div>

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.OData;
 using Sam.DbContext;
 using Sam.Extensions.EntityFramework;
 
@@ -10,7 +9,7 @@ namespace Sam.Api
 {
     public class CRUDController<TEntity, T> : AppController where TEntity : class, IEntityObjectId<T>
     {
-        [HttpGet, EnableQuery]
+        [HttpGet, Queryable]
         public virtual IQueryable<TEntity> Get()
         {
             return Db.Set<TEntity>();

@@ -22,6 +22,17 @@ body {
     cursor: pointer;
 }
 
+
+.h-panel-heading(5);
+
+.h-panel-heading(@n, @i: 1) when (@i =< @n) {
+  h@{i}.panel-heading {
+    margin: 0;
+  }
+  .h-panel-heading(@n, (@i + 1));
+}
+
+/*
 h1.panel-heading,
 h2.panel-heading,
 h3.panel-heading,
@@ -29,7 +40,7 @@ h4.panel-heading,
 h5.panel-heading {
     margin: 0;
 }
-
+*/
 
 .row {
   margin-right: 0;
@@ -41,6 +52,26 @@ form .row {
   margin-left: -15px;
 }
 
+.col-fixes();
+
+.col-fixes(@i: 1) when (@i =< 12) {
+    .col-xs-@{i},.col-sm-@{i},.col-md-@{i},.col-lg-@{i} {
+        padding-right: 0;
+        padding-left: 0;
+
+        .form-group {
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+    .col-xs-@{i}.col,.col-sm-@{i}.col,.col-md-@{i}.col,.col-lg-@{i}.col {
+        padding-right: 10px;
+    }
+
+    .col-fixes(@i + 1);
+}
+
+/*
 .col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,
 .col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,
 .col-xs-3,.col-sm-3,.col-md-3,.col-lg-3,
@@ -78,7 +109,7 @@ form .row {
 .col-xs-12.col,.col-sm-12.col,.col-md-12.col,.col-lg-12.col {
     padding-right: 10px;
 }
-
+*/
 
 
 /*#region Splash */

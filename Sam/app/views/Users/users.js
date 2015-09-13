@@ -13,35 +13,22 @@ var App;
             __extends(Users, _super);
             function Users() {
                 _super.apply(this, arguments);
-                this.users = [];
             }
+            /*
+                    public selectedUser: IUser;
+                    public users: IUser[] = [];
+            */
             //#endregion
             Users.prototype.Init = function () {
                 // Queue all promises and wait for them to finish before loading the view
-                this.activate(this.LoadUsers());
+                //this.activate(this.LoadUsers());
             };
             Users.prototype.Activated = function () {
-                var _this = this;
-                this.$scope.$watch("$.users", function () { return _this.selectedUser = _this.users.orderBy(function (x) { return x.UserName; }).firstOrDefault(); });
-                this.$scope.$watch("$.selectedUser", function () { return _this.UserChanged(); });
-            };
-            Users.prototype.LoadUsers = function () {
-                var _this = this;
-                this.users = [];
-                return this.$timeout(function () {
-                    return _this.samUsers.Load().then(function (res) { return _this.users = res; });
-                });
-            };
-            Users.prototype.AddUser = function () {
-                var _this = this;
-                this.samUsers.EditModal(null, '_editUser.html').then(function (res) { return _this.users.push(res); });
-            };
-            Users.prototype.EditUser = function (c) { this.samUsers.EditModal(c, '_editUser.html'); };
-            Users.prototype.DeleteUser = function (c) {
-                var _this = this;
-                this.samUsers.DeleteModal(c).then(function () { return _this.users.Remove(c); });
-            };
-            Users.prototype.UserChanged = function () {
+                /*
+                            this.$scope.$watch("$.users", () => this.selectedUser = this.users.orderBy(x => x.UserName).firstOrDefault());
+                
+                            this.$scope.$watch("$.selectedUser", () => this.UserChanged());
+                */
             };
             return Users;
         })(App.Controller);
