@@ -2,7 +2,8 @@
     <div class="row">
         <form class="form-horizontal" role="form" name="form" novalidate>
             <div class="form-group form-title">
-                <h1>{{$item.Id ? 'Edit' : 'New' | translate}} {{$entityTypeName | translate}}</h1>
+                <h1 ng-if="$.DialogTitle">{{$.DialogTitle | translate}}</h1>
+                <h1 ng-if="!$.DialogTitle">{{$item.Id ? 'Edit' : 'New' | translate}} {{$entityTypeName | translate}}</h1>
                 <hr>
             </div>
 

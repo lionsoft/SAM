@@ -442,11 +442,20 @@ module App.Services {
         EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope, updateAfterSave?: boolean): IPromise<T> {
             entity = entity || <any>{};
             scope = scope || app.get("$rootScope");
-            // ReSharper disable once QualifiedExpressionMaybeNull
-            scope = scope.$new();
-            scope['$item'] = angular.copy(entity);
-            scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
-            scope['$entityTypeName'] = this.TypeDescription;
+            if (scope['__customController']) {
+                scope['$item'] = angular.copy(<any>entity);
+                scope['$']['$item'] = scope['$item'];
+                if (!scope['$templateUrl'])
+                    scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+                if (!scope['$entityTypeName'])
+                    scope['$entityTypeName'] = this.TypeDescription;
+            } else {
+                // ReSharper disable once QualifiedExpressionMaybeNull
+                scope = scope.$new();
+                scope['$item'] = angular.copy(entity);
+                scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+                scope['$entityTypeName'] = this.TypeDescription;
+            }
             var res = <IPromise<T>>app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
                 .then(() => this.Save(scope['$item']));
             if (updateAfterSave === undefined || updateAfterSave) {

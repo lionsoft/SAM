@@ -1,10 +1,8 @@
 ﻿<!-- #region - Name - -->
 <div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched}">
     <label class="control-label" translate>Name</label>
-    <div>
-        <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
-        <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
-    </div>
+    <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+    <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
 </div>
 <!-- #endregion -->
 

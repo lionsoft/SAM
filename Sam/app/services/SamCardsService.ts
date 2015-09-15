@@ -15,7 +15,7 @@ module App.Services {
         get ApiService() { return app.api.Cards; }
 
         GetDescription(card: ICard): string {
-            return card.Number;
+            return card.Number ? card.Number.toString() : "";
         }
 
         protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {

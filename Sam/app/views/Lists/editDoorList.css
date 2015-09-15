@@ -1,0 +1,20 @@
+﻿.editDoorList table {
+  height: 344px;
+}
+.editDoorList ul.doors {
+  height: 344px;
+  border: solid 1px #075b87;
+  overflow: auto;
+}
+.editDoorList ul.doors li {
+  padding: 4px 8px;
+}
+.editDoorList ul.doors li:nth-of-type(even) {
+  background: #ffffff;
+}
+.editDoorList ul.doors li:nth-of-type(odd) {
+  background: #ecf5fe;
+}
+.editDoorList ul.doors li:hover {
+  background: #c1f3ff;
+}

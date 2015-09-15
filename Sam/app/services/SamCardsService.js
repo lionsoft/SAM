@@ -21,7 +21,7 @@ var App;
                 configurable: true
             });
             CardsService.prototype.GetDescription = function (card) {
-                return card.Number;
+                return card.Number ? card.Number.toString() : "";
             };
             CardsService.prototype.prepareQuery = function (odata, isSmartLoad) {
                 odata.$expand("CreatedBy");

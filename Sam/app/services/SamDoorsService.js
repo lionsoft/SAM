@@ -20,8 +20,8 @@ var App;
                 enumerable: true,
                 configurable: true
             });
-            DoorsService.prototype.prepareQuery = function (odata) {
-                _super.prototype.prepareQuery.call(this, odata);
+            DoorsService.prototype.prepareQuery = function (odata, isSmartLoad) {
+                _super.prototype.prepareQuery.call(this, odata, isSmartLoad);
                 odata.$expand("Owner");
             };
             return DoorsService;

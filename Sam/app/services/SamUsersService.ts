@@ -34,8 +34,8 @@ module App.Services {
         
         get ApiService() { return app.api.Account; }
 
-        protected prepareQuery(odata: OData): void {
-            
+        protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
+            // remove default behavior    
         }
 
         protected afterQuery(query: IPromise<IUser[]>): IPromise<IUser[]> {

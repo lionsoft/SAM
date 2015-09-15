@@ -202,11 +202,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\BuildingsApi\DoorsController.cs" />
-    <Compile Include="Api\BuildingsApi\AreasController.cs" />
-    <Compile Include="Api\BuildingsApi\CountriesController.cs" />
-    <Compile Include="Api\BuildingsApi\CitiesController.cs" />
-    <Compile Include="Api\BuildingsApi\BuildingsController.cs" />
+    <Compile Include="Api\DoorsApi\DoorListsController.cs" />
+    <Compile Include="Api\DoorsApi\DoorsController.cs" />
+    <Compile Include="Api\DoorsApi\AreasController.cs" />
+    <Compile Include="Api\DoorsApi\CountriesController.cs" />
+    <Compile Include="Api\DoorsApi\CitiesController.cs" />
+    <Compile Include="Api\DoorsApi\BuildingsController.cs" />
     <Compile Include="Api\CardsApi\CardsController.cs" />
     <Compile Include="Api\System\QueryableAttribute.cs" />
     <Compile Include="Api\System\ODataMetadata.cs" />
@@ -276,20 +277,22 @@
     <Compile Include="DbContext\Migrations\ApplicationDbConfiguration.cs" />
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
-    <Compile Include="DbContext\Models\Buildings\Door.cs" />
-    <Compile Include="DbContext\Models\Buildings\Building.cs">
+    <Compile Include="DbContext\Models\Customers\DepartmentList.cs" />
+    <Compile Include="DbContext\Models\Doors\DoorList.cs" />
+    <Compile Include="DbContext\Models\Doors\Door.cs" />
+    <Compile Include="DbContext\Models\Doors\Building.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbContext\Models\Buildings\City.cs">
+    <Compile Include="DbContext\Models\Doors\City.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbContext\Models\Buildings\Country.cs" />
+    <Compile Include="DbContext\Models\Doors\Country.cs" />
     <Compile Include="DbContext\Models\Cards\Card.cs" />
     <Compile Include="DbContext\Models\Cards\CardStatus.cs" />
     <Compile Include="DbContext\Models\Cards\CardType.cs" />
     <Compile Include="DbContext\Models\Common\EntityObjectId.cs" />
     <Compile Include="DbContext\Models\Common\IEntityObjectId.cs" />
-    <Compile Include="DbContext\Models\Buildings\Area.cs" />
+    <Compile Include="DbContext\Models\Doors\Area.cs" />
     <Compile Include="DbContext\Models\Customers\Department.cs" />
     <Compile Include="DbContext\Models\Customers\Company.cs">
       <SubType>Code</SubType>
@@ -545,11 +548,13 @@
     <Content Include="app\common\LionSoft.Angular\html\edit-form.less" />
     <None Include="app\css\buttons.less" />
     <None Include="app\css\Colors.less" />
+    <Content Include="app\css\consts.less" />
     <None Include="app\css\fixes.less" />
     <Content Include="app\css\globals.css">
       <DependentUpon>globals.less</DependentUpon>
     </Content>
     <Content Include="app\css\globals.less" />
+    <Content Include="app\css\mixins.less" />
     <None Include="app\css\navbar.less" />
     <None Include="app\css\splash.less" />
     <Content Include="app\css\smart-tables.css">
@@ -667,6 +672,9 @@
     <Content Include="app\routes\employees.js">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\lists.js">
+      <DependentUpon>lists.ts</DependentUpon>
+    </Content>
     <Content Include="app\routes\users.js">
       <DependentUpon>users.ts</DependentUpon>
     </Content>
@@ -684,6 +692,15 @@
     </Content>
     <Content Include="app\services\SamCardsService.js">
       <DependentUpon>SamCardsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDepartmentListsService.js">
+      <DependentUpon>SamDepartmentListsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDepartmentsService.js">
+      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDoorListsService.js">
+      <DependentUpon>SamDoorListsService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamDoorsService.js">
       <DependentUpon>SamDoorsService.ts</DependentUpon>
@@ -711,9 +728,6 @@
     </Content>
     <Content Include="app\services\SamCustomersService.js">
       <DependentUpon>SamCustomersService.ts</DependentUpon>
-    </Content>
-    <Content Include="app\services\SamDepartmentsService.js">
-      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\system\ApiServiceBase.js">
       <DependentUpon>ApiServiceBase.ts</DependentUpon>
@@ -753,6 +767,17 @@
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Employees\_editEmployee.html" />
+    <Content Include="app\views\Lists\lists.css">
+      <DependentUpon>lists.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Lists\lists.html" />
+    <Content Include="app\views\Lists\lists.js">
+      <DependentUpon>lists.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Lists\editDoorList.css">
+      <DependentUpon>editDoorList.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Lists\editDoorList.html" />
     <Content Include="app\views\Users\users.css">
       <DependentUpon>users.less</DependentUpon>
     </Content>
@@ -1761,9 +1786,12 @@
     <TypeScriptCompile Include="app\filters\UserRoleFilter.ts" />
     <TypeScriptCompile Include="app\filters\EmployeeStatusFilter.ts" />
     <TypeScriptCompile Include="app\routes\cards.ts" />
+    <TypeScriptCompile Include="app\routes\lists.ts" />
     <TypeScriptCompile Include="app\routes\employees.ts" />
     <TypeScriptCompile Include="app\routes\doors.ts" />
     <TypeScriptCompile Include="app\services\SamCardsService.ts" />
+    <TypeScriptCompile Include="app\services\SamDepartmentListsService.ts" />
+    <TypeScriptCompile Include="app\services\SamDoorListsService.ts" />
     <TypeScriptCompile Include="app\services\SamDoorsService.ts" />
     <TypeScriptCompile Include="app\services\SamCountriesService.ts" />
     <TypeScriptCompile Include="app\services\SamCitiesService.ts" />
@@ -1952,9 +1980,6 @@
     <Content Include="app\services\SamCustomersService.js.map">
       <DependentUpon>SamCustomersService.ts</DependentUpon>
     </Content>
-    <Content Include="app\services\SamDepartmentsService.js.map">
-      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
-    </Content>
     <Content Include="app\css\ui-select.less" />
     <Content Include="app\decorators\DTRendererService.js.map">
       <DependentUpon>DTRendererService.ts</DependentUpon>
@@ -2040,6 +2065,18 @@
     <Content Include="app\filters\CardNumberFilter.js.map">
       <DependentUpon>CardNumberFilter.ts</DependentUpon>
     </Content>
+    <Content Include="app\services\SamDepartmentListsService.js.map">
+      <DependentUpon>SamDepartmentListsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDepartmentsService.js.map">
+      <DependentUpon>SamDepartmentsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamDoorListsService.js.map">
+      <DependentUpon>SamDoorListsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\lists.js.map">
+      <DependentUpon>lists.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -2108,6 +2145,11 @@
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Employees\_editEmployee.less" />
+    <Content Include="app\views\Lists\editDoorList.less" />
+    <Content Include="app\views\Lists\lists.less" />
+    <Content Include="app\views\Lists\lists.js.map">
+      <DependentUpon>lists.ts</DependentUpon>
+    </Content>
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />
@@ -2168,6 +2210,8 @@
     <TypeScriptCompile Include="app\views\Cards\cards.ts" />
     <TypeScriptCompile Include="app\views\Doors\doors.ts" />
     <TypeScriptCompile Include="app\views\Employees\employees.ts" />
+    <TypeScriptCompile Include="app\views\Lists\editDoorList.ts" />
+    <TypeScriptCompile Include="app\views\Lists\lists.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">
       <AutoGen>True</AutoGen>

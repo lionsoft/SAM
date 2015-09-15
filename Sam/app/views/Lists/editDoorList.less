@@ -1,0 +1,33 @@
+﻿@import '../../css/consts';
+
+.editDoorList {
+
+    @table-height: 344px;
+
+    table {
+        height: @table-height;
+    }
+
+    ul.doors {
+        height: @table-height;
+        border: solid 1px @table-border-color;
+        overflow: auto;
+
+        li {
+            padding: 4px 8px;
+        }
+
+        li:nth-of-type(even) {
+            background: @table-row-even-color;
+        }
+
+        li:nth-of-type(odd) {
+            background: @table-row-odd-color;
+        }
+
+        li:hover {
+            background: @table-row-hower-color;
+        }
+
+    }
+}

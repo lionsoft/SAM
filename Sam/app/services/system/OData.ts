@@ -74,13 +74,18 @@ module App.Services {
             // update filter from current filter creator
             this.prop(undefined);
             var resArray = [];
-            if (angular.isArray(this._expands) && this._expands.length > 0) resArray.push(`$expand=${this._expands.join(',')}`);
+            if (angular.isArray(this._expands) && this._expands.length > 0)
+                resArray.push(`$expand=${this._expands.distinct().toJoinedString(',')}`);
             if (this._filter) resArray.push(`$filter=${this._filter}`);
-            if (angular.isArray(this._orderBy) && this._orderBy.length > 0) resArray.push(`$orderby=${this._orderBy.join(',')}`);
-            if (this._top || this._top === 0) resArray.push(`$top=${this._top}`);
-            if (this._skip) resArray.push(`$skip=${this._skip}`);
-            if (angular.isArray(this._extra) && this._extra.length > 0) resArray.push(this._extra.join('&'));
-            var res = resArray.join('&');
+            if (angular.isArray(this._orderBy) && this._orderBy.length > 0)
+                resArray.push(`$orderby=${this._orderBy.distinct().toJoinedString(',')}`);
+            if (this._top || this._top === 0)
+                resArray.push(`$top=${this._top}`);
+            if (this._skip)
+                resArray.push(`$skip=${this._skip}`);
+            if (angular.isArray(this._extra) && this._extra.length > 0)
+                resArray.push(this._extra.distinct().toJoinedString('&'));
+            var res = resArray.distinct().toJoinedString('&');
             return res;
         }
 
@@ -110,7 +115,7 @@ module App.Services {
         $expand(...value: string[]): OData;
         $expand(p1, ...value: string[]): OData {
             var addExpand = true;
-            if (typeof p1 === "boolean") {
+            if (p1 === undefined || typeof p1 === "boolean") {
                 addExpand = p1;
             } else {
                 if (p1)

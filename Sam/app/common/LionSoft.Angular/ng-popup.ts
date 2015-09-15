@@ -96,6 +96,7 @@ module LionSoftAngular {
                 };
             }
         ])
+
         /**
         * Регистрирует сервис ангуляра для вызова Popup-окон.
         * Пример:
@@ -154,7 +155,8 @@ module LionSoftAngular {
                     (<any>tempPopupDefaults).templateUrl = tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase) + "?" + Math.random();
 
                     loadCss("css/ng-dialog.css");
-                    loadCss(tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase).ChangeFileExt('css'));
+                    if (tempDialogOptions.templateUrl.ExtractOnlyFileName() !== 'ng-dialog')
+                        loadCss(tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase).ChangeFileExt('css'));
 
                     
 

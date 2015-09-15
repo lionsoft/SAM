@@ -1,11 +1,7 @@
-﻿.nowrap {
-    white-space: nowrap; 
-}
+﻿@import 'mixins';
 
-.truncate() {
-    overflow: hidden; 
+.nowrap {
     white-space: nowrap; 
-    text-overflow: ellipsis;
 }
 
 .truncate {
@@ -14,42 +10,27 @@
 
 .truncate-to();
 
+
 .truncate-to(@i: 1) when (@i =< 80) {
     @px: @i*10;
-    .truncate-@{px}px {
+    .truncate-to-@{px}px {
         .truncate();
-        width: @i*10px;
+        width: @i*10px!important;
     }
-    .truncate-@{i}em {
+    .truncate-to-@{i}em {
         .truncate();
-        width: @i*1em;
+        width: @i*1em!important;
     }
     .truncate-to(@i + 1);
 }
 
 
-
-.action-buttons {
-    white-space: nowrap; 
-    margin: 0!important;
-    padding: 0!important;
-    //display: flex;
-
-    button {
-        width: 50%;
-        float: left;
-    }
-}
-
-
-.form-group.has-error>div {
-
+// Абсолютное позиционирование подсказок об ошибках
+.form-group.has-error {
     input.form-control {
         position: relative;
     }
     span.red {                     
         position: absolute;
     }
-
-                                                
 }

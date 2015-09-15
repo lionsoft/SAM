@@ -21,6 +21,8 @@ module App {
     export interface IAreasApi extends IResourceClass<IArea> { }
     export interface IDoorsApi extends IResourceClass<IDoor> { }
     export interface ICardsApi extends IResourceClass<ICard> { }
+    export interface IDoorListsApi extends IResourceClass<IDoorList> { }
+    export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
  
 
     export interface IApiService {
@@ -31,12 +33,14 @@ module App {
         Customers: ICustomersApi;
         Companies: ICompaniesApi;
         Departments: IDepartmentsApi;
+        DepartmentLists: IDepartmentListsApi;
 
         Countries: ICountriesApi;
         Cities: ICitiesApi;
         Buildings: IBuildingsApi;
         Areas: IAreasApi;
         Doors: IDoorsApi;
+        DoorLists: IDoorListsApi;
 
         Cards: ICardsApi;
     }                                                 
@@ -54,12 +58,15 @@ module App {
         Customers: ICustomersApi = {};
         Companies: ICompaniesApi = {};
         Departments: IDepartmentsApi = {};
+        DepartmentLists: IDepartmentListsApi = {};
 
         Countries: ICountriesApi = {};
         Cities: ICitiesApi = {};
         Buildings: IBuildingsApi = {};
         Areas: IAreasApi = {};
         Doors: IDoorsApi = {};
+        DoorLists: IDoorListsApi = {};
+
         Cards: ICardsApi = {};
 
         Init() {

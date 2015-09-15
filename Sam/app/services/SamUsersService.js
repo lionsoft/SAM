@@ -21,7 +21,8 @@ var App;
                 enumerable: true,
                 configurable: true
             });
-            UsersService.prototype.prepareQuery = function (odata) {
+            UsersService.prototype.prepareQuery = function (odata, isSmartLoad) {
+                // remove default behavior    
             };
             UsersService.prototype.afterQuery = function (query) {
                 var _this = this;

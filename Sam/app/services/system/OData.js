@@ -59,18 +59,18 @@ var App;
                     this.prop(undefined);
                     var resArray = [];
                     if (angular.isArray(this._expands) && this._expands.length > 0)
-                        resArray.push("$expand=" + this._expands.join(','));
+                        resArray.push("$expand=" + this._expands.distinct().toJoinedString(','));
                     if (this._filter)
                         resArray.push("$filter=" + this._filter);
                     if (angular.isArray(this._orderBy) && this._orderBy.length > 0)
-                        resArray.push("$orderby=" + this._orderBy.join(','));
+                        resArray.push("$orderby=" + this._orderBy.distinct().toJoinedString(','));
                     if (this._top || this._top === 0)
                         resArray.push("$top=" + this._top);
                     if (this._skip)
                         resArray.push("$skip=" + this._skip);
                     if (angular.isArray(this._extra) && this._extra.length > 0)
-                        resArray.push(this._extra.join('&'));
-                    var res = resArray.join('&');
+                        resArray.push(this._extra.distinct().toJoinedString('&'));
+                    var res = resArray.distinct().toJoinedString('&');
                     return res;
                 },
                 enumerable: true,
@@ -99,7 +99,7 @@ var App;
                     value[_i - 1] = arguments[_i];
                 }
                 var addExpand = true;
-                if (typeof p1 === "boolean") {
+                if (p1 === undefined || typeof p1 === "boolean") {
                     addExpand = p1;
                 }
                 else {

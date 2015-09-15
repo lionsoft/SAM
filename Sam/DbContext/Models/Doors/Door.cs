@@ -1,4 +1,5 @@
-﻿using T4TS;
+﻿using System.Collections.Generic;
+using T4TS;
 
 namespace Sam.DbContext
 {
@@ -12,5 +13,7 @@ namespace Sam.DbContext
 
         public string OwnerId { get; set; }
         public Employee Owner { get; set; }
+
+        public ISet<DoorList> DoorLists { get; set; }
     }
 }

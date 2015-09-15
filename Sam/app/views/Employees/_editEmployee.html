@@ -4,10 +4,8 @@
     <div class="col col-xs-6">
         <div class="form-group has-warning" ng-class="{ 'has-error' : form.Name.$invalid && form.Name.$touched }">
             <label class="control-label" translate>Name</label>
-            <div>
-                <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="Name" />
-                <span ng-show="form.Name.$invalid && form.Name.$touched" class="red" translate>MustBeSet</span>
-            </div>
+            <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="Name" />
+            <span ng-show="form.Name.$invalid && form.Name.$touched" class="red" translate>MustBeSet</span>
         </div>
     </div>
     <!-- #endregion -->
@@ -15,9 +13,7 @@
     <div class="col-xs-6">
         <div class="form-group">
             <label class="control-label" translate>Email</label>
-            <div>
-                <input class="form-control" type="text" ng-model="$item.Email" />
-            </div>
+            <input class="form-control" type="text" ng-model="$item.Email" />
         </div>
     </div> <!-- #endregion -->
 </div>

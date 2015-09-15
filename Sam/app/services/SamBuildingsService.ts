@@ -9,8 +9,8 @@ module App.Services {
         TypeDescription = "Building";
         get ApiService() { return app.api.Buildings; }
 
-        protected prepareQuery(odata: OData): void {
-            super.prepareQuery(odata);
+        protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
+            super.prepareQuery(odata, isSmartLoad);
             odata.$expand("Owner");
         }
 

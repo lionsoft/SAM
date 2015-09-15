@@ -1488,7 +1488,8 @@ Project GetProjectContainingT4File(DTE dte) {
         {
             "System.Collections.Generic.List<",
             "System.Collections.Generic.IList<",
-            "System.Collections.Generic.ICollection<"
+            "System.Collections.Generic.ICollection<",
+            "System.Collections.Generic.ISet<"
         };
 
         private readonly Dictionary<string, EnumType> _enumTypes = new Dictionary<string, EnumType>();

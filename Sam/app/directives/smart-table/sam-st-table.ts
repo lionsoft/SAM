@@ -31,6 +31,12 @@ module App.Directives {
          * @returns {} если возвращает промис - стандартный метод редактирования не будет вызван.
          */
         prepareEdit: (entity: T, table: st.IController) => IPromise<T>;
+
+
+        /**
+         * Контроллер диалога редактирования (или наименование контроллера), если задан - будет использоваться именно он.
+         */
+        controller: Controller;
     }
 
 
@@ -50,6 +56,7 @@ module App.Directives {
         require = '^stTable';
         scope = true;
         stConfig: st.IConfig;
+        $controller;
 
         PreLink(scope: ISamStTableScope<IEntityObjectId>, element, attrs, ctrl: st.IController) {
             var pipePromise = null;
@@ -57,15 +64,19 @@ module App.Directives {
             scope.$params = scope.$eval(attrs.samStTable);
             scope.$params.service = angular.isString(scope.$params.service) ? this.get(<any>scope.$params.service) : scope.$params.service;
             scope.$items = scope.$eval(attrs.stTable) || [];
-            scope.$edit = item => this.Edit(scope, item);
+            scope.$edit = item => this.Edit(scope, item, attrs.samStTable);
             scope.$delete = item => this.Delete(scope, item);
 
             ctrl.preventPipeOnWatch();
             ctrl.pipe = () => {
                 if (pipePromise !== null)
                     this.$timeout.cancel(pipePromise);
-                pipePromise = this.$timeout(() => this.Load(scope), this.stConfig.pipe.delay);
-                return pipePromise;
+                pipePromise = this.$timeout(() => { }, this.stConfig.pipe.delay);
+                var res = pipePromise.then(() => {
+                    pipePromise = null;
+                    return this.Load(scope);
+                });
+                return res;
             }
         }
 
@@ -79,13 +90,21 @@ module App.Directives {
                     expr = "$." + expr;
                 scope['__watchers'] = scope['__watchers'] || [];
                 if (!scope['__watchers'].Contains(expr)) {
+                    var skipFirstTime = `__watchers${expr}`;
+                    scope[skipFirstTime] = true;
+                    scope.$watch(expr, () => {
+                        if (scope[skipFirstTime])
+                            scope[skipFirstTime] = undefined;
+                        else
+                            scope.$table.pipe();
+                    });
                     scope['__watchers'].push(expr);
-                    scope.$watch(expr, () => scope.$table.pipe());
                 }
             }            
         }
 
         Load(scope: ISamStTableScope<IEntityObjectId>) {
+            if (scope.$loading) return;
             scope.$loading = true;
             var tableState = scope.$table.tableState();
             tableState.pagination.start = tableState.pagination.start || 0;     // This is NOT the page number, but the index of item in the list that you want to use to display the table.
@@ -107,17 +126,49 @@ module App.Directives {
             scope.$params.service.SmartLoad(tableState, scope.$items, odata).then(() => scope.$loading = false);
         }
 
-        Edit(scope: ISamStTableScope<IEntityObjectId>, item: IEntityObjectId) {
-            item = item || <IEntityObjectId>{};
+        Edit(scope: ISamStTableScope<IEntityObjectId>, item: IEntityObjectId, tableAttrs) {
+            item = angular.copy(item || <IEntityObjectId>{});
             var res = undefined;
-            if (scope.$params.prepareEdit) {
-                if (scope.$)
-                    res = scope.$params.prepareEdit.apply(scope.$, [item, scope.$table]);
-                else
-                    res = scope.$params.prepareEdit(item, scope.$table);
+
+            var controller: Controller;
+
+            if (typeof (<any>(scope.$params.controller)) === "string") {
+                controller = this.$controller(scope.$params.controller, { '$scope': scope, '$item': item });
+            } else {
+                controller = scope.$params.controller;
             }
-            if (!res || !angular.isFunction(res.then))
-                res = scope.$params.service.EditModal(item, scope.$params.editTemplate, scope, false);
+                
+            var params = scope.$params;
+            if (controller) {
+                controller['$'] = scope.$;
+                controller.$scope['$'] = controller;
+                controller.$scope['__customController'] = controller;
+                controller.$scope['$item'] = controller['$item'];
+                scope['$item'] = item;
+                controller['$item'] = item;
+
+                params = controller.$scope.$eval(tableAttrs);
+                params.controller = controller;
+                params.prepareEdit = params.prepareEdit || scope.$params.prepareEdit;
+                params.editTemplate = params.editTemplate || scope.$params.editTemplate;
+                params.service = (angular.isString(params.service) ? this.get(<any>params.service) : params.service) || scope.$params.service;
+            }
+            if (params.prepareEdit) {
+                if (controller)
+                    res = params.prepareEdit.apply(controller, [item, scope.$table]);
+                else if (scope.$)
+                    res = params.prepareEdit.apply(scope.$, [item, scope.$table]);
+                else
+                    res = params.prepareEdit(item, scope.$table);
+            }
+
+            if (!res || !angular.isFunction(res.then)) {
+                if (controller) {
+                    res = params.service.EditModal(item, params.editTemplate, controller.$scope, false);
+                } else {
+                    res = params.service.EditModal(item, params.editTemplate, scope, false);
+                }
+            }
             if (res)
                 res.then(() => scope.$table.pipe());
         }
@@ -131,5 +182,5 @@ module App.Directives {
         .config(["stConfig", (stConfig: st.IConfig) => {
             stConfig.pagination.template = 'sam-tables-pagination-tmpl.html'.ExpandPath(URL.DIRECTIVES_ROOT + "smart-table");
         }])
-        .directive("samStTable", SamStTable.Factory('stConfig'));
+        .directive("samStTable", SamStTable.Factory('stConfig', '$controller'));
 }

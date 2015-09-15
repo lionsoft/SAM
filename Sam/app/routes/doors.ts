@@ -10,7 +10,7 @@ module App {
                 auth: true,
                 templateUrl: '/app/views/doors/doors.html',
                 settings: {
-                    nav: 1,
+                    nav: 4,
                     content: 'MENU.DOORS|<i class="fa fa-lock"></i> Doors'
                 },
                 files: [

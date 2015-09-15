@@ -29,6 +29,57 @@ declare module App {
         Manager = 16,
         Admin = 32,
     }
+    /** Generated from Sam.DbContext.Card **/
+    export interface ICard extends App.IEntityObjectBaseId {
+        Number?: number;
+        ActivationCode?: string;
+        Status?: App.CardStatus;
+        CardType?: App.CardType;
+        CustomerId: string;
+        Customer?: App.ICustomer;
+    }
+    /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
+    export interface IEntityObjectBaseId {
+        Id: any;
+        CreatedDate: string;
+        CreatedById: string;
+        CreatedBy: App.IUser;
+        ModifiedDate: string;
+        ModifiedById: string;
+        ModifiedBy: App.IUser;
+    }
+    /** Generated from Sam.DbContext.EntityObjectId **/
+    export interface IEntityObjectId extends App.IEntityObjectBaseId {
+    }
+    /** Generated from Sam.DbContext.Company **/
+    export interface ICompany extends App.IEntityObjectBaseId {
+        Name: string;
+        ZipCode: string;
+        Address1: string;
+        Address2: string;
+        CustomerId: string;
+        Customer: App.ICustomer;
+    }
+    /** Generated from Sam.DbContext.Customer **/
+    export interface ICustomer extends App.IEntityObjectBaseId {
+        Name: string;
+    }
+    /** Generated from Sam.DbContext.Department **/
+    export interface IDepartment extends App.IEntityObjectBaseId {
+        Name: string;
+        CompanyId: string;
+        Company: App.ICompany;
+    }
+    /** Generated from Sam.DbContext.DepartmentList **/
+    export interface IDepartmentList extends App.IEntityObjectBaseId {
+        Name: string;
+        DepartmentId: string;
+        Department: App.IDepartment;
+        ApprovedById: string;
+        ApprovedBy: App.IEmployee;
+        ApprovedDate: string;
+        DoorLists: App.IDoorList[];
+    }
     /** Generated from Sam.DbContext.Area **/
     export interface IArea extends App.IEntityObjectBaseId {
         Name: string;
@@ -67,47 +118,15 @@ declare module App {
         Area: App.IArea;
         OwnerId: string;
         Owner: App.IEmployee;
+        DoorLists: App.IDoorList[];
     }
-    /** Generated from Sam.DbContext.Card **/
-    export interface ICard extends App.IEntityObjectBaseId {
-        Number?: string;
-        ActivationCode?: string;
-        Status?: App.CardStatus;
-        CardType?: App.CardType;
-        CustomerId: string;
-        Customer?: App.ICustomer;
-    }
-    /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
-    export interface IEntityObjectBaseId {
-        Id: any;
-        CreatedDate: string;
-        CreatedById: string;
-        CreatedBy: App.IUser;
-        ModifiedDate: string;
-        ModifiedById: string;
-        ModifiedBy: App.IUser;
-    }
-    /** Generated from Sam.DbContext.EntityObjectId **/
-    export interface IEntityObjectId extends App.IEntityObjectBaseId {
-    }
-    /** Generated from Sam.DbContext.Company **/
-    export interface ICompany extends App.IEntityObjectBaseId {
+    /** Generated from Sam.DbContext.DoorList **/
+    export interface IDoorList extends App.IEntityObjectBaseId {
         Name: string;
-        ZipCode: string;
-        Address1: string;
-        Address2: string;
         CustomerId: string;
         Customer: App.ICustomer;
-    }
-    /** Generated from Sam.DbContext.Customer **/
-    export interface ICustomer extends App.IEntityObjectBaseId {
-        Name: string;
-    }
-    /** Generated from Sam.DbContext.Department **/
-    export interface IDepartment extends App.IEntityObjectBaseId {
-        Name: string;
-        CompanyId: string;
-        Company: App.ICompany;
+        Doors: App.IDoor[];
+        DepartmentLists: App.IDepartmentList[];
     }
     /** Generated from Sam.DbContext.Employee **/
     export interface IEmployee extends App.IEntityObjectBaseId {
