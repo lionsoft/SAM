@@ -4,10 +4,6 @@
 .ng-cloak {
   display: none !important;
 }
-body {
-  background-color: white;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
-}
 .form-control.ui-select-container.ui-select-bootstrap {
   padding: 0;
   border: 0;

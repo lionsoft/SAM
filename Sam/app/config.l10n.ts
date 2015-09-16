@@ -68,6 +68,7 @@ module App {
     //#endregion
 
 
+/*
     //#region Configure Translate provider decorator
 
     class NvTranslate extends LionSoftAngular.NgObject {
@@ -164,4 +165,5 @@ module App {
         .decorator("translateFilter", NvTranslateFilter.Factory("$delegate", "$route"));
 
     //#endregion
+*/
 } 

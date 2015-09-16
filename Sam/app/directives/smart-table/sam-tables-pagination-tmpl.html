@@ -1,19 +1,19 @@
-﻿<nav ng-if="numPages >= 2">
-    <ul class="pagination" style="margin: 0; padding: 0">
-        <li ng-class="{disabled: currentPage==1}"><a ng-click="selectPage(1)">&lt;&lt;</a></li>
-        <li ng-class="{disabled: currentPage==1}"><a ng-click="selectPage(currentPage - 1)">&lt;</a></li>
+﻿<div class="st-paging">
+    <span ng-if="stShowPageSizes" class="st-paging-count">
+        <span class="st-paging-label">Show </span>
+        <select class="st-paging-listbox" ng-model="stItemsByPage" ng-options="x for x in stGetPageSizes(stItemsByPage)"></select>
+        <span class="st-paging-label"> entries</span>
+    </span>
+    <nav ng-if="numPages && pages.length >= 2">
+        <ul class="pagination" style="margin: 0; padding: 0">
+            <li ng-class="{disabled: currentPage==1}"><a ng-click="selectPage(1)"><i class="fa fa-fast-backward"></i></a></li>
+            <li ng-class="{disabled: currentPage==1}"><a ng-click="selectPage(currentPage - 1)"><i class="fa fa-caret-left fa-lg"></i></a></li>
+            <li>
+                <a ng-click="selectPage(currentPage)">{{currentPage}} of {{numPages}}</a>
+            </li>
 
-        <!--
-                <li ng-class="{active: page==currentPage}" ng-repeat="page in pages">
-                    <a ng-click="selectPage(page)">{{page}}</a>
-                </li>
-        -->
-
-        <li>
-            <a ng-click="selectPage(currentPage)">{{currentPage}} of {{numPages}}</a>
-        </li>
-
-        <li ng-class="{disabled: currentPage==pages.length}"><a ng-click="selectPage(currentPage + 1)">&gt;</a></li>
-        <li ng-class="{disabled: currentPage==pages.length}"><a ng-click="selectPage(numPages)">&gt;&gt;</a></li>
-    </ul>
-</nav>
+            <li ng-class="{disabled: currentPage==numPages}"><a ng-click="selectPage(currentPage + 1)"><i class="fa fa-caret-right fa-lg"></i></a></li>
+            <li ng-class="{disabled: currentPage==numPages}"><a ng-click="selectPage(numPages)"><i class="fa fa-fast-forward"></i></a></li>
+        </ul>
+    </nav>
+</div>

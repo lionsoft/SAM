@@ -494,7 +494,7 @@ module App.Services {
             if (!entity || !entity.Id) {
                 def.reject();
             } else {
-                app.popup.ask(this.$filter('translate')("AskDelete").format(this.TypeDescription.toLocaleLowerCase(), this.GetDescription(entity)), false)
+                app.popup.ask(this.$filter('translate')("AskDelete").format(this.TypeDescription.toLocaleLowerCase(), `<strong>${this.GetDescription(entity)}</strong>`), false)
                     .then(r => r ? this.Delete(entity.Id) : false)
                     .then(r => {
                         if (r)

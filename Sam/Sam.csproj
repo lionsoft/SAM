@@ -1786,7 +1786,11 @@
     <TypeScriptCompile Include="app\common\EnumFilter.ts" />
     <TypeScriptCompile Include="app\common\Filter.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
+    <TypeScriptCompile Include="app\decorators\controllerService.ts" />
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
+    <TypeScriptCompile Include="app\decorators\stPaginationDirective.ts" />
+    <TypeScriptCompile Include="app\decorators\translateFilter.ts" />
+    <TypeScriptCompile Include="app\decorators\translateService.ts" />
     <TypeScriptCompile Include="app\directives\autofocus.ts" />
     <TypeScriptCompile Include="app\directives\ng-thumb.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\st-sort-default.ts" />

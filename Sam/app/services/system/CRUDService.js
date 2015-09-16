@@ -367,7 +367,7 @@ var App;
                     def.reject();
                 }
                 else {
-                    App.app.popup.ask(this.$filter('translate')("AskDelete").format(this.TypeDescription.toLocaleLowerCase(), this.GetDescription(entity)), false)
+                    App.app.popup.ask(this.$filter('translate')("AskDelete").format(this.TypeDescription.toLocaleLowerCase(), "<strong>" + this.GetDescription(entity) + "</strong>"), false)
                         .then(function (r) { return r ? _this.Delete(entity.Id) : false; })
                         .then(function (r) {
                         if (r)

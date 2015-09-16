@@ -1,6 +1,13 @@
 ﻿@import 'mixins';
 @import 'consts';
 
+body {
+    background-color: @def-background-color;
+    font-family: @def-font-family;
+    color: rgb(51, 51, 51);
+    font-size: @def-font-size;
+}
+
 .nowrap {
     white-space: nowrap; 
 }
@@ -56,4 +63,9 @@
 .sam-h-space {
     margin-left: @def-h-space; 
     margin-right: @def-h-space; 
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
 }
