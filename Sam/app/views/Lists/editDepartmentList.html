@@ -1,0 +1,76 @@
+﻿<!-- #region - Name & Customer - -->
+<div class="row">
+    <!-- #region - Name - -->
+    <div class="col col-xs-6">
+        <div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
+            <label class="control-label" translate>Name</label>
+            <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+            <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region - Customer - -->
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>Customer</label>
+            <ui-select class="form-control" ng-model="$item.CustomerId" ng-disabled="!$.$.customers.length">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="customer.Id as customer in ::$.$.customers track by customer.Id">
+                    {{::customer.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+</div>
+<!-- #endregion -->
+<!-- #region - Assigned Doors - -->
+<div class="row form-group">
+    <!-- #region - All Doors - -->
+    <div class="col col-xs-6">
+        <label class="control-label" translate>AllDoors</label>
+        <table st-table
+               sam-st-table="{service: 'samDoors', prepareQuery: $.prepareDoorsQuery}">
+            <thead>
+                <tr>
+                    <th colspan="2" translate st-sort-default st-sort="Name">Name</th>
+                </tr>
+            </thead>
+            <tbody ng-show="$loading">
+                <tr>
+                    <td colspan="2" class="text-center" translate>Loading ...</td>
+                </tr>
+            </tbody>
+            <tbody ng-hide="$loading">
+                <tr ng-repeat="door in $items track by door.Id">
+                    <td>{{::door.Name}}</td>
+                    <td style="width: 1px">
+                        <a ng-click="$.AddDoorToList(door)" ng-hide="$.IsDoorInList(door)"><i class="fa fa-arrow-right"></i></a>
+                        <a ng-click="$.RemoveDoorFromList(door)" ng-show="$.IsDoorInList(door)"><i class="fa fa-times red"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-center" st-pagination st-items-by-page="10" colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region - Doors in List - -->
+    <div class="col-xs-6">
+        <label class="control-label" translate>DoorsInList</label>
+        <ul class="doors">
+            <li ng-repeat="door in $item.Doors track by door.Id">
+                <span>{{door.Name}}</span>
+                <a ng-click="$.RemoveDoorFromList(door)" class="pull-right" ng-show="$.IsDoorInList(door)"><i class="fa fa-times red"></i></a>
+            </li>
+        </ul>
+    </div>
+    <!-- #endregion -->
+</div>
+<!-- #endregion -->

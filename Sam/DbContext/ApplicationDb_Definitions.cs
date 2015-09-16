@@ -51,5 +51,9 @@ namespace Sam.DbContext
         public IDbSet<Door> Doors { get; set; }
 
         public IDbSet<Card> Cards { get; set; }
+
+        public IDbSet<DoorList> DoorLists { get; set; }
+        public IDbSet<DepartmentList> DepartmentLists { get; set; }
+
     }
 }

@@ -88,7 +88,7 @@ var App;
                 var res = undefined;
                 var controller;
                 if (typeof (scope.$params.controller) === "string") {
-                    controller = this.$controller(scope.$params.controller, { '$scope': scope, '$item': item });
+                    controller = this.$controller(scope.$params.controller, { '$scope': scope.$new(), '$item': item });
                 }
                 else {
                     controller = scope.$params.controller;
@@ -115,16 +115,23 @@ var App;
                     else
                         res = params.prepareEdit(item, scope.$table);
                 }
-                if (!res || !angular.isFunction(res.then)) {
+                if (!res || !angular.isFunction(res.then))
+                    res = this.promiseFromResult(res);
+                // ReSharper disable once QualifiedExpressionMaybeNull
+                res.then(function (r) {
+                    if (r === false)
+                        return false;
                     if (controller) {
-                        res = params.service.EditModal(item, params.editTemplate, controller.$scope, false);
+                        return params.service.EditModal(item, params.editTemplate, controller.$scope, false);
                     }
                     else {
-                        res = params.service.EditModal(item, params.editTemplate, scope, false);
+                        return params.service.EditModal(item, params.editTemplate, scope, false);
                     }
-                }
-                if (res)
-                    res.then(function () { return scope.$table.pipe(); });
+                })
+                    .then(function (r) {
+                    if (r)
+                        scope.$table.pipe();
+                });
             };
             SamStTable.prototype.Delete = function (scope, item) {
                 scope.$params.service.DeleteModal(item).then(function () { return scope.$table.pipe(); });

@@ -13,7 +13,7 @@ var App;
                 content: 'MENU.LISTS|<i class="fa fa-list"></i> Lists'
             },
             files: [
-                'editDoorList'
+                'editDoorList', 'editDepartmentList'
             ]
         });
     });

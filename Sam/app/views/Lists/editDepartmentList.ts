@@ -2,7 +2,7 @@
 
 module App.Controllers {
 
-    class EditDoorList extends Controller {
+    class EditDepartmentList extends Controller {
 
         $;
         $item: IDoorList;
@@ -42,5 +42,5 @@ module App.Controllers {
     }
 
     // Register with angular
-    app.controller('editDoorList', EditDoorList.Factory("samDoorLists"));
+    app.controller('editDepartmentList', EditDepartmentList.Factory("samDoorLists"));
 } 

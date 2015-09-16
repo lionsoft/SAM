@@ -972,3 +972,23 @@
 .form-group.has-error span.red {
   position: absolute;
 }
+.sam-t-space {
+  margin-top: 16px;
+}
+.sam-b-space {
+  margin-bottom: 16px;
+}
+.sam-v-space {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.sam-l-space {
+  margin-left: 16px;
+}
+.sam-r-space {
+  margin-right: 16px;
+}
+.sam-h-space {
+  margin-left: 16px;
+  margin-right: 16px;
+}

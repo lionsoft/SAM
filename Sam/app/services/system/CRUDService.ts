@@ -34,6 +34,11 @@ module App.Services {
         Load(query?: OData | IODataParams): IPromise<T[]>;
 
         /**
+         * Подготовка объекта к сохранению.
+         */
+        prepareSave(entity: T): void;
+
+        /**
          * Сохранение объекта.
          * После успешного сохранения объекта, переданного в фунцию Save от сервера приходит объект,
          * соответствующий текущему состоянию на сервере после сохранения (например, с запоненными полями Id, Number и т.д.)
@@ -223,7 +228,7 @@ module App.Services {
          * Например, очищать ссылочные поля, которые в принципе не требуются при сохранении, 
          * но увеличивают рамер передаваемых данных и могут привести к циклическим ссылкам.
          */
-        protected prepareSave(entity: T): void {
+        public prepareSave(entity: T): void {
             for (let key in entity) {
                 if (entity.hasOwnProperty(key)) {
                     if (key[0] === "$" || key[0] === "_")
@@ -325,6 +330,19 @@ module App.Services {
                 odata.$top(tableState.pagination.number);
             }
             if (tableState.search) {
+                if (tableState.search.predicateObject) {
+                    for (var propName in tableState.search.predicateObject) {
+                        if (tableState.search.predicateObject.hasOwnProperty(propName)) {
+                            var propValue = tableState.search.predicateObject[propName];
+                            //odata.prop(propName).contains(propValue);
+                            odata.prop(propName).eq(propValue);
+                        }
+                    }
+                }
+                if (tableState.search.predicate) {
+
+                }
+
             }
             return this.$query(odata, true).then(res => {
                 var result: IODataMetadata<T> = <any>res[0];

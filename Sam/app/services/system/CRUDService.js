@@ -230,6 +230,17 @@ var App;
                     odata.$top(tableState.pagination.number);
                 }
                 if (tableState.search) {
+                    if (tableState.search.predicateObject) {
+                        for (var propName in tableState.search.predicateObject) {
+                            if (tableState.search.predicateObject.hasOwnProperty(propName)) {
+                                var propValue = tableState.search.predicateObject[propName];
+                                //odata.prop(propName).contains(propValue);
+                                odata.prop(propName).eq(propValue);
+                            }
+                        }
+                    }
+                    if (tableState.search.predicate) {
+                    }
                 }
                 return this.$query(odata, true).then(function (res) {
                     var result = res[0];

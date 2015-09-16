@@ -1,15 +1,18 @@
-﻿<nav ng-if="pages.length >= 2">
+﻿<nav ng-if="numPages >= 2">
     <ul class="pagination" style="margin: 0; padding: 0">
         <li ng-class="{disabled: currentPage==1}"><a ng-click="selectPage(1)">&lt;&lt;</a></li>
         <li ng-class="{disabled: currentPage==1}"><a ng-click="selectPage(currentPage - 1)">&lt;</a></li>
-<!--
-        <li ng-class="{active: page==currentPage}" ng-repeat="page in pages">
-            <a ng-click="selectPage(page)">{{page}}</a>
-        </li>
--->
+
+        <!--
+                <li ng-class="{active: page==currentPage}" ng-repeat="page in pages">
+                    <a ng-click="selectPage(page)">{{page}}</a>
+                </li>
+        -->
+
         <li>
-            <a>{{currentPage}} of {{pages.length}}</a>
+            <a ng-click="selectPage(currentPage)">{{currentPage}} of {{numPages}}</a>
         </li>
+
         <li ng-class="{disabled: currentPage==pages.length}"><a ng-click="selectPage(currentPage + 1)">&gt;</a></li>
         <li ng-class="{disabled: currentPage==pages.length}"><a ng-click="selectPage(numPages)">&gt;&gt;</a></li>
     </ul>

@@ -2,6 +2,20 @@
   border: 1px solid #075b87;
   width: 100%;
 }
+table[st-table] input[st-search] {
+  width: 100%;
+  border: none;
+  border-left: 1px solid #c1e3ff;
+  border-bottom: 1px solid #c1e3ff;
+  padding-left: 4px;
+  background: transparent;
+}
+table[st-table] input[st-search][readonly] {
+  background: #F6F6F6;
+}
+table[st-table] td:first-child input[st-search] {
+  border-left: none;
+}
 table[st-table] thead th {
   font-size: 13px;
   vertical-align: middle;

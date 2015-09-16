@@ -20,9 +20,16 @@ var App;
                 enumerable: true,
                 configurable: true
             });
+            DoorListsService.prototype.prepareSave = function (entity) {
+                var _this = this;
+                var doors = entity.Doors;
+                _super.prototype.prepareSave.call(this, entity);
+                doors.forEach(function (d) { return _this.samDoors.prepareSave(d); });
+                entity.Doors = doors;
+            };
             return DoorListsService;
         })(Services.CRUDService);
-        App.app.service("samDoorLists", DoorListsService.Factory());
+        App.app.service("samDoorLists", DoorListsService.Factory("samDoors"));
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
 //# sourceMappingURL=SamDoorListsService.js.map

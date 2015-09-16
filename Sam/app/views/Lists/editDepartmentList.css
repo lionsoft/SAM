@@ -1,0 +1,20 @@
+﻿#lists .editDepartmentList table {
+  height: 344px;
+}
+#lists .editDepartmentList ul.doors {
+  height: 344px;
+  border: solid 1px #075b87;
+  overflow: auto;
+}
+#lists .editDepartmentList ul.doors li {
+  padding: 4px 8px;
+}
+#lists .editDepartmentList ul.doors li:nth-of-type(even) {
+  background: #ffffff;
+}
+#lists .editDepartmentList ul.doors li:nth-of-type(odd) {
+  background: #ecf5fe;
+}
+#lists .editDepartmentList ul.doors li:hover {
+  background: #c1f3ff;
+}

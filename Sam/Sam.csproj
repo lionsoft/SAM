@@ -202,6 +202,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\CustomersApi\DepartmentListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorsController.cs" />
     <Compile Include="Api\DoorsApi\AreasController.cs" />
@@ -548,6 +549,9 @@
     <Content Include="app\common\LionSoft.Angular\html\edit-form.less" />
     <None Include="app\css\buttons.less" />
     <None Include="app\css\Colors.less" />
+    <Content Include="app\css\consts.css">
+      <DependentUpon>consts.less</DependentUpon>
+    </Content>
     <Content Include="app\css\consts.less" />
     <None Include="app\css\fixes.less" />
     <Content Include="app\css\globals.css">
@@ -767,6 +771,16 @@
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Employees\_editEmployee.html" />
+    <Content Include="app\views\Lists\editDepartmentList.html" />
+    <Content Include="app\views\Lists\editDepartmentList.css">
+      <DependentUpon>editDepartmentList.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Lists\editDepartmentList.js">
+      <DependentUpon>editDepartmentList.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Lists\editDoorList.js">
+      <DependentUpon>editDoorList.ts</DependentUpon>
+    </Content>
     <Content Include="app\views\Lists\lists.css">
       <DependentUpon>lists.less</DependentUpon>
     </Content>
@@ -2150,6 +2164,13 @@
     <Content Include="app\views\Lists\lists.js.map">
       <DependentUpon>lists.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\Lists\editDoorList.js.map">
+      <DependentUpon>editDoorList.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Lists\editDepartmentList.less" />
+    <Content Include="app\views\Lists\editDepartmentList.js.map">
+      <DependentUpon>editDepartmentList.ts</DependentUpon>
+    </Content>
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />
@@ -2210,6 +2231,7 @@
     <TypeScriptCompile Include="app\views\Cards\cards.ts" />
     <TypeScriptCompile Include="app\views\Doors\doors.ts" />
     <TypeScriptCompile Include="app\views\Employees\employees.ts" />
+    <TypeScriptCompile Include="app\views\Lists\editDepartmentList.ts" />
     <TypeScriptCompile Include="app\views\Lists\editDoorList.ts" />
     <TypeScriptCompile Include="app\views\Lists\lists.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />

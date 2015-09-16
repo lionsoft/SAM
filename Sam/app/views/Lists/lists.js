@@ -14,41 +14,30 @@ var App;
             function Lists() {
                 _super.apply(this, arguments);
                 this.customers = [];
+                this.departments = [];
             }
             Lists.prototype.Init = function () {
-                // Queue all promises and wait for them to finish before loading the view
-                this.activate(this.LoadCustomers());
-            };
-            Lists.prototype.LoadCustomers = function () {
                 var _this = this;
-                return this.samCustomers.Load().then(function (res) { return _this.customers = res; });
+                // Queue all promises and wait for them to finish before loading the view
+                this.activate(this.samCustomers.Load().then(function (res) { return _this.customers = res; }), this.samDepartments.Load().then(function (res) { return _this.departments = res; }));
             };
             Lists.prototype.Activated = function () {
                 var _this = this;
                 this.$scope.$watch("$.customers", function () { return _this.selectedCustomerId = _this.customers.select(function (x) { return x.Id; }).firstOrDefault(); });
-            };
-            Lists.prototype.prepareDoorsQuery = function (odata) {
-                /*
-                            odata.eq("CustomerId", this.selectedCustomerId);
-                            return "selectedCustomerId";
-                */
+                this.$scope.$watch("$.departments", function () { return _this.selectedDepartmentId = _this.departments.select(function (x) { return x.Id; }).firstOrDefault(); });
             };
             Lists.prototype.prepareDoorListQuery = function (odata) {
                 odata.eq("CustomerId", this.selectedCustomerId);
                 return "selectedCustomerId";
             };
-            Lists.prototype.prepareDoorListEdit = function (doorList) {
-                alert('1');
-                /*
-                            if (!doorList.Id) {
-                                doorList.CustomerId = this.selectedCustomerId;
-                            }
-                */
+            Lists.prototype.prepareDepartmentListQuery = function (odata) {
+                odata.eq("DepartmentId", this.selectedDepartmentId);
+                return "selectedDepartmentId";
             };
             return Lists;
         })(App.Controller);
         // Register with angular
-        App.app.controller('lists', Lists.Factory("samCustomers", "samDoorLists", "samDepartmentLists"));
+        App.app.controller('lists', Lists.Factory("samCustomers", "samDepartments"));
     })(Controllers = App.Controllers || (App.Controllers = {}));
 })(App || (App = {}));
 //# sourceMappingURL=lists.js.map

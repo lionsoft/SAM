@@ -20,9 +20,16 @@ var App;
                 enumerable: true,
                 configurable: true
             });
+            DepartmentListsService.prototype.prepareSave = function (entity) {
+                var _this = this;
+                var doorLists = entity.DoorLists;
+                _super.prototype.prepareSave.call(this, entity);
+                doorLists.forEach(function (d) { return _this.samDoorLists.prepareSave(d); });
+                entity.DoorLists = doorLists;
+            };
             return DepartmentListsService;
         })(Services.CRUDService);
-        App.app.service("samDepartmentLists", DepartmentListsService.Factory());
+        App.app.service("samDepartmentLists", DepartmentListsService.Factory("samDoorLists"));
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
 //# sourceMappingURL=SamDepartmentListsService.js.map

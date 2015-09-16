@@ -133,7 +133,7 @@ module App.Directives {
             var controller: Controller;
 
             if (typeof (<any>(scope.$params.controller)) === "string") {
-                controller = this.$controller(scope.$params.controller, { '$scope': scope, '$item': item });
+                controller = this.$controller(scope.$params.controller, { '$scope': scope.$new(), '$item': item });
             } else {
                 controller = scope.$params.controller;
             }
@@ -162,15 +162,21 @@ module App.Directives {
                     res = params.prepareEdit(item, scope.$table);
             }
 
-            if (!res || !angular.isFunction(res.then)) {
-                if (controller) {
-                    res = params.service.EditModal(item, params.editTemplate, controller.$scope, false);
-                } else {
-                    res = params.service.EditModal(item, params.editTemplate, scope, false);
-                }
-            }
-            if (res)
-                res.then(() => scope.$table.pipe());
+            if (!res || !angular.isFunction(res.then))
+                res = this.promiseFromResult(res);
+
+            // ReSharper disable once QualifiedExpressionMaybeNull
+            res.then(r => {
+                    if (r === false) return <any>false;
+                    if (controller) {
+                        return params.service.EditModal(item, params.editTemplate, controller.$scope, false);
+                    } else {
+                        return params.service.EditModal(item, params.editTemplate, scope, false);
+                    }
+            })
+            .then(r => {
+                if (r) scope.$table.pipe();
+            });
         }
 
         Delete(scope: ISamStTableScope<IEntityObjectId>, item: IEntityObjectId) {

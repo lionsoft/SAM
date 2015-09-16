@@ -38,6 +38,7 @@ declare module st {
         search: {
             input: string;
             predicate: string;
+            predicateObject: { };
         };
         pagination: {
             /**

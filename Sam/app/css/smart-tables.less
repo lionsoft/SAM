@@ -7,6 +7,21 @@ table[st-table] {
     border: 1px solid @table-border-color;
     width: 100%;
 
+    input[st-search] {
+        width: 100%;
+        border: none;
+        border-left: 1px solid @table-row-border-color;
+        border-bottom: 1px solid @table-row-border-color;
+        padding-left: 4px;
+        background: transparent;
+    }
+    input[st-search][readonly] {
+        background: #F6F6F6;
+    }
+    td:first-child input[st-search] {
+        border-left: none;
+    }
+
     thead {
         th {
             font-size: 13px;
