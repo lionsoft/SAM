@@ -42,17 +42,7 @@ module App.Controllers {
 
         Activated() {
             this.$scope.$watch("$.customers", () => this.selectedCustomerId = this.customers.select(x => x.Id).firstOrDefault());
-
             this.$scope.$watch("$.selectedCustomerId", () => this.LoadEmployees());
-        }
-
-        LoadEmployees() {
-            this.employees = [];
-            this.customerDepartments = [];
-            this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(res => this.customerDepartments = res);
-            return this.$timeout(() => this.samEmployees
-                .LoadByCustomer(this.selectedCustomerId, "Manager", "Department", "User")
-                .then(res => this.employees = res));
         }
 
         $submit(item: IEmployee): IPromise<boolean> {
@@ -78,19 +68,27 @@ module App.Controllers {
             return this.promiseFromResult(true);
         }
 
-        AddEmployee() {
-            this.uploader.queue = [];
-            this.samEmployees
-                .EditModal(<IEmployee>{ Status: EmployeeStatus.New, UserRole: UserRole.Normal }, '_editEmployee.html', this.$scope)
-                .then(res => this.employees.push(res));
+        prepareQuery(odata: Services.OData) {
+            odata.$expand("Manager", "Department", "User").eq("Department.Company.CustomerId", this.selectedCustomerId);
+            return "selectedCustomerId";
         }
-        EditEmployee(c: IEmployee) {
+
+        prepareEdit(employee: IEmployee) {
             this.uploader.queue = [];
-            this.samEmployees.EditModal(c, '_editEmployee.html', this.$scope);
+            if (!employee.Id) {
+                employee.Status = EmployeeStatus.New;
+                employee.UserRole = UserRole.Normal;
+                employee.PinCode = 1111;
+
+            }
         }
-        DeleteEmployee(c: IEmployee) { this.samEmployees.DeleteModal(c).then(() => this.employees.Remove(c)); }
 
-
+        LoadEmployees() {
+            this.employees = [];
+            this.customerDepartments = [];
+            this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(res => this.customerDepartments = res);
+            this.samEmployees.LoadByCustomer(this.selectedCustomerId).then(res => this.employees = res);
+        }
     }
 
     // Register with angular

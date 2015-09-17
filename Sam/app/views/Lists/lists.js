@@ -19,11 +19,12 @@ var App;
             Lists.prototype.Init = function () {
                 var _this = this;
                 // Queue all promises and wait for them to finish before loading the view
-                this.activate(this.samCustomers.Load().then(function (res) { return _this.customers = res; }), this.samDepartments.Load().then(function (res) { return _this.departments = res; }));
+                this.activate(this.samCustomers.Load().then(function (res) { return _this.customers = res; }));
             };
             Lists.prototype.Activated = function () {
                 var _this = this;
                 this.$scope.$watch("$.customers", function () { return _this.selectedCustomerId = _this.customers.select(function (x) { return x.Id; }).firstOrDefault(); });
+                this.$scope.$watch("$.selectedCustomerId", function () { return _this.samDepartments.LoadByCustomer(_this.selectedCustomerId).then(function (res) { return _this.departments = res; }); });
                 this.$scope.$watch("$.departments", function () { return _this.selectedDepartmentId = _this.departments.select(function (x) { return x.Id; }).firstOrDefault(); });
             };
             Lists.prototype.prepareDoorListQuery = function (odata) {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Web.Http;
 using Sam.DbContext;
+using Sam.Extensions.ErrorManager;
 
 namespace Sam.Api
 {
+    [AppExceptionFilter]
     public class AppController : ApiController
     {
         private Lazy<ApplicationDbContext> _db = new Lazy<ApplicationDbContext>(ApplicationDbContext.Create);

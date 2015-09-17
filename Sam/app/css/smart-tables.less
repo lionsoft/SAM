@@ -1,19 +1,65 @@
 ﻿@import 'consts';
+@import 'mixins';
 
 
-table[st-table] {
+[st-table] table.table-striped, table[st-table].table-striped {
+    tbody {
+        tr:nth-of-type(even) {
+            background: @table-row-even-color;
+        }
 
-    button{
-        min-width: 0;
+        tr:nth-of-type(odd) {
+            background: @table-row-odd-color;
+        }
     }
-    // Table borders in paging mode
+}
+
+[st-table] table.table-hover, table[st-table].table-hover {
+    tbody {
+        tr:hover {
+            background: @table-row-hower-color;
+        }
+    }
+}
+
+
+.st-table() {
+
     width: 100%;
+    
+    th.table-actions {
+        white-space: nowrap; 
+        width: 78px;
+        text-align: center;
+    }
+    td.action-buttons {
+        white-space: nowrap; 
+        margin: 0!important;
+        padding: 0!important;
+
+
+        button {
+            width: 36px;
+            margin: 0!important;
+            padding-left: 4px;
+            padding-right: 4px;
+            min-width: 0;
+            background-color: transparent;
+        }
+    }
+
+    .col-created-by {
+        .truncate();
+        max-width: 10em;
+    }
+
+    .col-created-date{
+        .truncate();
+        max-width: 7em;
+    }
+
 
     thead {
-        h3{
-            display: inline-block;
-        }
-         
         th {
             font-size: @table-font-size;
             vertical-align: middle;
@@ -49,7 +95,8 @@ table[st-table] {
         }
          th:first-child{
              border-left: 1px solid @table-border-color;
-    }
+        }
+        .st-search();
     }
 
     tbody {
@@ -102,94 +149,105 @@ table[st-table] {
         }
     }
 
-    .action-buttons {
-        white-space: nowrap; 
-        margin: 0!important;
-        padding: 0!important;
-
-
-        button {
-            width: 36px;
-            margin: 0!important;
-            padding-left: 4px;
-            padding-right: 4px;
-            min-width: 0;
-            background-color: transparent;
-        }
-    }
-
-    tfoot{
+    tfoot {
         background: @table-header-color;
         border: 1px solid @table-border-color;
-    }
-    tfoot nav {
-        margin: 8px 8px 0;
-    }
+        border-top: none;
+        border-bottom: none;
+        .st-pagination();
 
-    thead .table-heading td {
-        padding: 0 10px;
-        button {
-            min-width: 0;
+        .st-paging.has-content {
+            border-bottom: 1px solid @table-border-color;
         }
-    }
-}
-
-table[st-table].table-striped tbody {
-    tr:nth-of-type(even) {
-        background: @table-row-even-color;
-    }
-
-    tr:nth-of-type(odd) {
-        background: @table-row-odd-color;
-    }
-}
-
-table[st-table].table-hover tbody {
-    tr:hover {
-        background: @table-row-hower-color;
-    }
-}
-
-.st-table-search{
-   
-    
-    input{
-        margin-top: 6px;
-        width: 300px;
-        float: right;
-    }
-}
-
-
-
-.st-paging {
-
-    // Выбор количества строк на странице
-    .st-paging-count{
-        display: inline-block;  
-        margin: 8px 20px 8px 0;
-        height: 28px;
-
         .st-paging-label{
-            font-size: 15px; 
             color: #fff;
         }
 
-        .st-paging-listbox{
-            height: 28px;   
+    }
+}
+
+.st-search() {
+    .st-table-search {
+        h3 {
+            display: inline-block;
+        }
+        input{
+            margin-top: 6px;
+            width: 300px;
+            float: right;
+        }
+    }
+}
+
+.st-pagination() {
+    
+    .st-paging {
+
+        // Выбор количества строк на странице
+        .st-paging-count{
+            display: inline-block;  
+            margin: 8px 20px 8px 0;
+            height: 28px;
+
+            .st-paging-label{
+                font-size: 15px; 
+//                color: #fff;
+            }
+
+            .st-paging-listbox{
+                height: 28px;   
+            }
+        }
+
+        //Стилизация кнопок paginga
+        .pagination li {
+             a, span {
+                padding: 4px 12px;
+                color: #333;
+            }
+             a:hover, span {
+                color: black;
+                background: @table-row-odd-color;
+            }
+        }
+        .pagination li.disabled {
+             a, span {
+                color: #555;
+             }
         }
     }
 
-    //Стилизация кнопок paginga
-    .pagination li a:hover {
-        color: #333;
-        background: @table-row-odd-color;
+    .st-paging.has-page-sizes {
+         nav {
+                display: inline-block; 
+                float: right;
+            }
     }
-    .pagination li a, .pagination li span {
-        padding: 4px 12px;
+
+
+    .pagination {
+        margin: 0; 
+        padding: 0;
     }
-    nav{
-        display: inline-block; 
-        float: right;
+
+    nav {
+        margin: 8px 8px 0;
     }
 }
+
+
+table[st-table] {
+    .st-table();
+}
+
+[st-table] {
+
+    table {
+        .st-table();
+    }
+
+    .st-search();
+    .st-pagination();
+
+}
+

@@ -5,9 +5,9 @@ module App.Controllers {
     class EditDepartmentList extends Controller {
 
         $;
-        $item: IDoorList;
+        $item: IDepartmentList;
 
-        samDoorLists: Services.IDoorListsService;
+        samDepartmentLists: Services.IDepartmentListsService;
 
         public selectedCustomerId: string;
 
@@ -15,32 +15,32 @@ module App.Controllers {
         Init() {
         }
 
-        prepareEdit(doorList: IDoorList) {
-            if (!doorList.Id) {
-                doorList.CustomerId = this.$.selectedCustomerId;
+        prepareEdit(departmentList: IDepartmentList) {
+            if (!departmentList.Id) {
+                departmentList.DepartmentId = this.$.selectedDepartmentId;
             } else {
-                return this.samDoorLists.Load(doorList.Id, "Doors").then(res => {
-                    doorList.Doors = res.Doors;
+                return this.samDepartmentLists.Load(departmentList.Id, "DoorLists").then(res => {
+                    departmentList.DoorLists = res.DoorLists;
                 });
             }
         }
 
-        IsDoorInList(door: IDoor) {
-            this.$item.Doors = this.$item.Doors || [];
-            return this.$item.Doors.any(d => d.Id === door.Id);
+        IsDoorListInList(doorList: IDoorList) {
+            this.$item.DoorLists = this.$item.DoorLists || [];
+            return this.$item.DoorLists.any(d => d.Id === doorList.Id);
         }
 
-        AddDoorToList(door: IDoor) {
-            if (!this.IsDoorInList(door))
-                this.$item.Doors.push(door);
+        AddDoorListToList(doorList: IDoorList) {
+            if (!this.IsDoorListInList(doorList))
+                this.$item.DoorLists.push(doorList);
         }
 
-        RemoveDoorFromList(door: IDoor) {
-            if (this.IsDoorInList(door))
-                this.$item.Doors.Remove(door);
+        RemoveDoorListFromList(doorList: IDoorList) {
+            if (this.IsDoorListInList(doorList))
+                this.$item.DoorLists.Remove(doorList);
         }
     }
 
     // Register with angular
-    app.controller('editDepartmentList', EditDepartmentList.Factory("samDoorLists"));
+    app.controller('editDepartmentList', EditDepartmentList.Factory("samDepartmentLists"));
 } 

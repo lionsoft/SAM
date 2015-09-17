@@ -8,6 +8,16 @@ body {
     font-size: @def-font-size;
 }
 
+.overflow-x {
+    overflow-x: auto;
+}
+.overflow-y {
+    overflow-y: auto;
+}
+.overflow {
+    overflow: auto;
+}
+
 .nowrap {
     white-space: nowrap; 
 }
@@ -21,13 +31,21 @@ body {
 
 .truncate-to(@i: 1) when (@i =< 80) {
     @px: @i*10;
-    .truncate-to-@{px}px {
+    .truncate-@{px}px {
         .truncate();
         width: @i*10px!important;
     }
-    .truncate-to-@{i}em {
+    .max-truncate-@{px}px {
+        .truncate();
+        max-width: @i*10px!important;
+    }
+    .truncate-@{i}em {
         .truncate();
         width: @i*1em!important;
+    }
+    .max-truncate-@{i}em {
+        .truncate();
+        max-width: @i*1em!important;
     }
     .truncate-to(@i + 1);
 }

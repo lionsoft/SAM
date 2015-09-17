@@ -24,8 +24,10 @@ var App;
                 var _this = this;
                 var doorLists = entity.DoorLists;
                 _super.prototype.prepareSave.call(this, entity);
-                doorLists.forEach(function (d) { return _this.samDoorLists.prepareSave(d); });
-                entity.DoorLists = doorLists;
+                if (doorLists) {
+                    doorLists.forEach(function (d) { return _this.samDoorLists.prepareSave(d); });
+                    entity.DoorLists = doorLists;
+                }
             };
             return DepartmentListsService;
         })(Services.CRUDService);

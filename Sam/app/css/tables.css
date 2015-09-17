@@ -1,13 +1,13 @@
-﻿.col-actions {
+﻿.sam-table .col-actions {
   width: 5em;
 }
-.col-created-by {
+.sam-table .col-created-by {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 10em;
 }
-.col-created-date {
+.sam-table .col-created-date {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

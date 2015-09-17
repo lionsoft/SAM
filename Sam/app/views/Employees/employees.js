@@ -39,15 +39,6 @@ var App;
                 this.$scope.$watch("$.customers", function () { return _this.selectedCustomerId = _this.customers.select(function (x) { return x.Id; }).firstOrDefault(); });
                 this.$scope.$watch("$.selectedCustomerId", function () { return _this.LoadEmployees(); });
             };
-            Employees.prototype.LoadEmployees = function () {
-                var _this = this;
-                this.employees = [];
-                this.customerDepartments = [];
-                this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(function (res) { return _this.customerDepartments = res; });
-                return this.$timeout(function () { return _this.samEmployees
-                    .LoadByCustomer(_this.selectedCustomerId, "Manager", "Department", "User")
-                    .then(function (res) { return _this.employees = res; }); });
-            };
             Employees.prototype.$submit = function (item) {
                 var _this = this;
                 if (this.uploader.queue.length > 0) {
@@ -71,20 +62,24 @@ var App;
                 }
                 return this.promiseFromResult(true);
             };
-            Employees.prototype.AddEmployee = function () {
-                var _this = this;
-                this.uploader.queue = [];
-                this.samEmployees
-                    .EditModal({ Status: 0 /* New */, UserRole: 1 /* Normal */ }, '_editEmployee.html', this.$scope)
-                    .then(function (res) { return _this.employees.push(res); });
+            Employees.prototype.prepareQuery = function (odata) {
+                odata.$expand("Manager", "Department", "User").eq("Department.Company.CustomerId", this.selectedCustomerId);
+                return "selectedCustomerId";
             };
-            Employees.prototype.EditEmployee = function (c) {
+            Employees.prototype.prepareEdit = function (employee) {
                 this.uploader.queue = [];
-                this.samEmployees.EditModal(c, '_editEmployee.html', this.$scope);
+                if (!employee.Id) {
+                    employee.Status = 0 /* New */;
+                    employee.UserRole = 1 /* Normal */;
+                    employee.PinCode = 1111;
+                }
             };
-            Employees.prototype.DeleteEmployee = function (c) {
+            Employees.prototype.LoadEmployees = function () {
                 var _this = this;
-                this.samEmployees.DeleteModal(c).then(function () { return _this.employees.Remove(c); });
+                this.employees = [];
+                this.customerDepartments = [];
+                this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(function (res) { return _this.customerDepartments = res; });
+                this.samEmployees.LoadByCustomer(this.selectedCustomerId).then(function (res) { return _this.employees = res; });
             };
             return Employees;
         })(App.Controller);

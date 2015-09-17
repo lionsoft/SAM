@@ -14,8 +14,10 @@ module App.Services {
         prepareSave(entity: IDoorList): void {
             var doors = entity.Doors;
             super.prepareSave(entity);
-            doors.forEach(d => this.samDoors.prepareSave(d));
-            entity.Doors = doors;
+            if (doors) {
+                doors.forEach(d => this.samDoors.prepareSave(d));
+                entity.Doors = doors;
+            }
         }
     }
 

@@ -29,19 +29,18 @@
 <!-- #region - Assigned Doors - -->
 <div class="row form-group">
     <!-- #region - All Doors - -->
-    <div class="col col-xs-6">
+    <div class="col col-xs-6" 
+         st-table
+         sam-st-table="{service: 'samDoors', prepareQuery: $.prepareDoorsQuery}">
         <label class="control-label" translate>AllDoors</label>
-        <table st-table
-               sam-st-table="{service: 'samDoors', prepareQuery: $.prepareDoorsQuery}">
+        <table>
             <thead>
                 <tr>
                     <th colspan="2" translate st-sort-default st-sort="Name">Name</th>
                 </tr>
             </thead>
             <tbody ng-show="$loading">
-                <tr>
-                    <td colspan="2" class="text-center" translate>Loading ...</td>
-                </tr>
+                <tr><td colspan="2" class="text-center" translate>Loading ...</td></tr>
             </tbody>
             <tbody ng-hide="$loading">
                 <tr ng-repeat="door in $items track by door.Id">
@@ -52,12 +51,15 @@
                     </td>
                 </tr>
             </tbody>
+<!--
             <tfoot>
                 <tr>
-                    <td class="text-center" st-pagination st-items-by-page="10" colspan="2"></td>
+                    <td class="text-center" st-pagination st-show-page-sizes="false" st-items-by-page="8" colspan="2"></td>
                 </tr>
             </tfoot>
+-->
         </table>
+        <div class="text-center" st-pagination st-show-page-sizes="false" st-items-by-page="8" colspan="2"></div>
     </div>
     <!-- #endregion -->
 

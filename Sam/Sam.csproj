@@ -330,6 +330,13 @@
     <Compile Include="Extensions\EntityFramework\EFHooks\PreInsertHook.cs" />
     <Compile Include="Extensions\EntityFramework\EFHooks\PreUpdateHook.cs" />
     <Compile Include="Extensions\EntityFramework\EntityExtensions.cs" />
+    <Compile Include="Extensions\ErrorManager\AbortException.cs" />
+    <Compile Include="Extensions\ErrorManager\AppExceptionFilterAttribute.cs" />
+    <Compile Include="Extensions\ErrorManager\EntityFrameworkErrorHandler.cs" />
+    <Compile Include="Extensions\ErrorManager\ErrorAnalizerParams.cs" />
+    <Compile Include="Extensions\ErrorManager\ErrorLog.cs" />
+    <Compile Include="Extensions\ErrorManager\ExceptionExtension.cs" />
+    <Compile Include="Extensions\ErrorManager\StringExtension.cs" />
     <Compile Include="Extensions\SequentialGuid.cs" />
     <Compile Include="T4TS\TypeScriptEnumAttribute.cs" />
     <Compile Include="T4TS\TypeScriptInterfaceAttribute.cs" />
@@ -612,8 +619,20 @@
     <Content Include="app\css\ui-select.css">
       <DependentUpon>ui-select.less</DependentUpon>
     </Content>
+    <Content Include="app\decorators\controllerService.js">
+      <DependentUpon>controllerService.ts</DependentUpon>
+    </Content>
     <Content Include="app\decorators\DTRendererService.js">
       <DependentUpon>DTRendererService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\stPaginationDirective.js">
+      <DependentUpon>stPaginationDirective.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\translateFilter.js">
+      <DependentUpon>translateFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\translateService.js">
+      <DependentUpon>translateService.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\autofocus.js">
       <DependentUpon>autofocus.ts</DependentUpon>
@@ -760,8 +779,8 @@
     </Content>
     <Content Include="app\views\Cards\_editCard.html" />
     <Content Include="app\views\Doors\_editDoor.html" />
-    <Content Include="app\views\Employees\_editEmployee.css">
-      <DependentUpon>_editEmployee.less</DependentUpon>
+    <Content Include="app\views\Employees\editEmployee.css">
+      <DependentUpon>editEmployee.less</DependentUpon>
     </Content>
     <Content Include="app\views\Employees\employees.css">
       <DependentUpon>employees.less</DependentUpon>
@@ -770,7 +789,7 @@
     <Content Include="app\views\Employees\employees.js">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Employees\_editEmployee.html" />
+    <Content Include="app\views\Employees\editEmployee.html" />
     <Content Include="app\views\Lists\editDepartmentList.html" />
     <Content Include="app\views\Lists\editDepartmentList.css">
       <DependentUpon>editDepartmentList.less</DependentUpon>
@@ -2095,6 +2114,18 @@
     <Content Include="app\routes\lists.js.map">
       <DependentUpon>lists.ts</DependentUpon>
     </Content>
+    <Content Include="app\decorators\controllerService.js.map">
+      <DependentUpon>controllerService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\stPaginationDirective.js.map">
+      <DependentUpon>stPaginationDirective.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\translateFilter.js.map">
+      <DependentUpon>translateFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\translateService.js.map">
+      <DependentUpon>translateService.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -2162,7 +2193,7 @@
     <Content Include="app\views\Employees\employees.js.map">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Employees\_editEmployee.less" />
+    <Content Include="app\views\Employees\editEmployee.less" />
     <Content Include="app\views\Lists\editDoorList.less" />
     <Content Include="app\views\Lists\lists.less" />
     <Content Include="app\views\Lists\lists.js.map">

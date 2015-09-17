@@ -17,7 +17,7 @@ namespace Sam.DbContext
         
         public Employee ApprovedBy { get; set; }
 
-        public DateTime ApprovedDate { get; set; }
+        public DateTime? ApprovedDate { get; set; }
 
         public ISet<DoorList> DoorLists { get; set; }
     }

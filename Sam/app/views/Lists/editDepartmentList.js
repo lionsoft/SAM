@@ -16,32 +16,32 @@ var App;
             }
             EditDepartmentList.prototype.Init = function () {
             };
-            EditDepartmentList.prototype.prepareEdit = function (doorList) {
-                if (!doorList.Id) {
-                    doorList.CustomerId = this.$.selectedCustomerId;
+            EditDepartmentList.prototype.prepareEdit = function (departmentList) {
+                if (!departmentList.Id) {
+                    departmentList.DepartmentId = this.$.selectedDepartmentId;
                 }
                 else {
-                    return this.samDoorLists.Load(doorList.Id, "Doors").then(function (res) {
-                        doorList.Doors = res.Doors;
+                    return this.samDepartmentLists.Load(departmentList.Id, "DoorLists").then(function (res) {
+                        departmentList.DoorLists = res.DoorLists;
                     });
                 }
             };
-            EditDepartmentList.prototype.IsDoorInList = function (door) {
-                this.$item.Doors = this.$item.Doors || [];
-                return this.$item.Doors.any(function (d) { return d.Id === door.Id; });
+            EditDepartmentList.prototype.IsDoorListInList = function (doorList) {
+                this.$item.DoorLists = this.$item.DoorLists || [];
+                return this.$item.DoorLists.any(function (d) { return d.Id === doorList.Id; });
             };
-            EditDepartmentList.prototype.AddDoorToList = function (door) {
-                if (!this.IsDoorInList(door))
-                    this.$item.Doors.push(door);
+            EditDepartmentList.prototype.AddDoorListToList = function (doorList) {
+                if (!this.IsDoorListInList(doorList))
+                    this.$item.DoorLists.push(doorList);
             };
-            EditDepartmentList.prototype.RemoveDoorFromList = function (door) {
-                if (this.IsDoorInList(door))
-                    this.$item.Doors.Remove(door);
+            EditDepartmentList.prototype.RemoveDoorListFromList = function (doorList) {
+                if (this.IsDoorListInList(doorList))
+                    this.$item.DoorLists.Remove(doorList);
             };
             return EditDepartmentList;
         })(App.Controller);
         // Register with angular
-        App.app.controller('editDepartmentList', EditDepartmentList.Factory("samDoorLists"));
+        App.app.controller('editDepartmentList', EditDepartmentList.Factory("samDepartmentLists"));
     })(Controllers = App.Controllers || (App.Controllers = {}));
 })(App || (App = {}));
 //# sourceMappingURL=editDepartmentList.js.map

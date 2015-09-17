@@ -17,54 +17,93 @@
                 </div>
                 <!-- #endregion -->
 
-                <div class="row panel panel-default sam-table">
-                    <h3 class="panel-heading">
-                        <button ng-click="$.AddEmployee()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
-                        <span translate>Employees</span>
-                    </h3>
-                    <div class="panel-body">
-                        <table datatable="ng" class="row-border hover">
+                <!-- #region - Employees - -->
+                <div st-table 
+                     sam-st-table="{service: 'samEmployees', editTemplate: 'editEmployee.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}">
+                    <div class="st-table-search">
+                        <h3 style="display: inline-block">
+                            <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                            <span>Employees</span>
+                        </h3>
+                        <input st-search="" class="form-control" placeholder="Search..." type="text"/>
+                    </div>
+
+                    <div class="overflow-x">
+                         <table>
                             <thead>
-                                <tr>
-                                    <th translate class="auto-size">Name</th>
-                                    <th translate>Email</th>
-                                    <th translate>Department</th>
-                                    <th translate>Manager</th>
-                                    <th translate>PinCode</th>
-                                    <th translate>Image</th>
-                                    <th translate>Status</th>
-                                    <th translate>Role</th>
-                                    <th translate>User</th>
-                                    <th translate>CreatedBy</th>
-                                    <th translate>CreatedDate</th>
-                                    <th translate>Action</th>
-                                </tr>
+                            <tr>
+                                <th class="table-actions"><i class="fa fa-cogs fa-lg"></i></th>
+                                <th translate class="auto-size" st-sort-default st-sort="Name">Name</th>
+                                <th translate st-sort="Name">Email</th>
+                                <th translate st-sort="Department.Name">Department</th>
+                                <th translate st-sort="Manager.Name">Manager</th>
+                                <th translate st-sort="PinCode">PinCode</th>
+                                <th translate st-sort="Image">Image</th>
+                                <th translate st-sort="Status">Status</th>
+                                <th translate st-sort="Role">Role</th>
+                                <th translate st-sort="User.UserName">User</th>
+                                <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                                <th translate st-sort="CreatedDate">CreatedDate</th>
+                            </tr>
                             </thead>
-                            <tbody>
-                                <tr ng-repeat="employee in $.employees track by employee.Id">
-                                    <td>{{employee.Name}}</td>
-                                    <td><div class="truncate-10em">{{employee.Email}}</div></td>
-                                    <td><div class="truncate-10em">{{employee.Department.Name}}</div></td>
-                                    <td><div class="truncate-10em">{{employee.Manager.Name}}</div></td>
-                                    <td><div class="truncate-5em">{{employee.PinCode}}</div></td>
-                                    <td><div class="truncate-15em">{{employee.Image}}</div></td>
-                                    <td><div class="truncate-6em">{{employee.Status | EmployeeStatus}}</div></td>
-                                    <td><div class="truncate-8em">{{employee.UserRole | UserRole}}</div></td>
-                                    <td><div class="truncate-10em">{{employee.User.UserName}}</div></td>
-                                    <td><div class="col-created-by">{{::employee.CreatedBy.Name}}</div></td>
-                                    <td><div class="col-created-date">{{::employee.CreatedDate | date}}</div></td>
+                            <tbody ng-show="$loading">
+                                <tr><td colspan="12" class="text-center" translate>Loading ... </td>                             </tr>
+                            </tbody>
+                            <tbody ng-hide="$loading">
+                                <tr ng-repeat="employee in $items track by employee.Id">
                                     <td class="action-buttons">
-                                        <button ng-click="$.EditEmployee(employee)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
-                                        <button ng-click="$.DeleteEmployee(employee)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                        <button ng-click="$edit(employee)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                        <button ng-click="$delete(employee)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-10em" tooltip="{{employee.Name}}">{{employee.Name}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-10em">{{employee.Email}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-10em" tooltip="{{employee.Department.Name}}">{{employee.Department.Name}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-10em" tooltip="{{employee.Manager.Name}}">{{employee.Manager.Name}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-5em">{{employee.PinCode}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-15em">{{employee.Image}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-6em">{{employee.Status | EmployeeStatus}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-8em">{{employee.UserRole | UserRole}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="max-truncate-10em">{{employee.User.UserName}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="col-created-by">{{::employee.CreatedBy.Name}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="col-created-date">{{::employee.CreatedDate | date}}</div>
                                     </td>
                                 </tr>
                             </tbody>
+
+                            <!--
+                            <tfoot>
+                            <tr>
+                                <td class="text-right" st-pagination st-items-by-page="20" colspan="12"></td>
+                            </tr>
+                            </tfoot>
+                            -->
                         </table>
                     </div>
-
+                    <div class="text-right" st-pagination st-items-by-page="20"></div>
                 </div>
-
             </div>
+            <!-- #endregion -->
         </div>
     </section>
 </section>
