@@ -1,18 +1,38 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.OData.Extensions;
+using System.Web.Http.OData.Query;
 using Sam.DbContext;
 using Sam.Extensions.EntityFramework;
 
 namespace Sam.Api
 {
+    public static class CRUDController
+    {
+        public static object CreateODataResponse<TEntity>(ApplicationDbContext db, HttpRequestMessage request, ODataQueryOptions<TEntity> queryOptions) where TEntity : class
+        {
+            var results = queryOptions.ApplyTo(db.Set<TEntity>().AsQueryable());
+            if (queryOptions.InlineCount != null && queryOptions.InlineCount.Value == InlineCountValue.AllPages)
+            {
+                var odataProperties = request.ODataProperties();
+                return new[] { new ODataMetadata(results, odataProperties.TotalCount) };
+            }
+            else
+            {
+                return results;
+            }
+        }
+    }
+
     public class CRUDController<TEntity, T> : AppController where TEntity : class, IEntityObjectId<T>
     {
-        [HttpGet, Queryable]
-        public virtual IQueryable<TEntity> Get()
+        [HttpGet]
+        public virtual object Get(ODataQueryOptions<TEntity> queryOptions)
         {
-            return Db.Set<TEntity>();
+            return CRUDController.CreateODataResponse<TEntity>(Db, Request, queryOptions);
         }
 
         [HttpGet, Route("{id}")]

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.OData;
+using System.Web.Http.OData.Query;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -55,10 +56,10 @@ namespace Sam.Api
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        [HttpGet, Queryable]
-        public IQueryable<User> Get()
+        [HttpGet]
+        public object Get(ODataQueryOptions<User> queryOptions)
         {
-            return Db.Set<User>();
+            return CRUDController.CreateODataResponse<User>(Db, Request, queryOptions);
         }
 
         [HttpGet, Route("{id}")]

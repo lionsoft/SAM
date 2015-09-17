@@ -210,7 +210,6 @@
     <Compile Include="Api\DoorsApi\CitiesController.cs" />
     <Compile Include="Api\DoorsApi\BuildingsController.cs" />
     <Compile Include="Api\CardsApi\CardsController.cs" />
-    <Compile Include="Api\System\QueryableAttribute.cs" />
     <Compile Include="Api\System\ODataMetadata.cs" />
     <Compile Include="Api\System\SequentialIdProvider.cs" />
     <Compile Include="Api\UploadController.cs" />

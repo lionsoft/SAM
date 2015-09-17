@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using System.Web.Http.OData;
 using Sam.DbContext;
 using Sam.Extensions.ErrorManager;
 
