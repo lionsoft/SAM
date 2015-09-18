@@ -21,7 +21,6 @@ var App;
             Employees.prototype.Init = function () {
                 var _this = this;
                 // Queue all promises and wait for them to finish before loading the view
-                this.activate(this.LoadCustomers());
                 this.samUsers.Load().then(function (res) { return _this.users = res; });
                 this.uploader = new this.FileUploader({ url: '/api/Employees/UploadImage' });
                 this.uploader.onAfterAddingFile = function (item) {
@@ -29,10 +28,7 @@ var App;
                 };
                 // Add submit hook to the scope - it will be executed before saving
                 this.$scope['$submit'] = function (item) { return _this.$submit(item); };
-            };
-            Employees.prototype.LoadCustomers = function () {
-                var _this = this;
-                return this.samCustomers.Load().then(function (res) { return _this.customers = res.orderBy(function (x) { return x.Name; }).toArray(); });
+                this.activate(this.samCustomers.Load().then(function (res) { return _this.customers = res; }));
             };
             Employees.prototype.Activated = function () {
                 var _this = this;

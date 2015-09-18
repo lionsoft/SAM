@@ -123,7 +123,7 @@ module App.Directives {
                 else if (angular.isString(watchExpressions))
                     this.addWatchers(scope, watchExpressions.split(','));
             }
-            scope.$params.service.SmartLoad(tableState, scope.$items, odata).then(() => scope.$loading = false);
+            scope.$params.service.SmartLoad(tableState, scope.$items, odata).finally(() => scope.$loading = false);
         }
 
         Edit(scope: ISamStTableScope<IEntityObjectId>, item: IEntityObjectId, tableAttrs) {

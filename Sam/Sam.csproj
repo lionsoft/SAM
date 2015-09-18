@@ -430,6 +430,9 @@
     <Content Include="app\common\utils\DateTime.js">
       <DependentUpon>DateTime.ts</DependentUpon>
     </Content>
+    <Content Include="app\common\utils\SmartTable.js">
+      <DependentUpon>SmartTable.ts</DependentUpon>
+    </Content>
     <Content Include="app\common\utils\Icon.js">
       <DependentUpon>Icon.ts</DependentUpon>
     </Content>
@@ -553,6 +556,9 @@
       <DependentUpon>EnumFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\common\LionSoft.Angular\html\edit-form.less" />
+    <Content Include="app\common\utils\SmartTable.js.map">
+      <DependentUpon>SmartTable.ts</DependentUpon>
+    </Content>
     <None Include="app\css\buttons.less" />
     <None Include="app\css\Colors.less" />
     <Content Include="app\css\consts.css">
@@ -624,6 +630,9 @@
     <Content Include="app\decorators\DTRendererService.js">
       <DependentUpon>DTRendererService.ts</DependentUpon>
     </Content>
+    <Content Include="app\decorators\stSearchDirective.js">
+      <DependentUpon>stSearchDirective.ts</DependentUpon>
+    </Content>
     <Content Include="app\decorators\stPaginationDirective.js">
       <DependentUpon>stPaginationDirective.ts</DependentUpon>
     </Content>
@@ -660,6 +669,9 @@
     </Content>
     <Content Include="app\filters\CardTypeFilter.js">
       <DependentUpon>CardTypeFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\asHTML.js">
+      <DependentUpon>asHtml.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\Console.js">
       <DependentUpon>Console.ts</DependentUpon>
@@ -1803,9 +1815,12 @@
     <TypeScriptCompile Include="app\common\Controller.ts" />
     <TypeScriptCompile Include="app\common\EnumFilter.ts" />
     <TypeScriptCompile Include="app\common\Filter.ts" />
+    <TypeScriptCompile Include="app\common\utils\SmartTable.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
     <TypeScriptCompile Include="app\decorators\controllerService.ts" />
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
+    <TypeScriptCompile Include="app\decorators\qService.ts" />
+    <TypeScriptCompile Include="app\decorators\stSearchDirective.ts" />
     <TypeScriptCompile Include="app\decorators\stPaginationDirective.ts" />
     <TypeScriptCompile Include="app\decorators\translateFilter.ts" />
     <TypeScriptCompile Include="app\decorators\translateService.ts" />
@@ -1817,6 +1832,7 @@
     <TypeScriptCompile Include="app\filters\CardNumberFilter.ts" />
     <TypeScriptCompile Include="app\filters\CardTypeFilter.ts" />
     <TypeScriptCompile Include="app\filters\CardStatusFilter.ts" />
+    <TypeScriptCompile Include="app\filters\asHtml.ts" />
     <TypeScriptCompile Include="app\filters\ManagersOfDepartment.ts" />
     <TypeScriptCompile Include="app\filters\Console.ts" />
     <TypeScriptCompile Include="app\filters\UserRoleFilter.ts" />
@@ -2124,6 +2140,12 @@
     </Content>
     <Content Include="app\decorators\translateService.js.map">
       <DependentUpon>translateService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\stSearchDirective.js.map">
+      <DependentUpon>stSearchDirective.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\asHTML.js.map">
+      <DependentUpon>asHtml.ts</DependentUpon>
     </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />

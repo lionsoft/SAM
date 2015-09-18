@@ -1,8 +1,16 @@
-﻿#lists .editDoorList table {
-  height: 344px;
+﻿#lists .editDoorList input[st-search] {
+  width: 150px;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 26px;
+}
+#lists .editDoorList div.table {
+  height: 296px;
+  overflow-y: auto;
 }
 #lists .editDoorList ul.doors {
-  height: 344px;
+  height: 342px;
   border: solid 1px #0b4665;
   overflow: auto;
 }

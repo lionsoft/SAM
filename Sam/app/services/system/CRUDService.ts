@@ -320,6 +320,65 @@ module App.Services {
             return <any>resQ.promise;
         }
 
+
+        private appendQuery(fieldsName: string, value, odata: OData, splitQueryStringBySpaces: boolean = false) {
+            var values = (splitQueryStringBySpaces && (typeof value === "string")) ? value.split(' ') : [value];
+            var fields = fieldsName.split(',');
+            var ofc: IODataFilterCreator = undefined;
+            var op: IODataLogical = undefined;
+            for (var n = 0; n < values.length; n++) {
+                var val = values[n];
+                if (val === undefined || val === null) continue;
+                for (var i = 0; i < fields.length; i++) {
+                    var fieldArr = fields[i].split(':');
+                    var field = fieldArr[0];
+                    var searchType = "contains";
+
+                    if (field.StartsWith("*") && field.EndsWith("*")) {
+                        // strict match
+                        searchType = "eq";
+                        field = field.substring(1, field.length - 1);
+                    }
+                    else if (field.StartsWith("*")) {
+                        // from beginning
+                        searchType = "startswith";
+                        field = field.substring(1, field.length);
+                    }
+                    else if (field.EndsWith("*")) {
+                        // from end
+                        searchType = "endswith";
+                        field = field.substring(0, field.length - 1);
+                    }
+                    var typ = (fieldArr[1] || "").toLowerCase();
+
+                    if (typ === "i") {
+                        // integer value
+                        // strict search only
+                        val = parseInt(val);
+                        if (!isNaN(val)) {
+                            ofc = op ? op.or(field) : (ofc || odata.prop(field));
+                            op = ofc.eq(parseInt(val));
+                        }
+                    }
+                    else if (typ === "d") {
+                        // date value
+                        // not implemented
+                    }
+                    else if (typ === "b") {
+                        // boolean value
+                        ofc = op ? op.or(field) : (ofc || odata.prop(field));
+                        op = ofc.eq(val ? true : false);
+                    } else {
+                        // string value
+                        ofc = op ? op.or(field) : (ofc || odata.prop(field));
+                        op = ofc[searchType](val);    
+                    }
+                }
+            }
+            if (op)
+                odata.and(op);
+        }
+
         SmartLoad(tableState: st.ITableState, dataSource?: T[], odata?: OData): IPromise<T[]> {
             odata = (odata || OData.create).$inlinecount();
             if (tableState.sort && angular.isString(tableState.sort.predicate)) {
@@ -334,15 +393,13 @@ module App.Services {
                     for (var propName in tableState.search.predicateObject) {
                         if (tableState.search.predicateObject.hasOwnProperty(propName)) {
                             var propValue = tableState.search.predicateObject[propName];
-                            //odata.prop(propName).contains(propValue);
-                            odata.prop(propName).eq(propValue);
+                            var fieldsName = Utils.SmartTable.DecodeFieldNames(propName);
+                            if (fieldsName === '$')
+                                fieldsName = 'Name';
+                            this.appendQuery(fieldsName, propValue, odata);
                         }
                     }
                 }
-                if (tableState.search.predicate) {
-
-                }
-
             }
             return this.$query(odata, true).then(res => {
                 var result: IODataMetadata<T> = <any>res[0];

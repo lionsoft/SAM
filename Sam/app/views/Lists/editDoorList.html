@@ -26,40 +26,48 @@
     <!-- #endregion -->
 </div>
 <!-- #endregion -->
+
+
 <!-- #region - Assigned Doors - -->
 <div class="row form-group">
     <!-- #region - All Doors - -->
-    <div class="col col-xs-6" 
+    <div class="col col-xs-6"
          st-table
          sam-st-table="{service: 'samDoors', prepareQuery: $.prepareDoorsQuery}">
-        <label class="control-label" translate>AllDoors</label>
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="2" translate st-sort-default st-sort="Name">Name</th>
-                </tr>
-            </thead>
-            <tbody ng-show="$loading">
-                <tr><td colspan="2" class="text-center" translate>Loading ...</td></tr>
-            </tbody>
-            <tbody ng-hide="$loading">
-                <tr ng-repeat="door in $items track by door.Id">
-                    <td>{{::door.Name}}</td>
-                    <td style="width: 1px">
-                        <a ng-click="$.AddDoorToList(door)" ng-hide="$.IsDoorInList(door)"><i class="fa fa-arrow-right"></i></a>
-                        <a ng-click="$.RemoveDoorFromList(door)" ng-show="$.IsDoorInList(door)"><i class="fa fa-times red"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-<!--
-            <tfoot>
-                <tr>
-                    <td class="text-center" st-pagination st-show-page-sizes="false" st-items-by-page="8" colspan="2"></td>
-                </tr>
-            </tfoot>
--->
-        </table>
-        <div class="text-center" st-pagination st-show-page-sizes="false" st-items-by-page="8" colspan="2"></div>
+
+        <div class="st-table-search">
+            <label class="control-label" translate>AllDoors</label>
+            <input st-search class="form-control" translate translate-attr-placeholder="Search..."/>
+        </div>
+
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2" translate st-sort-default st-sort="Name">Name</th>
+                    </tr>
+                </thead>
+                <tbody ng-show="$loading || $items.length == 0">
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <span ng-show="!$loading && $items.length == 0" translate>NoTableData</span>
+                            <span ng-show="$loading" translate>LoadingTable</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-hide="$loading">
+                    <tr ng-repeat="door in $items track by door.Id">
+                        <td>{{::door.Name}}</td>
+                        <td style="width: 1px">
+                            <a ng-click="$.AddDoorToList(door)" ng-hide="$.IsDoorInList(door)"><i class="fa fa-arrow-right"></i></a>
+                            <a ng-click="$.RemoveDoorFromList(door)" ng-show="$.IsDoorInList(door)"><i class="fa fa-times red"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center" st-pagination st-show-page-sizes="false" st-items-by-page="9"></div>
+
     </div>
     <!-- #endregion -->
 

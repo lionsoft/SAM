@@ -2,14 +2,24 @@
 
 #lists .editDoorList {
 
-    @table-height: 344px;
 
-    table {
+    input[st-search] {
+        width: 150px;
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 26px;
+    }
+
+    @table-height: 296px;
+
+    div.table {
         height: @table-height;
+        overflow-y: auto;
     }
 
     ul.doors {
-        height: @table-height;
+        height: @table-height + 46px;
         border: solid 1px @table-border-color;
         overflow: auto;
 

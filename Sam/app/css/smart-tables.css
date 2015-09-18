@@ -13,17 +13,17 @@ table[st-table].table-hover tbody tr:hover {
 table[st-table] {
   width: 100%;
 }
-table[st-table] th.table-actions {
+table[st-table] th.st-action-buttons {
   white-space: nowrap;
-  width: 78px;
+  width: 72px;
   text-align: center;
 }
-table[st-table] td.action-buttons {
+table[st-table] td.st-action-buttons {
   white-space: nowrap;
   margin: 0!important;
   padding: 0!important;
 }
-table[st-table] td.action-buttons button {
+table[st-table] td.st-action-buttons button {
   width: 36px;
   margin: 0!important;
   padding-left: 4px;
@@ -130,6 +130,7 @@ table[st-table] tfoot {
   border: 1px solid #0b4665;
   border-top: none;
   border-bottom: none;
+  text-align: right;
 }
 table[st-table] tfoot .st-paging .st-paging-count {
   display: inline-block;
@@ -176,17 +177,17 @@ table[st-table] tfoot .st-paging-label {
 [st-table] table {
   width: 100%;
 }
-[st-table] table th.table-actions {
+[st-table] table th.st-action-buttons {
   white-space: nowrap;
-  width: 78px;
+  width: 72px;
   text-align: center;
 }
-[st-table] table td.action-buttons {
+[st-table] table td.st-action-buttons {
   white-space: nowrap;
   margin: 0!important;
   padding: 0!important;
 }
-[st-table] table td.action-buttons button {
+[st-table] table td.st-action-buttons button {
   width: 36px;
   margin: 0!important;
   padding-left: 4px;
@@ -293,6 +294,7 @@ table[st-table] tfoot .st-paging-label {
   border: 1px solid #0b4665;
   border-top: none;
   border-bottom: none;
+  text-align: right;
 }
 [st-table] table tfoot .st-paging .st-paging-count {
   display: inline-block;
@@ -379,4 +381,53 @@ table[st-table] tfoot .st-paging-label {
 }
 [st-table] nav {
   margin: 8px 8px 0;
+}
+[st-table] .tfoot {
+  background: #1171a3;
+  border: 1px solid #0b4665;
+  border-top: none;
+  border-bottom: none;
+  text-align: right;
+}
+[st-table] .tfoot .st-paging .st-paging-count {
+  display: inline-block;
+  margin: 8px 20px 8px 0;
+  height: 28px;
+}
+[st-table] .tfoot .st-paging .st-paging-count .st-paging-label {
+  font-size: 15px;
+}
+[st-table] .tfoot .st-paging .st-paging-count .st-paging-listbox {
+  height: 28px;
+}
+[st-table] .tfoot .st-paging .pagination li a,
+[st-table] .tfoot .st-paging .pagination li span {
+  padding: 4px 12px;
+  color: #333;
+}
+[st-table] .tfoot .st-paging .pagination li a:hover,
+[st-table] .tfoot .st-paging .pagination li span {
+  color: black;
+  background: #ecf5fe;
+}
+[st-table] .tfoot .st-paging .pagination li.disabled a,
+[st-table] .tfoot .st-paging .pagination li.disabled span {
+  color: #555;
+}
+[st-table] .tfoot .st-paging.has-page-sizes nav {
+  display: inline-block;
+  float: right;
+}
+[st-table] .tfoot .pagination {
+  margin: 0;
+  padding: 0;
+}
+[st-table] .tfoot nav {
+  margin: 8px 8px 0;
+}
+[st-table] .tfoot .st-paging.has-content {
+  border-bottom: 1px solid #0b4665;
+}
+[st-table] .tfoot .st-paging-label {
+  color: #fff;
 }

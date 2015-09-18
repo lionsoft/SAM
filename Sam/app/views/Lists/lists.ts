@@ -33,7 +33,7 @@ module App.Controllers {
         }
 
         prepareDepartmentListQuery(odata: Services.OData) {
-            odata.eq("DepartmentId", this.selectedDepartmentId);
+            odata.eq("DepartmentId", this.selectedDepartmentId).$expand("ApprovedBy");
             return "selectedDepartmentId";
         }
     }

@@ -247,7 +247,7 @@ var App;
                 if (this._filterCreator) {
                     var query = this._filterCreator.query;
                     if (query)
-                        this.$filter("and", query);
+                        this.$filter('and', query);
                 }
                 if (propName) {
                     this._filterCreator = new Services.ODataFilterCreator(propName);
@@ -256,6 +256,24 @@ var App;
                     this._filterCreator = undefined;
                 }
                 return this._filterCreator;
+            };
+            /**
+             * Usage:
+             *
+             * odata.prop('a').eq(1);
+             * odata.and(odata.prop('b').eq(2).or('c).eq(3));
+             *
+             * This code will generate $filter=a eq 1 and (b eq 2 or c eq 3)
+             *
+             */
+            OData.prototype.and = function (odataOperation) {
+                if (odataOperation) {
+                    var query = odataOperation.query;
+                    if (query)
+                        this.$filter('and', "(" + query + ")");
+                }
+                this._filterCreator = undefined;
+                return this;
             };
             return OData;
         })();

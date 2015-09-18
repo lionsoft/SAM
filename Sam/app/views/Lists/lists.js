@@ -32,7 +32,7 @@ var App;
                 return "selectedCustomerId";
             };
             Lists.prototype.prepareDepartmentListQuery = function (odata) {
-                odata.eq("DepartmentId", this.selectedDepartmentId);
+                odata.eq("DepartmentId", this.selectedDepartmentId).$expand("ApprovedBy");
                 return "selectedDepartmentId";
             };
             return Lists;

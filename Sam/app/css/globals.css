@@ -4,16 +4,20 @@
   color: #333333;
   font-size: 10pt;
 }
-.overflow-x {
+.overflow-x,
+[overflow-x] {
   overflow-x: auto;
 }
-.overflow-y {
+.overflow-y,
+[overflow-y] {
   overflow-y: auto;
 }
-.overflow {
+.overflow,
+[overflow] {
   overflow: auto;
 }
-.nowrap {
+.nowrap,
+[nowrap] {
   white-space: nowrap;
 }
 .truncate {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
@@ -56,18 +57,28 @@ namespace Sam.Api
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        [HttpGet]
-        public object Get(ODataQueryOptions<User> queryOptions)
+        private User ClearUserFields(User u)
         {
-            return CRUDController.CreateODataResponse<User>(Db, Request, queryOptions);
+            u.PasswordHash = null;
+            u.Email = null;
+            u.SecurityStamp = null;
+            return u;
+        }
+
+        [HttpGet]
+        public async Task<object> Get(ODataQueryOptions<User> queryOptions)
+        {
+            var res = await CRUDController.CreateODataResponse(Db.Users, Request, queryOptions);
+            var users = (IEnumerable<object>)((res is ODataMetadata<object>[]) ? (res as ODataMetadata<object>[])[0].Results : res);
+            users.OfType<User>().ForEach(u => ClearUserFields(u));
+            return res;
         }
 
         [HttpGet, Route("{id}")]
         public async Task<User> GetAsync(string id)
         {
             var res = await Db.Set<User>().FindAsync(id);
-            res.PasswordHash = null;
-            return res;
+            return ClearUserFields(res);
         }
 
         public virtual async Task<IHttpActionResult> SaveAsync(User user, bool isNew)

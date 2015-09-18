@@ -26,7 +26,6 @@ module App.Controllers {
 
         Init() {
             // Queue all promises and wait for them to finish before loading the view
-            this.activate(this.LoadCustomers());
             this.samUsers.Load().then(res => this.users = res);
             this.uploader = new this.FileUploader({ url: '/api/Employees/UploadImage' });
             this.uploader.onAfterAddingFile = item => {
@@ -34,10 +33,7 @@ module App.Controllers {
             }
             // Add submit hook to the scope - it will be executed before saving
             this.$scope['$submit'] = item => this.$submit(item);
-        }
-
-        LoadCustomers() {
-            return this.samCustomers.Load().then(res => this.customers = res.orderBy(x => x.Name).toArray());
+            this.activate(this.samCustomers.Load().then(res => this.customers = res));
         }
 
         Activated() {

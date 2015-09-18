@@ -81,7 +81,7 @@ var App;
                     else if (angular.isString(watchExpressions))
                         this.addWatchers(scope, watchExpressions.split(','));
                 }
-                scope.$params.service.SmartLoad(tableState, scope.$items, odata).then(function () { return scope.$loading = false; });
+                scope.$params.service.SmartLoad(tableState, scope.$items, odata).finally(function () { return scope.$loading = false; });
             };
             SamStTable.prototype.Edit = function (scope, item, tableAttrs) {
                 item = angular.copy(item || {});

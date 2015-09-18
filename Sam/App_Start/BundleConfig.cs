@@ -158,6 +158,7 @@ namespace Sam
                     , "~/app/common/utils/Json.js"
                     , "~/app/common/utils/ng.js"
                     , "~/app/common/utils/ResizeListener.js"
+                    , "~/app/common/utils/SmartTable.js"
 
                     , "~/app/common/Controller.js"
                     , "~/app/common/Filter.js"

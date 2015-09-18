@@ -8,6 +8,16 @@
 
     "Name": "Name",
 
+
+    "NoTableData": "No data available in table",
+    "LoadingTable": "Loading ...",
+    "Search...": "Search...",
+    "TablePaginationShowEntriesPrefix":  "Show ",
+    "TablePaginationShowEntriesPostfix": " entries",
+    "TablePaginationShowOf": " of ",
+
+
+
     "MENU": {
         "SignIn": "Sign In",
         "SignOut": "Sign Out"

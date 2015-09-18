@@ -12,13 +12,14 @@ namespace Sam.Api
 {
     public static class CRUDController
     {
-        public static object CreateODataResponse<TEntity>(ApplicationDbContext db, HttpRequestMessage request, ODataQueryOptions<TEntity> queryOptions) where TEntity : class
+        public static async Task<object> CreateODataResponse<TEntity>(IQueryable<TEntity> query, HttpRequestMessage request, ODataQueryOptions<TEntity> queryOptions) where TEntity : class
         {
-            var results = queryOptions.ApplyTo(db.Set<TEntity>().AsQueryable());
+            var results = queryOptions.ApplyTo(query);
             if (queryOptions.InlineCount != null && queryOptions.InlineCount.Value == InlineCountValue.AllPages)
             {
+                var res = await results.ToListAsync();
                 var odataProperties = request.ODataProperties();
-                return new[] { new ODataMetadata(results, odataProperties.TotalCount) };
+                return new[] { new ODataMetadata<object>(res, odataProperties.TotalCount) };
             }
             else
             {
@@ -29,10 +30,15 @@ namespace Sam.Api
 
     public class CRUDController<TEntity, T> : AppController where TEntity : class, IEntityObjectId<T>
     {
-        [HttpGet]
-        public virtual object Get(ODataQueryOptions<TEntity> queryOptions)
+        protected virtual IQueryable<TEntity> PrepareQuery(IDbSet<TEntity> dbSet)
         {
-            return CRUDController.CreateODataResponse<TEntity>(Db, Request, queryOptions);
+            return dbSet;
+        }
+
+        [HttpGet]
+        public virtual Task<object> Get(ODataQueryOptions<TEntity> queryOptions)
+        {
+            return CRUDController.CreateODataResponse(PrepareQuery(Db.Set<TEntity>()), Request, queryOptions);
         }
 
         [HttpGet, Route("{id}")]

@@ -36,9 +36,7 @@ declare module st {
             reverse: boolean;
         };
         search: {
-            input: string;
-            predicate: string;
-            predicateObject: { };
+            predicateObject: { $?: string };
         };
         pagination: {
             /**

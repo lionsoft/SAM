@@ -54,19 +54,15 @@ module App {
         $httpProvider.defaults.headers.common['X-Ajax-Request'] = "1";
     }]);
     //#endregion
-/*
-    LionSoftAngular.Services.app = app;
 
-    //#region - Настройка общедоступных сервисов API -
-    app.run(['ApiService', 'popupService', '$rootScope', (api, popup, $rootScope) => {
-        app.api = api;
-        app.popup = popup;
-        $rootScope.App = App;
-    }]);    
+    //#region Configure Popover provider
+    app.config(['$tooltipProvider', ($tooltipProvider: ng.ui.bootstrap.ITooltipProvider) => {
+        $tooltipProvider.options({ appendToBody: true});
+    }]);
     //#endregion
-*/
 
     //#region Configure $q to return App.IPromise with HandleError and ExtractError methods
+/*
     app.decorator("$q", ['$delegate', 
         $delegate => {
             var savedDefer = $delegate.defer;
@@ -91,28 +87,9 @@ module App {
             return $delegate;
         }
     ]);
+*/
 
     //#endregion
-
-    // Store controller name to its $scope
-    app.decorator("$controller", ['$delegate',
-        $delegate => {
-            return (expression, locals, later, ident) => {
-                if (typeof expression == "string") {
-                    var arr = expression.split(" as ", 2);
-                    if (arr.length == 1) {
-                        locals.$scope.$controllerName = expression.trim();
-                        locals.$scope.$controllerAs = "";
-                    }
-                    else {
-                        locals.$scope.$controllerName = arr[0].trim();
-                        locals.$scope.$controllerAs = arr[1].trim();
-                    }
-                }
-                return $delegate(expression, locals, later, ident);
-            }
-        }
-    ]);
 
     app.run(['$injector', (i) => {
         $.extend($.fn.dataTable.defaults, {
