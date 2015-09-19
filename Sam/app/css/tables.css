@@ -1,4 +1,19 @@
-﻿.sam-table .panel-heading {
+﻿.sam-table .col-actions {
+  width: 5em;
+}
+.sam-table .col-created-by {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 10em;
+}
+.sam-table .col-created-date {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 7em;
+}
+.sam-table .panel-heading {
   border-bottom-width: 0;
 }
 .sam-table .dataTables_wrapper.dataTables_no_paging > div:last-child {
@@ -44,6 +59,7 @@
   border-color: transparent!important;
 }
 .dataTables_wrapper table.dataTable {
+  margin: 0;
   border: 1px solid #075b87;
 }
 .dataTables_wrapper table.dataTable thead .sorting {
@@ -86,9 +102,6 @@
 .dataTables_wrapper table.dataTable tbody th .form-control {
   height: 26px;
 }
-.dataTables_wrapper table.dataTable tbody th.sorting {
-  padding-right: 20px;
-}
 .dataTables_wrapper table.dataTable tbody td:last-child,
 .dataTables_wrapper table.dataTable tbody th:last-child {
   border-right: none;
@@ -110,6 +123,10 @@
 }
 .dataTables_wrapper table.dataTable th.auto-size {
   width: auto;
+  white-space: inherit;
+}
+.dataTables_wrapper table.dataTable td {
+  white-space: nowrap;
 }
 .dataTables_wrapper .dataTables_scrollHeadInner {
   background: #1171a3;

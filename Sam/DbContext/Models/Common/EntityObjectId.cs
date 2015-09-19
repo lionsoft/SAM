@@ -8,6 +8,7 @@ namespace Sam.DbContext
     /// Базовый класс для всех сущностей БД, имеющих не строковое ключевое поле Id.
     /// </summary>
     /// <typeparam name="TKey">Тип ключевого поля.</typeparam>
+    [TypeScriptInterface(Name = "EntityObjectBaseId")]
     public class EntityObjectId<TKey> : IEntityObjectId<TKey>
     {
         /// <summary>
@@ -22,6 +23,7 @@ namespace Sam.DbContext
 
         [FillWithCurrentUser(OnCreateOnly = true)]
         public string CreatedById { get; set; }
+        [TypeScriptMember(Type = "App.IUser")]
         public User CreatedBy { get; set; }
 
 
@@ -30,6 +32,7 @@ namespace Sam.DbContext
 
         [FillWithCurrentUser(OnCreateOnly = false)]
         public string ModifiedById { get; set; }
+        [TypeScriptMember(Type = "App.IUser")]
         public User ModifiedBy { get; set; }
     }
 

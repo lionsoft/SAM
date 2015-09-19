@@ -1,4 +1,6 @@
-﻿@table-border-color: #075b87;
+﻿@import 'mixins';
+
+@table-border-color: #075b87;
 @table-header-color: #1171a3;
 @table-header-font-color: #fff;
 @table-row-border-color: #c1e3ff;
@@ -7,7 +9,24 @@
 @table-row-odd-color: #ecf5fe;
 @table-row-even-color: #fff;
 
+
+
 .sam-table {
+
+    .col-actions {
+        width: 5em;
+    }
+
+    .col-created-by {
+        .truncate();
+        width: 10em;
+    }
+
+    .col-created-date{
+        .truncate();
+        width: 7em;
+    }
+
     // Removes space between group header and table inside group
     .panel-heading {
         border-bottom-width: 0;
@@ -78,6 +97,7 @@
     
 
     table.dataTable {
+        margin: 0;
 
         // Table borders in paging mode
         border: 1px solid @table-border-color;
@@ -135,7 +155,7 @@
 
             // reserve size for order switchers
             th.sorting {
-                padding-right: 20px;
+                //padding-right: 20px;
             }
 
 
@@ -162,10 +182,14 @@
 
         // Make all table columns auto sized by its content
         th {
-            width: 1px; 
+            width: 1px;
         }
         th.auto-size {
             width: auto; 
+            white-space: inherit;
+        }
+        td {
+            white-space: nowrap;
         }
     }                 
 

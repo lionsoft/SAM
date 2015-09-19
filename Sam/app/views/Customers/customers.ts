@@ -3,7 +3,8 @@ module App.Controllers
 {
     class Customers extends Controller
     {
-//#region Variables
+        //#region Variables
+
         samCustomers: Services.ICustomersService;
         samCompanies: Services.ICompaniesService;
         samDepartments: Services.IDepartmentsService;
@@ -17,7 +18,7 @@ module App.Controllers
         public selectedDepartment: IDepartment;
         public departments: IDepartment[] = [];
 
-//#endregion
+        //#endregion
 
         Init() {
             // Queue all promises and wait for them to finish before loading the view
@@ -34,12 +35,21 @@ module App.Controllers
             this.$scope.$watch("$.selectedDepartment", () => this.DepartmentChanged());
         }
 
+        //#region - Customer -
+
         LoadCustomers() {
             this.customers = [];
             return this.$timeout(() => {
                 return this.samCustomers.Load().then(res => this.customers = res);
             });
         }
+        AddCustomer() { this.samCustomers.EditModal(null, '_editCustomer.html').then(res => this.customers.push(res)); }
+        EditCustomer(c: ICustomer) { this.samCustomers.EditModal(c, '_editCustomer.html'); }
+        DeleteCustomer(c: ICustomer) { this.samCustomers.DeleteModal(c).then(() => this.customers.Remove(c)); }
+
+        //#endregion 
+
+        //#region - Company -
 
         LoadCompanies() {
             this.companies = [];
@@ -51,6 +61,16 @@ module App.Controllers
             });
         }
 
+        AddCompany() { this.samCompanies.EditModal(null, '_editCompany.html').then(res => this.companies.push(res)); }
+
+        EditCompany(c: ICompany) { this.samCompanies.EditModal(c, '_editCompany.html'); }
+
+        DeleteCompany(c: ICompany) { this.samCompanies.DeleteModal(c).then(() => this.companies.Remove(c)); }
+
+        //#endregion 
+
+        //#region - Department -
+
         LoadDepartments() {
             this.departments = [];
             this.$timeout(() => {
@@ -61,47 +81,18 @@ module App.Controllers
             });
         }
 
+        AddDepartment() {
+            if (this.selectedCompany)
+                this.samDepartments.EditModal(<any>{ CompanyId: this.selectedCompany.Id }, '_editDepartment.html').then(res => this.departments.push(res));
+        }
+        EditDepartment(d: IDepartment) { this.samDepartments.EditModal(d, '_editDepartment.html'); }
+        DeleteDepartment(d: IDepartment) { this.samDepartments.DeleteModal(d).then(() => this.departments.Remove(d)); }
+
         DepartmentChanged() {
 
         }
 
-        AddCustomer() { this.samCustomers.EditModal(null, '_editCustomer.html').then(res => this.customers.push(res)); }
-
-        EditCustomer(c: ICustomer) { this.samCustomers.EditModal(c, '_editCustomer.html'); }
-
-
-        DeleteCustomer(c: ICustomer) {
-            if (!c) return;
-            app.popup.ask(this.Translate("Ask.Delete.Customer").format(c.Name), false)
-                .then(r => r ? this.samCustomers.Delete(c.Id) : false)
-                .then(r => r ? this.customers.Remove(c) : false);
-        }
-
-
-        AddCompany() { this.samCompanies.EditModal(null, '_editCompany.html').then(res => this.companies.push(res)); }
-
-        EditCompany(c: ICompany) { this.samCompanies.EditModal(c, '_editCompany.html'); }
-
-        DeleteCompany(c: ICompany) {
-            if (!c) return;
-            app.popup.ask(this.Translate("Ask.Delete.Company|{0}: Delete company?").format(c.Name), false)
-                .then(r => r ? this.samCompanies.Delete(c.Id) : false)
-                .then(r => r ? this.companies.Remove(c) : false);
-        }
-
-        AddDepartment() {
-            if (this.selectedCompany)
-                this.samDepartments.EditModal( <any>{ CompanyId: this.selectedCompany.Id }, '_editDepartment.html').then(res => this.departments.push(res));
-        }
-
-        EditDepartment(d: IDepartment) { this.samDepartments.EditModal(d, '_editDepartment.html'); }
-
-        DeleteDepartment(d: IDepartment) {
-            if (!d) return;
-            app.popup.ask(this.Translate("Ask.Delete.Department|{0}: Delete department?").format(d.Name), false)
-                .then(r => r ? this.samDepartments.Delete(d.Id) : false)
-                .then(r => r ? this.departments.Remove(d) : false);
-        }
+        //#endregion 
 
     }
 

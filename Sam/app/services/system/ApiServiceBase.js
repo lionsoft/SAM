@@ -27,12 +27,12 @@ var App;
                     error = (err.data.result.ExceptionMessage == undefined) ? err.data.result.Message : err.data.result.ExceptionMessage;
                 }
             }
-            else if (err.statusText != undefined) {
+            else if (err.statusText != undefined)
                 error = err.statusText.toString();
-            }
-            else if (err.data != undefined) {
+            else if (err.data != undefined)
                 error = err.data.toString().substr(0, 100);
-            }
+            else if (err.Message != undefined)
+                error = err.Message.toString();
             return error;
         };
         /**
@@ -152,6 +152,13 @@ var App;
                             }
                         }
                     }
+                }
+                // Исправляем багу, когда для POST, PUT, PATCH запросов при передаче ВСЕХ параметров через
+                // строку запроса - формируется запрос с параметрами в теле.
+                // Для этого тупо добавим ещё один пустой параметр.
+                // По хорошему неплохо бы проверить, что action это действительно POST, PUT, PATCH, но я не нашёл как это сделать
+                if (args.length === defaultParamNames.length && args.length > 0) {
+                    args.push(undefined);
                 }
                 var oldResult = serviceFactory["__" + methodName].apply(_this, args.length === 0 ? arguments : args);
                 // Преобразование старого результата в нормальный промис

@@ -12,12 +12,12 @@ module App.Services {
     export interface IODataOperators {
         query: string;
         not(): IODataOperators;
-        eq<T>(value: T): IODataLogical;
-        ne<T>(value: T): IODataLogical;
-        gt<T>(value: T): IODataLogical;
-        ge<T>(value: T): IODataLogical;
-        lt<T>(value: T): IODataLogical;
-        le<T>(value: T): IODataLogical;
+        eq<T>(value: T, isEnum?: boolean): IODataLogical;
+        ne<T>(value: T, isEnum?: boolean): IODataLogical;
+        gt<T>(value: T, isEnum?: boolean): IODataLogical;
+        ge<T>(value: T, isEnum?: boolean): IODataLogical;
+        lt<T>(value: T, isEnum?: boolean): IODataLogical;
+        le<T>(value: T, isEnum?: boolean): IODataLogical;
     }
 
     /**
@@ -25,12 +25,12 @@ module App.Services {
      */
     export interface IODataTypedOperators<T> extends IODataOperators {
         not(): IODataTypedOperators<T>;
-        eq(value: T): IODataLogical;
-        ne(value: T): IODataLogical;
-        gt(value: T): IODataLogical;
-        ge(value: T): IODataLogical;
-        lt(value: T): IODataLogical;
-        le(value: T): IODataLogical;
+        eq(value: T, isEnum?: boolean): IODataLogical;
+        ne(value: T, isEnum?: boolean): IODataLogical;
+        gt(value: T, isEnum?: boolean): IODataLogical;
+        ge(value: T, isEnum?: boolean): IODataLogical;
+        lt(value: T, isEnum?: boolean): IODataLogical;
+        le(value: T, isEnum?: boolean): IODataLogical;
     }
 
     /**
@@ -243,6 +243,7 @@ module App.Services {
          * @param value operand value
          */
         private aop(op: string, value: number): IODataTypedOperators<number> {
+            if (value === undefined) return this;
             this.args = this._(value);
             this.opName = op;
             return new ODataFilterCreator(undefined, this);
@@ -253,8 +254,9 @@ module App.Services {
          * @param op operation name
          * @param value operand value
          */
-        private lop<T>(op: string, value: T): IODataLogical {
-            this.args = this._(value);
+        private lop<T>(op: string, value: T, isEnum?: boolean): IODataLogical {
+            if (value === undefined) return this;
+            this.args = this._(isEnum ? value.toString() : value);
             this.opName = op;
             return new ODataFilterCreator(undefined, this);
         }
@@ -348,17 +350,17 @@ module App.Services {
 
         //#region - Logical Functions -
 
-        eq<T>(value: T): IODataLogical { return this.lop("eq", value); }
+        eq<T>(value: T, isEnum?: boolean): IODataLogical { return this.lop("eq", value, isEnum); }
 
-        ne<T>(value: T): IODataLogical { return this.lop("ne", value); }
+        ne<T>(value: T, isEnum?: boolean): IODataLogical { return this.lop("ne", value, isEnum); }
 
-        gt<T>(value: T): IODataLogical { return this.lop("gt", value); }
+        gt<T>(value: T, isEnum?: boolean): IODataLogical { return this.lop("gt", value, isEnum); }
 
-        ge<T>(value: T): IODataLogical { return this.lop("ge", value); }
+        ge<T>(value: T, isEnum?: boolean): IODataLogical { return this.lop("ge", value, isEnum); }
 
-        lt<T>(value: T): IODataLogical { return this.lop("lt", value); }
+        lt<T>(value: T, isEnum?: boolean): IODataLogical { return this.lop("lt", value, isEnum); }
 
-        le<T>(value: T): IODataLogical { return this.lop("le", value); }
+        le<T>(value: T, isEnum?: boolean): IODataLogical { return this.lop("le", value, isEnum); }
 
         //#endregion
 

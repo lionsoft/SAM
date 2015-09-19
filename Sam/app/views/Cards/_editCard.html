@@ -1,0 +1,68 @@
+﻿<!-- #region - Number & Customer - -->
+<div class="row">
+    <!-- #region - Number - -->
+    <div class="col col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>Number</label>
+            <input class="form-control" type="text" ng-init="$num = $item.Id ? $.$filter('CardNumber')($item.Number) : ''" ng-model="$num" placeholder="{{'Number will be assigned after saving' | translate}}" readonly />
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region - Customer - -->
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>Customer</label>
+            <ui-select class="form-control" ng-model="$item.CustomerId" ng-disabled="!$.customers.length">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="customer.Id as customer in ::$.customers track by customer.Id">
+                    {{::customer.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+</div>
+<!-- #endregion -->
+
+
+<!-- #region - ActivationCode - -->
+
+<div class="form-group">
+    <label class="control-label" translate>ActivationCode</label>
+    <input class="form-control" type="text" ng-model="$item.ActivationCode" />
+</div>
+<!-- #endregion -->
+
+
+<!-- #region - Department & Manager - -->
+<div class="row form-group">
+    <!-- #region - CardStatus - -->
+    <div class="col col-xs-6">
+        <label class="control-label" translate>Status</label>
+        <ui-select class="form-control" ng-model="$item.Status">
+            <ui-select-match allow-clear="false">
+                {{$select.selected | CardStatus}}
+            </ui-select-match>
+            <ui-select-choices repeat="status in ::[] | CardStatus">
+                {{::status | CardStatus}}
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <!-- #endregion -->
+    <!-- #region - CardType - -->
+    <div class="col-xs-6">
+        <label class="control-label" translate>CardType</label>
+        <ui-select class="form-control" ng-model="$item.CardType">
+            <ui-select-match allow-clear="false">
+                {{$select.selected | CardType}}
+            </ui-select-match>
+            <ui-select-choices repeat="cardType in ::[] | CardType">
+                {{::cardType | CardType}}
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <!-- #endregion -->
+</div>
+<!-- #endregion -->

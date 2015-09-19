@@ -1,0 +1,162 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container-fluid">
+            <!-- #region - Customer - -->
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label" translate>Customer</label>
+                    <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
+                        <ui-select-match allow-clear="true" placeholder="All Customers">
+                            {{$select.selected.Name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
+                            {{customer.Name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <!-- #region - DoorList - -->
+
+            <div st-table
+                 sam-st-table="{service: 'samDoorLists', controller: 'editDoorList', editTemplate: 'editDoorList.html', prepareQuery: $.prepareDoorListQuery, prepareEdit: $.prepareEdit}">
+
+                <!-- #region - Title / Search - -->
+                <div class="st-table-search">
+                    <h3>
+                        <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                        <span>DoorLists</span>
+                    </h3>
+                    <input st-search="" class="form-control" translate translate-attr-placeholder="Search..."/>
+                </div>
+                <!-- #endregion -->
+
+                <table>
+                    <!-- #region - Columns - -->
+                    <thead>
+                    <tr>
+                        <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+                        <th class="auto-size" translate st-sort-default st-sort="Name">Name</th>
+                        <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                        <th translate st-sort="CreatedDate">CreatedDate</th>
+                    </tr>
+                    </thead>
+                    <!-- #endregion -->
+                    <!-- #region - Loading... - -->
+                    <tbody ng-show="$loading || $items.length == 0">
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <span ng-show="!$loading && $items.length == 0" translate>NoTableData</span>
+                            <span ng-show="$loading" translate>LoadingTable</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <!-- #endregion -->
+                    <!-- #region - Rows - -->
+                    <tbody ng-hide="$loading">
+                    <tr ng-repeat="doorList in $items track by doorList.Id">
+                        <td class="st-action-buttons">
+                            <button ng-click="$edit(doorList)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                            <button ng-click="$delete(doorList)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                        </td>
+                        <td>{{doorList.Name}}</td>
+                        <td class="col-created-by">{{doorList.CreatedBy.Name}}</td>
+                        <td class="col-created-date">{{doorList.CreatedDate | date}}</td>
+                    </tr>
+                    </tbody>
+                    <!-- #endregion -->
+                </table>
+
+                <!-- #region - Paging - -->
+                <div class="tfoot" st-pagination st-items-by-page="10"></div>
+                <!-- #endregion -->
+
+            </div>
+
+            <!-- #endregion -->
+
+
+            <!-- #region - Department - -->
+
+            <div class="row sam-t-space">
+                <div class="form-group">
+                    <label class="control-label" translate>Department</label>
+                    <ui-select class="form-control" ng-model="$.selectedDepartmentId" ng-disabled="!$.departments">
+                        <ui-select-match allow-clear="true" placeholder="All Departments">
+                            {{$select.selected.Name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="department.Id as department in $.departments track by department.Id">
+                            {{department.Name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <!-- #region - DepartmentList - -->
+
+
+            <div st-table
+                 sam-st-table="{service: 'samDepartmentLists', controller: 'editDepartmentList', editTemplate: 'editDepartmentList.html', prepareQuery: $.prepareDepartmentListQuery, prepareEdit: $.prepareEdit}">
+
+                <!-- #region - Title / Search - -->
+                <div class="st-table-search">
+                    <h3 style="display: inline-block">
+                        <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                        <span>DepartmentLists</span>
+                    </h3>
+                    <input st-search class="form-control" translate translate-attr-placeholder="Search..." />
+                </div>
+                <!-- #endregion -->
+
+                <table>
+                    <!-- #region - Columns - -->
+                    <thead>
+                        <tr>
+                            <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+                            <th class="auto-size" translate st-sort-default st-sort="Name">Name</th>
+                            <th translate st-sort="ApprovedBy.Name">ApprovedBy</th>
+                            <th translate st-sort="ApprovedDate">ApprovedDate</th>
+                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                        </tr>
+                    </thead>
+                    <!-- #endregion -->
+                    <!-- #region - Loading... - -->
+                    <tbody ng-show="$loading || $items.length == 0">
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <span ng-show="!$loading && $items.length == 0" translate>NoTableData</span>
+                                <span ng-show="$loading" translate>LoadingTable</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- #endregion -->
+                    <!-- #region - Rows - -->
+                    <tbody ng-hide="$loading">
+                        <tr ng-repeat="doorList in $items track by doorList.Id">
+                            <td class="st-action-buttons">
+                                <button ng-click="$edit(doorList)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                <button ng-click="$delete(doorList)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                            </td>
+                            <td>{{doorList.Name}}</td>
+                            <td class="col-created-by">{{doorList.ApprovedBy.Name}}</td>
+                            <td class="col-created-date">{{doorList.ApprovedDate | date}}</td>
+                            <td class="col-created-by">{{doorList.CreatedBy.Name}}</td>
+                            <td class="col-created-date">{{doorList.CreatedDate | date}}</td>
+                        </tr>
+                    </tbody>
+                    <!-- #endregion -->
+                </table>
+
+                <!-- #region - Paging - -->
+                <div class="tfoot" st-pagination st-items-by-page="10"></div>
+                <!-- #endregion -->
+
+            </div>
+        </div>
+        <!-- #endregion -->
+
+    </section>
+</section>

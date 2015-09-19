@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.WebPages;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Sam.Api;
 using Sam.DbContext.Hooks;
 using Sam.Extensions.EntityFramework;
 using Sam.Extensions.EntityFramework.EFHooks;
@@ -47,6 +48,8 @@ namespace Sam.DbContext
 
 //        private static int _cnt = 0;
 
+        public SequentialIdProvider SequentialIdProvider;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Sam.DbContext.ApplicationDbContext"/> class.
         /// </summary>
@@ -54,6 +57,7 @@ namespace Sam.DbContext
         {
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
+            SequentialIdProvider = new SequentialIdProvider(this);
             Initialize();
 //            Debug.WriteLine("Created: " + Interlocked.Increment(ref _cnt));
         }

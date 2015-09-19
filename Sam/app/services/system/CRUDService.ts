@@ -7,6 +7,20 @@ module App.Services {
     }
 
     export interface ICRUDService<T extends IEntityObjectId> {
+
+        /**
+         * Описание типа
+         */
+        TypeDescription: string;
+
+        /**
+         * Описание объекта
+         * @param entity Объект
+         */
+        GetDescription(entity: T): string;
+
+        SmartLoad(tableState: st.ITableState, dataSource?: T[], odata?: OData): IPromise<T[]>;
+
         /**
         .* Получение объекта по его Id с сервера.
          * @param id идентификатор объекта
@@ -18,6 +32,11 @@ module App.Services {
          * @param query параметры запроса
          */
         Load(query?: OData | IODataParams): IPromise<T[]>;
+
+        /**
+         * Подготовка объекта к сохранению.
+         */
+        prepareSave(entity: T): void;
 
         /**
          * Сохранение объекта.
@@ -60,14 +79,44 @@ module App.Services {
          * Возвращает промис окончания сохранения объекта.
          * @param entity редактируемый объект
          * @param editTemplateUrl ссылка на шаблон формы редактирования
+         * @param scope ссылка на скоуп
+         * @param updateAfterSave нужно ли обновлять объект после сохраниения. По умолчанию - true.
          */
-        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope): IPromise<T>;
+        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope, updateAfterSave?: boolean): IPromise<T>;
+
+        /**
+         * Вызывает всплывающий диалог для удаления объекта.
+         * В случае закрытия диалога по кнопке YES - удаляет объект из базы и вызывает промис.
+         * @param entity удаляемый объект
+         */
+        DeleteModal(entity: T): IPromise<void>;
     }
 
     /**
      * Базовый класс для всех прикладных сервисов.
      */
     export class CRUDService<T extends IEntityObjectId> extends Service implements ICRUDService<T> {
+
+        /**
+         * Описание типа
+         */
+        TypeDescription: string;
+
+        /**
+         * Описание объекта
+         * @param entity Объект
+         */
+        GetDescription(entity: T): string {
+            return entity['Description'] || entity['Name'];
+        }
+
+        $filter: ng.IFilterService;
+
+        public static addFactoryInjections(injects: string[]) {
+            Service.addFactoryInjections(injects);
+            this.addInjection(injects, "$filter");
+        }
+
 
         /**
          * Ресурс для работы с бекэндом сервиса.
@@ -104,8 +153,10 @@ module App.Services {
          * Перекрыв его в классе наследнике можно глобально влиять на запросы к бекенду данного класса.
          * @param odata параметры запроса
          */
-        protected prepareQuery(odata: OData): void {
+        protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
             odata.$expand("CreatedBy");
+            if (!isSmartLoad)
+                odata.$orderBy("Name");
         }
 
         /**
@@ -117,6 +168,8 @@ module App.Services {
             this.prepareQuery(odata);
         }
 
+        private _samUsers: IUsersService;
+
         /**
          * Этот метод вызывается ПЕРЕД отправкой запроса query на сервер.
          * Перекрыв его в классе наследнике можно глобально влиять на пришедший ответ.
@@ -124,7 +177,18 @@ module App.Services {
          * @param query промис запроса
          */
         protected afterQuery(query: IPromise<T[]>): IPromise<T[]> {
-            return query.HandleError();
+            this._samUsers = this._samUsers || this.get("samUsers");
+            return query.HandleError().then(x => {
+                var d = this.defer();
+                if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results'])) {
+                    this._samUsers.UpdateEmployee(x[0]['Results'].select(r => r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
+                }
+                else if (x && x.length > 0) {
+                    this._samUsers.UpdateEmployee(x.select(r => r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
+                } else
+                    d.resolve(x);
+                return d.promise;
+            });
         }
 
         /**
@@ -134,7 +198,15 @@ module App.Services {
          * @param query промис запроса
          */
         protected afterGet(query: IPromise<T>): IPromise<T> {
-            return query;
+            this._samUsers = this._samUsers || this.get("samUsers");
+            return query.then(r => {
+                if (r) {
+                    var d = this.defer();
+                    this._samUsers.UpdateEmployee(r["CreatedBy"]).finally(() => d.resolve(r));
+                    return d.promise;
+                } else
+                    return r;
+            });
         }
 
         /**
@@ -156,7 +228,7 @@ module App.Services {
          * Например, очищать ссылочные поля, которые в принципе не требуются при сохранении, 
          * но увеличивают рамер передаваемых данных и могут привести к циклическим ссылкам.
          */
-        protected prepareSave(entity: T): void {
+        public prepareSave(entity: T): void {
             for (let key in entity) {
                 if (entity.hasOwnProperty(key)) {
                     if (key[0] === "$" || key[0] === "_")
@@ -179,14 +251,20 @@ module App.Services {
          * По умолчанию - это объект, пришедший с сервера (не исходный).
          */
         protected afterSave(res: T, source: T, wasNew: boolean): T {
-            // Копируем все поля, кроме ссылочных, если они равны null
+            // Копируем все поля
             for (let key in res) {
                 if (res.hasOwnProperty(key)) {
                     if (key[0] === "$" || key[0] === "_") continue;
                     const priorValue = source[key];
                     const value = res[key];
+                    // кроме ссылочных, если они равны null
                     if (typeof priorValue !== "object" || value)
-                        source[key] = res[key];
+                        source[key] = value;
+                    // или если их Id составляющая равна null
+                    else if (priorValue) {
+                        if (!res[key + 'Id'])
+                            source[key] = value;
+                    }
                 }
             }
             return res;
@@ -196,9 +274,9 @@ module App.Services {
         .* Получение списка объектов с сервера.
          * @param query параметры запроса
          */
-        protected $query(query?: OData | IODataParams): IPromise<T[]> {
+        protected $query(query?: OData | IODataParams, isSmartLoad?: boolean): IPromise<T[]> {
             var odata = query instanceof OData ? query : new OData(<IODataParams>query);
-            this.prepareQuery(odata);
+            this.prepareQuery(odata, isSmartLoad);
             var res = this.afterQuery(this.ApiService.query(odata));
             if (!this.prepareResult.isEmpty()) {
                 res = res.then(r => {
@@ -243,6 +321,106 @@ module App.Services {
         }
 
 
+        private appendQuery(fieldsName: string, value, odata: OData, splitQueryStringBySpaces: boolean = false) {
+            var values = (splitQueryStringBySpaces && (typeof value === "string")) ? value.split(' ') : [value];
+            var fields = fieldsName.split(',');
+            var ofc: IODataFilterCreator = undefined;
+            var op: IODataLogical = undefined;
+            for (var n = 0; n < values.length; n++) {
+                var val = values[n];
+                if (val === undefined || val === null) continue;
+                for (var i = 0; i < fields.length; i++) {
+                    var fieldArr = fields[i].split(':');
+                    var field = fieldArr[0];
+                    var searchType = "contains";
+
+                    if (field.StartsWith("*") && field.EndsWith("*")) {
+                        // strict match
+                        searchType = "eq";
+                        field = field.substring(1, field.length - 1);
+                    }
+                    else if (field.StartsWith("*")) {
+                        // from beginning
+                        searchType = "startswith";
+                        field = field.substring(1, field.length);
+                    }
+                    else if (field.EndsWith("*")) {
+                        // from end
+                        searchType = "endswith";
+                        field = field.substring(0, field.length - 1);
+                    }
+                    var typ = (fieldArr[1] || "").toLowerCase();
+
+                    if (typ === "i") {
+                        // integer value
+                        // strict search only
+                        val = parseInt(val);
+                        if (!isNaN(val)) {
+                            ofc = op ? op.or(field) : (ofc || odata.prop(field));
+                            op = ofc.eq(parseInt(val));
+                        }
+                    }
+                    else if (typ === "d") {
+                        // date value
+                        // not implemented
+                    }
+                    else if (typ === "b") {
+                        // boolean value
+                        ofc = op ? op.or(field) : (ofc || odata.prop(field));
+                        op = ofc.eq(val ? true : false);
+                    } else {
+                        // string value
+                        ofc = op ? op.or(field) : (ofc || odata.prop(field));
+                        op = ofc[searchType](val);    
+                    }
+                }
+            }
+            if (op)
+                odata.and(op);
+        }
+
+        SmartLoad(tableState: st.ITableState, dataSource?: T[], odata?: OData): IPromise<T[]> {
+            odata = (odata || OData.create).$inlinecount();
+            if (tableState.sort && angular.isString(tableState.sort.predicate)) {
+                odata.$orderBy(tableState.sort.predicate + (tableState.sort.reverse ? " desc" : ""));
+            }
+            if (tableState.pagination) {
+                odata.$skip(tableState.pagination.start);
+                odata.$top(tableState.pagination.number);
+            }
+            if (tableState.search) {
+                if (tableState.search.predicateObject) {
+                    for (var propName in tableState.search.predicateObject) {
+                        if (tableState.search.predicateObject.hasOwnProperty(propName)) {
+                            var propValue = tableState.search.predicateObject[propName];
+                            var fieldsName = Utils.SmartTable.DecodeFieldNames(propName);
+                            if (fieldsName === '$')
+                                fieldsName = 'Name';
+                            this.appendQuery(fieldsName, propValue, odata);
+                        }
+                    }
+                }
+            }
+            return this.$query(odata, true).then(res => {
+                var result: IODataMetadata<T> = <any>res[0];
+                if (result && angular.isArray(result.Results)) {
+                    tableState.pagination.numberOfPages = Math.ceil(result.Count / tableState.pagination.number);//set the number of pages so the pagination can update
+                    if (dataSource && angular.isArray(dataSource)) {
+                        dataSource.Clear();
+                        dataSource.AddRange(result.Results);
+                    }
+                    res = result.Results;
+                } else {
+                    tableState.pagination.numberOfPages = 0;
+                }
+                if (dataSource && angular.isArray(dataSource)) {
+                    dataSource.Clear();
+                    dataSource.AddRange(res);
+                }
+                return res;
+            });
+        }
+
         /**
         .* Получение объекта по его Id с сервера.
          * @param id идентификатор объекта
@@ -261,6 +439,7 @@ module App.Services {
             else
                 return this.$query(p);
         }
+
 
         /**
          * Сохранение объекта.
@@ -302,6 +481,7 @@ module App.Services {
         Update(p1, p2?: T) {
             var destination = p1;
             var source = p2;
+            if (!destination) return undefined;
             var isNew = !destination.Id;
             if (!isNew && !source) {
                 return this.Load(destination.Id).then(r => this.Update(destination, <any>r));
@@ -331,19 +511,59 @@ module App.Services {
          * Возвращает промис окончания сохранения объекта.
          * @param entity редактируемый объект
          * @param editTemplateUrl ссылка на шаблон формы редактирования
+         * @param scope ссылка на скоуп
+         * @param updateAfterSave нужно ли обновлять объект после сохраниения. По умолчанию - true.
          */
-        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope): IPromise<T> {
+        EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope, updateAfterSave?: boolean): IPromise<T> {
             entity = entity || <any>{};
             scope = scope || app.get("$rootScope");
-            // ReSharper disable once QualifiedExpressionMaybeNull
-            scope = scope.$new();
-            scope['$item'] = angular.copy(entity);
-            return <IPromise<T>>app.popup.popupModal(editTemplateUrl, scope).then(() => {
-                return this.Save(scope['$item']).then(res => {
-                    return this.Update(entity, res);
-                });
-            });
+            if (scope['__customController']) {
+                scope['$item'] = angular.copy(<any>entity);
+                scope['$']['$item'] = scope['$item'];
+                if (!scope['$templateUrl'])
+                    scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+                if (!scope['$entityTypeName'])
+                    scope['$entityTypeName'] = this.TypeDescription;
+            } else {
+                // ReSharper disable once QualifiedExpressionMaybeNull
+                scope = scope.$new();
+                scope['$item'] = angular.copy(entity);
+                scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+                scope['$entityTypeName'] = this.TypeDescription;
+            }
+            var res = <IPromise<T>>app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
+                .then(() => this.Save(scope['$item']));
+            if (updateAfterSave === undefined || updateAfterSave) {
+                res = res
+                    .then(res => this.Load(res.Id))
+                    .then(res => this.Update(entity, res));
+            }
+            return res;
         }
+
+        /**
+         * Вызывает всплывающий диалог для удаления объекта.
+         * В случае закрытия диалога по кнопке YES - удаляет объект из базы и вызывает промис.
+         * @param entity удаляемый объект
+         */
+        DeleteModal(entity: T): IPromise<void> {
+            var def = this.defer<void>();
+            if (!entity || !entity.Id) {
+                def.reject();
+            } else {
+                app.popup.ask(this.$filter('translate')("AskDelete").format(this.TypeDescription.toLocaleLowerCase(), `<strong>${this.GetDescription(entity)}</strong>`), false)
+                    .then(r => r ? this.Delete(entity.Id) : false)
+                    .then(r => {
+                        if (r)
+                            def.resolve();
+                        else
+                            def.reject();
+                    })
+                    .catch(r => def.reject(r));
+            }
+            return <any>def.promise;
+        }
+
 
     }
 

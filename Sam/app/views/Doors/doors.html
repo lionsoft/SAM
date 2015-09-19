@@ -1,0 +1,203 @@
+﻿<section id="dashboard-view" class="mainbar">
+    <section class="matter">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col _col-lg-4">
+                    <!-- #region Country -->
+                    <div class="row panel panel-default sam-table">
+                        <h3 class="panel-heading">
+                            <button ng-click="$.AddCountry()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                            <span translate>Countries</span>
+                        </h3>
+                        <div class="panel-body">
+                            <table datatable="ng" class="row-border hover">
+                                <thead>
+                                <tr>
+                                    <th translate class="auto-size">Name</th>
+                                    <th translate>CreatedBy</th>
+                                    <th translate>CreatedDate</th>
+                                    <th translate>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="country in $.countries track by country.Id"
+                                    ng-click="$.selectedCountry=country"
+                                    ng-class="{active: $.selectedCountry===country}">
+                                    <td>{{country.Name}}</td>
+                                    <td>{{::country.CreatedBy.Name}}</td>
+                                    <td>{{::country.CreatedDate | date}}</td>
+                                    <td class="action-buttons">
+                                        <button ng-click="$.EditCountry(country)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                        <button ng-click="$.DeleteCountry(country)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- #endregion Country -->
+                    <!-- #region City -->
+                    <div class="row panel panel-default sam-table">
+                        <h3 class="panel-heading">
+                            <button ng-click="$.AddCity()" ng-disabled="!$.selectedCountry" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                            <span translate>Cities</span>
+                        </h3>
+                        <div class="panel-body">
+                            <table datatable="ng" class="row-border hover">
+                                <thead>
+                                <tr>
+                                    <th translate class="auto-size">Name</th>
+                                    <th translate>ZipCode</th>
+                                    <th translate>CreatedBy</th>
+                                    <th translate>CreatedDate</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="city in $.cities track by city.Id"
+                                    ng-click="$.selectedCity=city"
+                                    ng-class="{active: $.selectedCity===city}">
+                                    <td>{{city.Name}}</td>
+                                    <td>{{city.ZipCode}}</td>
+                                    <td>{{::city.CreatedBy.Name}}</td>
+                                    <td>{{::city.CreatedDate | date}}</td>
+                                    <td class="action-buttons">
+                                        <button ng-click="$.EditCity(city)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                        <button ng-click="$.DeleteCity(city)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- #endregion City -->
+                </div>
+
+                <div class="col _col-lg-4">
+                    <!-- #region - Customer - -->
+                    <div class="form-group">
+                        <label class="control-label" translate>Customer</label>
+                        <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
+                            <ui-select-match allow-clear="true">
+                                {{$select.selected.Name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
+                                {{customer.Name}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <!-- #endregion -->
+                    <!-- #region Building -->
+                    <div class="row panel panel-default sam-table">
+                        <h3 class="panel-heading">
+                            <button ng-click="$.AddBuilding()" ng-disabled="!$.selectedCity || !$.selectedCustomerId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                            <span translate>Buildings</span>
+                        </h3>
+                        <div class="panel-body">
+                            <table datatable="ng" class="row-border hover">
+                                <thead>
+                                    <tr>
+                                        <th translate class="auto-size">Name</th>
+                                        <th translate>Owner</th>
+                                        <th translate>CreatedBy</th>
+                                        <th translate>CreatedDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="building in $.buildings track by building.Id"
+                                        ng-click="$.selectedBuilding=building"
+                                        ng-class="{active: $.selectedBuilding===building}">
+                                        <td>{{building.Name}}</td>
+                                        <td>{{building.Owner.Name}}</td>
+                                        <td>{{::building.CreatedBy.Name}}</td>
+                                        <td>{{::building.CreatedDate | date}}</td>
+                                        <td class="action-buttons">
+                                            <button ng-click="$.EditBuilding(building)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                            <button ng-click="$.DeleteBuilding(building)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- #endregion Building -->
+                    <!-- #region Area -->
+                    <div class="row panel panel-default sam-table">
+                        <h3 class="panel-heading">
+                            <button ng-click="$.AddArea()" ng-disabled="!$.selectedBuilding" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                            <span translate>Areas</span>
+                        </h3>
+                        <div class="panel-body">
+                            <table datatable="ng" class="row-border hover">
+                                <thead>
+                                    <tr>
+                                        <th translate class="auto-size">Name</th>
+                                        <th translate>Owner</th>
+                                        <th translate>CreatedBy</th>
+                                        <th translate>CreatedDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="area in $.areas track by area.Id"
+                                        ng-click="$.selectedArea=area"
+                                        ng-class="{active: $.selectedArea===area}">
+                                        <td>{{area.Name}}</td>
+                                        <td>{{area.Owner.Name}}</td>
+                                        <td>{{::area.CreatedBy.Name}}</td>
+                                        <td>{{::area.CreatedDate | date}}</td>
+                                        <td class="action-buttons">
+                                            <button ng-click="$.EditArea(area)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                            <button ng-click="$.DeleteArea(area)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- #endregion Area -->
+                </div>
+
+                <div class="_col-lg-4">
+                    <!-- #region Doors -->
+                    <div class="row panel panel-default sam-table">
+                        <h3 class="panel-heading">
+                            <button ng-click="$.AddDoor()" ng-disabled="!$.selectedArea" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
+                            <span translate>Doors</span>
+                        </h3>
+                        <div class="panel-body">
+                            <table datatable="ng" class="row-border hover">
+                                <thead>
+                                    <tr>
+                                        <th translate class="auto-size">Name</th>
+                                        <th translate>Owner</th>
+                                        <th translate>CreatedBy</th>
+                                        <th translate>CreatedDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="door in $.doors track by door.Id"
+                                        ng-click="$.selectedDoor=door"
+                                        ng-class="{active: $.selectedDoor===door}">
+                                        <td>{{door.Name}}</td>
+                                        <td>{{door.Owner.Name}}</td>
+                                        <td>{{::door.CreatedBy.Name}}</td>
+                                        <td>{{::door.CreatedDate | date}}</td>
+                                        <td class="action-buttons">
+                                            <button ng-click="$.EditDoor(door)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
+                                            <button ng-click="$.DeleteDoor(door)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- #endregion Doors -->
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>

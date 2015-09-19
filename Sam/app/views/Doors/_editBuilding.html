@@ -1,0 +1,53 @@
+﻿<!-- #region - Name - -->
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
+    <label class="control-label" translate>Name</label>
+    <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+    <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
+</div>
+<!-- #endregion -->
+
+<!-- #region - Address1 - -->
+<div class="form-group">
+    <label class="control-label" translate>Address1</label>
+    <input class="form-control" type="text" ng-model="$item.Address1" />
+</div>
+<!-- #endregion -->
+
+<!-- #region - Address2 - -->
+<div class="form-group">
+    <label class="control-label" translate>Address2</label>
+    <input class="form-control" type="text" ng-model="$item.Address2" />
+</div>
+<!-- #endregion -->
+
+<!-- #region - Customer - -->
+<!--
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.Customer.$invalid && form.Customer.$touched }">
+    <label class="control-label" translate>Customer</label>
+    <ui-select class="form-control" ng-model="$item.CustomerId" ng-disabled="!$.customers" required name="Customer">
+        <ui-select-match allow-clear="true">
+            {{$select.selected.Name}}
+        </ui-select-match>
+        <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
+            {{customer.Name}}
+        </ui-select-choices>
+    </ui-select>
+    <span ng-show="form.Customer.$invalid && form.Customer.$touched" class="red" translate>MustBeSet</span>
+</div>
+-->
+<!-- #endregion -->
+
+
+<!-- #region - Owner - -->
+<div class="form-group">
+    <label class="control-label" translate>Owner</label>
+    <ui-select class="form-control" ng-model="$item.OwnerId" ng-disabled="!$.buildingOwners">
+        <ui-select-match allow-clear="true">
+            {{$select.selected.Name}}
+        </ui-select-match>
+        <ui-select-choices repeat="owner.Id as owner in $.buildingOwners track by owner.Id">
+            {{owner.Name}}
+        </ui-select-choices>
+    </ui-select>
+</div>
+<!-- #endregion -->

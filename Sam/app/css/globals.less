@@ -1,15 +1,89 @@
-﻿.nowrap {
+﻿@import 'mixins';
+@import 'consts';
+
+body {
+    background-color: @def-background-color;
+    font-family: @def-font-family;
+    color: rgb(51, 51, 51);
+    font-size: @def-font-size;
+}
+
+.overflow-x, [overflow-x] {
+    overflow-x: auto;
+}
+.overflow-y, [overflow-y] {
+    overflow-y: auto;
+}
+.overflow, [overflow] {
+    overflow: auto;
+}
+
+.nowrap, [nowrap] {
     white-space: nowrap; 
 }
 
-.action-buttons {
-    white-space: nowrap; 
-    margin: 0!important;
-    padding: 0!important;
-    //display: flex;
+.truncate {
+    .truncate();
+}
 
-    button {
-        width: 50%;
-        float: left;
+.truncate-to();
+
+
+.truncate-to(@i: 1) when (@i =< 80) {
+    @px: @i*10;
+    .truncate-@{px}px {
+        .truncate();
+        width: @i*10px!important;
     }
+    .max-truncate-@{px}px {
+        .truncate();
+        max-width: @i*10px!important;
+    }
+    .truncate-@{i}em {
+        .truncate();
+        width: @i*1em!important;
+    }
+    .max-truncate-@{i}em {
+        .truncate();
+        max-width: @i*1em!important;
+    }
+    .truncate-to(@i + 1);
+}
+
+
+// Абсолютное позиционирование подсказок об ошибках
+.form-group.has-error {
+    input.form-control {
+        position: relative;
+    }
+    span.red {                     
+        position: absolute;
+    }
+}
+
+.sam-t-space {
+    margin-top: @def-v-space; 
+}
+.sam-b-space {
+    margin-bottom: @def-v-space; 
+}
+.sam-v-space {
+    margin-top: @def-v-space; 
+    margin-bottom: @def-v-space; 
+}
+
+.sam-l-space {
+    margin-left: @def-h-space; 
+}
+.sam-r-space {
+    margin-right: @def-h-space; 
+}
+.sam-h-space {
+    margin-left: @def-h-space; 
+    margin-right: @def-h-space; 
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
 }

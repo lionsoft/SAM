@@ -1,0 +1,42 @@
+﻿@import '../../css/consts';
+
+#lists .editDepartmentList {
+
+    input[st-search] {
+        width: 150px;
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 26px;
+    }
+
+    @table-height: 296px;
+
+    div.table {
+        height: @table-height;
+        overflow-y: auto;
+    }
+
+    ul.doors {
+        height: @table-height + 46px;
+        border: solid 1px @table-border-color;
+        overflow: auto;
+
+        li {
+            padding: 4px 8px;
+        }
+
+        li:nth-of-type(even) {
+            background: @table-row-even-color;
+        }
+
+        li:nth-of-type(odd) {
+            background: @table-row-odd-color;
+        }
+
+        li:hover {
+            background: @table-row-hower-color;
+        }
+
+    }
+}

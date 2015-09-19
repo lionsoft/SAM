@@ -116,6 +116,8 @@ var App;
              * @param value operand value
              */
             ODataFilterCreator.prototype.aop = function (op, value) {
+                if (value === undefined)
+                    return this;
                 this.args = this._(value);
                 this.opName = op;
                 return new ODataFilterCreator(undefined, this);
@@ -125,8 +127,10 @@ var App;
              * @param op operation name
              * @param value operand value
              */
-            ODataFilterCreator.prototype.lop = function (op, value) {
-                this.args = this._(value);
+            ODataFilterCreator.prototype.lop = function (op, value, isEnum) {
+                if (value === undefined)
+                    return this;
+                this.args = this._(isEnum ? value.toString() : value);
                 this.opName = op;
                 return new ODataFilterCreator(undefined, this);
             };
@@ -185,12 +189,12 @@ var App;
             ODataFilterCreator.prototype.ceiling = function () { return this.fn("ceiling"); };
             //#endregion
             //#region - Logical Functions -
-            ODataFilterCreator.prototype.eq = function (value) { return this.lop("eq", value); };
-            ODataFilterCreator.prototype.ne = function (value) { return this.lop("ne", value); };
-            ODataFilterCreator.prototype.gt = function (value) { return this.lop("gt", value); };
-            ODataFilterCreator.prototype.ge = function (value) { return this.lop("ge", value); };
-            ODataFilterCreator.prototype.lt = function (value) { return this.lop("lt", value); };
-            ODataFilterCreator.prototype.le = function (value) { return this.lop("le", value); };
+            ODataFilterCreator.prototype.eq = function (value, isEnum) { return this.lop("eq", value, isEnum); };
+            ODataFilterCreator.prototype.ne = function (value, isEnum) { return this.lop("ne", value, isEnum); };
+            ODataFilterCreator.prototype.gt = function (value, isEnum) { return this.lop("gt", value, isEnum); };
+            ODataFilterCreator.prototype.ge = function (value, isEnum) { return this.lop("ge", value, isEnum); };
+            ODataFilterCreator.prototype.lt = function (value, isEnum) { return this.lop("lt", value, isEnum); };
+            ODataFilterCreator.prototype.le = function (value, isEnum) { return this.lop("le", value, isEnum); };
             //#endregion
             //#region - Logical Operators -
             ODataFilterCreator.prototype.not = function () { this.isNot = true; return this; };

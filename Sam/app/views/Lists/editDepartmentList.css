@@ -1,0 +1,28 @@
+﻿#lists .editDepartmentList input[st-search] {
+  width: 150px;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 26px;
+}
+#lists .editDepartmentList div.table {
+  height: 296px;
+  overflow-y: auto;
+}
+#lists .editDepartmentList ul.doors {
+  height: 342px;
+  border: solid 1px #0b4665;
+  overflow: auto;
+}
+#lists .editDepartmentList ul.doors li {
+  padding: 4px 8px;
+}
+#lists .editDepartmentList ul.doors li:nth-of-type(even) {
+  background: #ffffff;
+}
+#lists .editDepartmentList ul.doors li:nth-of-type(odd) {
+  background: #ecf5fe;
+}
+#lists .editDepartmentList ul.doors li:hover {
+  background: #c1f3ff;
+}

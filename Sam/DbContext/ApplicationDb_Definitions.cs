@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Sam.Api;
 
 namespace Sam.DbContext
 {
@@ -33,12 +34,26 @@ namespace Sam.DbContext
          }
 
 
+        public IDbSet<Employee> Employees { get; set; }
 
         public IDbSet<Customer> Customers { get; set; }
 
         public IDbSet<Company> Companies { get; set; }
 
         public IDbSet<Department> Departments { get; set; }
+
+        public IDbSet<Country> Countries { get; set; }
+
+        public IDbSet<City> Cities { get; set; }
+
+        public IDbSet<Building> Buildings { get; set; }
+        public IDbSet<Area> Areas { get; set; }
+        public IDbSet<Door> Doors { get; set; }
+
+        public IDbSet<Card> Cards { get; set; }
+
+        public IDbSet<DoorList> DoorLists { get; set; }
+        public IDbSet<DepartmentList> DepartmentLists { get; set; }
 
     }
 }

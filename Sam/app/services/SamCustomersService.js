@@ -13,10 +13,16 @@ var App;
             __extends(CustomersService, _super);
             function CustomersService() {
                 _super.apply(this, arguments);
+                this.TypeDescription = "Customer";
             }
+            Object.defineProperty(CustomersService.prototype, "ApiService", {
+                get: function () { return App.app.api.Customers; },
+                enumerable: true,
+                configurable: true
+            });
             return CustomersService;
         })(Services.CRUDService);
-        App.app.service("samCustomers", CustomersService.Factory("samCompanies"));
+        App.app.service("samCustomers", CustomersService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
 //# sourceMappingURL=SamCustomersService.js.map

@@ -9,17 +9,41 @@ module App {
         Logout(): IPromise<void>;
     }
 
+    export interface IEmployeeApi extends IResourceClass<IEmployee> { }
 
     export interface ICustomersApi extends IResourceClass<ICustomer> { }
     export interface ICompaniesApi extends IResourceClass<ICompany> { }
     export interface IDepartmentsApi extends IResourceClass<IDepartment> { }
 
+    export interface ICountriesApi extends IResourceClass<ICountry> { }
+    export interface ICitiesApi extends IResourceClass<ICity> { }
+    export interface IBuildingsApi extends IResourceClass<IBuilding> { }
+    export interface IAreasApi extends IResourceClass<IArea> { }
+    export interface IDoorsApi extends IResourceClass<IDoor> { }
+    export interface ICardsApi extends IResourceClass<ICard> { }
+    export interface IDoorListsApi extends IResourceClass<IDoorList> { }
+    export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
+ 
+
     export interface IApiService {
 
         Account: IAccountApi;
+        Employees: IEmployeeApi;
 
         Customers: ICustomersApi;
-    }
+        Companies: ICompaniesApi;
+        Departments: IDepartmentsApi;
+        DepartmentLists: IDepartmentListsApi;
+
+        Countries: ICountriesApi;
+        Cities: ICitiesApi;
+        Buildings: IBuildingsApi;
+        Areas: IAreasApi;
+        Doors: IDoorsApi;
+        DoorLists: IDoorListsApi;
+
+        Cards: ICardsApi;
+    }                                                 
 
     export class ApiService extends ApiServiceBase implements IApiService {
 
@@ -29,9 +53,21 @@ module App {
             Logout: <any>{ method: "POST", route: "Logout" },
         };
 
+        Employees: IEmployeeApi = {};
+
         Customers: ICustomersApi = {};
         Companies: ICompaniesApi = {};
         Departments: IDepartmentsApi = {};
+        DepartmentLists: IDepartmentListsApi = {};
+
+        Countries: ICountriesApi = {};
+        Cities: ICitiesApi = {};
+        Buildings: IBuildingsApi = {};
+        Areas: IAreasApi = {};
+        Doors: IDoorsApi = {};
+        DoorLists: IDoorListsApi = {};
+
+        Cards: ICardsApi = {};
 
         Init() {
             super.Init(URL.API);

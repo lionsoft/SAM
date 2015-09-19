@@ -31,6 +31,7 @@ var App;
                 this.$scope.$watch("$.selectedCompany", function () { return _this.LoadDepartments(); });
                 this.$scope.$watch("$.selectedDepartment", function () { return _this.DepartmentChanged(); });
             };
+            //#region - Customer -
             Customers.prototype.LoadCustomers = function () {
                 var _this = this;
                 this.customers = [];
@@ -38,6 +39,17 @@ var App;
                     return _this.samCustomers.Load().then(function (res) { return _this.customers = res; });
                 });
             };
+            Customers.prototype.AddCustomer = function () {
+                var _this = this;
+                this.samCustomers.EditModal(null, '_editCustomer.html').then(function (res) { return _this.customers.push(res); });
+            };
+            Customers.prototype.EditCustomer = function (c) { this.samCustomers.EditModal(c, '_editCustomer.html'); };
+            Customers.prototype.DeleteCustomer = function (c) {
+                var _this = this;
+                this.samCustomers.DeleteModal(c).then(function () { return _this.customers.Remove(c); });
+            };
+            //#endregion 
+            //#region - Company -
             Customers.prototype.LoadCompanies = function () {
                 var _this = this;
                 this.companies = [];
@@ -48,6 +60,17 @@ var App;
                         });
                 });
             };
+            Customers.prototype.AddCompany = function () {
+                var _this = this;
+                this.samCompanies.EditModal(null, '_editCompany.html').then(function (res) { return _this.companies.push(res); });
+            };
+            Customers.prototype.EditCompany = function (c) { this.samCompanies.EditModal(c, '_editCompany.html'); };
+            Customers.prototype.DeleteCompany = function (c) {
+                var _this = this;
+                this.samCompanies.DeleteModal(c).then(function () { return _this.companies.Remove(c); });
+            };
+            //#endregion 
+            //#region - Department -
             Customers.prototype.LoadDepartments = function () {
                 var _this = this;
                 this.departments = [];
@@ -58,34 +81,6 @@ var App;
                         });
                 });
             };
-            Customers.prototype.DepartmentChanged = function () {
-            };
-            Customers.prototype.AddCustomer = function () {
-                var _this = this;
-                this.samCustomers.EditModal(null, '_editCustomer.html').then(function (res) { return _this.customers.push(res); });
-            };
-            Customers.prototype.EditCustomer = function (c) { this.samCustomers.EditModal(c, '_editCustomer.html'); };
-            Customers.prototype.DeleteCustomer = function (c) {
-                var _this = this;
-                if (!c)
-                    return;
-                App.app.popup.ask(this.Translate("Ask.Delete.Customer").format(c.Name), false)
-                    .then(function (r) { return r ? _this.samCustomers.Delete(c.Id) : false; })
-                    .then(function (r) { return r ? _this.customers.Remove(c) : false; });
-            };
-            Customers.prototype.AddCompany = function () {
-                var _this = this;
-                this.samCompanies.EditModal(null, '_editCompany.html').then(function (res) { return _this.companies.push(res); });
-            };
-            Customers.prototype.EditCompany = function (c) { this.samCompanies.EditModal(c, '_editCompany.html'); };
-            Customers.prototype.DeleteCompany = function (c) {
-                var _this = this;
-                if (!c)
-                    return;
-                App.app.popup.ask(this.Translate("Ask.Delete.Company|{0}: Delete company?").format(c.Name), false)
-                    .then(function (r) { return r ? _this.samCompanies.Delete(c.Id) : false; })
-                    .then(function (r) { return r ? _this.companies.Remove(c) : false; });
-            };
             Customers.prototype.AddDepartment = function () {
                 var _this = this;
                 if (this.selectedCompany)
@@ -94,11 +89,9 @@ var App;
             Customers.prototype.EditDepartment = function (d) { this.samDepartments.EditModal(d, '_editDepartment.html'); };
             Customers.prototype.DeleteDepartment = function (d) {
                 var _this = this;
-                if (!d)
-                    return;
-                App.app.popup.ask(this.Translate("Ask.Delete.Department|{0}: Delete department?").format(d.Name), false)
-                    .then(function (r) { return r ? _this.samDepartments.Delete(d.Id) : false; })
-                    .then(function (r) { return r ? _this.departments.Remove(d) : false; });
+                this.samDepartments.DeleteModal(d).then(function () { return _this.departments.Remove(d); });
+            };
+            Customers.prototype.DepartmentChanged = function () {
             };
             return Customers;
         })(App.Controller);

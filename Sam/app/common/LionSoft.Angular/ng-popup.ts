@@ -96,6 +96,7 @@ module LionSoftAngular {
                 };
             }
         ])
+
         /**
         * Регистрирует сервис ангуляра для вызова Popup-окон.
         * Пример:
@@ -154,25 +155,68 @@ module LionSoftAngular {
                     (<any>tempPopupDefaults).templateUrl = tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase) + "?" + Math.random();
 
                     loadCss("css/ng-dialog.css");
+                    if (tempDialogOptions.templateUrl.ExtractOnlyFileName() !== 'ng-dialog')
+                        loadCss(tempDialogOptions.templateUrl.ExpandPath(tempPopupDefaults.templateUrlBase).ChangeFileExt('css'));
 
                     
 
                     (<any>tempPopupDefaults).controller = ["$scope", "$modalInstance", ($scope, $modalInstance: LionSoftAngular.IModalInstance) => {
                         angular.extend($scope, tempDialogOptions);
+                        tempDialogOptions.scope = tempDialogOptions.scope || {};
                         $scope.$scope = tempDialogOptions.scope;
-
-                        if (tempDialogOptions.scope) {
-                            for (var prop in tempDialogOptions.scope) {
-                                if (tempDialogOptions.scope.hasOwnProperty(prop)) {
-                                    if (prop[0] === "$" && !$scope[prop])
-                                        $scope[prop] = tempDialogOptions.scope[prop];
-                                }
+                        $scope.$ = tempDialogOptions.scope.$;
+                        for (var prop in tempDialogOptions.scope) {
+                            if (tempDialogOptions.scope.hasOwnProperty(prop)) {
+                                if (prop[0] === "$" && prop[1] !== "$" && $scope[prop] === undefined)
+                                    $scope[prop] = tempDialogOptions.scope[prop];
                             }
                         }
+                        if ($scope.$templateUrl) {
+                            var css = $scope.$templateUrl.ChangeFileExt('css');
+                            loadCss(css);
+                        }
+                            
 
                         $scope.$modalInstance = $modalInstance;
+                        $scope.submit = (form : ng.INgModelController) => {
+                            if (form.$invalid) {
+                                for (var errorName in form.$error) {
+                                    if (form.$error.hasOwnProperty(errorName)) {
+                                        var errors = form.$error[errorName];
+                                        for (var control of errors) {
+                                            // ReSharper disable once QualifiedExpressionIsNull
+                                            control.$setTouched();
+                                        }
+                                    }
+                                }
+                            } else {
+                                var submit = tempDialogOptions.scope.$submit || $scope.$submit;
+                                if (typeof submit === "function") {
+                                    submit($scope.$item)
+                                        .then(res => {
+                                            if (res || res === undefined)
+                                                $modalInstance.close(res || false);
+                                        })
+                                        .catch(e => {
+                                            if (e) alert(e);
+                                        });
+                                    
+                                }
+                                else
+                                    $modalInstance.close(true);
+                            }
+                        };
                         $scope.ok = result => {
-                            //$modalInstance.close(result === undefined ? true : result);
+                            if (angular.isObject(result))
+                                $scope.submit(result);
+                            else
+                                $modalInstance.close(result === undefined ? true : result);
+/*
+                            if (result && result.$invalid)
+                                $scope.submit(result);
+                            else
+                                $modalInstance.close(result === undefined ? true : result);
+*/
                         };
                         $scope.cancel = result => { $modalInstance.dismiss(result); };
                         $scope.close = () => { $modalInstance.close(undefined); };

@@ -1,4 +1,6 @@
-﻿/*
+﻿@sidebar-width: 160px;
+
+/*
     Стили главного меню
 */
 .navbar-menuitem {
@@ -52,7 +54,7 @@ body {
 }
 
 .sidebar-widget form {
-    margin: 0em -1em;
+    margin: 0 -1em;
 }
 
 .sidebar .navi > li > a {
@@ -81,6 +83,7 @@ body {
 
 .sidebar {
     margin-top: -2px;
+    width: @sidebar-width;
 }
 
     .sidebar .sidebar-inner {
@@ -94,8 +97,13 @@ body {
     left: 0;
     height: 100%;
     background-color: #333;
-    width: 230px;
+    width: @sidebar-width;
 }
+
+.mainbar {
+    margin-left: @sidebar-width;
+}
+
 
 
 .navbar .navbar-brand {

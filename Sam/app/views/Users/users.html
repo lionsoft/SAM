@@ -1,0 +1,64 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div st-table
+                     sam-st-table="{service: 'samUsers', editTemplate: '_editUser.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}">
+
+                    <!-- #region - Title / Search - -->
+                    <div class="st-table-search">
+                        <h3>
+                            <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                            <span>Users</span>
+                        </h3>
+                        <input st-search="UserName" class="form-control" translate translate-attr-placeholder="Search..."/>
+                    </div>
+                    <!-- #endregion -->
+
+                    <table>
+                        <!-- #region - Columns - -->
+                        <thead>
+                            <tr>
+                                <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+                                <th translate class="truncate-to-20em" st-sort-default st-sort="UserName">Login</th>
+                                <th translate auto-size>Employee</th>
+                            </tr>
+                        </thead>
+                        <!-- #endregion -->
+
+                        <!-- #region - Loading... - -->
+                        <tbody ng-show="$loading || $items.length == 0">
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    <span ng-show="!$loading && $items.length == 0" translate>NoTableData</span>
+                                    <span ng-show="$loading" translate>LoadingTable</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- #endregion -->
+
+                        <!-- #region - Rows - -->
+                        <tbody ng-hide="$loading">
+                        <tr ng-repeat="user in $items track by user.Id">
+                            <td class="st-action-buttons">
+                                <button ng-click="$edit(user)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                <button ng-click="$delete(user)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                            </td>
+                            <td>{{user.UserName}}</td>
+                            <td>{{user.Employee.Name}}</td>
+                        </tr>
+                        </tbody>
+                        <!-- #endregion -->
+                    </table>
+
+                    <!-- #region - Paging - -->
+                    <div class="tfoot" st-pagination st-items-by-page="20"></div>
+                    <!-- #endregion -->
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>

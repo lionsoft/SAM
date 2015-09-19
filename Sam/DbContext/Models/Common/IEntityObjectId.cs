@@ -1,4 +1,5 @@
 ﻿using System;
+using T4TS;
 
 namespace Sam.DbContext
 {

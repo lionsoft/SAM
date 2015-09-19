@@ -11,6 +11,7 @@ var App;
                 this._expands = [];
                 this._filter = "";
                 this._orderBy = [];
+                this._extra = [];
                 this.clear();
                 if (params) {
                     if (params.$expand)
@@ -20,6 +21,8 @@ var App;
                         this._orderBy = params.$orderBy.split(',').select(function (s) { return (s || "").trim(); }).where(function (s) { return s !== ""; }).toArray();
                     this._top = params.$top;
                     this._skip = params.$skip;
+                    if (params.$extra)
+                        this._extra = params.$extra.split('&').select(function (s) { return (s || "").trim(); }).where(function (s) { return s !== ""; }).toArray();
                 }
             }
             Object.defineProperty(OData, "create", {
@@ -45,6 +48,7 @@ var App;
                 this._orderBy = [];
                 this._top = undefined;
                 this._skip = undefined;
+                this._extra = [];
             };
             Object.defineProperty(OData.prototype, "query", {
                 /**
@@ -54,17 +58,19 @@ var App;
                     // update filter from current filter creator
                     this.prop(undefined);
                     var resArray = [];
-                    if (this._expands && this._expands.length > 0)
-                        resArray.push("$expand=" + this._expands.join(','));
+                    if (angular.isArray(this._expands) && this._expands.length > 0)
+                        resArray.push("$expand=" + this._expands.distinct().toJoinedString(','));
                     if (this._filter)
                         resArray.push("$filter=" + this._filter);
-                    if (this._orderBy && this._orderBy.length > 0)
-                        resArray.push("$orderby=" + this._orderBy.join(','));
+                    if (angular.isArray(this._orderBy) && this._orderBy.length > 0)
+                        resArray.push("$orderby=" + this._orderBy.distinct().toJoinedString(','));
                     if (this._top || this._top === 0)
                         resArray.push("$top=" + this._top);
                     if (this._skip)
                         resArray.push("$skip=" + this._skip);
-                    var res = resArray.join('&');
+                    if (angular.isArray(this._extra) && this._extra.length > 0)
+                        resArray.push(this._extra.distinct().toJoinedString('&'));
+                    var res = resArray.distinct().toJoinedString('&');
                     return res;
                 },
                 enumerable: true,
@@ -77,7 +83,15 @@ var App;
              * @param enumValue числовое значение перечисления
              */
             OData.enum = function (enumName, enumValue) {
-                return new ODataEnum(enumName, enumValue);
+                return enumValue === undefined ? undefined : new ODataEnum(enumName, enumValue);
+            };
+            /**
+             * Добавляет к запросу параметр для получения общего количества записей в запросе (без учёта $top и $skip).
+             * Результатом запроса будет не массив сущностей, а массив из одного элемента IODataMetadata.
+             */
+            OData.prototype.$inlinecount = function () {
+                this._extra.push("$inlinecount=allpages");
+                return this;
             };
             OData.prototype.$expand = function (p1) {
                 var value = [];
@@ -85,7 +99,7 @@ var App;
                     value[_i - 1] = arguments[_i];
                 }
                 var addExpand = true;
-                if (typeof p1 === "boolean") {
+                if (p1 === undefined || typeof p1 === "boolean") {
                     addExpand = p1;
                 }
                 else {
@@ -121,7 +135,7 @@ var App;
                 for (var _i = 0; _i < arguments.length; _i++) {
                     value[_i - 0] = arguments[_i];
                 }
-                if (value) {
+                if (value && value[0] !== undefined) {
                     for (var _a = 0; _a < value.length; _a++) {
                         var item = value[_a];
                         item = (item || "").trim();
@@ -158,49 +172,56 @@ var App;
              * @param value Значение ключевого поля
              */
             OData.prototype.$id = function (value) {
-                this.prop("Id").eq(value);
+                if (value !== undefined)
+                    this.prop("Id").eq(value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'равно' по указанному полю.
              */
-            OData.prototype.eq = function (propName, value) {
-                this.prop(propName).eq(value);
+            OData.prototype.eq = function (propName, value, isEnum) {
+                if (value !== undefined)
+                    this.prop(propName).eq(isEnum ? value.toString() : value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'не равно' по указанному полю.
              */
-            OData.prototype.ne = function (propName, value) {
-                this.prop(propName).ne(value);
+            OData.prototype.ne = function (propName, value, isEnum) {
+                if (value !== undefined)
+                    this.prop(propName).ne(isEnum ? value.toString() : value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'больше' по указанному полю.
              */
-            OData.prototype.gt = function (propName, value) {
-                this.prop(propName).gt(value);
+            OData.prototype.gt = function (propName, value, isEnum) {
+                if (value !== undefined)
+                    this.prop(propName).gt(isEnum ? value.toString() : value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'больше или равно' по указанному полю.
              */
-            OData.prototype.ge = function (propName, value) {
-                this.prop(propName).ge(value);
+            OData.prototype.ge = function (propName, value, isEnum) {
+                if (value !== undefined)
+                    this.prop(propName).ge(isEnum ? value.toString() : value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'меньше' по указанному полю.
              */
-            OData.prototype.lt = function (propName, value) {
-                this.prop(propName).lt(value);
+            OData.prototype.lt = function (propName, value, isEnum) {
+                if (value !== undefined)
+                    this.prop(propName).lt(isEnum ? value.toString() : value);
                 return this;
             };
             /**
              * Добавляет условие отбора 'меньше или равно' по указанному полю.
              */
-            OData.prototype.le = function (propName, value) {
-                this.prop(propName).le(value);
+            OData.prototype.le = function (propName, value, isEnum) {
+                if (value !== undefined)
+                    this.prop(propName).le(isEnum ? value.toString() : value);
                 return this;
             };
             OData.prototype.$filter = function (p1, p2) {
@@ -223,8 +244,11 @@ var App;
                 return this;
             };
             OData.prototype.prop = function (propName) {
-                if (this._filterCreator)
-                    this.$filter("and", this._filterCreator.query);
+                if (this._filterCreator) {
+                    var query = this._filterCreator.query;
+                    if (query)
+                        this.$filter('and', query);
+                }
                 if (propName) {
                     this._filterCreator = new Services.ODataFilterCreator(propName);
                 }
@@ -232,6 +256,24 @@ var App;
                     this._filterCreator = undefined;
                 }
                 return this._filterCreator;
+            };
+            /**
+             * Usage:
+             *
+             * odata.prop('a').eq(1);
+             * odata.and(odata.prop('b').eq(2).or('c).eq(3));
+             *
+             * This code will generate $filter=a eq 1 and (b eq 2 or c eq 3)
+             *
+             */
+            OData.prototype.and = function (odataOperation) {
+                if (odataOperation) {
+                    var query = odataOperation.query;
+                    if (query)
+                        this.$filter('and', "(" + query + ")");
+                }
+                this._filterCreator = undefined;
+                return this;
             };
             return OData;
         })();

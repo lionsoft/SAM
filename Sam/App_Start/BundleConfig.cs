@@ -107,6 +107,7 @@ namespace Sam
                 , "~/scripts/toastr.js"
                 , "~/Scripts/loading-bar.js"
                 , "~/Scripts/oclazyload.js"
+                , "~/Scripts/angular-file-upload.min.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/LionSoftJs")
@@ -149,63 +150,91 @@ namespace Sam
                     , "~/app/common/bootstrap/bootstrap.dialog.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/app/common").Include(
+            bundles.Add(new ScriptBundle("~/bundles/app/common")
+                .Include(
                       "~/app/common/utils/Color.js"
                     , "~/app/common/utils/DateTime.js"
                     , "~/app/common/utils/Icon.js"
                     , "~/app/common/utils/Json.js"
                     , "~/app/common/utils/ng.js"
                     , "~/app/common/utils/ResizeListener.js"
+                    , "~/app/common/utils/SmartTable.js"
 
                     , "~/app/common/Controller.js"
+                    , "~/app/common/Filter.js"
+                    , "~/app/common/EnumFilter.js"
                     , "~/app/common/Service.js"
                     , "~/app/common/Directive.js"
                     , "~/app/common/TemplatedDirective.js"
+
+//                    , "~/app/decorators/DTRendererService.js"
                 )
+                .IncludeDirectory("~/app/decorators", "*.js", false)
+                .IncludeDirectory("~/app/filters", "*.js", false)
             );
 
-            bundles.Add(new ScriptBundle("~/bundles/app/directives").Include(
-                  "~/app/directives/cc/cc-img-person.js"
-                , "~/app/directives/cc/cc-menu-item-rendered.js"
-                , "~/app/directives/cc/cc-scroll-to-top.js"
-                , "~/app/directives/cc/cc-sidebar.js"
-                , "~/app/directives/cc/cc-spinner.js"
-                , "~/app/directives/cc/cc-widget-close.js"
-                , "~/app/directives/cc/cc-widget-header.js"
-                , "~/app/directives/cc/cc-widget-minimize.js"
+            bundles.Add(new ScriptBundle("~/bundles/app/directives")
+                .Include(
+                      "~/app/directives/cc/cc-menu-item-rendered.js"
+                    , "~/app/directives/cc/cc-sidebar.js"
+                    , "~/app/directives/cc/cc-spinner.js"
+//                  , "~/app/directives/autofocus.js"
+                )
+                .IncludeDirectory("~/app/directives", "*.js", true)
+            );
 
-                , "~/app/decorators/DTRendererService.js"
-            ));
+            bundles.Add(new ScriptBundle("~/bundles/app/services")
+                .Include(
+                      "~/app/services/system/ODataFilterCreator.js"
+                    , "~/app/services/system/OData.js"
+                    , "~/app/services/system/AutenticationService.js"
+                    , "~/app/services/system/CRUDService.js"
+                    , "~/app/services/system/ApiServiceBase.js"
+/*
+                    , "~/app/services/ApiService.js"
 
-            bundles.Add(new ScriptBundle("~/bundles/app/services").Include(
-                  "~/app/services/system/ODataFilterCreator.js"
-                , "~/app/services/system/OData.js"
-                , "~/app/services/system/AutenticationService.js"
-                , "~/app/services/system/CRUDService.js"
-                , "~/app/services/system/ApiServiceBase.js"
-                , "~/app/services/ApiService.js"
+                    , "~/app/services/SamUsersService.js"
 
-                , "~/app/services/SamUsersService.js"
-                , "~/app/services/SamCompaniesService.js"
-                , "~/app/services/SamCustomersService.js"
-                , "~/app/services/SamDepartmentsService.js"
-            ));
+                    , "~/app/services/SamCompaniesService.js"
+                    , "~/app/services/SamCustomersService.js"
+                    , "~/app/services/SamDepartmentsService.js"
+
+                    , "~/app/services/SamCountriesService.js"
+                    , "~/app/services/SamCitiesService.js"
+                    , "~/app/services/SamBuildingsService.js"
+                    , "~/app/services/SamAreasService.js"
+                    , "~/app/services/SamEmployeesService.js"
+*/
+                )
+                .IncludeDirectory("~/app/services", "*.js", false)
+            );
 
 
-            bundles.Add(new ScriptBundle("~/bundles/app/routes").Include(
+            bundles.Add(new ScriptBundle("~/bundles/app/routes")
+                .Include(
                       "~/app/routes.js"
+/*
                     , "~/app/routes/login.js"
                     , "~/app/routes/customers.js"
-                    , "~/app/routes/admin.js"
-            ));
+                    , "~/app/routes/doors.js"
+                    , "~/app/routes/users.js"
+*/
+                )
+                .IncludeDirectory("~/app/routes", "*.js", false)
+            );
 
-            bundles.Add(new ScriptBundle("~/bundles/app/views").Include(
-                  "~/app/layout/shell.js"
-                , "~/app/layout/sidebar.js"
-
-                , "~/app/views/customers/customers.js"
-                , "~/app/views/admin/admin.js"
-            ));
+            bundles.Add(new ScriptBundle("~/bundles/app/views")
+                .Include(
+                      "~/app/layout/shell.js"
+                    , "~/app/layout/sidebar.js"
+/*
+                    , "~/app/views/customers/customers.js"
+                    , "~/app/views/doors/doors.js"
+                    , "~/app/views/users/users.js"
+*/
+                )
+//                .IncludeDirectory("~/app/views", "*.js", true)
+            );
 
         }
     }
