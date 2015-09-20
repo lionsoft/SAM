@@ -4,6 +4,16 @@
   color: #333333;
   font-size: 10pt;
 }
+.spacer {
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
+}
+.align-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
 .overflow-x,
 [overflow-x] {
   overflow-x: auto;
@@ -15,6 +25,14 @@
 .overflow,
 [overflow] {
   overflow: auto;
+}
+.relative,
+[relative] {
+  position: relative;
+}
+.absolute,
+[absolute] {
+  position: absolute;
 }
 .nowrap,
 [nowrap] {

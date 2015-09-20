@@ -20,6 +20,7 @@
             <!-- #region - DoorList - -->
 
             <div st-table
+                 st-items-by-page="10"
                  sam-st-table="{service: 'samDoorLists', controller: 'editDoorList', editTemplate: 'editDoorList.html', prepareQuery: $.prepareDoorListQuery, prepareEdit: $.prepareEdit}">
 
                 <!-- #region - Title / Search - -->
@@ -28,49 +29,35 @@
                         <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
                         <span>DoorLists</span>
                     </h3>
-                    <input st-search="" class="form-control" translate translate-attr-placeholder="Search..."/>
+                    <input st-search="" class="form-control" translate translate-attr-placeholder="Search..." />
                 </div>
                 <!-- #endregion -->
 
                 <table>
                     <!-- #region - Columns - -->
                     <thead>
-                    <tr>
-                        <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
-                        <th class="auto-size" translate st-sort-default st-sort="Name">Name</th>
-                        <th translate st-sort="CreatedBy.Id">CreatedBy</th>
-                        <th translate st-sort="CreatedDate">CreatedDate</th>
-                    </tr>
+                        <tr>
+                            <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+                            <th class="auto-size" translate st-sort-default st-sort="Name">Name</th>
+                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                        </tr>
                     </thead>
                     <!-- #endregion -->
-                    <!-- #region - Loading... - -->
-                    <tbody ng-show="$loading || $items.length == 0">
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            <span ng-show="!$loading && $items.length == 0" translate>NoTableData</span>
-                            <span ng-show="$loading" translate>LoadingTable</span>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <!-- #endregion -->
                     <!-- #region - Rows - -->
-                    <tbody ng-hide="$loading">
-                    <tr ng-repeat="doorList in $items track by doorList.Id">
-                        <td class="st-action-buttons">
-                            <button ng-click="$edit(doorList)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
-                            <button ng-click="$delete(doorList)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
-                        </td>
-                        <td>{{doorList.Name}}</td>
-                        <td class="col-created-by">{{doorList.CreatedBy.Name}}</td>
-                        <td class="col-created-date">{{doorList.CreatedDate | date}}</td>
-                    </tr>
+                    <tbody>
+                        <tr ng-repeat="doorList in $items track by doorList.Id">
+                            <td class="st-action-buttons">
+                                <button ng-click="$edit(doorList)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                <button ng-click="$delete(doorList)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                            </td>
+                            <td>{{doorList.Name}}</td>
+                            <td class="col-created-by">{{doorList.CreatedBy.Name}}</td>
+                            <td class="col-created-date">{{doorList.CreatedDate | date}}</td>
+                        </tr>
                     </tbody>
                     <!-- #endregion -->
                 </table>
-
-                <!-- #region - Paging - -->
-                <div class="tfoot" st-pagination st-items-by-page="10"></div>
-                <!-- #endregion -->
 
             </div>
 
@@ -98,6 +85,7 @@
 
 
             <div st-table
+                 st-items-by-page="10"
                  sam-st-table="{service: 'samDepartmentLists', controller: 'editDepartmentList', editTemplate: 'editDepartmentList.html', prepareQuery: $.prepareDepartmentListQuery, prepareEdit: $.prepareEdit}">
 
                 <!-- #region - Title / Search - -->
@@ -123,16 +111,6 @@
                         </tr>
                     </thead>
                     <!-- #endregion -->
-                    <!-- #region - Loading... - -->
-                    <tbody ng-show="$loading || $items.length == 0">
-                        <tr>
-                            <td colspan="6" class="text-center">
-                                <span ng-show="!$loading && $items.length == 0" translate>NoTableData</span>
-                                <span ng-show="$loading" translate>LoadingTable</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <!-- #endregion -->
                     <!-- #region - Rows - -->
                     <tbody ng-hide="$loading">
                         <tr ng-repeat="doorList in $items track by doorList.Id">
@@ -149,11 +127,6 @@
                     </tbody>
                     <!-- #endregion -->
                 </table>
-
-                <!-- #region - Paging - -->
-                <div class="tfoot" st-pagination st-items-by-page="10"></div>
-                <!-- #endregion -->
-
             </div>
         </div>
         <!-- #endregion -->

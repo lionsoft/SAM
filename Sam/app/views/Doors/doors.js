@@ -13,33 +13,16 @@ var App;
             __extends(Doors, _super);
             function Doors() {
                 _super.apply(this, arguments);
-                this.countries = [];
-                this.cities = [];
-                this.buildings = [];
-                this.areas = [];
-                this.doors = [];
                 this.customers = [];
             }
             //#endregion
             Doors.prototype.Init = function () {
                 // Queue all promises and wait for them to finish before loading the view
-                this.activate(this.LoadCustomers(), this.LoadCountries());
+                this.activate(this.LoadCustomers() /*, this.LoadCountries()*/);
             };
             Doors.prototype.Activated = function () {
                 var _this = this;
                 this.$scope.$watch("$.selectedCustomerId", function () { return _this.CustomerChanged(); });
-                this.$scope.$watch("$.countries", function () { return _this.selectedCountry = _this.countries.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
-                this.$scope.$watch("$.cities", function () { return _this.selectedCity = _this.cities.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
-                this.$scope.$watch("$.buildings", function () { return _this.selectedBuilding = _this.buildings.orderBy(function (x) { return x.Name; }).firstOrDefault(); });
-                this.$scope.$watch("$.areas", function () {
-                    _this.selectedArea = _this.areas.orderBy(function (x) { return x.Name; }).firstOrDefault();
-                });
-                this.$scope.$watch("$.selectedCountry", function () { return _this.LoadCities(); });
-                this.$scope.$watch("$.selectedCity", function () { return _this.LoadBuildings(); });
-                this.$scope.$watch("$.selectedBuilding", function () { return _this.LoadAreas(); });
-                this.$scope.$watch("$.selectedArea", function () {
-                    _this.LoadDoors();
-                });
             };
             Doors.prototype.LoadCustomers = function () {
                 var _this = this;
@@ -63,120 +46,68 @@ var App;
                         _this.doorOwners = res.where(function (x) { return x.UserRole === 8 /* DoorOwner */; }).toArray();
                     });
                 }
-                this.LoadBuildings();
             };
             //#region - Country -
-            Doors.prototype.LoadCountries = function () {
-                var _this = this;
-                this.countries = [];
-                return this.$timeout(function () {
-                    return _this.samCountries.Load().then(function (res) { return _this.countries = res; });
-                });
-            };
-            Doors.prototype.AddCountry = function () {
-                var _this = this;
-                this.samCountries.EditModal(null, '_editCountry.html').then(function (res) { return _this.countries.push(res); });
-            };
-            Doors.prototype.EditCountry = function (c) { this.samCountries.EditModal(c, '_editCountry.html'); };
-            Doors.prototype.DeleteCountry = function (c) {
-                var _this = this;
-                this.samCountries.DeleteModal(c).then(function () { return _this.countries.Remove(c); });
+            Doors.prototype.CountriesLoaded = function (list) {
+                this.selectedCountryId = list.select(function (x) { return x.Id; }).firstOrDefault();
             };
             //#endregion 
             //#region - City -
-            Doors.prototype.LoadCities = function () {
-                var _this = this;
-                this.cities = [];
-                this.$timeout(function () {
-                    if (_this.selectedCountry)
-                        _this.samCities.Load(App.Services.OData.create.eq("CountryId", _this.selectedCountry.Id)).then(function (res) {
-                            _this.cities = res;
-                        });
-                });
+            Doors.prototype.prepareCitiesQuery = function (odata) {
+                odata.eq("CountryId", this.selectedCountryId);
+                return "selectedCountryId";
             };
-            Doors.prototype.AddCity = function () {
-                var _this = this;
-                this.samCities.EditModal({ CountryId: this.selectedCountry.Id }, '_editCity.html').then(function (res) { return _this.cities.push(res); });
+            Doors.prototype.prepareCityEdit = function (city) {
+                if (!city.Id)
+                    city.CountryId = this.selectedCountryId;
             };
-            Doors.prototype.EditCity = function (c) { this.samCities.EditModal(c, '_editCity.html'); };
-            Doors.prototype.DeleteCity = function (c) {
-                var _this = this;
-                this.samCities.DeleteModal(c).then(function () { return _this.cities.Remove(c); });
+            Doors.prototype.CitiesLoaded = function (list) {
+                this.selectedCityId = list.select(function (x) { return x.Id; }).firstOrDefault();
             };
             //#endregion 
             //#region - Building -
-            Doors.prototype.LoadBuildings = function () {
-                var _this = this;
-                this.buildings = [];
-                if (!this.selectedCustomerId)
-                    return;
-                this.$timeout(function () {
-                    if (_this.selectedCity)
-                        _this.samBuildings.Load(App.Services.OData.create
-                            .eq("CityId", _this.selectedCity.Id)
-                            .eq("CustomerId", _this.selectedCustomerId))
-                            .then(function (res) {
-                            _this.buildings = res;
-                        });
-                });
+            Doors.prototype.prepareBuildingsQuery = function (odata) {
+                odata.eq("CityId", this.selectedCityId).eq("CustomerId", this.selectedCustomerId);
+                return "selectedCityId,selectedCustomerId";
             };
-            Doors.prototype.AddBuilding = function () {
-                var _this = this;
-                this.samBuildings.EditModal({ CityId: this.selectedCity.Id }, '_editBuilding.html', this.$scope).then(function (res) { return _this.buildings.push(res); });
+            Doors.prototype.prepareBuildingEdit = function (building) {
+                if (!building.Id) {
+                    building.CityId = this.selectedCityId;
+                    building.CustomerId = this.selectedCustomerId;
+                }
             };
-            Doors.prototype.EditBuilding = function (b) { this.samBuildings.EditModal(b, '_editBuilding.html', this.$scope); };
-            Doors.prototype.DeleteBuilding = function (b) {
-                var _this = this;
-                this.samBuildings.DeleteModal(b).then(function () { return _this.buildings.Remove(b); });
+            Doors.prototype.BuildingsLoaded = function (list) {
+                this.selectedBuildingId = list.select(function (x) { return x.Id; }).firstOrDefault();
             };
             //#endregion 
             //#region - Area -
-            Doors.prototype.LoadAreas = function () {
-                var _this = this;
-                this.areas = [];
-                this.$timeout(function () {
-                    if (_this.selectedBuilding)
-                        _this.samAreas.Load(App.Services.OData.create.eq("BuildingId", _this.selectedBuilding.Id)).then(function (res) {
-                            _this.areas = res;
-                        });
-                });
+            Doors.prototype.prepareLoadAreasQuery = function (odata) {
+                odata.eq("BuildingId", this.selectedBuildingId);
+                return "selectedBuildingId";
             };
-            Doors.prototype.AddArea = function () {
-                var _this = this;
-                this.samAreas.EditModal({ BuildingId: this.selectedBuilding.Id }, '_editArea.html', this.$scope).then(function (res) { return _this.areas.push(res); });
+            Doors.prototype.prepareAreaEdit = function (area) {
+                if (!area.Id) {
+                    area.BuildingId = this.selectedBuildingId;
+                }
             };
-            Doors.prototype.EditArea = function (a) { this.samAreas.EditModal(a, '_editArea.html', this.$scope); };
-            Doors.prototype.DeleteArea = function (a) {
-                var _this = this;
-                this.samAreas.DeleteModal(a).then(function () { return _this.areas.Remove(a); });
+            Doors.prototype.AreasLoaded = function (list) {
+                this.selectedAreaId = list.select(function (x) { return x.Id; }).firstOrDefault();
             };
             //#endregion 
             //#region - Door -
-            Doors.prototype.LoadDoors = function () {
-                var _this = this;
-                this.doors = [];
-                this.$timeout(function () {
-                    if (_this.selectedArea)
-                        _this.samDoors.Load(App.Services.OData.create.eq("AreaId", _this.selectedArea.Id)).then(function (res) {
-                            _this.doors = res;
-                        });
-                });
+            Doors.prototype.prepareLoadDoorsQuery = function (odata) {
+                odata.eq("AreaId", this.selectedAreaId);
+                return "selectedAreaId";
             };
-            Doors.prototype.AddDoor = function () {
-                var _this = this;
-                this.samDoors.EditModal({ AreaId: this.selectedArea.Id }, '_editDoor.html', this.$scope).then(function (res) { return _this.doors.push(res); });
-            };
-            Doors.prototype.EditDoor = function (d) {
-                this.samDoors.EditModal(d, '_editDoor.html', this.$scope);
-            };
-            Doors.prototype.DeleteDoor = function (d) {
-                var _this = this;
-                this.samDoors.DeleteModal(d).then(function () { return _this.doors.Remove(d); });
+            Doors.prototype.prepareDoorEdit = function (door) {
+                if (!door.Id) {
+                    door.AreaId = this.selectedAreaId;
+                }
             };
             return Doors;
         })(App.Controller);
         // register controller with angular
-        App.app.controller('doors', Doors.Factory("samCustomers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samEmployees"));
+        App.app.controller('doors', Doors.Factory("samCustomers", "samEmployees"));
     })(Controllers = App.Controllers || (App.Controllers = {}));
 })(App || (App = {}));
 //# sourceMappingURL=doors.js.map

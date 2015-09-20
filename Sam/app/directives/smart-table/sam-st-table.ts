@@ -3,6 +3,14 @@
 module App.Directives {
 
     interface ISamStTableParams<T extends IEntityObjectId> {
+
+        /**
+         * Уникальный идентификатор таблицы в контроллере.
+         * Если не указан равен значению параметра service, если он задан в виде строки - имени сервиса.
+         * Используется для получения события samStRefresh.
+         */
+        id: string;
+
         /**
          * Ссылка на CRUDService класса. (В разметке можно указань название сервиса).
          */
@@ -37,6 +45,12 @@ module App.Directives {
          * Контроллер диалога редактирования (или наименование контроллера), если задан - будет использоваться именно он.
          */
         controller: Controller;
+
+        /**
+         * Вызывается при изменении источника данных
+         * @param items текущий источник данных
+         */
+        onLoad: (items: T[]) => void;
     }
 
 
@@ -50,37 +64,132 @@ module App.Directives {
         $delete: (item: T) => void;
     }
 
+
+    /**
+     * Usage:
+     * 
+     *  <div st-table="[items]"
+     *       [st-items-by-page="nnn"]
+     *       [st-show-page-sizes="true"]
+     *       sam-st-table='{ [id], service, [editTemplate], [prepareQuery], [prepareEdit], [controller], [onLoad]}'
+     *  >
+     * 
+     *  To force refresh the table in controller - send the event 'samStRefresh' with the table id.
+     *
+     *  Sample: 
+     *  
+     *     this.$scope.$broadcast('samStRefresh', 'tableId');
+     */
     class SamStTable extends LionSoftAngular.Directive
     {
         restrict = 'A';
-        require = '^stTable';
+        require = 'stTable';
         scope = true;
         stConfig: st.IConfig;
         $controller;
+
+        Compile(element: ng.IAugmentedJQuery, attrs) {
+            var innerTable = element.find('table');
+            if (innerTable.length > 0) {
+                var tableOuterWrapper = angular.element(`
+<div class="st-table-wrapper">
+    <div class="st-table-wrapper-inner"></div>
+    <div class="pre-loader" ng-show="$loading">
+        <div class="sp sp-circle"></div>
+    </div>
+</div>`);
+                
+                var rows = innerTable.find('tbody>tr>td');
+                var colsCount = rows.length;
+                for (var i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    if (row.hasAttribute("colspan")) {
+                        var colSpan = parseInt(row.getAttribute("colspan"));
+                        if (colSpan > 1)
+                            colsCount += colSpan - 1;
+                    }
+                }
+                var noDataRow = angular.element(`
+<tbody ng-show="$items.length == 0">
+    <tr>
+        <td colspan="${colsCount}" class="text-center">
+            <span translate>NoTableData</span>
+        </td>
+    </tr>
+</tbody>
+`);
+
+                var tableInnerWrapper = tableOuterWrapper.find('div.st-table-wrapper-inner');
+                var tableParent = innerTable.parent();
+                var nextAfterTableElement = innerTable.next();
+                innerTable.appendTo(tableInnerWrapper);
+                if (nextAfterTableElement.length > 0)
+                    tableOuterWrapper.insertBefore(nextAfterTableElement);
+                else
+                    tableParent.append(tableOuterWrapper);
+                noDataRow.insertBefore(innerTable.find('tbody'));
+
+                var pageSize = attrs.stItemsByPage === undefined ? undefined : (attrs.stItemsByPage ? parseInt(attrs.stItemsByPage) : 20);
+                if (pageSize) {
+                    var showPageSizes = `st-show-page-sizes="${attrs.stShowPageSizes === undefined ? 'true' : attrs.stShowPageSizes}"`;
+                    var paging = angular.element(`<div st-pagination st-items-by-page="${pageSize}" ${showPageSizes}></div>`);
+                    paging.insertAfter(tableOuterWrapper);
+                }
+            }
+        }
+
 
         PreLink(scope: ISamStTableScope<IEntityObjectId>, element, attrs, ctrl: st.IController) {
             var pipePromise = null;
             scope.$table = ctrl;
             scope.$params = scope.$eval(attrs.samStTable);
-            scope.$params.service = angular.isString(scope.$params.service) ? this.get(<any>scope.$params.service) : scope.$params.service;
+            if (angular.isString(scope.$params.service)) {
+                var serviceName = <string><any>scope.$params.service;
+                scope.$params.id = scope.$params.id || serviceName;
+                scope.$params.service = this.get(serviceName);
+          }
+//            scope.$params.service = angular.isString(scope.$params.service) ? this.get(<any>scope.$params.service) : scope.$params.service;
             scope.$items = scope.$eval(attrs.stTable) || [];
             scope.$edit = item => this.Edit(scope, item, attrs.samStTable);
             scope.$delete = item => this.Delete(scope, item);
+
+            scope.$on("samStRefresh", (event, id: string) => {
+                if (id === scope.$params.id)
+                    ctrl.pipe();
+            });
 
             ctrl.preventPipeOnWatch();
             ctrl.pipe = () => {
                 if (pipePromise !== null)
                     this.$timeout.cancel(pipePromise);
                 pipePromise = this.$timeout(() => { }, this.stConfig.pipe.delay);
-                var res = pipePromise.then(() => {
-                    pipePromise = null;
-                    return this.Load(scope);
-                });
+                var res = pipePromise
+                    .then(() => {
+                        pipePromise = null;
+                        return this.Load(scope) || [];
+                    })
+                    .then(res => {
+                        if (scope.$params.onLoad) {
+                            if (scope.$)
+                                scope.$params.onLoad.apply(scope.$, [res]);
+                            else
+                                scope.$params.onLoad(res);
+                        }
+                        return res;
+                    });
                 return res;
             }
         }
 
-        Link(scope, element, attrs, ctrl: st.IController) {
+        Link(scope: ng.IScope, element, attrs, ctrl: st.IController) {
+            var stPagination = element.find('div[st-pagination][st-show-page-sizes]');
+            if (stPagination.length > 0) {
+                var stShowPageSizes = attrs['stShowPageSizes'];
+                if (stShowPageSizes === undefined || scope.$eval(stShowPageSizes))
+                    stPagination.addClass("st-show-page-sizes");
+                else 
+                    stPagination.addClass("st-hide-page-sizes");
+            }
             ctrl.pipe();
         }
 
@@ -123,7 +232,7 @@ module App.Directives {
                 else if (angular.isString(watchExpressions))
                     this.addWatchers(scope, watchExpressions.split(','));
             }
-            scope.$params.service.SmartLoad(tableState, scope.$items, odata).finally(() => scope.$loading = false);
+            return scope.$params.service.SmartLoad(tableState, scope.$items, odata).finally(() => scope.$loading = false);
         }
 
         Edit(scope: ISamStTableScope<IEntityObjectId>, item: IEntityObjectId, tableAttrs) {

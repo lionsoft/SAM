@@ -9,36 +9,110 @@ var App;
 (function (App) {
     var Directives;
     (function (Directives) {
+        /**
+         * Usage:
+         *
+         *  <div st-table="[items]"
+         *       [st-items-by-page="nnn"]
+         *       [st-show-page-sizes="true"]
+         *       sam-st-table='{ [id], service, [editTemplate], [prepareQuery], [prepareEdit], [controller], [onLoad]}'
+         *  >
+         *
+         *  To force refresh the table in controller - send the event 'samStRefresh' with the table id.
+         *
+         *  Sample:
+         *
+         *     this.$scope.$broadcast('samStRefresh', 'tableId');
+         */
         var SamStTable = (function (_super) {
             __extends(SamStTable, _super);
             function SamStTable() {
                 _super.apply(this, arguments);
                 this.restrict = 'A';
-                this.require = '^stTable';
+                this.require = 'stTable';
                 this.scope = true;
             }
+            SamStTable.prototype.Compile = function (element, attrs) {
+                var innerTable = element.find('table');
+                if (innerTable.length > 0) {
+                    var tableOuterWrapper = angular.element("\n<div class=\"st-table-wrapper\">\n    <div class=\"st-table-wrapper-inner\"></div>\n    <div class=\"pre-loader\" ng-show=\"$loading\">\n        <div class=\"sp sp-circle\"></div>\n    </div>\n</div>");
+                    var rows = innerTable.find('tbody>tr>td');
+                    var colsCount = rows.length;
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        if (row.hasAttribute("colspan")) {
+                            var colSpan = parseInt(row.getAttribute("colspan"));
+                            if (colSpan > 1)
+                                colsCount += colSpan - 1;
+                        }
+                    }
+                    var noDataRow = angular.element("\n<tbody ng-show=\"$items.length == 0\">\n    <tr>\n        <td colspan=\"" + colsCount + "\" class=\"text-center\">\n            <span translate>NoTableData</span>\n        </td>\n    </tr>\n</tbody>\n");
+                    var tableInnerWrapper = tableOuterWrapper.find('div.st-table-wrapper-inner');
+                    var tableParent = innerTable.parent();
+                    var nextAfterTableElement = innerTable.next();
+                    innerTable.appendTo(tableInnerWrapper);
+                    if (nextAfterTableElement.length > 0)
+                        tableOuterWrapper.insertBefore(nextAfterTableElement);
+                    else
+                        tableParent.append(tableOuterWrapper);
+                    noDataRow.insertBefore(innerTable.find('tbody'));
+                    var pageSize = attrs.stItemsByPage === undefined ? undefined : (attrs.stItemsByPage ? parseInt(attrs.stItemsByPage) : 20);
+                    if (pageSize) {
+                        var showPageSizes = "st-show-page-sizes=\"" + (attrs.stShowPageSizes === undefined ? 'true' : attrs.stShowPageSizes) + "\"";
+                        var paging = angular.element("<div st-pagination st-items-by-page=\"" + pageSize + "\" " + showPageSizes + "></div>");
+                        paging.insertAfter(tableOuterWrapper);
+                    }
+                }
+            };
             SamStTable.prototype.PreLink = function (scope, element, attrs, ctrl) {
                 var _this = this;
                 var pipePromise = null;
                 scope.$table = ctrl;
                 scope.$params = scope.$eval(attrs.samStTable);
-                scope.$params.service = angular.isString(scope.$params.service) ? this.get(scope.$params.service) : scope.$params.service;
+                if (angular.isString(scope.$params.service)) {
+                    var serviceName = scope.$params.service;
+                    scope.$params.id = scope.$params.id || serviceName;
+                    scope.$params.service = this.get(serviceName);
+                }
+                //            scope.$params.service = angular.isString(scope.$params.service) ? this.get(<any>scope.$params.service) : scope.$params.service;
                 scope.$items = scope.$eval(attrs.stTable) || [];
                 scope.$edit = function (item) { return _this.Edit(scope, item, attrs.samStTable); };
                 scope.$delete = function (item) { return _this.Delete(scope, item); };
+                scope.$on("samStRefresh", function (event, id) {
+                    if (id === scope.$params.id)
+                        ctrl.pipe();
+                });
                 ctrl.preventPipeOnWatch();
                 ctrl.pipe = function () {
                     if (pipePromise !== null)
                         _this.$timeout.cancel(pipePromise);
                     pipePromise = _this.$timeout(function () { }, _this.stConfig.pipe.delay);
-                    var res = pipePromise.then(function () {
+                    var res = pipePromise
+                        .then(function () {
                         pipePromise = null;
-                        return _this.Load(scope);
+                        return _this.Load(scope) || [];
+                    })
+                        .then(function (res) {
+                        if (scope.$params.onLoad) {
+                            if (scope.$)
+                                scope.$params.onLoad.apply(scope.$, [res]);
+                            else
+                                scope.$params.onLoad(res);
+                        }
+                        return res;
                     });
                     return res;
                 };
             };
             SamStTable.prototype.Link = function (scope, element, attrs, ctrl) {
+                var stPagination = element.find('div[st-pagination][st-show-page-sizes]');
+                if (stPagination.length > 0) {
+                    var stShowPageSizes = attrs['stShowPageSizes'];
+                    if (stShowPageSizes === undefined || scope.$eval(stShowPageSizes))
+                        stPagination.addClass("st-show-page-sizes");
+                    else
+                        stPagination.addClass("st-hide-page-sizes");
+                }
                 ctrl.pipe();
             };
             SamStTable.prototype.addWatchers = function (scope, expressions) {
@@ -81,7 +155,7 @@ var App;
                     else if (angular.isString(watchExpressions))
                         this.addWatchers(scope, watchExpressions.split(','));
                 }
-                scope.$params.service.SmartLoad(tableState, scope.$items, odata).finally(function () { return scope.$loading = false; });
+                return scope.$params.service.SmartLoad(tableState, scope.$items, odata).finally(function () { return scope.$loading = false; });
             };
             SamStTable.prototype.Edit = function (scope, item, tableAttrs) {
                 item = angular.copy(item || {});

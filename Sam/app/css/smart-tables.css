@@ -15,19 +15,20 @@ table[st-table] {
 }
 table[st-table] th.st-action-buttons {
   white-space: nowrap;
-  width: 72px;
+  width: 52px;
   text-align: center;
 }
 table[st-table] td.st-action-buttons {
   white-space: nowrap;
   margin: 0!important;
   padding: 0!important;
+  width: 52px;
 }
 table[st-table] td.st-action-buttons button {
-  width: 36px;
+  width: 26px;
   margin: 0!important;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 0;
+  height: 100%;
   min-width: 0;
   background-color: transparent;
 }
@@ -73,7 +74,6 @@ table[st-table] thead th[st-sort].st-sort-ascent {
 }
 table[st-table] thead th:last-child {
   border-right: 1px solid #0b4665;
-  border-top: 1px solid #0b4665;
 }
 table[st-table] thead th:first-child {
   border-left: 1px solid #0b4665;
@@ -83,7 +83,8 @@ table[st-table] thead .st-table-search h3 {
 }
 table[st-table] thead .st-table-search input {
   margin-top: 6px;
-  width: 300px;
+  max-width: 300px;
+  width: 40%;
   float: right;
 }
 table[st-table] tbody td {
@@ -107,7 +108,13 @@ table[st-table] tbody td:last-child {
   border-right: 1px solid #0b4665;
 }
 table[st-table] tbody tr.active {
-  background: #81dff6;
+  background: #81dff6 !important;
+}
+table[st-table] tbody tr:last-child {
+  border-bottom: 1px solid #0b4665;
+}
+table[st-table] tbody tr:last-child td {
+  border-bottom: none;
 }
 table[st-table] tbody tr:nth-of-type(even) {
   background: #ffffff;
@@ -118,19 +125,11 @@ table[st-table] tbody tr:nth-of-type(odd) {
 table[st-table] tbody tr:hover {
   background: #c1f3ff;
 }
-table[st-table] tbody tr:last-child {
-  border-bottom: 1px solid #0b4665;
-}
-table[st-table] tbody tr:last-child td {
-  /*border-bottom: 1.4px solid @table-border-color;*/
-  border-bottom: none;
-}
 table[st-table] tfoot {
   background: #1171a3;
   border: 1px solid #0b4665;
   border-top: none;
   border-bottom: none;
-  text-align: right;
 }
 table[st-table] tfoot .st-paging .st-paging-count {
   display: inline-block;
@@ -157,41 +156,37 @@ table[st-table] tfoot .st-paging .pagination li.disabled a,
 table[st-table] tfoot .st-paging .pagination li.disabled span {
   color: #555;
 }
-table[st-table] tfoot .st-paging.has-page-sizes nav {
+table[st-table] tfoot nav {
+  margin: 0 8px 0;
+}
+table[st-table] tfoot .st-show-page-sizes .st-paging.has-page-sizes nav {
   display: inline-block;
   float: right;
+  margin-top: 8px;
 }
-table[st-table] tfoot .pagination {
+table[st-table] tfoot .st-show-page-sizes .pagination {
   margin: 0;
   padding: 0;
-}
-table[st-table] tfoot nav {
-  margin: 8px 8px 0;
-}
-table[st-table] tfoot .st-paging.has-content {
-  border-bottom: 1px solid #0b4665;
-}
-table[st-table] tfoot .st-paging-label {
-  color: #fff;
 }
 [st-table] table {
   width: 100%;
 }
 [st-table] table th.st-action-buttons {
   white-space: nowrap;
-  width: 72px;
+  width: 52px;
   text-align: center;
 }
 [st-table] table td.st-action-buttons {
   white-space: nowrap;
   margin: 0!important;
   padding: 0!important;
+  width: 52px;
 }
 [st-table] table td.st-action-buttons button {
-  width: 36px;
+  width: 26px;
   margin: 0!important;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 0;
+  height: 100%;
   min-width: 0;
   background-color: transparent;
 }
@@ -237,7 +232,6 @@ table[st-table] tfoot .st-paging-label {
 }
 [st-table] table thead th:last-child {
   border-right: 1px solid #0b4665;
-  border-top: 1px solid #0b4665;
 }
 [st-table] table thead th:first-child {
   border-left: 1px solid #0b4665;
@@ -247,7 +241,8 @@ table[st-table] tfoot .st-paging-label {
 }
 [st-table] table thead .st-table-search input {
   margin-top: 6px;
-  width: 300px;
+  max-width: 300px;
+  width: 40%;
   float: right;
 }
 [st-table] table tbody td {
@@ -271,7 +266,13 @@ table[st-table] tfoot .st-paging-label {
   border-right: 1px solid #0b4665;
 }
 [st-table] table tbody tr.active {
-  background: #81dff6;
+  background: #81dff6 !important;
+}
+[st-table] table tbody tr:last-child {
+  border-bottom: 1px solid #0b4665;
+}
+[st-table] table tbody tr:last-child td {
+  border-bottom: none;
 }
 [st-table] table tbody tr:nth-of-type(even) {
   background: #ffffff;
@@ -282,19 +283,11 @@ table[st-table] tfoot .st-paging-label {
 [st-table] table tbody tr:hover {
   background: #c1f3ff;
 }
-[st-table] table tbody tr:last-child {
-  border-bottom: 1px solid #0b4665;
-}
-[st-table] table tbody tr:last-child td {
-  /*border-bottom: 1.4px solid @table-border-color;*/
-  border-bottom: none;
-}
 [st-table] table tfoot {
   background: #1171a3;
   border: 1px solid #0b4665;
   border-top: none;
   border-bottom: none;
-  text-align: right;
 }
 [st-table] table tfoot .st-paging .st-paging-count {
   display: inline-block;
@@ -321,29 +314,25 @@ table[st-table] tfoot .st-paging-label {
 [st-table] table tfoot .st-paging .pagination li.disabled span {
   color: #555;
 }
-[st-table] table tfoot .st-paging.has-page-sizes nav {
+[st-table] table tfoot nav {
+  margin: 0 8px 0;
+}
+[st-table] table tfoot .st-show-page-sizes .st-paging.has-page-sizes nav {
   display: inline-block;
   float: right;
+  margin-top: 8px;
 }
-[st-table] table tfoot .pagination {
+[st-table] table tfoot .st-show-page-sizes .pagination {
   margin: 0;
   padding: 0;
-}
-[st-table] table tfoot nav {
-  margin: 8px 8px 0;
-}
-[st-table] table tfoot .st-paging.has-content {
-  border-bottom: 1px solid #0b4665;
-}
-[st-table] table tfoot .st-paging-label {
-  color: #fff;
 }
 [st-table] .st-table-search h3 {
   display: inline-block;
 }
 [st-table] .st-table-search input {
   margin-top: 6px;
-  width: 300px;
+  max-width: 300px;
+  width: 40%;
   float: right;
 }
 [st-table] .st-paging .st-paging-count {
@@ -371,63 +360,113 @@ table[st-table] tfoot .st-paging-label {
 [st-table] .st-paging .pagination li.disabled span {
   color: #555;
 }
-[st-table] .st-paging.has-page-sizes nav {
+[st-table] nav {
+  margin: 0 8px 0;
+}
+[st-table] .st-show-page-sizes .st-paging.has-page-sizes nav {
   display: inline-block;
   float: right;
+  margin-top: 8px;
 }
-[st-table] .pagination {
+[st-table] .st-show-page-sizes .pagination {
   margin: 0;
   padding: 0;
 }
-[st-table] nav {
-  margin: 8px 8px 0;
-}
-[st-table] .tfoot {
+[st-table] div[st-pagination].st-show-page-sizes,
+[st-table] div[st-pagination].st-hide-page-sizes {
   background: #1171a3;
   border: 1px solid #0b4665;
   border-top: none;
   border-bottom: none;
   text-align: right;
 }
-[st-table] .tfoot .st-paging .st-paging-count {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .st-paging-count,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .st-paging-count {
   display: inline-block;
   margin: 8px 20px 8px 0;
   height: 28px;
 }
-[st-table] .tfoot .st-paging .st-paging-count .st-paging-label {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .st-paging-count .st-paging-label,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .st-paging-count .st-paging-label {
   font-size: 15px;
 }
-[st-table] .tfoot .st-paging .st-paging-count .st-paging-listbox {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .st-paging-count .st-paging-listbox,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .st-paging-count .st-paging-listbox {
   height: 28px;
 }
-[st-table] .tfoot .st-paging .pagination li a,
-[st-table] .tfoot .st-paging .pagination li span {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .pagination li a,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .pagination li a,
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .pagination li span,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .pagination li span {
   padding: 4px 12px;
   color: #333;
 }
-[st-table] .tfoot .st-paging .pagination li a:hover,
-[st-table] .tfoot .st-paging .pagination li span {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .pagination li a:hover,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .pagination li a:hover,
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .pagination li span,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .pagination li span {
   color: black;
   background: #ecf5fe;
 }
-[st-table] .tfoot .st-paging .pagination li.disabled a,
-[st-table] .tfoot .st-paging .pagination li.disabled span {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .pagination li.disabled a,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .pagination li.disabled a,
+[st-table] div[st-pagination].st-show-page-sizes .st-paging .pagination li.disabled span,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging .pagination li.disabled span {
   color: #555;
 }
-[st-table] .tfoot .st-paging.has-page-sizes nav {
+[st-table] div[st-pagination].st-show-page-sizes nav,
+[st-table] div[st-pagination].st-hide-page-sizes nav {
+  margin: 0 8px 0;
+}
+[st-table] div[st-pagination].st-show-page-sizes .st-show-page-sizes .st-paging.has-page-sizes nav,
+[st-table] div[st-pagination].st-hide-page-sizes .st-show-page-sizes .st-paging.has-page-sizes nav {
   display: inline-block;
   float: right;
+  margin-top: 8px;
 }
-[st-table] .tfoot .pagination {
+[st-table] div[st-pagination].st-show-page-sizes .st-show-page-sizes .pagination,
+[st-table] div[st-pagination].st-hide-page-sizes .st-show-page-sizes .pagination {
   margin: 0;
   padding: 0;
 }
-[st-table] .tfoot nav {
-  margin: 8px 8px 0;
-}
-[st-table] .tfoot .st-paging.has-content {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging.has-content,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging.has-content {
   border-bottom: 1px solid #0b4665;
 }
-[st-table] .tfoot .st-paging-label {
+[st-table] div[st-pagination].st-show-page-sizes .st-paging-label,
+[st-table] div[st-pagination].st-hide-page-sizes .st-paging-label {
   color: #fff;
+}
+[st-table] .no-data {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  text-align: center;
+  padding: 4px;
+}
+[st-table] .st-table-wrapper {
+  position: relative;
+  border: 1px solid #0b4665;
+}
+[st-table] .st-table-wrapper th {
+  border-top: none;
+}
+[st-table] .st-table-wrapper th:first-child,
+[st-table] .st-table-wrapper td:first-child {
+  border-left: none;
+}
+[st-table] .st-table-wrapper th:last-child,
+[st-table] .st-table-wrapper td:last-child {
+  border-right: none;
+}
+[st-table] .st-table-wrapper tr:last-child {
+  border-bottom: 1px dotted #1171a3;
+}
+[st-table] .st-table-wrapper > div:first-child {
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }

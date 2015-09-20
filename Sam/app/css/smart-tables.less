@@ -26,7 +26,7 @@
 
     width: 100%;
     
-    @action-button-width: 36px;
+    @action-button-width: 26px;
 
     th.st-action-buttons {
         white-space: nowrap; 
@@ -37,13 +37,14 @@
         white-space: nowrap; 
         margin: 0!important;
         padding: 0!important;
+        width: @action-button-width*2;
 
 
         button {
             width: @action-button-width;
             margin: 0!important;
-            padding-left: 4px;
-            padding-right: 4px;
+            padding: 0;
+            height: 100%;
             min-width: 0;
             background-color: transparent;
         }
@@ -92,9 +93,8 @@
         }
         th:last-child {
              border-right: 1px solid @table-border-color;
-             border-top: 1px solid @table-border-color;
         }
-         th:first-child{
+        th:first-child{
              border-left: 1px solid @table-border-color;
         }
         .st-search();
@@ -127,8 +127,16 @@
         }
 
         tr.active {
-            background: @table-row-selected-color;
+            background: @table-row-selected-color!important;
         }
+
+        tr:last-child {
+            border-bottom: 1px solid @table-border-color;
+            td {
+                 border-bottom: none;
+            }
+        }
+
 // By Default all the tables are striped and hovered
         tr:nth-of-type(even) {
             background: @table-row-even-color;
@@ -140,13 +148,6 @@
 
         tr:hover {
             background: @table-row-hower-color;
-        }
-        tr:last-child{
-            border-bottom: 1px solid @table-border-color;
-            td{
-                 /*border-bottom: 1.4px solid @table-border-color;*/
-                 border-bottom: none;
-            }
         }
     }
 
@@ -160,15 +161,7 @@
     border: 1px solid @table-border-color;
     border-top: none;
     border-bottom: none;
-    text-align: right;
     .st-pagination();
-
-    .st-paging.has-content {
-        border-bottom: 1px solid @table-border-color;
-    }
-    .st-paging-label{
-        color: #fff;
-    }
 }
 
 .st-search() {
@@ -178,7 +171,8 @@
         }
         input{
             margin-top: 6px;
-            width: 300px;
+            max-width: 300px;
+            width: 40%;
             float: right;
         }
     }
@@ -196,7 +190,6 @@
 
             .st-paging-label{
                 font-size: 15px; 
-//                color: #fff;
             }
 
             .st-paging-listbox{
@@ -222,21 +215,22 @@
         }
     }
 
-    .st-paging.has-page-sizes {
-         nav {
-                display: inline-block; 
-                float: right;
-            }
-    }
-
-
-    .pagination {
-        margin: 0; 
-        padding: 0;
-    }
-
     nav {
-        margin: 8px 8px 0;
+        margin: 0 8px 0;
+    }
+
+    .st-show-page-sizes {
+        .st-paging.has-page-sizes {
+             nav {
+                    display: inline-block; 
+                    float: right;
+                    margin-top: 8px;
+                }
+        }
+        .pagination {
+            margin: 0; 
+            padding: 0;
+        }
     }
 }
 
@@ -253,8 +247,52 @@ table[st-table] {
     .st-search();
     .st-pagination();
 
-    .tfoot {
+    div[st-pagination].st-show-page-sizes, div[st-pagination].st-hide-page-sizes {
         .tfoot();
+        text-align: right;
+        .st-paging.has-content {
+            border-bottom: 1px solid @table-border-color;
+        }
+        .st-paging-label{
+            color: #fff;
+        }
+    }
+
+    .no-data {
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute; 
+        text-align: center; 
+        padding: 4px;
+    }
+
+    .st-table-wrapper {
+
+        position: relative;
+
+        border: 1px solid @table-border-color;
+
+        th {
+            border-top: none;
+        }
+        th:first-child, td:first-child {
+             border-left: none;
+        }
+        th:last-child, td:last-child {
+             border-right: none;
+        }
+        tr:last-child {
+             border-bottom: 1px dotted @table-row-border-color;
+        }
+
+    }
+    .st-table-wrapper>div:first-child {
+        overflow: auto;
+        position: relative;
+        width: 100%;
+        height: 100%;
     }
 }
 

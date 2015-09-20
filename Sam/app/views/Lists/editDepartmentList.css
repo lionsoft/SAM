@@ -5,12 +5,14 @@
   padding-bottom: 0;
   height: 26px;
 }
-#lists .editDepartmentList div.table {
-  height: 296px;
-  overflow-y: auto;
+#lists .editDepartmentList .st-table-wrapper {
+  height: 294px;
+}
+#lists .editDepartmentList nav {
+  text-align: center;
 }
 #lists .editDepartmentList ul.doors {
-  height: 342px;
+  height: 344px;
   border: solid 1px #0b4665;
   overflow: auto;
 }

@@ -572,6 +572,10 @@
     <Content Include="app\css\globals.less" />
     <Content Include="app\css\mixins.less" />
     <None Include="app\css\navbar.less" />
+    <Content Include="app\css\preloader.css">
+      <DependentUpon>preloader.less</DependentUpon>
+    </Content>
+    <Content Include="app\css\preloader.less" />
     <None Include="app\css\splash.less" />
     <Content Include="app\css\smart-tables.css">
       <DependentUpon>smart-tables.less</DependentUpon>
@@ -629,6 +633,12 @@
     </Content>
     <Content Include="app\decorators\DTRendererService.js">
       <DependentUpon>DTRendererService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\qService.js">
+      <DependentUpon>qService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\stTable.js">
+      <DependentUpon>stTable.ts</DependentUpon>
     </Content>
     <Content Include="app\decorators\stSearchDirective.js">
       <DependentUpon>stSearchDirective.ts</DependentUpon>
@@ -785,11 +795,11 @@
     <Content Include="app\views\Cards\cards.js">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\_editCard.css">
-      <DependentUpon>_editCard.less</DependentUpon>
+    <Content Include="app\views\Cards\editCard.css">
+      <DependentUpon>editCard.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\_editCard.html" />
-    <Content Include="app\views\Doors\_editDoor.html" />
+    <Content Include="app\views\Cards\editCard.html" />
+    <Content Include="app\views\Doors\editDoor.html" />
     <Content Include="app\views\Employees\editEmployee.css">
       <DependentUpon>editEmployee.less</DependentUpon>
     </Content>
@@ -822,6 +832,9 @@
       <DependentUpon>editDoorList.less</DependentUpon>
     </Content>
     <Content Include="app\views\Lists\editDoorList.html" />
+    <Content Include="app\views\Users\editUser.css">
+      <DependentUpon>editUser.less</DependentUpon>
+    </Content>
     <Content Include="app\views\Users\users.css">
       <DependentUpon>users.less</DependentUpon>
     </Content>
@@ -833,7 +846,7 @@
     <Content Include="app\views\Users\users.js">
       <DependentUpon>users.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Users\_editUser.html" />
+    <Content Include="app\views\Users\editUser.html" />
     <Content Include="app\views\Customers\customers.css">
       <DependentUpon>customers.less</DependentUpon>
     </Content>
@@ -854,10 +867,10 @@
     <Content Include="app\views\Doors\doors.js">
       <DependentUpon>doors.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\_editBuilding.html" />
-    <Content Include="app\views\Doors\_editArea.html" />
-    <Content Include="app\views\Doors\_editCountry.html" />
-    <Content Include="app\views\Doors\_editCity.html" />
+    <Content Include="app\views\Doors\editBuilding.html" />
+    <Content Include="app\views\Doors\editArea.html" />
+    <Content Include="app\views\Doors\editCountry.html" />
+    <Content Include="app\views\Doors\editCity.html" />
     <Content Include="app\views\login\login.css">
       <DependentUpon>login.less</DependentUpon>
     </Content>
@@ -1820,6 +1833,7 @@
     <TypeScriptCompile Include="app\decorators\controllerService.ts" />
     <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
     <TypeScriptCompile Include="app\decorators\qService.ts" />
+    <TypeScriptCompile Include="app\decorators\stTable.ts" />
     <TypeScriptCompile Include="app\decorators\stSearchDirective.ts" />
     <TypeScriptCompile Include="app\decorators\stPaginationDirective.ts" />
     <TypeScriptCompile Include="app\decorators\translateFilter.ts" />
@@ -2094,7 +2108,7 @@
     <Content Include="app\routes\cards.js.map">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\_editCard.less" />
+    <Content Include="app\views\Cards\editCard.less" />
     <Content Include="app\views\Cards\cards.less" />
     <Content Include="app\views\Cards\cards.js.map">
       <DependentUpon>cards.ts</DependentUpon>
@@ -2146,6 +2160,12 @@
     </Content>
     <Content Include="app\filters\asHTML.js.map">
       <DependentUpon>asHtml.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\qService.js.map">
+      <DependentUpon>qService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\decorators\stTable.js.map">
+      <DependentUpon>stTable.ts</DependentUpon>
     </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
@@ -2227,6 +2247,7 @@
     <Content Include="app\views\Lists\editDepartmentList.js.map">
       <DependentUpon>editDepartmentList.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\Users\editUser.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />

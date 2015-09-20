@@ -61,6 +61,12 @@ module App {
     }]);
     //#endregion
 
+    //#region Configure SmartTable provider
+    app.config(['stConfig', (stConfig: st.IConfig) => {
+        stConfig.select.selectedClass = "active";
+    }]);
+    //#endregion
+
     app.run(['$injector', (i) => {
         $.extend($.fn.dataTable.defaults, {
             info: false,

@@ -8,6 +8,27 @@ body {
     font-size: @def-font-size;
 }
 
+// Стиль для элемента-распорки центрирования блока по вертикали внутри родительского контейнера.
+// Пример использования:
+//     <div id='контейнер с заданной высотой, внутри которого мы хотим вертикально отцентрировать блок'>
+//         <div class='align-middle'>
+//             Этот блок будет отцентрирован по вертикали
+//         </div>
+//         <div class="spacer"></div> <!-- это "распорка" для правильного центрирования -->
+//     </div>
+.spacer {
+    display: inline-block; 
+    height: 100%; 
+    width: 0; 
+    vertical-align: middle;
+}
+// Выравнивание элемента по центру горизонтали
+.align-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
 .overflow-x, [overflow-x] {
     overflow-x: auto;
 }
@@ -16,6 +37,13 @@ body {
 }
 .overflow, [overflow] {
     overflow: auto;
+}
+
+.relative, [relative] {
+    position: relative;
+}
+.absolute, [absolute] {
+    position: absolute;
 }
 
 .nowrap, [nowrap] {
