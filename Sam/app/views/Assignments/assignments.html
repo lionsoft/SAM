@@ -6,7 +6,7 @@
                 <div class="col col-xs-6">
                     <div class="form-group">
                         <label class="control-label" translate>Customer</label>
-                        <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
+                        <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="$.customers.length===0">
                             <ui-select-match allow-clear="true" placeholder="All Customers">
                                 {{$select.selected.Name}}
                             </ui-select-match>
@@ -21,7 +21,7 @@
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label class="control-label" translate>Card</label>
-                        <ui-select class="form-control" ng-model="$.selectedCardId" ng-disabled="!$.cards">
+                        <ui-select class="form-control" ng-model="$.selectedCardId" ng-disabled="$.cards.length===0">
                             <ui-select-match allow-clear="true" placeholder="All Cards">
                                 {{$select.selected.Number|CardNumber}}
                             </ui-select-match>
@@ -38,8 +38,8 @@
                 <!-- #region - Doors - -->
                 <div class="col col-xs-6">
                     <div class="form-group">
-                        <label class="control-label" translate>Door</label>
-                        <ui-select class="form-control" ng-model="$.selectedDoorId" ng-disabled="!$.doors">
+                        <label class="control-label" translate>Door</label>                      
+                        <ui-select class="form-control" ng-model="$.selectedDoorId" ng-disabled="$.doors.length===0">
                             <ui-select-match allow-clear="true" placeholder="All Doors">
                                 {{$select.selected.Name}}
                             </ui-select-match>
@@ -54,7 +54,7 @@
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label class="control-label" translate>Employee</label>
-                        <ui-select class="form-control" ng-model="$.selectedEmployeeId" ng-disabled="!$.employees">
+                        <ui-select class="form-control" ng-model="$.selectedEmployeeId" ng-disabled="$.employees.length===0">
                             <ui-select-match allow-clear="true" placeholder="All Employees">
                                 {{$select.selected.Name}}
                             </ui-select-match>
