@@ -1,0 +1,99 @@
+﻿<!-- #region - Card & Employee - -->
+<div class="row">
+    <!-- #region - Card - -->
+    <div class="col col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>CardNumber</label>
+            <ui-select class="form-control" ng-model="$item.CardId" ng-disabled="!$.cards.length">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected.Number | CardNumber}}
+                </ui-select-match>
+                <ui-select-choices repeat="card.Id as card in ::$.cards track by card.Id">
+                    {{::card.Number | CardNumber}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region - Employee - -->
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>Employee</label>
+            <ui-select class="form-control" ng-model="$item.EmployeeId" ng-disabled="!$.employees.length">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="employee.Id as employee in ::$.employees track by employee.Id">
+                    {{::employee.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+</div>
+<!-- #endregion -->
+
+<!-- #region - Door & ApprovalLevel - -->
+<div class="row">
+    <!-- #region - Door - -->
+    <div class="col col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>Door</label>
+            <ui-select class="form-control" ng-model="$item.DoorId" ng-disabled="!$.doors.length">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="door.Id as door in ::$.doors track by door.Id">
+                    {{::door.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region - ApprovalLevel - -->
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>ApprovalLevel</label>
+            <ui-select class="form-control" ng-model="$item.ApprovalLevel">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected | ApprovalLevel}}
+                </ui-select-match>
+                <ui-select-choices repeat="item in ::[] | ApprovalLevel">
+                    {{::item | ApprovalLevel}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+</div>
+<!-- #endregion -->
+
+<!-- #region - ApprovedBy & ApprovedDate - -->
+<div class="row">
+    <!-- #region - ApprovedBy - -->
+    <div class="col col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>ApprovedBy</label>
+            <ui-select class="form-control" ng-model="$item.ApprovedById" ng-disabled="!$.employees.length">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="employee.Id as employee in ::$.employees track by employee.Id">
+                    {{::employee.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region - ApprovedDate - -->
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>ApprovedDate</label>
+            <input class="form-control" sam-date-time-picker ng-model="$item.ApprovedDate" />
+        </div>
+    </div>
+    <!-- #endregion -->
+</div>
+<!-- #endregion -->
+ 

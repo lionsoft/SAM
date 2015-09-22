@@ -29,6 +29,10 @@ module App.Controllers {
             );
         }
 
+        prepareQuery(odata: Services.OData) {
+            odata.$expand("Card, Door, Employee, Employee.Department, ApprovedBy");
+        }
+
     }
 
     // Register with angular

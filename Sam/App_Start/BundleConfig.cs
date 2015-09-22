@@ -31,10 +31,10 @@ namespace Sam
                 , "~/Content/DataTables/css/dataTables.fixedColumns.css"
                 , "~/Content/DataTables/css/dataTables.fixedHeader.css"
 
-//                , "~/Content/bootstrap-datetimepicker.min.css"
-
                 , "~/content/toastr.css"
                 , "~/Content/loading-bar.min.css"
+
+                , "~/content/bootstrap-datetimepicker.css"
 
                 , "~/content/customtheme.css"
                 , "~/content/styles.css"
@@ -108,6 +108,7 @@ namespace Sam
                 , "~/Scripts/loading-bar.js"
                 , "~/Scripts/oclazyload.js"
                 , "~/Scripts/angular-file-upload.min.js"
+                , "~/Scripts/bootstrap-datetimepicker.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/LionSoftJs")
