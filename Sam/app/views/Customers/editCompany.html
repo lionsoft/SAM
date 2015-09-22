@@ -1,0 +1,35 @@
+﻿<div class="row">
+    <div class="col col-xs-6">
+        <!-- #region - Name - -->
+        <div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
+            <label class="control-label" translate>Name</label>
+            <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+            <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
+        </div>
+        <!-- #endregion -->
+    </div>
+    <div class="col-xs-6">
+        <!-- #region - ZipCode - -->
+        <div class="form-group">
+            <label class="control-label" translate>ZipCode</label>
+            <input class="form-control" type="text" ng-model="$item.ZipCode" />
+        </div>
+        <!-- #endregion -->
+    </div>    
+</div>
+
+
+<!-- #region - Address1 - -->
+<div class="form-group">
+    <label class="control-label" translate>Address1</label>
+    <input class="form-control" type="text" ng-model="$item.Address1" />
+</div>
+<!-- #endregion -->
+
+<!-- #region - Address2 - -->
+<div class="form-group">
+    <label class="control-label" translate>Address2</label>
+    <input class="form-control" type="text" ng-model="$item.Address2" />
+</div>
+<!-- #endregion -->
+

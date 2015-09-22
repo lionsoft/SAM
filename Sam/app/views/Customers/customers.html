@@ -1,114 +1,148 @@
 ﻿<section id="dashboard-view" class="mainbar">
     <section class="matter">
         <div class="container-fluid">
-            <div class="row">
+            <!-- #region Customers -->
+            <div st-table class="sam-b-space"
+                 st-items-by-page="5"
+                 sam-st-table="{service: 'samCustomers', editTemplate: 'editCustomer.html', onLoad: $.CustomersLoaded}">
 
-                <div class="row panel panel-default sam-table">
-                    <h3 class="panel-heading">
-                        <button ng-click="$.AddCustomer()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
-                        <span translate>Customers</span>
+                <!-- #region - Title / Search - -->
+                <div class="st-table-search">
+                    <h3>
+                        <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                        <span>Customers</span>
                     </h3>
-                    <div class="panel-body">
-                        <table datatable="ng" class="row-border hover">
-                            <thead>
-                                <tr>
-                                    <th translate class="auto-size">Name</th>
-                                    <th translate>CreatedBy</th>
-                                    <th translate>CreatedDate</th>
-                                    <th translate>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="customer in $.customers track by customer.Id"
-                                    ng-click="$.selectedCustomer=customer"
-                                    ng-class="{active: $.selectedCustomer===customer}">
-                                    <td>{{customer.Name}}</td>
-                                    <td>{{::customer.CreatedBy.Name}}</td>
-                                    <td>{{::customer.CreatedDate | date}}</td>
-                                    <td class="st-action-buttons">
-                                        <button ng-click="$.EditCustomer(customer)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
-                                        <button ng-click="$.DeleteCustomer(customer)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+                    <input st-search class="form-control" translate translate-attr-placeholder="Search..." />
                 </div>
+                <!-- #endregion -->
 
-
-                <div class="row panel panel-default sam-table">
-                    <h3 class="panel-heading">
-                        <button ng-click="$.AddCompany()" ng-disabled="!$.selectedCustomer" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
-                        <span translate>Companies</span>
-                    </h3>
-                    <div class="panel-body">
-                        <table datatable="ng" class="row-border hover">
-                            <thead>
-                                <tr>
-                                    <th translate class="auto-size">Name</th>
-                                    <th translate class="auto-size">Address1</th>
-                                    <th translate class="auto-size">Address2</th>
-                                    <th translate>ZipCode</th>
-                                    <th translate>CreatedBy</th>
-                                    <th translate>CreatedDate</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="company in $.companies track by company.Id"
-                                    ng-click="$.selectedCompany=company"
-                                    ng-class="{active: $.selectedCompany===company}">
-                                    <td>{{company.Name}}</td>
-                                    <td>{{company.Address1}}</td>
-                                    <td>{{company.Address2}}</td>
-                                    <td>{{company.ZipCode}}</td>
-                                    <td>{{::company.CreatedBy.Name}}</td>
-                                    <td>{{::company.CreatedDate | date}}</td>
-                                    <td class="action-buttons">
-                                        <button ng-click="$.EditCompany(company)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
-                                        <button ng-click="$.DeleteCompany(company)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-                <div class="row panel panel-default sam-table">
-                    <h3 class="panel-heading">
-                        <button ng-click="$.AddDepartment()" ng-disabled="!$.selectedCompany" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg"></i></button>
-                        <span translate>Departments</span>
-                    </h3>
-                    <div class="panel-body">
-                        <table datatable="ng" class="row-border hover">
-                            <thead>
-                                <tr>
-                                    <th translate class="auto-size">Name</th>
-                                    <th translate>CreatedBy</th>
-                                    <th translate>CreatedDate</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="department in $.departments track by department.Id"
-                                    ng-click="$.selectedDepartment=department"
-                                    ng-class="{active: $.selectedDepartment===department}">
-                                    <td>{{department.Name}}</td>
-                                    <td>{{::department.CreatedBy.Name}}</td>
-                                    <td>{{::department.CreatedDate | date}}</td>
-                                    <td class="action-buttons">
-                                        <button ng-click="$.EditDepartment(department)" class="btn btn-warning btn-icon"><i class="fa fa-edit fa-lg"></i></button>
-                                        <button ng-click="$.DeleteDepartment(department)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o fa-lg"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
+                <table>
+                    <!-- #region - Columns - -->
+                    <thead>
+                        <tr>
+                            <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+                            <th translate st-sort-default auto-size st-sort="Name">Name</th>
+                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                        </tr>
+                    </thead>
+                    <!-- #endregion -->
+                    <!-- #region - Rows - -->
+                    <tbody>
+                        <tr ng-repeat="item in $items track by item.Id"
+                            ng-click="$.selectedCustomerId=item.Id"
+                            ng-class="{active: $.selectedCustomerId===item.Id}">
+                            <td class="st-action-buttons">
+                                <button ng-click="$edit(item)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                <button ng-click="$delete(item)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                            </td>
+                            <td>{{item.Name}}</td>
+                            <td class="col-created-by">{{::item.CreatedBy.Name}}</td>
+                            <td class="col-created-date">{{::item.CreatedDate | date}}</td>
+                        </tr>
+                    </tbody>
+                    <!-- #endregion -->
+                </table>
             </div>
+            <!-- #endregion Customers -->
+
+
+            <!-- #region Companies -->
+            <div st-table class="sam-b-space"
+                 st-items-by-page="5"
+                 sam-st-table="{service: 'samCompanies', editTemplate: 'editCompany.html', onLoad: $.CompaniesLoaded, prepareQuery: $.prepareCompaniesQuery, prepareEdit: $.prepareCompanyEdit}">
+
+                <!-- #region - Title / Search - -->
+                <div class="st-table-search">
+                    <h3>
+                        <button ng-click="$edit()" ng-disabled="!$.selectedCustomerId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                        <span>Companies</span>
+                    </h3>
+                    <input st-search="Name,Address1,Address2,ZipCode" class="form-control" translate translate-attr-placeholder="Search..." />
+                </div>
+                <!-- #endregion -->
+
+                <table>
+                    <!-- #region - Columns - -->
+                    <thead>
+                        <tr>
+                            <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+                            <th translate st-sort-default st-sort="Name">Name</th>
+                            <th translate auto-size st-sort="Address1">Address1</th>
+                            <th translate auto-size st-sort="Address2">Address2</th>
+                            <th translate st-sort="ZipCode">ZipCode</th>
+                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                        </tr>
+                    </thead>
+                    <!-- #endregion -->
+                    <!-- #region - Rows - -->
+                    <tbody>
+                        <tr ng-repeat="item in $items track by item.Id"
+                            ng-click="$.selectedCompanyId=item.Id"
+                            ng-class="{active: $.selectedCompanyId===item.Id}">
+                            <td class="st-action-buttons">
+                                <button ng-click="$edit(item)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                <button ng-click="$delete(item)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                            </td>
+                            <td nowrap>{{item.Name}}</td>
+                            <td>{{item.Address1}}</td>
+                            <td>{{item.Address2}}</td>
+                            <td>{{item.ZipCode}}</td>
+                            <td class="col-created-by">{{::item.CreatedBy.Name}}</td>
+                            <td class="col-created-date">{{::item.CreatedDate | date}}</td>
+                        </tr>
+                    </tbody>
+                    <!-- #endregion -->
+                </table>
+            </div>
+            <!-- #endregion Companies -->
+
+
+            <!-- #region Departments -->
+            <div st-table
+                    st-items-by-page="5"
+                    sam-st-table="{service: 'samDepartments', editTemplate: 'editDepartment.html', prepareQuery: $.prepareDepartmentsQuery, prepareEdit: $.prepareDepartmentEdit}">
+
+                <!-- #region - Title / Search - -->
+                <div class="st-table-search">
+                    <h3>
+                        <button ng-click="$edit()" ng-disabled="!$.selectedCompanyId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                        <span>Departments</span>
+                    </h3>
+                    <input st-search class="form-control" translate translate-attr-placeholder="Search..." />
+                </div>
+                <!-- #endregion -->
+
+                <table>
+                    <!-- #region - Columns - -->
+                    <thead>
+                        <tr>
+                            <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+                            <th translate auto-size st-sort-default st-sort="Name">Name</th>
+                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                        </tr>
+                    </thead>
+                    <!-- #endregion -->
+                    <!-- #region - Rows - -->
+                    <tbody>
+                        <tr ng-repeat="item in $items track by item.Id"
+                            ng-click="$.selectedDepartmentId=item.Id"
+                            ng-class="{active: $.selectedDepartmentId===item.Id}">
+                            <td class="st-action-buttons">
+                                <button ng-click="$edit(item)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                <button ng-click="$delete(item)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                            </td>
+                            <td nowrap>{{item.Name}}</td>
+                            <td class="col-created-by">{{::item.CreatedBy.Name}}</td>
+                            <td class="col-created-date">{{::item.CreatedDate | date}}</td>
+                        </tr>
+                    </tbody>
+                    <!-- #endregion -->
+                </table>
+            </div>
+            <!-- #endregion Departments -->
         </div>
     </section>
 </section>

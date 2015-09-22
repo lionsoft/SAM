@@ -15,10 +15,8 @@ var App;
                 _super.apply(this, arguments);
                 this.customers = [];
             }
-            //#endregion
             Doors.prototype.Init = function () {
-                // Queue all promises and wait for them to finish before loading the view
-                this.activate(this.LoadCustomers() /*, this.LoadCountries()*/);
+                this.activate(this.LoadCustomers());
             };
             Doors.prototype.Activated = function () {
                 var _this = this;

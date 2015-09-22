@@ -827,6 +827,15 @@
       <DependentUpon>editCard.less</DependentUpon>
     </Content>
     <Content Include="app\views\Cards\editCard.html" />
+    <Content Include="app\views\Customers\editCompany.css">
+      <DependentUpon>editCompany.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Customers\editDepartment.css">
+      <DependentUpon>editDepartment.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Customers\editCustomer.css">
+      <DependentUpon>editCustomer.less</DependentUpon>
+    </Content>
     <Content Include="app\views\Doors\editArea.css">
       <DependentUpon>editArea.less</DependentUpon>
     </Content>
@@ -900,9 +909,9 @@
     <Content Include="app\views\Customers\customers.js">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\_editDepartment.html" />
-    <Content Include="app\views\Customers\_editCompany.html" />
-    <Content Include="app\views\Customers\_editCustomer.html" />
+    <Content Include="app\views\Customers\editDepartment.html" />
+    <Content Include="app\views\Customers\editCompany.html" />
+    <Content Include="app\views\Customers\editCustomer.html" />
     <Content Include="app\views\Doors\doors.css">
       <DependentUpon>doors.less</DependentUpon>
     </Content>
@@ -2240,6 +2249,7 @@
     <Content Include="app\directives\sam-date-picker.js.map">
       <DependentUpon>sam-date-picker.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\Customers\editCustomer.less" />
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -2326,6 +2336,8 @@
     <Content Include="app\views\Doors\editCity.less" />
     <Content Include="app\views\Doors\editCountry.less" />
     <Content Include="app\views\Doors\editDoor.less" />
+    <Content Include="app\views\Customers\editDepartment.less" />
+    <Content Include="app\views\Customers\editCompany.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <Content Include="fonts\fontawesome-webfont.woff2" />

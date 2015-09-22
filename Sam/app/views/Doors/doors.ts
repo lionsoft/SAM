@@ -3,8 +3,6 @@ module App.Controllers
 {
     class Doors extends PageController
     {
-        //#region Variables
-
         samEmployees: Services.IEmployeesService;
         samCustomers: Services.ICustomersService;
 
@@ -22,11 +20,9 @@ module App.Controllers
         public doorOwners: IEmployee[];
 
 
-        //#endregion
 
         Init() {
-            // Queue all promises and wait for them to finish before loading the view
-            this.activate(this.LoadCustomers()/*, this.LoadCountries()*/);
+            this.activate(this.LoadCustomers());
         }
 
         Activated() {
