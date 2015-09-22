@@ -41,7 +41,7 @@ var App;
                 }
             };
             return Cards;
-        })(App.Controller);
+        })(App.PageController);
         // Register with angular
         App.app.controller('cards', Cards.Factory("samCustomers", "samCards"));
     })(Controllers = App.Controllers || (App.Controllers = {}));

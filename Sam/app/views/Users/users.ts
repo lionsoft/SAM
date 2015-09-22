@@ -2,7 +2,7 @@
 
 module App.Controllers {
 
-    class Users extends Controller {
+    class Users extends PageController {
 
         //#region Variables
         samUsers: Services.IUsersService;

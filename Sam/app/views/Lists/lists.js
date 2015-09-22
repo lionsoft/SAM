@@ -36,7 +36,7 @@ var App;
                 return "selectedDepartmentId";
             };
             return Lists;
-        })(App.Controller);
+        })(App.PageController);
         // Register with angular
         App.app.controller('lists', Lists.Factory("samCustomers", "samDepartments"));
     })(Controllers = App.Controllers || (App.Controllers = {}));

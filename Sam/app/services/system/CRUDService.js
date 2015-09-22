@@ -18,7 +18,8 @@ var App;
                 _super.apply(this, arguments);
             }
             /**
-             * Описание объекта
+             * Описание объекта.
+             * Используется в частности в вопросе при удалении объекта.
              * @param entity Объект
              */
             CRUDService.prototype.GetDescription = function (entity) {

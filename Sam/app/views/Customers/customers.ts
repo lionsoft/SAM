@@ -1,7 +1,7 @@
 ﻿'use strict';
 module App.Controllers
 {
-    class Customers extends Controller
+    class Customers extends PageController
     {
         //#region Variables
 

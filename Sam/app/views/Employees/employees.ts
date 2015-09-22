@@ -8,7 +8,7 @@ declare class FileUploader {
 
 module App.Controllers {
 
-    class Employees extends Controller {
+    class Employees extends PageController {
 
         samCustomers: Services.ICustomersService;
         samDepartments: Services.IDepartmentsService;

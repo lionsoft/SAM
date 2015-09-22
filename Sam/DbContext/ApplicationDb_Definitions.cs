@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Sam.Api;
 
 namespace Sam.DbContext
 {
@@ -55,5 +54,6 @@ namespace Sam.DbContext
         public IDbSet<DoorList> DoorLists { get; set; }
         public IDbSet<DepartmentList> DepartmentLists { get; set; }
 
+        public IDbSet<CardAccess> CardAccesses { get; set; }
     }
 }

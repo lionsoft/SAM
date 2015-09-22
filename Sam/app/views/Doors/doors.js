@@ -102,10 +102,12 @@ var App;
             Doors.prototype.prepareDoorEdit = function (door) {
                 if (!door.Id) {
                     door.AreaId = this.selectedAreaId;
+                    door.PreApproved = true;
+                    door.ApprovalLevel = 1 /* Manager */;
                 }
             };
             return Doors;
-        })(App.Controller);
+        })(App.PageController);
         // register controller with angular
         App.app.controller('doors', Doors.Factory("samCustomers", "samEmployees"));
     })(Controllers = App.Controllers || (App.Controllers = {}));

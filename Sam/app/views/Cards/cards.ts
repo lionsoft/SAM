@@ -2,7 +2,7 @@
 
 module App.Controllers {
 
-    class Cards extends Controller {
+    class Cards extends PageController {
 
         samCustomers: Services.ICustomersService;
         samCards: Services.ICardsService;

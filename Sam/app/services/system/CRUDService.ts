@@ -98,12 +98,14 @@ module App.Services {
     export class CRUDService<T extends IEntityObjectId> extends Service implements ICRUDService<T> {
 
         /**
-         * Описание типа
+         * Описание типа. 
+         * Используется в частности в универсальных формах редактирования объекта в заголовке.
          */
         TypeDescription: string;
 
         /**
-         * Описание объекта
+         * Описание объекта.
+         * Используется в частности в вопросе при удалении объекта.
          * @param entity Объект
          */
         GetDescription(entity: T): string {

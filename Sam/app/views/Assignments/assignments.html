@@ -1,0 +1,133 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- #region - Customers - -->
+                <div class="col col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label" translate>Customer</label>
+                        <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
+                            <ui-select-match allow-clear="true" placeholder="All Customers">
+                                {{$select.selected.Name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
+                                {{customer.Name}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region - Cards - -->
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label" translate>Card</label>
+                        <ui-select class="form-control" ng-model="$.selectedCardId" ng-disabled="!$.cards">
+                            <ui-select-match allow-clear="true" placeholder="All Cards">
+                                {{$select.selected.Number|CardNumber}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="card.Id as card in $.cards track by card.Id">
+                                {{card.Number | CardNumber}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <!-- #endregion -->
+            </div>
+
+            <div class="row">
+                <!-- #region - Doors - -->
+                <div class="col col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label" translate>Door</label>
+                        <ui-select class="form-control" ng-model="$.selectedDoorId" ng-disabled="!$.doors">
+                            <ui-select-match allow-clear="true" placeholder="All Doors">
+                                {{$select.selected.Name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="door.Id as door in $.doors track by door.Id">
+                                {{door.Name}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region - Employees - -->
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label" translate>Employee</label>
+                        <ui-select class="form-control" ng-model="$.selectedEmployeeId" ng-disabled="!$.employees">
+                            <ui-select-match allow-clear="true" placeholder="All Employees">
+                                {{$select.selected.Name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="employee.Id as employee in $.employees track by employee.Id">
+                                {{employee.Name}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <!-- #endregion -->
+            </div>
+
+            <div class="row">
+                <!-- #region - Employees - -->
+                <div st-table
+                     st-items-by-page
+                     sam-st-table="{service: 'samCardAccess', editTemplate: 'editAssignment.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}">
+                    <div class="st-table-search">
+                        <h3 style="display: inline-block">
+                            <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
+                            <span>Assignments</span>
+                        </h3>
+                        <input st-search="Card.Number:i,Door.Name" class="form-control" translate translate-attr-placeholder="Search..." />
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
+<!--
+                                <th translate class="auto-size" st-sort-default st-sort="Name">Name</th>
+                                <th translate st-sort="Name">Email</th>
+                                <th translate st-sort="Department.Name">Department</th>
+                                <th translate st-sort="Manager.Name">Manager</th>
+                                <th translate st-sort="PinCode">PinCode</th>
+                                <th translate st-sort="Image">Image</th>
+                                <th translate st-sort="Status">Status</th>
+                                <th translate st-sort="Role">Role</th>
+                                <th translate st-sort="User.UserName">User</th>
+                                <th translate st-sort="CreatedBy.Id">CreatedBy</th>
+                                <th translate st-sort="CreatedDate">CreatedDate</th>
+-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="cardAccess in $items track by cardAccess.Id">
+                                <td class="st-action-buttons">
+                                    <button ng-click="$edit(cardAccess)" class="btn btn-icon"><i class="fa fa-edit fa-lg blue"></i></button>
+                                    <button ng-click="$delete(cardAccess)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
+                                </td>
+                                <!--
+                                        <td class="truncate" tooltip="{{employee.Name}}">{{employee.Name}}</td>
+                                        <td class="max-truncate-10em" tooltip="{{employee.Email}}">{{employee.Email}}</td>
+                                        <td class="max-truncate-10em" tooltip="{{employee.Department.Name}}">{{employee.Department.Name}}</td>
+                                        <td class="max-truncate-10em" tooltip="{{employee.Manager.Name}}">{{employee.Manager.Name}}</td>
+                                        <td nowrap>{{employee.PinCode}}</td>
+                                        <td class="max-truncate-15em"
+                                            popover-template="employee.Image ? 'EmployeeImagePopoverTemplate.html' : ''"
+                                            popover-trigger="mouseenter">
+                                            {{employee.Image}}
+                                        </td>
+                                        <td nowrap>{{employee.Status | EmployeeStatus}}</td>
+                                        <td nowrap>{{employee.UserRole | UserRole}}</td>
+                                        <td class="max-truncate-10em" tooltip="{{employee.User.UserName}}">{{employee.User.UserName}}</td>
+                                        <td class="col-created-by">{{::employee.CreatedBy.Name}}</td>
+                                        <td class="col-created-date">{{::employee.CreatedDate | date}}</td>
+        -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- #endregion -->
+            </div>
+        </div>
+    </section>
+</section>

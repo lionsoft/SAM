@@ -3,6 +3,14 @@
 ****************************************************************************/
 
 declare module App {
+    /** Generated from Sam.DbContext.ApprovalLevel **/
+    const enum ApprovalLevel {
+        Nobody = 0,
+        Manager = 1,
+        Building = 2,
+        Area = 3,
+        Door = 4,
+    }
     /** Generated from Sam.DbContext.CardStatus **/
     const enum CardStatus {
         Active = 0,
@@ -37,6 +45,19 @@ declare module App {
         CardType?: App.CardType;
         CustomerId: string;
         Customer?: App.ICustomer;
+    }
+    /** Generated from Sam.DbContext.CardAccess **/
+    export interface ICardAccess extends App.IEntityObjectBaseId {
+        CardId: string;
+        Card: App.ICard;
+        DoorId: string;
+        Door: App.IDoor;
+        EmployeeId: string;
+        Employee: App.IEmployee;
+        ApprovedById: string;
+        ApprovedBy: App.IEmployee;
+        ApprovedDate?: string;
+        ApprovalLevel: App.ApprovalLevel;
     }
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {
@@ -77,7 +98,7 @@ declare module App {
         Department: App.IDepartment;
         ApprovedById: string;
         ApprovedBy: App.IEmployee;
-        ApprovedDate: string;
+        ApprovedDate?: string;
         DoorLists: App.IDoorList[];
     }
     /** Generated from Sam.DbContext.Area **/
@@ -119,6 +140,8 @@ declare module App {
         OwnerId: string;
         Owner: App.IEmployee;
         DoorLists: App.IDoorList[];
+        ApprovalLevel: App.ApprovalLevel;
+        PreApproved: boolean;
     }
     /** Generated from Sam.DbContext.DoorList **/
     export interface IDoorList extends App.IEntityObjectBaseId {

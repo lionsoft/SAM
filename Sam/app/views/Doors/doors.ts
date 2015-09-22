@@ -1,7 +1,7 @@
 ﻿'use strict';
 module App.Controllers
 {
-    class Doors extends Controller
+    class Doors extends PageController
     {
         //#region Variables
 
@@ -126,6 +126,8 @@ module App.Controllers
         prepareDoorEdit(door: IDoor) {
             if (!door.Id) {
                 door.AreaId = this.selectedAreaId;
+                door.PreApproved = true;
+                door.ApprovalLevel = ApprovalLevel.Manager;
             }
         }
 

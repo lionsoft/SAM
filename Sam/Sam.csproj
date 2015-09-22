@@ -202,6 +202,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\CardsApi\CardAccess.cs" />
     <Compile Include="Api\CustomersApi\DepartmentListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorsController.cs" />
@@ -277,6 +278,8 @@
     <Compile Include="DbContext\Migrations\ApplicationDbConfiguration.cs" />
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
+    <Compile Include="DbContext\Models\Cards\ApprovalLevel.cs" />
+    <Compile Include="DbContext\Models\Cards\CardAccess.cs" />
     <Compile Include="DbContext\Models\Customers\DepartmentList.cs" />
     <Compile Include="DbContext\Models\Doors\DoorList.cs" />
     <Compile Include="DbContext\Models\Doors\Door.cs" />
@@ -674,8 +677,14 @@
     <Content Include="app\directives\smart-table\st-sort-default.js">
       <DependentUpon>st-sort-default.ts</DependentUpon>
     </Content>
+    <Content Include="app\filters\YesNoFilter.js">
+      <DependentUpon>YesNoFilter.ts</DependentUpon>
+    </Content>
     <Content Include="app\filters\CardNumberFilter.js">
       <DependentUpon>CardNumberFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ApprovalLevelFilter.js">
+      <DependentUpon>ApprovalLevelFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\CardTypeFilter.js">
       <DependentUpon>CardTypeFilter.ts</DependentUpon>
@@ -713,6 +722,9 @@
     <Content Include="app\routes\cards.js">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\assignments.js">
+      <DependentUpon>assignments.ts</DependentUpon>
+    </Content>
     <Content Include="app\routes\employees.js">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
@@ -733,6 +745,9 @@
     </Content>
     <Content Include="app\services\ApiService.js">
       <DependentUpon>ApiService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCardAccessService.js">
+      <DependentUpon>SamCardAccessService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamCardsService.js">
       <DependentUpon>SamCardsService.ts</DependentUpon>
@@ -788,6 +803,13 @@
     <Content Include="app\services\system\ODataFilterCreator.js">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\Assignments\assignments.css">
+      <DependentUpon>assignments.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Assignments\assignments.html" />
+    <Content Include="app\views\Assignments\editAssignment.css">
+      <DependentUpon>editAssignment.less</DependentUpon>
+    </Content>
     <Content Include="app\views\Cards\cards.css">
       <DependentUpon>cards.less</DependentUpon>
     </Content>
@@ -799,6 +821,21 @@
       <DependentUpon>editCard.less</DependentUpon>
     </Content>
     <Content Include="app\views\Cards\editCard.html" />
+    <Content Include="app\views\Doors\editArea.css">
+      <DependentUpon>editArea.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Doors\editBuilding.css">
+      <DependentUpon>editBuilding.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Doors\editCity.css">
+      <DependentUpon>editCity.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Doors\editCountry.css">
+      <DependentUpon>editCountry.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Doors\editDoor.css">
+      <DependentUpon>editDoor.less</DependentUpon>
+    </Content>
     <Content Include="app\views\Doors\editDoor.html" />
     <Content Include="app\views\Employees\editEmployee.css">
       <DependentUpon>editEmployee.less</DependentUpon>
@@ -1843,7 +1880,9 @@
     <TypeScriptCompile Include="app\directives\smart-table\st-sort-default.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\smart-table.d.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\sam-st-table.ts" />
+    <TypeScriptCompile Include="app\filters\YesNoFilter.ts" />
     <TypeScriptCompile Include="app\filters\CardNumberFilter.ts" />
+    <TypeScriptCompile Include="app\filters\ApprovalLevelFilter.ts" />
     <TypeScriptCompile Include="app\filters\CardTypeFilter.ts" />
     <TypeScriptCompile Include="app\filters\CardStatusFilter.ts" />
     <TypeScriptCompile Include="app\filters\asHtml.ts" />
@@ -1852,9 +1891,11 @@
     <TypeScriptCompile Include="app\filters\UserRoleFilter.ts" />
     <TypeScriptCompile Include="app\filters\EmployeeStatusFilter.ts" />
     <TypeScriptCompile Include="app\routes\cards.ts" />
+    <TypeScriptCompile Include="app\routes\assignments.ts" />
     <TypeScriptCompile Include="app\routes\lists.ts" />
     <TypeScriptCompile Include="app\routes\employees.ts" />
     <TypeScriptCompile Include="app\routes\doors.ts" />
+    <TypeScriptCompile Include="app\services\SamCardAccessService.ts" />
     <TypeScriptCompile Include="app\services\SamCardsService.ts" />
     <TypeScriptCompile Include="app\services\SamDepartmentListsService.ts" />
     <TypeScriptCompile Include="app\services\SamDoorListsService.ts" />
@@ -2167,6 +2208,20 @@
     <Content Include="app\decorators\stTable.js.map">
       <DependentUpon>stTable.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\assignments.js.map">
+      <DependentUpon>assignments.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\Assignments\assignments.less" />
+    <Content Include="app\views\Assignments\editAssignment.less" />
+    <Content Include="app\filters\ApprovalLevelFilter.js.map">
+      <DependentUpon>ApprovalLevelFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\YesNoFilter.js.map">
+      <DependentUpon>YesNoFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamCardAccessService.js.map">
+      <DependentUpon>SamCardAccessService.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -2248,8 +2303,14 @@
       <DependentUpon>editDepartmentList.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Users\editUser.less" />
+    <Content Include="app\views\Doors\editArea.less" />
+    <Content Include="app\views\Doors\editBuilding.less" />
+    <Content Include="app\views\Doors\editCity.less" />
+    <Content Include="app\views\Doors\editCountry.less" />
+    <Content Include="app\views\Doors\editDoor.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />
     <Content Include="Scripts\angular-file-upload.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -2305,6 +2366,8 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\services\system\OData.ts" />
     <TypeScriptCompile Include="app\services\system\ODataFilterCreator.ts" />
+    <TypeScriptCompile Include="app\views\Assignments\assignments.ts" />
+    <TypeScriptCompile Include="app\views\Assignments\editAssignment.ts" />
     <TypeScriptCompile Include="app\views\Cards\cards.ts" />
     <TypeScriptCompile Include="app\views\Doors\doors.ts" />
     <TypeScriptCompile Include="app\views\Employees\employees.ts" />

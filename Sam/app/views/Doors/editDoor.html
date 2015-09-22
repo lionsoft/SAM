@@ -1,21 +1,61 @@
-﻿<!-- #region - Name - -->
-<div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched}">
-    <label class="control-label" translate>Name</label>
-    <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
-    <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
-</div>
-<!-- #endregion -->
+﻿<div class="row">
+    <!-- #region - Name - -->
+    <div class="col col-xs-6">
+        <div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched}">
+            <label class="control-label" translate>Name</label>
+            <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+            <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
+        </div>
+    </div>
+    <!-- #endregion -->
 
-<!-- #region - Owner - -->
-<div class="form-group">
-    <label class="control-label" translate>Owner</label>
-    <ui-select class="form-control" ng-model="$item.OwnerId" ng-disabled="!$.doorOwners">
-        <ui-select-match allow-clear="true">
-            {{$select.selected.Name}}
-        </ui-select-match>
-        <ui-select-choices repeat="owner.Id as owner in $.doorOwners track by owner.Id">
-            {{owner.Name}}
-        </ui-select-choices>
-    </ui-select>
+    <!-- #region - Owner - -->
+    <div class="col col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>Owner</label>
+            <ui-select class="form-control" ng-model="$item.OwnerId" ng-disabled="!$.doorOwners">
+                <ui-select-match allow-clear="true">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="owner.Id as owner in $.doorOwners track by owner.Id">
+                    {{owner.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
 </div>
-<!-- #endregion -->
+
+
+<div class="row">
+    <!-- #region - Name - -->
+    <div class="col col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>ApprovalLevel</label>
+            <ui-select class="form-control" ng-model="$item.ApprovalLevel">
+                <ui-select-match allow-clear="true">
+                    {{$select.selected | ApprovalLevel}}
+                </ui-select-match>
+                <ui-select-choices repeat="item in [] | ApprovalLevel">
+                    {{item | ApprovalLevel}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region - Owner - -->
+    <div class="col col-xs-6">
+        <div class="form-group">
+            <label class="control-label" translate>PreApproved</label>
+            <ui-select class="form-control" ng-model="$item.PreApproved">
+                <ui-select-match allow-clear="true">
+                    {{$select.selected | YesNo}}
+                </ui-select-match>
+                <ui-select-choices repeat="item in [] | YesNo">
+                    {{item | YesNo}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <!-- #endregion -->
+</div>

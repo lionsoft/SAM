@@ -78,7 +78,7 @@ var App;
                 this.samEmployees.LoadByCustomer(this.selectedCustomerId).then(function (res) { return _this.employees = res; });
             };
             return Employees;
-        })(App.Controller);
+        })(App.PageController);
         // Register with angular
         App.app.controller('employees', Employees.Factory("samCustomers", "samEmployees", "samDepartments", "FileUploader", "samUsers"));
     })(Controllers = App.Controllers || (App.Controllers = {}));

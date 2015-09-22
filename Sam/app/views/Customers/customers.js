@@ -94,7 +94,7 @@ var App;
             Customers.prototype.DepartmentChanged = function () {
             };
             return Customers;
-        })(App.Controller);
+        })(App.PageController);
         // register controller with angular
         App.app.controller('customers', Customers.Factory("samCustomers", "samCompanies", "samDepartments"));
     })(Controllers = App.Controllers || (App.Controllers = {}));

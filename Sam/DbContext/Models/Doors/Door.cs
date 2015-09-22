@@ -15,5 +15,9 @@ namespace Sam.DbContext
         public Employee Owner { get; set; }
 
         public ISet<DoorList> DoorLists { get; set; }
+
+        public ApprovalLevel ApprovalLevel { get; set; }
+
+        public bool PreApproved { get; set; }
     }
 }

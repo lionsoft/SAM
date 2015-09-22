@@ -23,6 +23,7 @@ module App {
     export interface ICardsApi extends IResourceClass<ICard> { }
     export interface IDoorListsApi extends IResourceClass<IDoorList> { }
     export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
+    export interface ICardAccessApi extends IResourceClass<ICardAccess> { }
  
 
     export interface IApiService {
@@ -43,6 +44,7 @@ module App {
         DoorLists: IDoorListsApi;
 
         Cards: ICardsApi;
+        CardAccess: ICardAccessApi;
     }                                                 
 
     export class ApiService extends ApiServiceBase implements IApiService {
@@ -68,6 +70,7 @@ module App {
         DoorLists: IDoorListsApi = {};
 
         Cards: ICardsApi = {};
+        CardAccess: ICardAccessApi = {};
 
         Init() {
             super.Init(URL.API);

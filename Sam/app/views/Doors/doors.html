@@ -226,6 +226,8 @@
                                     <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
                                     <th translate st-sort-default auto-size st-sort="Name">Name</th>
                                     <th translate>Owner</th>
+                                    <th translate>ApprovalLevel</th>
+                                    <th translate>PreApproved</th>
                                     <th translate st-sort="CreatedBy.Id">CreatedBy</th>
                                     <th translate st-sort="CreatedDate">CreatedDate</th>
                                 </tr>
@@ -242,6 +244,8 @@
                                     </td>
                                     <td>{{door.Name}}</td>
                                     <td class="max-truncate-20em">{{door.Owner.Name}}</td>
+                                    <td class="nowrap text-center">{{door.ApprovalLevel | ApprovalLevel}}</td>
+                                    <td class="nowrap text-center">{{door.PreApproved | YesNo}}</td>
                                     <td class="col-created-by">{{::door.CreatedBy.Name}}</td>
                                     <td class="col-created-date">{{::door.CreatedDate | date}}</td>
                                 </tr>
