@@ -21,7 +21,6 @@ module App.Shared {
     export class Common extends LionSoftAngular.Factory implements ICommon {
 
         //#region variables
-        $rootScope: ng.IRootScopeService;
         commonConfig: ICommonConfig;
         logger: ILogger;
 
@@ -184,6 +183,6 @@ module App.Shared {
     export var commonModule: ng.IModule = angular.module('common', []); 
         
     // Creates "common" service
-    commonModule.factory("common", Common.Factory('$rootScope', 'commonConfig', 'logger'));
+    commonModule.factory("common", Common.Factory('commonConfig', 'logger'));
 
 }

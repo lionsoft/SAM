@@ -64,6 +64,7 @@ module App {
             app.$log = $log;
             app.$timeout = $timeout;
             app.$window = $window;
+            app.$rootScope = $rootScope;
             app.get = (name) => $injector.get(name);
             app.defer = () => $q.defer();
             app.promiseFromResult = (res) => {

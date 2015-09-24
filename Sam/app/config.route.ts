@@ -2,12 +2,13 @@
 module App {
     export class RouteConfigurator {
 
-        static IsRouteGranted(route: IAppRoute) {
+        static IsRouteGranted(route: IAppRoute): boolean {
             return route && !route.isInvisible && (!route.auth || !angular.isArray(route.roles) || (app.$auth && app.$auth.LoggedUser && app.$auth.LoggedUser.Employee && route.roles.contains(app.$auth.LoggedUser.Employee.UserRole)));
         };
 
+        private _routes: IAppRoute[] = [];
 
-        constructor($routeProvider: ng.route.IRouteProvider, routes: IAppRoute[]) {
+        constructor(private $routeProvider: ng.route.IRouteProvider, public routes: IAppRoute[]) {
             routes.forEach(r => {
                 if (r) {
                     var template = "";
@@ -55,11 +56,36 @@ module App {
                         r.controller = r.controller || name;
                         r.controllerAs = r.controllerAs || "$";
                     }
+                    r.redirectTo = ($routeParams, $locationPath, $locationSearch) => this.redirectToDefault($routeParams, $locationPath, $locationSearch);
                     $routeProvider.when(r.url, r);
+                    this._routes.push(r)
                 }
             });
-            $routeProvider.otherwise({ redirectTo: '/' });
+
+            //$routeProvider.otherwise({ redirectTo: '/' });
+            $routeProvider.otherwise({ redirectTo: ($routeParams, $locationPath, $locationSearch) => this.redirectToDefault($routeParams, $locationPath, $locationSearch) });
         }
+
+        redirectToDefault($routeParams?: angular.route.IRouteParamsService, $locationPath?: string, $locationSearch?: any): string {
+            var route = this._routes.firstOrDefault(r => r.url === $locationPath);
+            if (RouteConfigurator.IsRouteGranted(route)) {
+                if (route.settings && route.settings.topMenu)
+                    app.$rootScope.$selectedMenuItem = route.settings.topMenu;
+                return $locationPath;
+            }
+            // try to find route enabled route
+            route = this._routes.firstOrDefault(r => r.url === "/");
+            if (!RouteConfigurator.IsRouteGranted(route)) {
+                route = this._routes.where(r => r.settings && r.url && !r.url.StartsWith("/login") && RouteConfigurator.IsRouteGranted(r)).orderBy(x => x.settings.nav).firstOrDefault();
+            }
+            if (route) {
+                if (route.settings && route.settings.topMenu)
+                    app.$rootScope.$selectedMenuItem = route.settings.topMenu;
+                return route.url;
+            }
+            return "/login";
+        }
+
     }
 
     // Define the routes - since this goes right to an app.constant, no use for a class
@@ -89,13 +115,6 @@ module App {
     //#region - Переход на страницу логина при попытке получить доступ к страницам, требующим авторизации -
     app.run(["$location", "$rootScope", "$route", "config", '$auth', ($location, $rootScope, $route, config: IConfigurations, $auth: IAutenticationService) => {
 
-/*
-        var isRouteGranted = (route : IAppRoute) => {
-            return route && !route.isInvisible && (!route.auth || !angular.isArray(route.roles) || route.roles.contains($auth.LoggedUser.Employee.UserRole))
-        };
-*/
-
-
         $rootScope.$on('$locationChangeStart', (evt, next, current) => {
             if (!$rootScope.$redirectToLogin) {
                 $rootScope.$priorLocation = "/";
@@ -112,11 +131,14 @@ module App {
 
             var nextRoute = $route.routes[path];
             if (nextRoute) {
+/*
                 if (nextRoute.originalPath === "") {
                     $location.path("/");
-                    $rootScope.$broadcast(config.events.controllerActivateSuccess);
+//                    $rootScope.$broadcast(config.events.controllerActivateSuccess);
                 }
-                else if (nextRoute.auth) {
+                else
+*/
+                if (nextRoute.auth) {
                     if (!$auth.IsLoggedIn) {
                         // if page requires authorization but user is not logged in
                         if (current.Contains("/#/login")) {
@@ -132,6 +154,7 @@ module App {
                             evt.preventDefault();
                         }
                     } 
+/*
                     else if (!RouteConfigurator.IsRouteGranted(nextRoute)) {
                         // if user is logged in but has no access rights
                         // try to find route enabled route
@@ -154,12 +177,13 @@ module App {
                             evt.preventDefault();
                         }
                         else {
-                        // there is no any granted route - redirect to special page
+                            // there is no any granted route - redirect to special page
                             $location.path("/login");
                             $rootScope.$broadcast(config.events.controllerActivateSuccess);
                             evt.preventDefault();
                         }
                     }
+*/
                 }
             }
         });

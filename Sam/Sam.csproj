@@ -931,6 +931,10 @@
     <Content Include="app\views\login\login.js">
       <DependentUpon>login.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\User\ActivateCard\activateCard.css">
+      <DependentUpon>activateCard.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\ActivateCard\activateCard.html" />
     <Content Include="Content\angular-ui.css" />
     <Content Include="Content\angular-ui.min.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -2340,6 +2344,7 @@
     <Content Include="app\views\Admin\Doors\editDoor.less" />
     <Content Include="app\views\Admin\Customers\editDepartment.less" />
     <Content Include="app\views\Admin\Customers\editCompany.less" />
+    <Content Include="app\views\User\ActivateCard\activateCard.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -2460,7 +2465,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\views\User\" />
     <Folder Include="App_Data\" />
     <Folder Include="images\employees\" />
   </ItemGroup>
@@ -2484,6 +2488,7 @@
     <TypeScriptCompile Include="app\views\Admin\Lists\editDepartmentList.ts" />
     <TypeScriptCompile Include="app\views\Admin\Lists\editDoorList.ts" />
     <TypeScriptCompile Include="app\views\Admin\Lists\lists.ts" />
+    <TypeScriptCompile Include="app\views\User\ActivateCard\activateCard.ts" />
     <TypeScriptCompile Include="Scripts\typings\bootstrap.v3.datetimepicker\bootstrap.v3.datetimepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">

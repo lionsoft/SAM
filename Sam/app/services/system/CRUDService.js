@@ -387,21 +387,21 @@ var App;
             CRUDService.prototype.EditModal = function (entity, editTemplateUrl, scope, updateAfterSave) {
                 var _this = this;
                 entity = entity || {};
-                scope = scope || App.app.get("$rootScope");
-                if (scope['__customController']) {
-                    scope['$item'] = angular.copy(entity);
-                    scope['$']['$item'] = scope['$item'];
-                    if (!scope['$templateUrl'])
-                        scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
-                    if (!scope['$entityTypeName'])
-                        scope['$entityTypeName'] = this.TypeDescription;
+                scope = scope || App.app.$rootScope;
+                if (scope.__customController) {
+                    scope.$item = angular.copy(entity);
+                    scope.$.$item = scope.$item;
+                    if (!scope.$templateUrl)
+                        scope.$templateUrl = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+                    if (!scope.$entityTypeName)
+                        scope.$entityTypeName = this.TypeDescription;
                 }
                 else {
                     // ReSharper disable once QualifiedExpressionMaybeNull
                     scope = scope.$new();
-                    scope['$item'] = angular.copy(entity);
-                    scope['$templateUrl'] = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
-                    scope['$entityTypeName'] = this.TypeDescription;
+                    scope.$item = angular.copy(entity);
+                    scope.$templateUrl = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
+                    scope.$entityTypeName = this.TypeDescription;
                 }
                 var res = App.app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
                     .then(function () { return _this.Save(scope['$item']); });

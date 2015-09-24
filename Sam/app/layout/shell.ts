@@ -40,7 +40,7 @@ module App.Controllers
         }
         //#endregion
 
-        constructor(public $rootScope: any, public common: App.Shared.ICommon, public config: any, public $scope: ng.IScope, public $route, public $routes: IAppRoute[])
+        constructor(public $rootScope: any, public common: App.Shared.ICommon, public config: any, public $scope: ng.IScope, public $route, public $routes: IAppRoute[], public $location: ng.ILocationService)
         {
             this.activate();
             this.registerEvents();
@@ -62,15 +62,22 @@ module App.Controllers
         {
             var events = this.config.events;
             this.$rootScope.$on('$routeChangeStart',
-                (event, next, current) => { this.toggleSpinner(true); }
+                (event, next, current) => {
+                    if (next.$$route && current.$$route && next.$$route !== current.$$route)
+                        this.toggleSpinner(true);
+                }
             );
 
             this.$rootScope.$on(events.controllerActivateSuccess,
-                data => { this.toggleSpinner(false); }
+                data => {
+                    this.toggleSpinner(false);
+                }
             );
 
             this.$rootScope.$on(events.spinnerToggle,
-                data => { this.toggleSpinner(data.show); }
+                data => {
+                    this.toggleSpinner(data.show);
+                }
             );
         }
 
@@ -78,19 +85,26 @@ module App.Controllers
 
 
         public IsSidebarVisible: boolean;
-        public navRoutes: IAppRoute[];
-        public selectedMenuItem: string;
+        public allRoutes: IAppRoute[];
 
-        public isCurrent(route: IAppRoute | string) {
+        public get selectedMenuItem(): string {
+            var res = this.$rootScope.$selectedMenuItem;
+            if (!res) {
+                res = this.GetNavMenuItems().firstOrDefault();
+                this.selectedMenuItem = res;
+            }
+            return res;
+        }
+        public set selectedMenuItem(value: string) {
+            this.$rootScope.$selectedMenuItem = value;
+        }
+
+
+        public isCurrent(route: IAppRoute) {
             this.IsSidebarVisible = this.$route.current.name !== "login";
             var res = "";
             if (this.$route.current && this.$route.current.name) {
-                if (typeof route === "string") {
-                    if (this.$route.current.settings && this.$route.current.settings.topMenu === route) {
-                        res = 'current';
-                        this.selectedMenuItem = this.$route.current.settings.topMenu
-                    }
-                } else if (route && route.name) {
+                if (route && route.name) {
                     var menuName = route.name;
                     res = (this.$route.current.name === menuName || this.$route.current.name.substr(0, menuName.length + 1) === `${menuName}.`) ? 'current' : '';
                 }
@@ -99,22 +113,26 @@ module App.Controllers
         }
 
         private updateNavRoutes() {
-            this.navRoutes = Enumerable.from(this.$routes).where(r => r.settings && r.settings.nav > 0 && RouteConfigurator.IsRouteGranted(r)).orderBy(r => r.settings.nav).toArray();
+            this.allRoutes = Enumerable.from(this.$routes).where(r => r.settings && r.settings.nav > 0 && RouteConfigurator.IsRouteGranted(r)).orderBy(r => r.settings.nav).toArray(); 
         }
 
         public selectMenuItem(menuItem) {
+            if (this.selectedMenuItem === menuItem) return;
             this.selectedMenuItem = menuItem;
+            this.$location.path("/");
+        }
+
+        public GetSideBarMenuItems(): IAppRoute[] {
+            return this.allRoutes.where(r => !r.settings || !r.settings.topMenu || r.settings.topMenu === this.selectedMenuItem).toArray();
         }
 
         public GetNavMenuItems(): string[] {
-            var res = this.navRoutes.where(x => !!x.settings.topMenu).select(x => x.settings.topMenu).distinct().orderBy(x => x).toArray();
-            this.selectedMenuItem = this.selectedMenuItem || res[0];
-            return res;
+            return this.allRoutes.where(x => !!x.settings.topMenu).select(x => x.settings.topMenu).distinct().orderBy(x => x).toArray();
         }
     }
 
     // Register with angular
     app.controller(Shell.controllerId,
-        ['$rootScope', 'common', 'config', '$scope', '$route', 'routes',
-            ($rS, com, con, $scope, $route, routes) => new Shell($rS, com, con, $scope, $route, routes)]);
+        ['$rootScope', 'common', 'config', '$scope', '$route', 'routes', '$location',
+            ($rS, com, con, $scope, $route, routes, $location) => new Shell($rS, com, con, $scope, $route, routes, $location)]);
 }
