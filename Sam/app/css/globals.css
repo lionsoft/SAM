@@ -1968,6 +1968,13 @@
 }
 .form-group.has-error span.red {
   position: absolute;
+  margin-top: -3px;
+}
+.has-validation.form-group {
+  margin-bottom: 20px;
+}
+span.invalid-control-info {
+  color: red;
 }
 .sam-t-space {
   margin-top: 16px;
@@ -1992,4 +1999,7 @@
 label {
   font-size: 14px;
   font-weight: bold;
+}
+pre.mark {
+  padding: 9.5px;
 }

@@ -1571,11 +1571,13 @@ border:1px solid #eee;
 	form .control-group{
 		margin:0px !important;
 	}
+/*
 	form .control-label{
 		float: none !important;
 		width: auto !important;
 		text-align: left !important;
 	}
+*/
 	form .controls{
 		float: none !important;
 		margin-left: 0px !important;

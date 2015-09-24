@@ -34,10 +34,15 @@ module App.Controllers {
 
         prepareEdit(card: ICard) {
             if (!card.Id) {
-                card.Status = CardStatus.Active;
+                card.Status = CardStatus.Inactive;
+                card.ActivationCode = LionSoftJs.CreateGUID();
                 card.CardType = CardType.Internal;
                 card.CustomerId = this.selectedCustomerId;
             }
+        }
+
+        RegenerateActivationCode($item: ICard) {
+            $item.ActivationCode = LionSoftJs.CreateGUID();
         }
     }
 

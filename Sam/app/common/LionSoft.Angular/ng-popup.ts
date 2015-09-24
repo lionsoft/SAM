@@ -179,17 +179,7 @@ module LionSoftAngular {
 
                         $scope.$modalInstance = $modalInstance;
                         $scope.submit = (form : ng.INgModelController) => {
-                            if (form.$invalid) {
-                                for (var errorName in form.$error) {
-                                    if (form.$error.hasOwnProperty(errorName)) {
-                                        var errors = form.$error[errorName];
-                                        for (var control of errors) {
-                                            // ReSharper disable once QualifiedExpressionIsNull
-                                            control.$setTouched();
-                                        }
-                                    }
-                                }
-                            } else {
+                            if (LionSoftAngular.ValidateForm(form)) {
                                 var submit = tempDialogOptions.scope.$submit || $scope.$submit;
                                 if (typeof submit === "function") {
                                     submit($scope.$item)

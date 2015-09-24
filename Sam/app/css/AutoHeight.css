@@ -35,6 +35,9 @@ body > div#main-layout > div[data-ng-include] > div,
 }
 .mainbar .matter > .container,
 .mainbar .matter > .container-fluid {
-  margin: 0;
   padding: 15px 15px 0;
+  margin: 0;
+}
+.mainbar .matter > .container {
+  margin: 0 auto;
 }

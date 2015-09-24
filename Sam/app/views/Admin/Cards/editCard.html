@@ -31,7 +31,12 @@
 
 <div class="form-group">
     <label class="control-label" translate>ActivationCode</label>
-    <input class="form-control" type="text" ng-model="$item.ActivationCode" />
+    <div class="input-group">
+        <input class="form-control" readonly type="text" ng-model="$item.ActivationCode" />
+        <a class="input-group-addon btn btn-default" ng-click="$.RegenerateActivationCode($item)">
+            <i class="fa fa-refresh"></i>
+        </a>
+    </div>
 </div>
 <!-- #endregion -->
 

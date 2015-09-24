@@ -42,6 +42,21 @@ module LionSoftAngular {
         return Module;
     }
 
+    export function ValidateForm(form: ng.INgModelController): boolean {
+        if (form.$invalid) {
+            for (var errorName in form.$error) {
+                if (form.$error.hasOwnProperty(errorName)) {
+                    var errors = form.$error[errorName];
+                    for (var control of errors) {
+                        // ReSharper disable once QualifiedExpressionIsNull
+                        control.$setTouched();
+                    }
+                }
+            }
+        }
+        return !form.$invalid;
+    }
+
     angular.module("LionSoftAngular", ["ng-lionsoft"]);
 
     if (!window["$"])
@@ -280,7 +295,7 @@ module LionSoftAngular {
 
     /**
      * Наследуйте все ангуляр контроллеры от этого класса.
-     * По умолчанию доступны сервисы NgObject плюс $rootScope и $scope.
+     * По умолчанию доступны сервисы NgObject плюс $scope и popupService.
      * 
      * Пример инициализации:
      * app.controller('myController', MyController.Factory('svc1', 'svc2'));
@@ -291,6 +306,9 @@ module LionSoftAngular {
          * Ссылка на текущий скоуп контроллера.
          */
         $scope: ng.IScope;
+
+        popupService: IPopupService;
+
 
         /**
          * Можно использовать для индикации процесса загрузки.
@@ -309,7 +327,7 @@ module LionSoftAngular {
          */
         protected static addFactoryInjections(injects: string[]) {
             NgObject.addFactoryInjections(injects);
-            this.addInjection(injects, "$scope");
+            this.addInjection(injects, "$scope", "popupService");
         }
 
         /**

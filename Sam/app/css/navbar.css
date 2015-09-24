@@ -33,6 +33,12 @@
 .nav.navbar-nav.navbar-right {
   margin-right: 1em;
 }
+.sidebar .navi > li > a {
+  font-size: 15px;
+}
+.navbar .navbar-menu .nav > li > a {
+  font-size: 15px !important;
+}
 /*#region Override background color theme */
 /*For Bootstrap 3*/
 .nav,

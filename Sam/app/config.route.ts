@@ -2,8 +2,11 @@
 module App {
     export class RouteConfigurator {
 
-        static IsRouteGranted(route: IAppRoute): boolean {
-            return route && !route.isInvisible && (!route.auth || !angular.isArray(route.roles) || (app.$auth && app.$auth.LoggedUser && app.$auth.LoggedUser.Employee && route.roles.contains(app.$auth.LoggedUser.Employee.UserRole)));
+        static IsRouteGranted(route: IAppRoute, inTopMenuOnly: boolean = false): boolean {
+            var res = route && !route.isInvisible && (!route.auth || !angular.isArray(route.roles) || (app.$auth && app.$auth.LoggedUser && app.$auth.LoggedUser.Employee && route.roles.contains(app.$auth.LoggedUser.Employee.UserRole)));
+            if (res && inTopMenuOnly && route.settings && route.settings.topMenu)
+                res = app.$rootScope.$selectedMenuItem === route.settings.topMenu;
+            return res;
         };
 
         private _routes: IAppRoute[] = [];
@@ -75,8 +78,8 @@ module App {
             }
             // try to find route enabled route
             route = this._routes.firstOrDefault(r => r.url === "/");
-            if (!RouteConfigurator.IsRouteGranted(route)) {
-                route = this._routes.where(r => r.settings && r.url && !r.url.StartsWith("/login") && RouteConfigurator.IsRouteGranted(r)).orderBy(x => x.settings.nav).firstOrDefault();
+            if (!RouteConfigurator.IsRouteGranted(route, true)) {
+                route = this._routes.where(r => r.settings && r.url && !r.url.StartsWith("/login") && RouteConfigurator.IsRouteGranted(r, true)).orderBy(x => x.settings.nav).firstOrDefault();
             }
             if (route) {
                 if (route.settings && route.settings.topMenu)

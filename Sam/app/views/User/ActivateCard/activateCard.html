@@ -1,8 +1,36 @@
 ﻿<section class="mainbar">
     <section class="matter">
-        <div class="container-fluid">
-            ffgsdfgsdff
+        <div class="container">
+            <div class="row">
+                <h1 translate>Make active id-card</h1>
+                <p>
+                    For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.
+                </p>
+            </div>
+            <pre class="mark" translate ng-show="$.noPinCode">You has no Pin Code defined. Ask your administrator to set it up.</pre>
+            <div class="row">
+                <form class="form-horizontal" novalidate role="form" name="form">
+                    <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.activationCode.$invalid && form.activationCode.$touched }">
+                        <label class="col-sm-4 control-label">ActivationCode</label>
+                        <div class="col-sm-6 col-md-4">
+                            <input ng-model="$.activationCode" class="form-control" name="activationCode" required placeholder="required">
+                            <span ng-show="form.activationCode.$invalid && form.activationCode.$touched" class="red" translate>MustBeSet</span>
+                        </div>
+                    </div>
+                    <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.pinCode.$invalid && form.pinCode.$touched }">
+                        <label class="col-sm-4 control-label">PinCode</label>
+                        <div class="col-sm-6 col-md-4">
+                            <input ng-model="$.pinCode" class="form-control" name="pinCode" required placeholder="required">
+                            <span ng-show="form.pinCode.$invalid && form.pinCode.$touched" class="red" translate>MustBeSet</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-6 col-md-4 text-right">
+                            <button type="submit" ng-disabled="$.noPinCode" ng-click="$.Activate(form)" class="btn btn-default">Activate</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
 </section>
-

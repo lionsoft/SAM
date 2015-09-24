@@ -31,6 +31,8 @@
         "LISTS": "<i class='fa fa-list'></i> Lists",
         "USERS": "<i class='fa fa-user'></i> Users",
 
+        "ACTIVATE-MY-CARD": "<i class='fa fa-credit-card'></i> Activate Card",
+
         "SignIn": "Sign In",
         "SignOut": "Sign Out"
     },
