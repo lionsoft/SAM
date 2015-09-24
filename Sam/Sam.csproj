@@ -2460,6 +2460,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\views\Doors\" />
     <Folder Include="app\views\User\" />
     <Folder Include="App_Data\" />
     <Folder Include="images\employees\" />
