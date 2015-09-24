@@ -6,7 +6,7 @@ module App {
             {
                 name: 'customers',
                 title: 'Customers',
-                url: '/',
+                url: '/customers',
                 auth: true,
                 roles: [UserRole.Admin],
                 templateUrl: '/app/views/Admin/customers/customers.html',

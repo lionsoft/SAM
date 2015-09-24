@@ -1,11 +1,11 @@
-﻿<div data-cc-sidebar data-ng-controller="sidebarCtrl as vm" ng-show="vm.IsSidebarVisible">
+﻿<div data-cc-sidebar ng-show="vm.IsSidebarVisible">
+    <div style="color: red">[[{{vm.selectedMenuItem}}]]</div>
     <div class="sidebar-filler"></div>
     <div class="sidebar-dropdown"><a href="#">Menu</a></div>
     <div class="sidebar-inner">
-        <div class="sidebar-widget">
-        </div>
+        <div class="sidebar-widget"></div>
         <ul class="navi" data-ng-class="vm.isCurrent()">
-            <li class="nlightblue fade-selection-animation" data-ng-class="vm.isCurrent(r)" data-ng-repeat="r in vm.navRoutes">
+            <li class="nlightblue fade-selection-animation" data-ng-class="vm.isCurrent(r)" data-ng-repeat="r in vm.navRoutes | filter: { settings: { topMenu: vm.selectedMenuItem } } : strict">
                 <a href="#{{r.url}}" data-ng-bind-html="r.settings.content | translate" data-cc-menu-item-rendered></a>
             </li>
         </ul>

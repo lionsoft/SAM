@@ -717,9 +717,6 @@
     <Content Include="app\layout\shell.js">
       <DependentUpon>shell.ts</DependentUpon>
     </Content>
-    <Content Include="app\layout\sidebar.js">
-      <DependentUpon>sidebar.ts</DependentUpon>
-    </Content>
     <Content Include="app\routes.js">
       <DependentUpon>routes.ts</DependentUpon>
     </Content>
@@ -2270,9 +2267,6 @@
     <Content Include="app\layout\shell.js.map">
       <DependentUpon>shell.ts</DependentUpon>
     </Content>
-    <Content Include="app\layout\sidebar.js.map">
-      <DependentUpon>sidebar.ts</DependentUpon>
-    </Content>
     <Content Include="app\routes\Admin\users.js.map">
       <DependentUpon>users.ts</DependentUpon>
     </Content>
@@ -2521,7 +2515,6 @@
     <TypeScriptCompile Include="app\directives\cc\cc-sidebar.ts" />
     <TypeScriptCompile Include="app\directives\cc\cc-spinner.ts" />
     <TypeScriptCompile Include="app\layout\shell.ts" />
-    <TypeScriptCompile Include="app\layout\sidebar.ts" />
     <TypeScriptCompile Include="app\routes.ts" />
     <TypeScriptCompile Include="app\routes\Admin\users.ts" />
     <TypeScriptCompile Include="app\routes\Admin\customers.ts" />

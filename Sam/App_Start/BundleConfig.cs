@@ -227,7 +227,6 @@ namespace Sam
             bundles.Add(new ScriptBundle("~/bundles/app/views")
                 .Include(
                       "~/app/layout/shell.js"
-                    , "~/app/layout/sidebar.js"
 /*
                     , "~/app/views/customers/customers.js"
                     , "~/app/views/doors/doors.js"

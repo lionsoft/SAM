@@ -8,16 +8,7 @@ module App {
 
 
         constructor($routeProvider: ng.route.IRouteProvider, routes: IAppRoute[]) {
-//            var user: IUser = app['__loggedUser'];
             routes.forEach(r => {
-/*
-                if (r.roles !== undefined) {
-                    if (!user || r.roles.indexOf(user.Employee.UserRole) === -1) {
-                        r.isInvisible = true;
-                        r = null;
-                    }
-                }
-*/
                 if (r) {
                     var template = "";
                     if (!r.templateUrl)
