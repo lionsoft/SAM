@@ -8,10 +8,12 @@ module App {
                 title: 'Lists',
                 url: '/lists',
                 auth: true,
-                templateUrl: '/app/views/lists/lists.html',
+                roles: [UserRole.Admin],
+                templateUrl: '/app/views/Admin/lists/lists.html',
                 settings: {
+                    topMenu: 'MENU.20.ADMIN',
                     nav: 5,
-                    content: 'MENU.LISTS|<i class="fa fa-list"></i> Lists'
+                    content: 'MENU.LISTS'
                 },
                 files: [
                     'editDoorList', 'editDepartmentList'

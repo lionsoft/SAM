@@ -8,10 +8,12 @@ module App {
                 title: 'Assignments',
                 url: '/assignments',
                 auth: true,
-                templateUrl: '/app/views/assignments/assignments.html',
+                roles: [UserRole.Admin],
+                templateUrl: '/app/views/Admin/assignments/assignments.html',
                 settings: {
+                    topMenu: 'MENU.20.ADMIN',
                     nav: 6,
-                    content: 'MENU.ASSIGNMENTS|<i class="fa fa-gg"></i> Assignments'
+                    content: 'MENU.ASSIGNMENTS'
                 },
                 files: [
                 ]

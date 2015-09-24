@@ -8,8 +8,10 @@ module App {
                 title: 'Customers',
                 url: '/',
                 auth: true,
-                templateUrl: '/app/views/customers/customers.html',
+                roles: [UserRole.Admin],
+                templateUrl: '/app/views/Admin/customers/customers.html',
                 settings: {
+                    topMenu: 'MENU.20.ADMIN',
                     nav: 1,
                     content: 'MENU.CUSTOMERS|<i class="fa fa-briefcase"></i> Customers'
                 },

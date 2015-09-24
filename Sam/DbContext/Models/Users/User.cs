@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
+using Sam.Extensions;
 using T4TS;
 
 namespace Sam.DbContext
@@ -19,8 +23,9 @@ namespace Sam.DbContext
 /*
             userIdentity.SetClaimValue("FIO", FIO);
             userIdentity.SetClaimValue("Email", Email);
-            userIdentity.SetClaimValue("Role", UserRole.AsInt().ToString());
 */
+            userIdentity.SetClaimValue("Role", ((int)(Employee != null ? Employee.UserRole : UserRole.Undefined)).ToString());
+
             return userIdentity;
         }
 
@@ -34,6 +39,20 @@ namespace Sam.DbContext
           this.Id = Guid.NewGuid().ToString();
         }
 
+        [NotMapped]
+        public Employee Employee
+        {
+            get { return Employees != null ? Employees.FirstOrDefault() : null; }
+        }
+
+        [NotMapped]
+        public string Name
+        {
+            get { return Employee != null ? Employee.Name : UserName; }
+        }
+
+        [JsonIgnore]
+        [InverseProperty("User")]
         public ICollection<Employee> Employees { get; set; }
     }
 }

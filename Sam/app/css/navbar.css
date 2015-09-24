@@ -34,9 +34,6 @@
   margin-right: 1em;
 }
 /*#region Override background color theme */
-body {
-  background-color: #FFF;
-}
 /*For Bootstrap 3*/
 .nav,
 .pagination,

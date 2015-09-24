@@ -12,13 +12,25 @@
     "NoTableData": "No data available in table",
     "LoadingTable": "Loading ...",
     "Search...": "Search...",
-    "TablePaginationShowEntriesPrefix":  "Show ",
+    "TablePaginationShowEntriesPrefix": "Show ",
     "TablePaginationShowEntriesPostfix": " entries",
     "TablePaginationShowOf": " of ",
 
 
 
     "MENU": {
+        "20.ADMIN": "<i class='fa fa-cog'></i> Admin Area",
+        "10.USER": "<i class='fa fa-user'></i> User Area",
+        
+        
+        "ASSIGNMENTS": "<i class='fa fa-gg'></i> Assignments",
+        "CARDS": "<i class='fa fa-credit-card'></i> Cards",
+        "CUSTOMERS": "<i class='fa fa-briefcase'></i> Customers",
+        "DOORS": "<i class='fa fa-lock'></i> Doors",
+        "EMPLOYEES": "<i class='fa fa-users'></i> Employees",
+        "LISTS": "<i class='fa fa-list'></i> Lists",
+        "USERS": "<i class='fa fa-user'></i> Users",
+
         "SignIn": "Sign In",
         "SignOut": "Sign Out"
     },

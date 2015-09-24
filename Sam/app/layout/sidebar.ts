@@ -8,22 +8,26 @@ module App.Controllers {
     }
 
     export class SidebarCtrl implements ISidebarCtrl {
-        navRoutes: IAppRoute[];
+
+        public navRoutes: IAppRoute[];
 
         //using shortcut syntax on private variables in the constructor
-        constructor(private $route, private $config, private $routes: IAppRoute[]) {
+        constructor(private $route, private $config, private $routes: IAppRoute[], private $scope: ng.IScope) {
             this.activate();
         }
 
-        public isCurrent(route: IAppRoute) {
-            if (!route.name || !this.$route.current || !this.$route.current.name) {
-                return '';
-            }
-            var menuName = route.name;
-//            var res = this.$route.current.name.substr(0, menuName.length) === menuName ? 'current' : '';
-            var res = (this.$route.current.name === menuName || this.$route.current.name.substr(0, menuName.length + 1) === `${menuName}.`) ? 'current' : '';
-
+        public isCurrent(route: IAppRoute | string) {
             this.IsSidebarVisible = this.$route.current.name !== "login";
+            var res = "";
+            if (typeof route === "string") {
+        
+            } else {
+                if (!route || !route.name || !this.$route.current || !this.$route.current.name) {
+                    return '';
+                }
+                var menuName = route.name;
+                res = (this.$route.current.name === menuName || this.$route.current.name.substr(0, menuName.length + 1) === `${menuName}.`) ? 'current' : '';
+            }
             return res;
         }
 
@@ -32,21 +36,21 @@ module App.Controllers {
         }
 
         private activate() {
-            this.getNavRoutes();
+            this.$scope.$watch("vm.IsSidebarVisible", x => this.updateNavRoutes());
+                
         }
 
-        private getNavRoutes() {
-            this.navRoutes = (<any>(this.$routes)).filter(r => r.settings && r.settings.nav)
-                .sort((r1, r2) => r1.settings.nav - r2.settings.nav);
+        private updateNavRoutes() {
+            this.navRoutes = Enumerable.from(this.$routes).where(r => r.settings && r.settings.nav > 0 && RouteConfigurator.IsRouteGranted(r)).orderBy(r => r.settings.nav).toArray();
         }
 
-        public GetRoutes() {
-            return this.navRoutes;
+        public GetNavMenuItems(): string[] {
+            return this.navRoutes.where(x => !!x.settings.topMenu).select(x => x.settings.topMenu).distinct().orderBy(x => x).toArray();
         }
 
         public IsSidebarVisible: boolean;
     }
 
     // Register with angular
-    app.controller('sidebarCtrl', ['$route', 'config', 'routes', ($r, c, r) => new SidebarCtrl($r, c, r)]);
+    app.controller('sidebarCtrl', ['$route', 'config', 'routes', '$scope', ($r, c, r, $scope) => new SidebarCtrl($r, c, r, $scope)]);
 }

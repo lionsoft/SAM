@@ -1,4 +1,5 @@
-﻿using T4TS;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using T4TS;
 
 namespace Sam.DbContext
 {
@@ -27,6 +28,8 @@ namespace Sam.DbContext
         public Employee Manager { get; set; }
 
         [TypeScriptMember(Optional = true)]
+        
+        
         public string UserId { get; set; }
         [TypeScriptMember(Type = "App.IUser")]
         public User User { get; set; }

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using System.Data.Entity;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -17,7 +20,7 @@ namespace Sam
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<User>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new ApplicationUserStore(context.Get<ApplicationDbContext>()));
 
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<User>(manager)
@@ -41,5 +44,23 @@ namespace Sam
             }
             return manager;
         }
+    }
+
+    public class ApplicationUserStore : UserStore<User>
+    {
+        public ApplicationUserStore(ApplicationDbContext dbContext) : base(dbContext)
+        {
+            
+        }
+        public override Task<User> FindByNameAsync(string userName)
+        {
+            return Context.Set<User>().Include("Employees").FirstOrDefaultAsync(x => x.UserName == userName);
+        }
+/*
+        public override Task<User> FindByIdAsync(string id)
+        {
+            return Context.Set<User>().Include("Employees").FirstOrDefaultAsync(x => x.Id == id);
+        }
+*/
     }
 }

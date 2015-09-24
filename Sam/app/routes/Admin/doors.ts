@@ -8,10 +8,12 @@ module App {
                 title: 'Doors',
                 url: '/doors',
                 auth: true,
-                templateUrl: '/app/views/doors/doors.html',
+                roles: [UserRole.Admin],
+                templateUrl: '/app/views/Admin/doors/doors.html',
                 settings: {
+                    topMenu: 'MENU.20.ADMIN',
                     nav: 4,
-                    content: 'MENU.DOORS|<i class="fa fa-lock"></i> Doors'
+                    content: 'MENU.DOORS'
                 },
                 files: [
                 ]

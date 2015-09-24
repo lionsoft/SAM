@@ -1,6 +1,9 @@
 ﻿#login {
   /* checkbox */
 }
+#login .container-fluid {
+  background-color: white;
+}
 #login .checkbox label {
   padding-left: 0;
 }

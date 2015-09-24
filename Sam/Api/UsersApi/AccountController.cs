@@ -68,7 +68,7 @@ namespace Sam.Api
         [HttpGet]
         public async Task<object> Get(ODataQueryOptions<User> queryOptions)
         {
-            var res = await CRUDController.CreateODataResponse(Db.Users, Request, queryOptions);
+            var res = await CRUDController.CreateODataResponse(Db.Users.Include(u => u.Employees), Request, queryOptions);
             var users = (IEnumerable<object>)((res is ODataMetadata<object>[]) ? (res as ODataMetadata<object>[])[0].Results : res);
             users.OfType<User>().ForEach(u => ClearUserFields(u));
             return res;
@@ -77,7 +77,7 @@ namespace Sam.Api
         [HttpGet, Route("{id}")]
         public async Task<User> GetAsync(string id)
         {
-            var res = await Db.Set<User>().FindAsync(id);
+            var res = await Db.Set<User>().Include(u => u.Employees).FirstOrDefaultAsync(u => u.Id == id);
             return ClearUserFields(res);
         }
 
@@ -178,7 +178,7 @@ namespace Sam.Api
             properties.IsPersistent = model.RememberMe;
             Authentication.SignIn(properties, cookieIdentity);
 
-            return Ok(new { Id = user.Id, Login = user.UserName, Name = user.UserName });
+            return Ok(new { user.Id, Login = user.UserName, user.Name, Employee = new { user.Employee.Name, user.Employee.UserRole } });
         }
 
         // GET api/Account/Logout

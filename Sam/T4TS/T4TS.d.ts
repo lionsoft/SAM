@@ -30,6 +30,7 @@ declare module App {
     }
     /** Generated from Sam.DbContext.UserRole **/
     const enum UserRole {
+        Undefined = 0,
         Normal = 1,
         BuildingOwner = 2,
         AreaOwner = 4,
@@ -172,5 +173,7 @@ declare module App {
         UserName?: string;
         PasswordHash?: string;
         Email?: string;
+        Employee?: App.IEmployee;
+        Name?: string;
     }
 }

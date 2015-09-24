@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Data.Common;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Interception;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Sam.DbContext.Hooks;
 using Sam.Extensions;
-using Sam.Models;
 
 #pragma warning disable 4014
 

@@ -1,20 +1,5 @@
 ﻿'use strict';
 
-declare module App {
-    export interface IUser extends IEntityObjectId {
-
-        /**
-         * Employee.Name if it connected with user, User.UserName otherwise.
-         */
-        Name: string;
-
-        /**
-         * An employee linked with the user
-         */
-        Employee?: IEmployee;
-    }
-}
-
 module App.Services {
 
     export interface IUsersService extends ICRUDService<IUser> {
@@ -38,6 +23,7 @@ module App.Services {
             // remove default behavior    
         }
 
+/*
         protected afterQuery(query: IPromise<IUser[]>): IPromise<IUser[]> {
             return query.HandleError().then(x => {
                 if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results']))
@@ -46,10 +32,13 @@ module App.Services {
                     return this.UpdateEmployee(x);
             });
         }
+*/
 
+/*
         protected afterGet(query: IPromise<IUser>): IPromise<IUser> {
             return query.then(res => this.UpdateEmployee(res));
         }
+*/
 
         UpdateEmployee(user: IUser): IPromise<IUser>;
         UpdateEmployee(users: IUser[]): IPromise<IUser[]>;

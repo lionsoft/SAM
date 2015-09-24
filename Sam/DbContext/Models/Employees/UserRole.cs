@@ -7,6 +7,7 @@ namespace Sam.DbContext
     [TypeScriptEnum]
     public enum UserRole
     {
+        Undefined = 0,
         Normal = 1,
         BuildingOwner = 2,
         AreaOwner = 4,

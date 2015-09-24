@@ -221,7 +221,7 @@ namespace Sam
                     , "~/app/routes/users.js"
 */
                 )
-                .IncludeDirectory("~/app/routes", "*.js", false)
+                .IncludeDirectory("~/app/routes", "*.js", true)
             );
 
             bundles.Add(new ScriptBundle("~/bundles/app/views")

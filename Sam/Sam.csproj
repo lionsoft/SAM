@@ -309,6 +309,7 @@
     </Compile>
     <Compile Include="DbContext\Models\Users\User.cs" />
     <Compile Include="DbContext\Migrations\ApplicationDbInitializer.cs" />
+    <Compile Include="Extensions\ClaimsHelper.cs" />
     <Compile Include="Extensions\EntityFramework\DateTimeKindAttribute.cs" />
     <Compile Include="Extensions\EntityFramework\EFHooks\DateTimeUtcHook.cs" />
     <Compile Include="Extensions\EntityFramework\EFHooks\DbContextHooks.cs" />
@@ -722,29 +723,32 @@
     <Content Include="app\routes.js">
       <DependentUpon>routes.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\cards.js">
+    <Content Include="app\routes\Admin\cards.js">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\assignments.js">
+    <Content Include="app\routes\Admin\assignments.js">
       <DependentUpon>assignments.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\employees.js">
+    <Content Include="app\routes\Admin\employees.js">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\lists.js">
+    <Content Include="app\routes\Admin\lists.js">
       <DependentUpon>lists.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\users.js">
+    <Content Include="app\routes\Admin\users.js">
       <DependentUpon>users.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\doors.js">
+    <Content Include="app\routes\Admin\doors.js">
       <DependentUpon>doors.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\customers.js">
+    <Content Include="app\routes\Admin\customers.js">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\login.js">
       <DependentUpon>login.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\activateCard.js">
+      <DependentUpon>activateCard.ts</DependentUpon>
     </Content>
     <Content Include="app\services\ApiService.js">
       <DependentUpon>ApiService.ts</DependentUpon>
@@ -806,123 +810,123 @@
     <Content Include="app\services\system\ODataFilterCreator.js">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Assignments\assignments.css">
+    <Content Include="app\views\Admin\Assignments\assignments.css">
       <DependentUpon>assignments.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Assignments\assignments.html" />
-    <Content Include="app\views\Assignments\assignments.js">
+    <Content Include="app\views\Admin\Assignments\assignments.html" />
+    <Content Include="app\views\Admin\Assignments\assignments.js">
       <DependentUpon>assignments.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Assignments\editAssignment.css">
+    <Content Include="app\views\Admin\Assignments\editAssignment.css">
       <DependentUpon>editAssignment.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\cards.css">
+    <Content Include="app\views\Admin\Cards\cards.css">
       <DependentUpon>cards.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\cards.html" />
-    <Content Include="app\views\Cards\cards.js">
+    <Content Include="app\views\Admin\Cards\cards.html" />
+    <Content Include="app\views\Admin\Cards\cards.js">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\editCard.css">
+    <Content Include="app\views\Admin\Cards\editCard.css">
       <DependentUpon>editCard.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\editCard.html" />
-    <Content Include="app\views\Customers\editCompany.css">
+    <Content Include="app\views\Admin\Cards\editCard.html" />
+    <Content Include="app\views\Admin\Customers\editCompany.css">
       <DependentUpon>editCompany.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\editDepartment.css">
+    <Content Include="app\views\Admin\Customers\editDepartment.css">
       <DependentUpon>editDepartment.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\editCustomer.css">
+    <Content Include="app\views\Admin\Customers\editCustomer.css">
       <DependentUpon>editCustomer.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\editArea.css">
+    <Content Include="app\views\Admin\Doors\editArea.css">
       <DependentUpon>editArea.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\editBuilding.css">
+    <Content Include="app\views\Admin\Doors\editBuilding.css">
       <DependentUpon>editBuilding.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\editCity.css">
+    <Content Include="app\views\Admin\Doors\editCity.css">
       <DependentUpon>editCity.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\editCountry.css">
+    <Content Include="app\views\Admin\Doors\editCountry.css">
       <DependentUpon>editCountry.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\editDoor.css">
+    <Content Include="app\views\Admin\Doors\editDoor.css">
       <DependentUpon>editDoor.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\editDoor.html" />
-    <Content Include="app\views\Employees\editEmployee.css">
+    <Content Include="app\views\Admin\Doors\editDoor.html" />
+    <Content Include="app\views\Admin\Employees\editEmployee.css">
       <DependentUpon>editEmployee.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Employees\employees.css">
+    <Content Include="app\views\Admin\Employees\employees.css">
       <DependentUpon>employees.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Employees\employees.html" />
-    <Content Include="app\views\Employees\employees.js">
+    <Content Include="app\views\Admin\Employees\employees.html" />
+    <Content Include="app\views\Admin\Employees\employees.js">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Employees\editEmployee.html" />
-    <Content Include="app\views\Lists\editDepartmentList.html" />
-    <Content Include="app\views\Lists\editDepartmentList.css">
+    <Content Include="app\views\Admin\Employees\editEmployee.html" />
+    <Content Include="app\views\Admin\Lists\editDepartmentList.html" />
+    <Content Include="app\views\Admin\Lists\editDepartmentList.css">
       <DependentUpon>editDepartmentList.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\editDepartmentList.js">
+    <Content Include="app\views\Admin\Lists\editDepartmentList.js">
       <DependentUpon>editDepartmentList.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\editDoorList.js">
+    <Content Include="app\views\Admin\Lists\editDoorList.js">
       <DependentUpon>editDoorList.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\lists.css">
+    <Content Include="app\views\Admin\Lists\lists.css">
       <DependentUpon>lists.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\lists.html" />
-    <Content Include="app\views\Lists\lists.js">
+    <Content Include="app\views\Admin\Lists\lists.html" />
+    <Content Include="app\views\Admin\Lists\lists.js">
       <DependentUpon>lists.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\editDoorList.css">
+    <Content Include="app\views\Admin\Lists\editDoorList.css">
       <DependentUpon>editDoorList.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\editDoorList.html" />
-    <Content Include="app\views\Users\editUser.css">
+    <Content Include="app\views\Admin\Lists\editDoorList.html" />
+    <Content Include="app\views\Admin\Users\editUser.css">
       <DependentUpon>editUser.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Users\users.css">
+    <Content Include="app\views\Admin\Users\users.css">
       <DependentUpon>users.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Users\users.html" />
+    <Content Include="app\views\Admin\Users\users.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-dialog.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-prompt-dialog.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tag.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tags.html" />
-    <Content Include="app\views\Users\users.js">
+    <Content Include="app\views\Admin\Users\users.js">
       <DependentUpon>users.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Users\editUser.html" />
-    <Content Include="app\views\Customers\customers.css">
+    <Content Include="app\views\Admin\Users\editUser.html" />
+    <Content Include="app\views\Admin\Customers\customers.css">
       <DependentUpon>customers.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\customers.html" />
+    <Content Include="app\views\Admin\Customers\customers.html" />
     <Content Include="app\images\background.jpg" />
     <Content Include="app\images\ic_settings_white.png" />
     <Content Include="app\images\logo.png" />
-    <Content Include="app\views\Customers\customers.js">
+    <Content Include="app\views\Admin\Customers\customers.js">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\editDepartment.html" />
-    <Content Include="app\views\Customers\editCompany.html" />
-    <Content Include="app\views\Customers\editCustomer.html" />
-    <Content Include="app\views\Doors\doors.css">
+    <Content Include="app\views\Admin\Customers\editDepartment.html" />
+    <Content Include="app\views\Admin\Customers\editCompany.html" />
+    <Content Include="app\views\Admin\Customers\editCustomer.html" />
+    <Content Include="app\views\Admin\Doors\doors.css">
       <DependentUpon>doors.less</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\doors.html" />
-    <Content Include="app\views\Doors\doors.js">
+    <Content Include="app\views\Admin\Doors\doors.html" />
+    <Content Include="app\views\Admin\Doors\doors.js">
       <DependentUpon>doors.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\editBuilding.html" />
-    <Content Include="app\views\Doors\editArea.html" />
-    <Content Include="app\views\Doors\editCountry.html" />
-    <Content Include="app\views\Doors\editCity.html" />
+    <Content Include="app\views\Admin\Doors\editBuilding.html" />
+    <Content Include="app\views\Admin\Doors\editArea.html" />
+    <Content Include="app\views\Admin\Doors\editCountry.html" />
+    <Content Include="app\views\Admin\Doors\editCity.html" />
     <Content Include="app\views\login\login.css">
       <DependentUpon>login.less</DependentUpon>
     </Content>
@@ -1911,11 +1915,12 @@
     <TypeScriptCompile Include="app\filters\Console.ts" />
     <TypeScriptCompile Include="app\filters\UserRoleFilter.ts" />
     <TypeScriptCompile Include="app\filters\EmployeeStatusFilter.ts" />
-    <TypeScriptCompile Include="app\routes\cards.ts" />
-    <TypeScriptCompile Include="app\routes\assignments.ts" />
-    <TypeScriptCompile Include="app\routes\lists.ts" />
-    <TypeScriptCompile Include="app\routes\employees.ts" />
-    <TypeScriptCompile Include="app\routes\doors.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\cards.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\assignments.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\lists.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\employees.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\doors.ts" />
+    <TypeScriptCompile Include="app\routes\User\activateCard.ts" />
     <TypeScriptCompile Include="app\services\SamCardAccessService.ts" />
     <TypeScriptCompile Include="app\services\SamCardsService.ts" />
     <TypeScriptCompile Include="app\services\SamDepartmentListsService.ts" />
@@ -2115,8 +2120,8 @@
     <Content Include="app\services\SamUsersService.js.map">
       <DependentUpon>SamUsersService.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Users\users.less" />
-    <Content Include="app\routes\doors.js.map">
+    <Content Include="app\views\Admin\Users\users.less" />
+    <Content Include="app\routes\Admin\doors.js.map">
       <DependentUpon>doors.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamCountriesService.js.map">
@@ -2134,7 +2139,7 @@
     <Content Include="app\services\SamEmployeesService.js.map">
       <DependentUpon>SamEmployeesService.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\employees.js.map">
+    <Content Include="app\routes\Admin\employees.js.map">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\autofocus.js.map">
@@ -2167,12 +2172,12 @@
     <Content Include="app\directives\ng-thumb.js.map">
       <DependentUpon>ng-thumb.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\cards.js.map">
+    <Content Include="app\routes\Admin\cards.js.map">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Cards\editCard.less" />
-    <Content Include="app\views\Cards\cards.less" />
-    <Content Include="app\views\Cards\cards.js.map">
+    <Content Include="app\views\Admin\Cards\editCard.less" />
+    <Content Include="app\views\Admin\Cards\cards.less" />
+    <Content Include="app\views\Admin\Cards\cards.js.map">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamCardsService.js.map">
@@ -2202,7 +2207,7 @@
     <Content Include="app\services\SamDoorListsService.js.map">
       <DependentUpon>SamDoorListsService.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\lists.js.map">
+    <Content Include="app\routes\Admin\lists.js.map">
       <DependentUpon>lists.ts</DependentUpon>
     </Content>
     <Content Include="app\decorators\controllerService.js.map">
@@ -2229,11 +2234,11 @@
     <Content Include="app\decorators\stTable.js.map">
       <DependentUpon>stTable.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\assignments.js.map">
+    <Content Include="app\routes\Admin\assignments.js.map">
       <DependentUpon>assignments.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Assignments\assignments.less" />
-    <Content Include="app\views\Assignments\editAssignment.less" />
+    <Content Include="app\views\Admin\Assignments\assignments.less" />
+    <Content Include="app\views\Admin\Assignments\editAssignment.less" />
     <Content Include="app\filters\ApprovalLevelFilter.js.map">
       <DependentUpon>ApprovalLevelFilter.ts</DependentUpon>
     </Content>
@@ -2243,14 +2248,17 @@
     <Content Include="app\services\SamCardAccessService.js.map">
       <DependentUpon>SamCardAccessService.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Assignments\assignments.js.map">
+    <Content Include="app\views\Admin\Assignments\assignments.js.map">
       <DependentUpon>assignments.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\sam-date-picker.js.map">
       <DependentUpon>sam-date-picker.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\editCustomer.less" />
-    <None Include="app\views\Customers\customers.less" />
+    <Content Include="app\views\Admin\Customers\editCustomer.less" />
+    <Content Include="app\routes\User\activateCard.js.map">
+      <DependentUpon>activateCard.ts</DependentUpon>
+    </Content>
+    <None Include="app\views\Admin\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
     <Content Include="app\l10n.js.map">
@@ -2265,10 +2273,10 @@
     <Content Include="app\layout\sidebar.js.map">
       <DependentUpon>sidebar.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\users.js.map">
+    <Content Include="app\routes\Admin\users.js.map">
       <DependentUpon>users.ts</DependentUpon>
     </Content>
-    <Content Include="app\routes\customers.js.map">
+    <Content Include="app\routes\Admin\customers.js.map">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\login.js.map">
@@ -2292,10 +2300,10 @@
     <Content Include="app\services\system\ODataFilterCreator.js.map">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Users\users.js.map">
+    <Content Include="app\views\Admin\Users\users.js.map">
       <DependentUpon>users.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Customers\customers.js.map">
+    <Content Include="app\views\Admin\Customers\customers.js.map">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
     <Content Include="app\views\login\login.js.map">
@@ -2309,35 +2317,35 @@
       <DependentUpon>T4TS.tt</DependentUpon>
     </Content>
     <Content Include="app\views\login\login.less" />
-    <Content Include="app\views\Doors\doors.js.map">
+    <Content Include="app\views\Admin\Doors\doors.js.map">
       <DependentUpon>doors.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Doors\doors.less" />
-    <Content Include="app\views\Employees\employees.less" />
-    <Content Include="app\views\Employees\employees.js.map">
+    <Content Include="app\views\Admin\Doors\doors.less" />
+    <Content Include="app\views\Admin\Employees\employees.less" />
+    <Content Include="app\views\Admin\Employees\employees.js.map">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Employees\editEmployee.less" />
-    <Content Include="app\views\Lists\editDoorList.less" />
-    <Content Include="app\views\Lists\lists.less" />
-    <Content Include="app\views\Lists\lists.js.map">
+    <Content Include="app\views\Admin\Employees\editEmployee.less" />
+    <Content Include="app\views\Admin\Lists\editDoorList.less" />
+    <Content Include="app\views\Admin\Lists\lists.less" />
+    <Content Include="app\views\Admin\Lists\lists.js.map">
       <DependentUpon>lists.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\editDoorList.js.map">
+    <Content Include="app\views\Admin\Lists\editDoorList.js.map">
       <DependentUpon>editDoorList.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Lists\editDepartmentList.less" />
-    <Content Include="app\views\Lists\editDepartmentList.js.map">
+    <Content Include="app\views\Admin\Lists\editDepartmentList.less" />
+    <Content Include="app\views\Admin\Lists\editDepartmentList.js.map">
       <DependentUpon>editDepartmentList.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Users\editUser.less" />
-    <Content Include="app\views\Doors\editArea.less" />
-    <Content Include="app\views\Doors\editBuilding.less" />
-    <Content Include="app\views\Doors\editCity.less" />
-    <Content Include="app\views\Doors\editCountry.less" />
-    <Content Include="app\views\Doors\editDoor.less" />
-    <Content Include="app\views\Customers\editDepartment.less" />
-    <Content Include="app\views\Customers\editCompany.less" />
+    <Content Include="app\views\Admin\Users\editUser.less" />
+    <Content Include="app\views\Admin\Doors\editArea.less" />
+    <Content Include="app\views\Admin\Doors\editBuilding.less" />
+    <Content Include="app\views\Admin\Doors\editCity.less" />
+    <Content Include="app\views\Admin\Doors\editCountry.less" />
+    <Content Include="app\views\Admin\Doors\editDoor.less" />
+    <Content Include="app\views\Admin\Customers\editDepartment.less" />
+    <Content Include="app\views\Admin\Customers\editCompany.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -2458,6 +2466,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\views\User\" />
     <Folder Include="App_Data\" />
     <Folder Include="images\employees\" />
   </ItemGroup>
@@ -2473,14 +2482,14 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\services\system\OData.ts" />
     <TypeScriptCompile Include="app\services\system\ODataFilterCreator.ts" />
-    <TypeScriptCompile Include="app\views\Assignments\assignments.ts" />
-    <Content Include="app\views\Assignments\editAssignment.html" />
-    <TypeScriptCompile Include="app\views\Cards\cards.ts" />
-    <TypeScriptCompile Include="app\views\Doors\doors.ts" />
-    <TypeScriptCompile Include="app\views\Employees\employees.ts" />
-    <TypeScriptCompile Include="app\views\Lists\editDepartmentList.ts" />
-    <TypeScriptCompile Include="app\views\Lists\editDoorList.ts" />
-    <TypeScriptCompile Include="app\views\Lists\lists.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Assignments\assignments.ts" />
+    <Content Include="app\views\Admin\Assignments\editAssignment.html" />
+    <TypeScriptCompile Include="app\views\Admin\Cards\cards.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Doors\doors.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Employees\employees.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Lists\editDepartmentList.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Lists\editDoorList.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Lists\lists.ts" />
     <TypeScriptCompile Include="Scripts\typings\bootstrap.v3.datetimepicker\bootstrap.v3.datetimepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">
@@ -2488,7 +2497,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4TS.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="app\views\Users\users.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Users\users.ts" />
     <TypeScriptCompile Include="app\app.ts" />
     <TypeScriptCompile Include="app\services\system\AutenticationService.ts" />
     <TypeScriptCompile Include="app\common\bootstrap\bootstrap.dialog.ts" />
@@ -2507,15 +2516,15 @@
     <TypeScriptCompile Include="app\config.route.ts" />
     <TypeScriptCompile Include="app\config.ts" />
     <TypeScriptCompile Include="app\consts\URL.ts" />
-    <TypeScriptCompile Include="app\views\Customers\customers.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Customers\customers.ts" />
     <TypeScriptCompile Include="app\directives\cc\cc-menu-item-rendered.ts" />
     <TypeScriptCompile Include="app\directives\cc\cc-sidebar.ts" />
     <TypeScriptCompile Include="app\directives\cc\cc-spinner.ts" />
     <TypeScriptCompile Include="app\layout\shell.ts" />
     <TypeScriptCompile Include="app\layout\sidebar.ts" />
     <TypeScriptCompile Include="app\routes.ts" />
-    <TypeScriptCompile Include="app\routes\users.ts" />
-    <TypeScriptCompile Include="app\routes\customers.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\users.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\customers.ts" />
     <TypeScriptCompile Include="app\routes\login.ts" />
     <TypeScriptCompile Include="app\views\login\login.ts" />
     <TypeScriptCompile Include="Scripts\linq.array.d.ts" />

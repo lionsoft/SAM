@@ -8,10 +8,12 @@ module App {
                 title: 'Cards',
                 url: '/cards',
                 auth: true,
-                templateUrl: '/app/views/cards/cards.html',
+                roles: [UserRole.Admin],
+                templateUrl: '/app/views/Admin/cards/cards.html',
                 settings: {
+                    topMenu: 'MENU.20.ADMIN',
                     nav: 3,
-                    content: 'MENU.CARDS|<i class="fa fa-credit-card"></i> Cards'
+                    content: 'MENU.CARDS'
                 },
                 files: [
                 ]

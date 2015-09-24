@@ -1,5 +1,6 @@
 ﻿@using System.Configuration
 @using Microsoft.AspNet.Identity
+@using Sam.Extensions
 <!DOCTYPE html>
 <html data-ng-app="app">
 <head>
@@ -74,25 +75,25 @@
 
 
     <script>
-        app._loggedUser = undefined;
-        @if (Request.IsAuthenticated)
+    app._loggedUser = undefined;
+    @if (Request.IsAuthenticated)
         {
         <text>
-        app.__loggedUser = { Id: '@User.Identity.GetUserId()', Name: '@User.Identity.GetUserName()', Login: '@User.Identity.GetUserName()' };
+        app.__loggedUser = { Id: '@User.Identity.GetUserId()', Name: '@User.Identity.GetUserName()', Login: '@User.Identity.GetUserName()', Employee: { UserRole: @User.Identity.GetClaimValue("Role") } };
         </text>
         }
 
-        window.__isDebugMode = @(Startup.IsDebugMode ? "true" : "false");
-        window.__webConfig = {};
+    window.__isDebugMode = @(Startup.IsDebugMode ? "true" : "false");
+    window.__webConfig = {};
 
-        @{
+    @{
         foreach (var key in ConfigurationManager.AppSettings.AllKeys.Where(k => k.StartsWith("config.")))
         {
             var value = "'" + ConfigurationManager.AppSettings.Get(key).Replace("'", "''") + "'";
             var k = key.Substring("config.".Length);
             <text>
-        window.__webConfig['@k'] = @Html.Raw(value);
-        </text>
+    window.__webConfig['@k'] = @Html.Raw(value);
+    </text>
         }
     }
     </script>

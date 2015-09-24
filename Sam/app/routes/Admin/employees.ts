@@ -8,10 +8,12 @@ module App {
                 title: 'Employees',
                 url: '/employees',
                 auth: true,
-                templateUrl: '/app/views/employees/employees.html',
+                roles: [UserRole.Admin],
+                templateUrl: '/app/views/Admin/employees/employees.html',
                 settings: {
+                    topMenu: 'MENU.20.ADMIN',
                     nav: 2,
-                    content: 'MENU.EMPLOYEES|<i class="fa fa-users"></i> Employees'
+                    content: 'MENU.EMPLOYEES'
                 },
                 files: [
                 ]

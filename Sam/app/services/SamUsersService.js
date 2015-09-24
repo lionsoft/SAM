@@ -24,19 +24,6 @@ var App;
             UsersService.prototype.prepareQuery = function (odata, isSmartLoad) {
                 // remove default behavior    
             };
-            UsersService.prototype.afterQuery = function (query) {
-                var _this = this;
-                return query.HandleError().then(function (x) {
-                    if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results']))
-                        return _this.UpdateEmployee((x[0]['Results'])).then(function () { return x; });
-                    else
-                        return _this.UpdateEmployee(x);
-                });
-            };
-            UsersService.prototype.afterGet = function (query) {
-                var _this = this;
-                return query.then(function (res) { return _this.UpdateEmployee(res); });
-            };
             UsersService.prototype.UpdateEmployee = function (p) {
                 var _this = this;
                 if (!p)
