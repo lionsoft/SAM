@@ -53,6 +53,10 @@ module App {
 
     export class ApiService extends ApiServiceBase implements IApiService {
 
+        Cards: ICardsApi = {
+            Activate: <any>{ method: "POST", route: "Activate/:cardId/:employeeId" },
+        };
+
         Account: IAccountApi = {
             Register: <any>{ method: "POST", route: "Register", params: { Login: null, Password: null } },
             Login: <any>{ method: "POST", route: "Login", params: { Login: null, Password: null, RememberMe: null } },
@@ -74,9 +78,6 @@ module App {
         Doors: IDoorsApi = {};
         DoorLists: IDoorListsApi = {};
 
-        Cards: ICardsApi = {
-            Activate: <any>{ method: "POST", route: "Activate/:cardId/:employeeId" },
-        };
         CardAccess: ICardAccessApi = {};
 
         Init() {

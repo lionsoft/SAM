@@ -214,7 +214,8 @@ module App {
                 // строку запроса - формируется запрос с параметрами в теле.
                 // Для этого тупо добавим ещё один пустой параметр.
                 // По хорошему неплохо бы проверить, что action это действительно POST, PUT, PATCH, но я не нашёл как это сделать
-                if (arguments.length === defaultParamNames.length && args.length > 0) {
+//                if (args.length === defaultParamNames.length && args.length > 0) {
+                if (defaultParamNames.$$params$$ > 0) {
                     args.push(undefined);
                 }
 
@@ -286,15 +287,15 @@ module App {
                             action.url = "{0}{1}".format(urlBase, action.route || "");
                         action.route = undefined;
                         // Заполняем параметры
+                        paramNames[method] = action.url.split(/:([\w]+)/).where(p => p && p[0] !== '/').toArray();
+                        paramNames[method].$$params$$ = paramNames[method].length; // количество параметров, перадаваемых через строку запроса
                         if (action.params) {
-                            paramNames[method] = [];
+                            paramNames[method].Clear();
                             for (var paramName in action.params) {
                                 if (action.params.hasOwnProperty(paramName)) {
                                     paramNames[method].push(paramName);
                                 }
                             }
-                        } else {
-                            paramNames[method] = action.url.split(/:([\w]+)/).where(p => p && p[0] !== '/').toArray();
                         }
 
                         if (action.transformResponse) {
