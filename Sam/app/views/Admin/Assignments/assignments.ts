@@ -38,7 +38,7 @@ module App.Controllers {
         loadCards(customerId: string) {
             this.cards = [];
             this.selectedCardId = undefined;
-            this.samCards.Load(Services.OData.create.eq("CustomerId", customerId)).then(res => {
+            this.samCards.Load(Services.OData.create.eq("CustomerId", customerId).$expand("Employees")).then(res => {
                 this.cards = res;
                 //this.selectedCardId = res.select(x => x.Id).firstOrDefault();
             });
@@ -62,18 +62,17 @@ module App.Controllers {
 
         prepareQuery(odata: Services.OData) {
             odata
-                .$expand("Card, Door, Employee, Employee.Department, ApprovedBy")
+                .$expand("Card, Door, Card.Employees, Card.Employees.Department, ApprovedBy")
                 .eq("Card.CustomerId", this.selectedCustomerId)
                 .eq("CardId", this.selectedCardId)
                 .eq("DoorId", this.selectedDoorId)
-                .eq("EmployeeId", this.selectedEmployeeId)
+                .eq("Card.Employee.Id", this.selectedEmployeeId)
             ;
             return "selectedCustomerId,selectedCardId,selectedDoorId,selectedEmployeeId";
         }
 
         prepareEdit(cardAccess: ICardAccess) {
             if (!cardAccess.Id) {
-                cardAccess.EmployeeId = this.selectedEmployeeId;
                 cardAccess.CardId = this.selectedCardId;
                 cardAccess.DoorId = this.selectedDoorId;
                 cardAccess.ApprovalLevel = ApprovalLevel.Nobody;

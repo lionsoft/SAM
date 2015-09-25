@@ -225,6 +225,7 @@
     <Compile Include="Api\System\CRUDController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Api\UsersApi\EmployeeCardsController.cs" />
     <Compile Include="Api\UsersApi\EmployeesController.cs" />
     <Compile Include="App_Start\BreezeWebApiConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
     <Compile Include="DbContext\Models\Cards\ApprovalLevel.cs" />
+    <Compile Include="DbContext\Models\Employees\EmployeeCard.cs" />
     <Compile Include="DbContext\Models\Cards\CardAccess.cs" />
     <Compile Include="DbContext\Models\Customers\DepartmentList.cs" />
     <Compile Include="DbContext\Models\Doors\DoorList.cs" />
@@ -1955,6 +1957,7 @@
     <TypeScriptCompile Include="app\services\SamCitiesService.ts" />
     <TypeScriptCompile Include="app\services\SamBuildingsService.ts" />
     <TypeScriptCompile Include="app\services\SamAreasService.ts" />
+    <TypeScriptCompile Include="app\services\SamEmployeeCardsService.ts" />
     <TypeScriptCompile Include="app\services\SamEmployeesService.ts" />
     <TypeScriptCompile Include="app\services\SamUsersService.ts" />
     <TypeScriptCompile Include="app\services\SamCompaniesService.ts">
@@ -2461,8 +2464,9 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
-    <None Include="Properties\PublishProfiles\sam-system.pubxml" />
+    <None Include="Properties\PublishProfiles\sam-azure.pubxml" />
     <Content Include="Scripts\angular-file-upload.min.js.map" />
+    <None Include="Properties\PublishProfiles\sam-system.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />

@@ -12,9 +12,6 @@ namespace Sam.DbContext
         public string DoorId { get; set; }
         public Door Door { get; set; }
 
-        public string EmployeeId { get; set; }
-        public Employee Employee { get; set; }
-
         public string ApprovedById { get; set; }
         public Employee ApprovedBy { get; set; }
 
@@ -22,5 +19,6 @@ namespace Sam.DbContext
 
         public ApprovalLevel ApprovalLevel { get; set; }
 
+        public string Note { get; set; }
     }
 }

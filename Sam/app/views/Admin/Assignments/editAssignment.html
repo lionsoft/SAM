@@ -20,6 +20,8 @@
     <div class="col-xs-6">
         <div class="form-group">
             <label class="control-label" translate>Employee</label>
+            <input class="form-control" readonly ng-model="$item.Employee.Name" />
+<!--
             <ui-select class="form-control" ng-model="$item.EmployeeId" ng-disabled="!$.employees.length">
                 <ui-select-match allow-clear="false">
                     {{$select.selected.Name}}
@@ -28,6 +30,7 @@
                     {{::employee.Name}}
                 </ui-select-choices>
             </ui-select>
+-->
         </div>
     </div>
     <!-- #endregion -->

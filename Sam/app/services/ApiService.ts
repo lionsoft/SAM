@@ -10,6 +10,7 @@ module App {
     }
 
     export interface IEmployeeApi extends IResourceClass<IEmployee> { }
+    export interface IEmployeeCardApi extends IResourceClass<IEmployeeCard> { }
 
     export interface ICustomersApi extends IResourceClass<ICustomer> { }
     export interface ICompaniesApi extends IResourceClass<ICompany> { }
@@ -30,6 +31,7 @@ module App {
 
         Account: IAccountApi;
         Employees: IEmployeeApi;
+        EmployeeCards: IEmployeeCardApi;
 
         Customers: ICustomersApi;
         Companies: ICompaniesApi;
@@ -56,6 +58,7 @@ module App {
         };
 
         Employees: IEmployeeApi = {};
+        EmployeeCards: IEmployeeCardApi = {};
 
         Customers: ICustomersApi = {};
         Companies: ICompaniesApi = {};

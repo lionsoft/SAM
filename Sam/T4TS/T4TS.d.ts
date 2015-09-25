@@ -46,6 +46,7 @@ declare module App {
         CardType?: App.CardType;
         CustomerId: string;
         Customer?: App.ICustomer;
+        Employee: App.IEmployee;
     }
     /** Generated from Sam.DbContext.CardAccess **/
     export interface ICardAccess extends App.IEntityObjectBaseId {
@@ -53,12 +54,11 @@ declare module App {
         Card: App.ICard;
         DoorId: string;
         Door: App.IDoor;
-        EmployeeId: string;
-        Employee: App.IEmployee;
         ApprovedById: string;
         ApprovedBy: App.IEmployee;
         ApprovedDate?: string;
         ApprovalLevel: App.ApprovalLevel;
+        Note: string;
     }
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {
@@ -161,11 +161,20 @@ declare module App {
         Image?: string;
         UserRole: App.UserRole;
         DepartmentId?: string;
-        Department: App.IDepartment;
+        Department?: App.IDepartment;
         ManagerId?: string;
-        Manager: App.IEmployee;
+        Manager?: App.IEmployee;
+        CardId?: string;
+        Card?: App.ICard;
         UserId?: string;
         User: App.IUser;
+    }
+    /** Generated from Sam.DbContext.EmployeeCard **/
+    export interface IEmployeeCard extends App.IEntityObjectBaseId {
+        CardId: string;
+        Card: App.ICard;
+        EmployeeId: string;
+        Employee: App.IEmployee;
     }
     /** Generated from Sam.DbContext.TypeScriptUser **/
     export interface IUser {
