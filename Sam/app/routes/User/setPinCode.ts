@@ -12,7 +12,7 @@ module App {
             templateUrl: '/app/views/User/SetPinCode/setPinCode.html',
             settings: {
                 topMenu: 'MENU.10.USER',
-                nav: 2,
+                nav: 4,
                 content: 'MENU.SET-PIN-CODE'
             },
             files: [

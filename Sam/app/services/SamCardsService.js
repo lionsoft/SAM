@@ -36,6 +36,9 @@ var App;
                 return _super.prototype.Load.call(this, (_a = Services.OData.create).$expand.apply(_a, expands).eq("CustomerId", customerId));
                 var _a;
             };
+            CardsService.prototype.Activate = function (cardId, employeeId) {
+                return this.ApiService.Activate(cardId, employeeId).HandleError();
+            };
             return CardsService;
         })(Services.CRUDService);
         App.app.service("samCards", CardsService.Factory());

@@ -17,7 +17,7 @@ module App.Controllers {
             if (LionSoftAngular.ValidateForm(form)) {
                 this.samEmployees.Load(app.$auth.LoggedUser.Employee.Id).then(e => {
                     e.PinCode = parseInt(this.pinCode);
-                    this.samEmployees.Save(e).then(() => alert("PIN code has been successfully changed."));
+                    this.samEmployees.Save(e).then(() => success("PIN code has been successfully changed."));
                 });
             }
         }

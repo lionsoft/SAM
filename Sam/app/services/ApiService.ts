@@ -21,7 +21,9 @@ module App {
     export interface IBuildingsApi extends IResourceClass<IBuilding> { }
     export interface IAreasApi extends IResourceClass<IArea> { }
     export interface IDoorsApi extends IResourceClass<IDoor> { }
-    export interface ICardsApi extends IResourceClass<ICard> { }
+    export interface ICardsApi extends IResourceClass<ICard> {
+        Activate(cardId: string, employeeId: string): IPromise<void>;
+    }
     export interface IDoorListsApi extends IResourceClass<IDoorList> { }
     export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
     export interface ICardAccessApi extends IResourceClass<ICardAccess> { }
@@ -72,7 +74,9 @@ module App {
         Doors: IDoorsApi = {};
         DoorLists: IDoorListsApi = {};
 
-        Cards: ICardsApi = {};
+        Cards: ICardsApi = {
+            Activate: <any>{ method: "POST", route: "Activate/:cardId/:employeeId" },
+        };
         CardAccess: ICardAccessApi = {};
 
         Init() {

@@ -37,13 +37,13 @@
                                 <th translate st-sort="Name">Email</th>
                                 <th translate st-sort="Department.Name">Department</th>
                                 <th translate st-sort="Manager.Name">Manager</th>
-                                <th translate st-sort="PinCode">PinCode</th>
+                                <th translate class="text-center" st-sort="PinCode">PinCode</th>
                                 <th translate st-sort="Image">Image</th>
                                 <th translate st-sort="Status">Status</th>
                                 <th translate st-sort="Role">Role</th>
                                 <th translate st-sort="User.UserName">User</th>
-                                <th translate st-sort="CreatedBy.Id">CreatedBy</th>
-                                <th translate st-sort="CreatedDate">CreatedDate</th>
+                                <th nowrap translate st-sort="CreatedBy.Id">CreatedBy</th>
+                                <th nowrap translate st-sort="CreatedDate">CreatedDate</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,7 +56,7 @@
                                 <td class="max-truncate-10em" tooltip="{{employee.Email}}">{{employee.Email}}</td>
                                 <td class="max-truncate-10em" tooltip="{{employee.Department.Name}}">{{employee.Department.Name}}</td>
                                 <td class="max-truncate-10em" tooltip="{{employee.Manager.Name}}">{{employee.Manager.Name}}</td>
-                                <td nowrap>{{employee.PinCode}}</td>
+                                <td nowrap class="text-center">{{employee.PinCode}}</td>
                                 <td class="max-truncate-15em"
                                     popover-template="employee.Image ? 'EmployeeImagePopoverTemplate.html' : ''"
                                     popover-trigger="mouseenter">

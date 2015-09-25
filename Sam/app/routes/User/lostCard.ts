@@ -12,7 +12,7 @@ module App {
             templateUrl: '/app/views/User/lostCard/lostCard.html',
             settings: {
                 topMenu: 'MENU.10.USER',
-                nav: 1,
+                nav: 3,
                 content: 'MENU.LOST-MY-CARD'
             },
             files: [

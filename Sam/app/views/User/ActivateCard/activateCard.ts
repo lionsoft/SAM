@@ -34,8 +34,10 @@ module App.Controllers {
                         var card = c.firstOrDefault();
                         if (!card)
                             this.popupService.warning("There is no card with this activation code.");
+                        else if (card.Status !== CardStatus.Inactive)
+                            this.popupService.warning("The card cannot be activated. It is already actived or lost.");
                         else {
-                            success('OK');
+                            this.samCards.Activate(card.Id, app.$auth.LoggedUser.Employee.Id).then(() => success('Your card has been successfully activated.'));
                         }
                     });
                 }

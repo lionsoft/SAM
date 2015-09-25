@@ -5,9 +5,13 @@ module App.Services {
     export interface ICardsService extends ICRUDService<ICard> {
         /**
          * Load employees for the specified customer only
-         * @param customerId customer Id
          */
         LoadByCustomer(customerId: string, ...expands: string[]): IPromise<ICard[]>;
+
+        /**
+         * Activate an employee card.
+         */
+        Activate(cardId: string, employeeId: string): IPromise<void>;
     }
 
     class CardsService extends CRUDService<ICard> implements ICardsService {
@@ -24,11 +28,14 @@ module App.Services {
                 odata.$orderBy("Number");
         }
 
-
-
         LoadByCustomer(customerId: string, ...expands: string[]): IPromise<ICard[]> {
             return super.Load(OData.create.$expand(...expands).eq("CustomerId", customerId));
         }
+
+        Activate(cardId: string, employeeId: string): IPromise<void> {
+            return this.ApiService.Activate(cardId, employeeId).HandleError();
+        }
+
     }
 
 
