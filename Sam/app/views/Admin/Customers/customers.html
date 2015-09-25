@@ -10,7 +10,7 @@
                 <div class="st-table-search">
                     <h3>
                         <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                        <span>Customers</span>
+                        <span translate>Customers</span>
                     </h3>
                     <input st-search class="form-control" translate translate-attr-placeholder="Search..." />
                 </div>
@@ -22,8 +22,8 @@
                         <tr>
                             <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
                             <th translate st-sort-default auto-size st-sort="Name">Name</th>
-                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
-                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                            <th nowrap translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th nowrap translate st-sort="CreatedDate">CreatedDate</th>
                         </tr>
                     </thead>
                     <!-- #endregion -->
@@ -56,7 +56,7 @@
                 <div class="st-table-search">
                     <h3>
                         <button ng-click="$edit()" ng-disabled="!$.selectedCustomerId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                        <span>Companies</span>
+                        <span translate>Companies</span>
                     </h3>
                     <input st-search="Name,Address1,Address2,ZipCode" class="form-control" translate translate-attr-placeholder="Search..." />
                 </div>
@@ -71,8 +71,8 @@
                             <th translate auto-size st-sort="Address1">Address1</th>
                             <th translate auto-size st-sort="Address2">Address2</th>
                             <th translate st-sort="ZipCode">ZipCode</th>
-                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
-                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                            <th nowrap translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th nowrap translate st-sort="CreatedDate">CreatedDate</th>
                         </tr>
                     </thead>
                     <!-- #endregion -->
@@ -108,7 +108,7 @@
                 <div class="st-table-search">
                     <h3>
                         <button ng-click="$edit()" ng-disabled="!$.selectedCompanyId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                        <span>Departments</span>
+                        <span translate>Departments</span>
                     </h3>
                     <input st-search class="form-control" translate translate-attr-placeholder="Search..." />
                 </div>
@@ -120,8 +120,8 @@
                         <tr>
                             <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
                             <th translate auto-size st-sort-default st-sort="Name">Name</th>
-                            <th translate st-sort="CreatedBy.Id">CreatedBy</th>
-                            <th translate st-sort="CreatedDate">CreatedDate</th>
+                            <th nowrap translate st-sort="CreatedBy.Id">CreatedBy</th>
+                            <th nowrap translate st-sort="CreatedDate">CreatedDate</th>
                         </tr>
                     </thead>
                     <!-- #endregion -->

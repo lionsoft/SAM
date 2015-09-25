@@ -1,0 +1,47 @@
+Enums:
+-----
+
+CardStatus
+    Active
+    Lost
+    Inactive
+    
+CardType
+    Guest
+    Internal
+    Other...
+    
+UserRoles 
+    Normal,
+    Manager, 
+    AreaOwner, 
+    BuildingOwner, 
+    DoorOwner,
+    Admin 
+    
+ApprovalLevel
+  Manager  - Manager
+  Building - Manager, BuildingOwner
+  Area     - Manager, AreaOwner, BuildingOwner
+  Door     - Manager, AreaOwner, BuildingOwner, DoorOwner 
+
+
+  
+Questions:
+  
+  Could Manager, AreaOwner, BuildingOwner, DoorOwner be the same person?
+  Do they have in this case to make several confirmations?
+  
+
+  DepartmentLists
+    WAT  ApprovedBy
+
+  Doors
+    WAT  PreApproved 
+
+  Can an employee to have many active cards in the same time?
+  Do I have to store employee's card history? 
+  It seems I can add reference to the Employee in the Card and set it when the employee activate his new card?
+  According to the previous item - the field EmployeeId in the CardAccess table doesn't need longer?
+
+   

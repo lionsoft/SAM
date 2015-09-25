@@ -1,0 +1,24 @@
+﻿'use strict';
+
+module App {
+    app.config(() => {
+    Routes.push(
+        {
+            name: 'lostCard',
+            title: 'LostMyCard',
+            url: '/lostCard',
+            auth: true,
+            //roles: [UserRole.Normal],
+            templateUrl: '/app/views/User/lostCard/lostCard.html',
+            settings: {
+                topMenu: 'MENU.10.USER',
+                nav: 1,
+                content: 'MENU.LOST-MY-CARD'
+            },
+            files: [
+            ]
+        }
+    );
+    });
+   
+}

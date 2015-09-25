@@ -4,12 +4,10 @@
             <div class="row">
                 <div class="col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-10">
                     <div class="row">
-                        <h2 translate>Make active id-card</h2>
-                        <p translate>
-                            For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.
-                        </p>
+                        <h2 translate>If I lost my card</h2>
                     </div>
-                    <pre class="bg-danger" translate ng-show="$.noPinCode">YouHaveNoPinCode</pre>
+<!--
+                    <pre class="mark" translate ng-show="$.noPinCode">You has no Pin Code defined. Ask your administrator to set it up.</pre>
                     <div class="row">
                         <form class="form-horizontal" novalidate role="form" name="form">
                             <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.activationCode.$invalid && form.activationCode.$touched }">
@@ -26,6 +24,9 @@
                                     <span ng-show="form.pinCode.$invalid && form.pinCode.$touched" class="red" translate>MustBeSet</span>
                                 </div>
                             </div>
+                            <p>
+                                For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.
+                            </p>
                             <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-6 col-md-4 text-right">
                                     <button translate type="submit" ng-disabled="$.noPinCode" ng-click="$.Activate(form)" class="btn btn-default">Activate</button>
@@ -33,6 +34,7 @@
                             </div>
                         </form>
                     </div>
+-->
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 ﻿<!-- #region - Login - -->
 <div class="form-group has-warning" ng-class="{ 'has-error' : form.login.$invalid && form.login.$touched }">
     <label class="control-label" translate>Login</label>
-    <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.UserName" name="login" />
+    <input class="form-control" type="text" translate translate-attr-placeholder="required" autofocus required ng-model="$item.UserName" name="login" />
     <span ng-show="form.login.$invalid && form.login.$touched" class="red" translate>MustBeSet</span>
 </div>
 <!-- #endregion -->
@@ -9,7 +9,7 @@
 <!-- #region - Email - -->
 <div class="form-group has-warning" ng-class="{ 'has-error' : form.Email.$invalid && form.Email.$touched }">
     <label class="control-label" translate>Email</label>
-    <input class="form-control" type="text" placeholder="required" required ng-model="$item.Email" name="Email" />
+    <input class="form-control" type="text" translate translate-attr-placeholder="required" required ng-model="$item.Email" name="Email" />
     <span ng-show="form.Email.$invalid && form.Email.$touched" class="red" translate>MustBeSet</span>
 </div>
 <!-- #endregion -->
@@ -17,7 +17,7 @@
 <!-- #region - Password - -->
 <div class="form-group has-warning" ng-class="{ 'has-error' : form.password.$invalid && form.password.$touched }" ng-hide="$item.Id">
     <label class="control-label" translate>Password</label>
-    <input class="form-control" type="password" placeholder="required" required ng-model="$item.PasswordHash" name="password" />
+    <input class="form-control" type="password" translate translate-attr-placeholder="required" required ng-model="$item.PasswordHash" name="password" />
     <span ng-show="form.password.$invalid && form.password.$touched" class="red" translate>MustBeSet</span>
 </div>
 <!-- #endregion -->

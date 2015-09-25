@@ -17,12 +17,27 @@
     "TablePaginationShowOf": " of ",
 
 
+    "InvalidPinCode": "Invalid Pin Code.",
+                 
+    "Activate": "Activate",
+    "Submit":  "Submit",
+    "Name": "Name",
+    "PinCode": "PIN Code",
+    "ConfirmPinCode":  "Confirm PIN Code",
+    "required": "required",
+    "CreatedBy": "Created By",
+    "CreatedDate": "Created Date",
+
+    "Customers": "Customers",
+    "Companies": "Companies",
+    "Departments": "Departments",
+
 
     "MENU": {
         "20.ADMIN": "<i class='fa fa-cog'></i> Admin Area",
         "10.USER": "<i class='fa fa-user'></i> User Area",
-        
-        
+
+
         "ASSIGNMENTS": "<i class='fa fa-gg'></i> Assignments",
         "CARDS": "<i class='fa fa-credit-card'></i> Cards",
         "CUSTOMERS": "<i class='fa fa-briefcase'></i> Customers",
@@ -32,22 +47,23 @@
         "USERS": "<i class='fa fa-user'></i> Users",
 
         "ACTIVATE-MY-CARD": "<i class='fa fa-credit-card'></i> Activate Card",
+        "APPLY-TO-GET-ACCESS": "<i class='fa fa-credit-card'></i> Get Access",
+        "LOST-MY-CARD": "<i class='fa fa-credit-card'></i> Lost Card",
+        "SET-PIN-CODE": "<i class='fa fa-credit-card'></i> Set PIN",
+
 
         "SignIn": "Sign In",
         "SignOut": "Sign Out"
     },
 
+    "activateCard": {
+        "YouHaveNoPinCode": "You have no Pin Code defined. Please <a href='/#/setPinCode'>set it up</a> before."
+    },
 
-    "customers": {
-        "Customers": "Customers",
-        "Edit Customer": "Edit Customer",
-        "Delete Customer": "Edit Customer",
-        "New Customer": "New Customer",
-
-        "Companies": "Companies",
-        "Departments": "Departments"
+    "setPinCode": {
+        "EnterNewPin": "enter new PIN code",
+        "ConfirmPin": "confirm your new PIN"
     }
-
 
 
 }

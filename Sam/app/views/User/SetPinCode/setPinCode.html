@@ -1,0 +1,43 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-10">
+                    <div class="row">
+                        <h2 translate>If I forgot my PIN code</h2>
+                        <p translate>
+                            For set or renew your personal PIN code you need to set it below.
+                        </p>
+                        <pre translate class="bg-warning">Never give it to anyone.</pre>
+                    </div>
+                    <div class="row">
+                        <form class="form-horizontal" novalidate role="form" name="form" autocomplete="off">
+                            <!-- Need to disable password autocomplete in the Chrome -->
+                            <input type="password" style="display: none">
+                            <!--------------------------------------------------------->
+                            <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.pinCode.$invalid && form.pinCode.$touched }">
+                                <label translate class="col-sm-4 control-label">PinCode</label>
+                                <div class="col-sm-6 col-md-4">
+                                    <input type="password" ng-model="$.pinCode" class="form-control" name="pinCode" maxlength="4" required translate translate-attr-placeholder="EnterNewPin">
+                                    <span ng-show="form.pinCode.$invalid && form.pinCode.$touched" class="red" translate>MustBeSet</span>
+                                </div>
+                            </div>
+                            <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.confirmPinCode.$invalid && form.confirmPinCode.$touched }">
+                                <label translate class="col-sm-4 control-label">ConfirmPinCode</label>
+                                <div class="col-sm-6 col-md-4">
+                                    <input type="password" ng-model="$.confirmPinCode" class="form-control" maxlength="4" name="confirmPinCode" required translate translate-attr-placeholder="ConfirmPin">
+                                    <span ng-show="form.confirmPinCode.$invalid && form.confirmPinCode.$touched" class="red" translate>MustBeSet</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-6 col-md-4 text-right">
+                                    <button translate type="submit" ng-click="$.Submit(form)" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

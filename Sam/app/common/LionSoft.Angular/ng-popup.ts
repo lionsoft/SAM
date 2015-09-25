@@ -116,28 +116,28 @@ module LionSoftAngular {
 
 
 
-                this.popupModal = (templateUrl: string, scope?: any, popupDefaults?: LionSoftAngular.IPopupDefaults): ng.IPromise<any> => {
+                this.popupModal = (templateUrl: string, scope?: any, popupDefaults?: IPopupDefaults): ng.IPromise<any> => {
                     popupDefaults = popupDefaults || {};
                     popupDefaults.backdrop = 'static';
                     return this.showDialog({ templateUrl: templateUrl, scope: scope }, popupDefaults);
                 };
 
-                this.popup = (templateUrl: string, scope?: any, popupDefaults?: LionSoftAngular.IPopupDefaults): ng.IPromise<any> => {
+                this.popup = (templateUrl: string, scope?: any, popupDefaults?: IPopupDefaults): ng.IPromise<any> => {
                     popupDefaults = popupDefaults || {};
                     popupDefaults.backdrop = LionSoftAngular.popupDefaults.backdrop;
                     return this.showDialog({ templateUrl: templateUrl, scope: scope }, popupDefaults);
                 };
 
-                this.showDialog = (dialogOptions: LionSoftAngular.IPopupDialogOptions, popupDefaults?: LionSoftAngular.IPopupDefaults): ng.IPromise<boolean> => {
+                this.showDialog = (dialogOptions: IPopupDialogOptions, popupDefaults?: IPopupDefaults): ng.IPromise<boolean> => {
 
                     popupDefaults = popupDefaults || {};
 
                     //Create temp objects to work with since we're in a singleton service
-                    var tempPopupDefaults: LionSoftAngular.IPopupDefaults = {};
+                    var tempPopupDefaults: IPopupDefaults = {};
 
                     angular.extend(tempPopupDefaults, LionSoftAngular.popupDefaults, popupDefaults);
 
-                    var tempDialogOptions: LionSoftAngular.IPopupDialogOptions = dialogOptions || {};
+                    var tempDialogOptions: IPopupDialogOptions = dialogOptions || {};
                     tempDialogOptions.templateUrl = tempDialogOptions.templateUrl || LionSoftAngular.popupDefaults.defaultDialogTemplateUrl;
                     if (!tempDialogOptions.yesButtonContent && !tempDialogOptions.noButtonContent && !tempDialogOptions.cancelButtonContent)
                         tempDialogOptions.yesButtonContent = "OK";

@@ -88,12 +88,12 @@ p{
 }
 
 a{
-	color: #333;
+	/*color: #333;*/
 	text-decoration: none !important;
 }
 
 a:hover{
-	color: #888;
+	/*color: #888;*/
 	text-decoration: none;
 }
 

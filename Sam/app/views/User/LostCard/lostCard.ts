@@ -2,7 +2,7 @@
 
 module App.Controllers {
 
-    class ActivateCard extends PageController {
+    class LostCard extends PageController {
 
         samCards: Services.ICardsService;
         samEmployees: Services.IEmployeesService;
@@ -27,7 +27,7 @@ module App.Controllers {
         public Activate(form) {
             if (LionSoftAngular.ValidateForm(form)) {
                 if (app.$auth.LoggedUser.Employee.PinCode !== parseInt(this.pinCode))
-                    this.popupService.warning("InvalidPinCode");
+                    this.popupService.warning("Invalid Pin Code.");
                 else {
                     // Search the card with the activating code
                     this.samCards.Load(Services.OData.create.eq("ActivationCode", this.activationCode).$top(1)).then(c => {
@@ -35,7 +35,7 @@ module App.Controllers {
                         if (!card)
                             this.popupService.warning("There is no card with this activation code.");
                         else {
-                            success('OK');
+                            alert('OK');
                         }
                     });
                 }
@@ -43,6 +43,6 @@ module App.Controllers {
         }
     }
 
-    app.controller('activateCard', ActivateCard.Factory("samCards", "samEmployees", "samUsers"));
+    app.controller('lostCard', LostCard.Factory("samCards", "samEmployees", "samUsers"));
 
 } 

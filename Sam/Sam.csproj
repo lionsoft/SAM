@@ -744,6 +744,15 @@
     <Content Include="app\routes\login.js">
       <DependentUpon>login.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\User\lostCard.js">
+      <DependentUpon>lostCard.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\setPinCode.js">
+      <DependentUpon>setPinCode.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\applyAccess.js">
+      <DependentUpon>applyAccess.ts</DependentUpon>
+    </Content>
     <Content Include="app\routes\User\activateCard.js">
       <DependentUpon>activateCard.ts</DependentUpon>
     </Content>
@@ -931,6 +940,18 @@
     <Content Include="app\views\login\login.js">
       <DependentUpon>login.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\User\SetPinCode\setPinCode.css">
+      <DependentUpon>setPinCode.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\SetPinCode\setPinCode.html" />
+    <Content Include="app\views\User\LostCard\lostCard.css">
+      <DependentUpon>lostCard.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\LostCard\lostCard.html" />
+    <Content Include="app\views\User\ApplyAccess\applyAccess.css">
+      <DependentUpon>applyAccess.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\ApplyAccess\applyAccess.html" />
     <Content Include="app\views\User\ActivateCard\activateCard.css">
       <DependentUpon>activateCard.less</DependentUpon>
     </Content>
@@ -1921,6 +1942,9 @@
     <TypeScriptCompile Include="app\routes\Admin\lists.ts" />
     <TypeScriptCompile Include="app\routes\Admin\employees.ts" />
     <TypeScriptCompile Include="app\routes\Admin\doors.ts" />
+    <TypeScriptCompile Include="app\routes\User\lostCard.ts" />
+    <TypeScriptCompile Include="app\routes\User\setPinCode.ts" />
+    <TypeScriptCompile Include="app\routes\User\applyAccess.ts" />
     <TypeScriptCompile Include="app\routes\User\activateCard.ts" />
     <TypeScriptCompile Include="app\services\SamCardAccessService.ts" />
     <TypeScriptCompile Include="app\services\SamCardsService.ts" />
@@ -2259,6 +2283,15 @@
     <Content Include="app\routes\User\activateCard.js.map">
       <DependentUpon>activateCard.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\User\applyAccess.js.map">
+      <DependentUpon>applyAccess.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\setPinCode.js.map">
+      <DependentUpon>setPinCode.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\lostCard.js.map">
+      <DependentUpon>lostCard.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Admin\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -2345,6 +2378,9 @@
     <Content Include="app\views\Admin\Customers\editDepartment.less" />
     <Content Include="app\views\Admin\Customers\editCompany.less" />
     <Content Include="app\views\User\ActivateCard\activateCard.less" />
+    <Content Include="app\views\User\ApplyAccess\applyAccess.less" />
+    <Content Include="app\views\User\LostCard\lostCard.less" />
+    <Content Include="app\views\User\SetPinCode\setPinCode.less" />
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -2488,6 +2524,9 @@
     <TypeScriptCompile Include="app\views\Admin\Lists\editDepartmentList.ts" />
     <TypeScriptCompile Include="app\views\Admin\Lists\editDoorList.ts" />
     <TypeScriptCompile Include="app\views\Admin\Lists\lists.ts" />
+    <TypeScriptCompile Include="app\views\User\SetPinCode\setPinCode.ts" />
+    <TypeScriptCompile Include="app\views\User\LostCard\lostCard.ts" />
+    <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />
     <TypeScriptCompile Include="app\views\User\ActivateCard\activateCard.ts" />
     <TypeScriptCompile Include="Scripts\typings\bootstrap.v3.datetimepicker\bootstrap.v3.datetimepicker.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />

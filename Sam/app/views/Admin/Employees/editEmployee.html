@@ -4,7 +4,7 @@
     <div class="col col-xs-6">
         <div class="form-group has-warning" ng-class="{ 'has-error' : form.Name.$invalid && form.Name.$touched }">
             <label class="control-label" translate>Name</label>
-            <input class="form-control" type="text" placeholder="required" autofocus required ng-model="$item.Name" name="Name" />
+            <input class="form-control" type="text" translate translate-attr-placeholder="required" autofocus required ng-model="$item.Name" name="Name" />
             <span ng-show="form.Name.$invalid && form.Name.$touched" class="red" translate>MustBeSet</span>
         </div>
     </div>
