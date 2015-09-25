@@ -29,7 +29,7 @@ module App.Controllers {
             this.activate(
                 this.samCustomers.Load().then(res => {
                     this.customers = res;
-                    this.selectedCustomerId = res.select(x => x.Id).firstOrDefault();
+                    //this.selectedCustomerId = res.select(x => x.Id).firstOrDefault();
                 })
                 , this.samEmployees.Load().then(res => this.employees = res)
             );

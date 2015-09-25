@@ -22,7 +22,7 @@ module App.Controllers {
         }
 
         Activated() {
-            this.$scope.$watch("$.customers", () => this.selectedCustomerId = this.customers.select(x => x.Id).firstOrDefault());
+            //this.$scope.$watch("$.customers", () => this.selectedCustomerId = this.customers.select(x => x.Id).firstOrDefault());
         }
 
         prepareQuery(odata: Services.OData) {
