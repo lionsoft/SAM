@@ -64,28 +64,7 @@ namespace Sam
                 , "~/Scripts/angular-ui.js"
                 , "~/Scripts/select.js"
 
-                , "~/Scripts/DataTables/jquery.dataTables.js"
-                , "~/Scripts/DataTables/jQuery.dataTables.oData.js"
-                , "~/Scripts/DataTables/jquery.dataTables.naturalSort.js"
-
-                , "~/Scripts/DataTables/dataTables.bootstrap.js"
-
-                , "~/Scripts/DataTables/dataTables.autoFill.js"
-                , "~/Scripts/DataTables/dataTables.colReorder.js"
-                , "~/Scripts/DataTables/dataTables.colVis.js"
-                , "~/Scripts/DataTables/dataTables.fixedColumns.js"
-                , "~/Scripts/DataTables/dataTables.fixedHeader.js"
-                , "~/Scripts/DataTables/dataTables.responsive.js"
-                , "~/Scripts/DataTables/dataTables.scroller.js"
-                , "~/Scripts/DataTables/dataTables.tableTools.js"
-                , "~/Scripts/jquery.dataTables.columnFilter.js"
-
-                , "~/Scripts/DataTables/angular-datatables.js"
-                , "~/Scripts/DataTables/plugins/bootstrap/angular-datatables.bootstrap.js"
-
                 , "~/Scripts/smart-table.js"
-
-
 
                 , "~/Scripts/linq.js"
                 , "~/Scripts/linq.jquery.js"
@@ -123,6 +102,7 @@ namespace Sam
                     , "~/app/common/LionSoft.Angular/ng-inverted.js"
                     , "~/app/common/LionSoft.Angular/ng-popup.js"
                     , "~/app/common/LionSoft.Angular/ng-tag.js"
+                    , "~/app/common/LionSoft.Angular/ng-match.js"
                     , "~/app/common/LionSoft.Angular/nv-fill-container.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/app")

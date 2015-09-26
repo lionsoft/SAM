@@ -27,6 +27,7 @@ namespace Sam.Api
             if (c.Status == CardStatus.Inactive)
             {
                 c.Status = CardStatus.Active;
+                c.ActivationCode = null;
                 var e = Db.Employees.Find(employeeId);
                 if (e == null) throw new ApplicationException("Employee not found.");
                 e.CardId = cardId;

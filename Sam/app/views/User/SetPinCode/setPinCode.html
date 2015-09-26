@@ -19,14 +19,14 @@
                                 <label translate class="col-sm-4 control-label">PinCode</label>
                                 <div class="col-sm-6 col-md-4">
                                     <input type="password" ng-model="$.pinCode" class="form-control" name="pinCode" maxlength="4" required translate translate-attr-placeholder="EnterNewPin">
-                                    <span ng-show="form.pinCode.$invalid && form.pinCode.$touched" class="red" translate>MustBeSet</span>
+                                    <span ng-show="form.pinCode.$error.required && form.pinCode.$touched" class="red" translate>MustBeSet</span>
                                 </div>
                             </div>
                             <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.confirmPinCode.$invalid && form.confirmPinCode.$touched }">
                                 <label translate class="col-sm-4 control-label">ConfirmPinCode</label>
                                 <div class="col-sm-6 col-md-4">
-                                    <input type="password" ng-model="$.confirmPinCode" class="form-control" maxlength="4" name="confirmPinCode" required translate translate-attr-placeholder="ConfirmPin">
-                                    <span ng-show="form.confirmPinCode.$invalid && form.confirmPinCode.$touched" class="red" translate>MustBeSet</span>
+                                    <input type="password" ng-match="$.pinCode" ng-model="$.confirmPinCode" class="form-control" maxlength="4" name="confirmPinCode" required translate translate-attr-placeholder="ConfirmPin">
+                                    <span ng-show="form.confirmPinCode.$error.match && form.confirmPinCode.$touched" class="red" translate>PasswordsDoNotMatch</span>
                                 </div>
                             </div>
                             <div class="form-group">

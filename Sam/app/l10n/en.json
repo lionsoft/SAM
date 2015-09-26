@@ -4,7 +4,6 @@
     "SaveChanges": "Save Changes",
     "Cancel": "Cancel",
     "AskDelete": "{1}: Delete {0}?",
-    "MustBeSet": "Field must be set",
 
     "Name": "Name",
 
@@ -16,15 +15,16 @@
     "TablePaginationShowEntriesPostfix": " entries",
     "TablePaginationShowOf": " of ",
 
+    "required": "required",
+    "MustBeSet": "Field must be set",
+    "PasswordsDoNotMatch": "Password doesn't match",
 
     "InvalidPinCode": "Invalid Pin Code.",
-                 
     "Activate": "Activate",
     "Submit":  "Submit",
     "Name": "Name",
     "PinCode": "PIN Code",
     "ConfirmPinCode":  "Confirm PIN Code",
-    "required": "required",
     "CreatedBy": "Created By",
     "CreatedDate": "Created Date",
 

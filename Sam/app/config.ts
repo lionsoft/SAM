@@ -66,20 +66,6 @@ module App {
         stConfig.select.selectedClass = "active";
     }]);
     //#endregion
-
-    app.run(['$injector', (i) => {
-        $.extend($.fn.dataTable.defaults, {
-            info: false,
-            processing: true,
-            searching: true,
-            ordering: true,
-            paging: true,
-            //scrollY: 160,
-            scrollCollapse: false,
-            scrollX: true,
-        });
-    }]);
-
 }
 
 

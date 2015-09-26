@@ -33,9 +33,6 @@ module App {
         "LionSoftAngular",
         "ui",
         "ui.select",
-        "datatables",
-        "datatables.factory",
-        "datatables.bootstrap",
 
         "smart-table",
 

@@ -637,9 +637,6 @@
     <Content Include="app\decorators\controllerService.js">
       <DependentUpon>controllerService.ts</DependentUpon>
     </Content>
-    <Content Include="app\decorators\DTRendererService.js">
-      <DependentUpon>DTRendererService.ts</DependentUpon>
-    </Content>
     <Content Include="app\decorators\qService.js">
       <DependentUpon>qService.ts</DependentUpon>
     </Content>
@@ -1913,10 +1910,10 @@
     <TypeScriptCompile Include="app\common\Controller.ts" />
     <TypeScriptCompile Include="app\common\EnumFilter.ts" />
     <TypeScriptCompile Include="app\common\Filter.ts" />
+    <TypeScriptCompile Include="app\common\LionSoft.Angular\ng-match.ts" />
     <TypeScriptCompile Include="app\common\utils\SmartTable.ts" />
     <TypeScriptCompile Include="app\common\utils\ResizeListener.ts" />
     <TypeScriptCompile Include="app\decorators\controllerService.ts" />
-    <TypeScriptCompile Include="app\decorators\DTRendererService.ts" />
     <TypeScriptCompile Include="app\decorators\qService.ts" />
     <TypeScriptCompile Include="app\decorators\stTable.ts" />
     <TypeScriptCompile Include="app\decorators\stSearchDirective.ts" />
@@ -2142,9 +2139,6 @@
       <DependentUpon>SamCustomersService.ts</DependentUpon>
     </Content>
     <Content Include="app\css\ui-select.less" />
-    <Content Include="app\decorators\DTRendererService.js.map">
-      <DependentUpon>DTRendererService.ts</DependentUpon>
-    </Content>
     <Content Include="app\services\SamUsersService.js.map">
       <DependentUpon>SamUsersService.ts</DependentUpon>
     </Content>
