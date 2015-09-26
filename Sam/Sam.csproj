@@ -398,6 +398,9 @@
     <Content Include="app\common\LionSoft.Angular\ng-inverted.js">
       <DependentUpon>ng-inverted.ts</DependentUpon>
     </Content>
+    <Content Include="app\common\LionSoft.Angular\ng-match.js">
+      <DependentUpon>ng-match.ts</DependentUpon>
+    </Content>
     <Content Include="app\common\LionSoft.Angular\ng-popup.js">
       <DependentUpon>ng-popup.ts</DependentUpon>
     </Content>
@@ -564,6 +567,9 @@
     <Content Include="app\common\LionSoft.Angular\html\edit-form.less" />
     <Content Include="app\common\utils\SmartTable.js.map">
       <DependentUpon>SmartTable.ts</DependentUpon>
+    </Content>
+    <Content Include="app\common\LionSoft.Angular\ng-match.js.map">
+      <DependentUpon>ng-match.ts</DependentUpon>
     </Content>
     <None Include="app\css\buttons.less" />
     <None Include="app\css\Colors.less" />
@@ -939,6 +945,15 @@
     <Content Include="app\views\login\login.js">
       <DependentUpon>login.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\User\ActivateCard\activateCard.js">
+      <DependentUpon>activateCard.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\ApplyAccess\applyAccess.js">
+      <DependentUpon>applyAccess.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\LostCard\lostCard.js">
+      <DependentUpon>lostCard.ts</DependentUpon>
+    </Content>
     <Content Include="app\views\User\SetPinCode\setPinCode.css">
       <DependentUpon>setPinCode.less</DependentUpon>
     </Content>
@@ -955,6 +970,9 @@
       <DependentUpon>activateCard.less</DependentUpon>
     </Content>
     <Content Include="app\views\User\ActivateCard\activateCard.html" />
+    <Content Include="app\views\User\SetPinCode\setPinCode.js">
+      <DependentUpon>setPinCode.ts</DependentUpon>
+    </Content>
     <Content Include="Content\angular-ui.css" />
     <Content Include="Content\angular-ui.min.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -2378,6 +2396,18 @@
     <Content Include="app\views\User\ApplyAccess\applyAccess.less" />
     <Content Include="app\views\User\LostCard\lostCard.less" />
     <Content Include="app\views\User\SetPinCode\setPinCode.less" />
+    <Content Include="app\views\User\ActivateCard\activateCard.js.map">
+      <DependentUpon>activateCard.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\ApplyAccess\applyAccess.js.map">
+      <DependentUpon>applyAccess.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\LostCard\lostCard.js.map">
+      <DependentUpon>lostCard.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\SetPinCode\setPinCode.js.map">
+      <DependentUpon>setPinCode.ts</DependentUpon>
+    </Content>
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
