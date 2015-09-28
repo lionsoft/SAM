@@ -58,7 +58,7 @@ module App {
         static ExctractError(err: any): string {
             var error = (err || "Fatal error").toString();
             if (typeof err.data === "object") {
-                if (typeof err.data.ModelState === "object")
+                if (err.data.ModelState && typeof err.data.ModelState === "object")
                     error = err.data.ModelState[""];
                 else
                     error = (err.data.ExceptionMessage == undefined) ? err.data.Message : err.data.ExceptionMessage;

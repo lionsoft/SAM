@@ -23,6 +23,7 @@ module App {
     export interface IDoorsApi extends IResourceClass<IDoor> { }
     export interface ICardsApi extends IResourceClass<ICard> {
         Activate(cardId: string, employeeId: string): IPromise<void>;
+        LostCardRequest(explanation: string, employeeId?: string): IPromise<void>;
     }
     export interface IDoorListsApi extends IResourceClass<IDoorList> { }
     export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
@@ -55,6 +56,7 @@ module App {
 
         Cards: ICardsApi = {
             Activate: <any>{ method: "POST", route: "Activate/:cardId/:employeeId" },
+            LostCardRequest: <any>{ method: "POST", route: "LostCardRequest", params: { EmployeeId: null, Explanation: null } },
         };
 
         Account: IAccountApi = {

@@ -39,6 +39,9 @@ var App;
             CardsService.prototype.Activate = function (cardId, employeeId) {
                 return this.ApiService.Activate(cardId, employeeId).HandleError();
             };
+            CardsService.prototype.LostCardRequest = function (explanation, employeeId) {
+                return this.ApiService.LostCardRequest(employeeId, explanation).HandleError();
+            };
             return CardsService;
         })(Services.CRUDService);
         App.app.service("samCards", CardsService.Factory());

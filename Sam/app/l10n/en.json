@@ -21,10 +21,10 @@
 
     "InvalidPinCode": "Invalid Pin Code.",
     "Activate": "Activate",
-    "Submit":  "Submit",
+    "Submit": "Submit",
     "Name": "Name",
     "PinCode": "PIN Code",
-    "ConfirmPinCode":  "Confirm PIN Code",
+    "ConfirmPinCode": "Confirm PIN Code",
     "CreatedBy": "Created By",
     "CreatedDate": "Created Date",
 
@@ -63,6 +63,10 @@
     "setPinCode": {
         "EnterNewPin": "enter new PIN code",
         "ConfirmPin": "confirm your new PIN"
+    },
+
+    "lostCard": { 
+        "ILostMyCardExplanation":  "please, enter details how did you lost your card. Your card will be blocked immediately."
     }
 
 

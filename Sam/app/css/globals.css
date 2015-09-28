@@ -1963,7 +1963,8 @@
   text-overflow: ellipsis;
   max-width: 80em !important;
 }
-.form-group.has-error input.form-control {
+.form-group.has-error input.form-control,
+.form-group.has-error textarea.form-control {
   position: relative;
 }
 .form-group.has-error span.red {

@@ -211,6 +211,7 @@
     <Compile Include="Api\DoorsApi\CitiesController.cs" />
     <Compile Include="Api\DoorsApi\BuildingsController.cs" />
     <Compile Include="Api\CardsApi\CardsController.cs" />
+    <Compile Include="Api\L10NApi\L10NController.cs" />
     <Compile Include="Api\System\ODataMetadata.cs" />
     <Compile Include="Api\System\SequentialIdProvider.cs" />
     <Compile Include="Api\UploadController.cs" />
@@ -342,6 +343,7 @@
     <Compile Include="Extensions\ErrorManager\ErrorLog.cs" />
     <Compile Include="Extensions\ErrorManager\ExceptionExtension.cs" />
     <Compile Include="Extensions\ErrorManager\StringExtension.cs" />
+    <Compile Include="Extensions\MailService.cs" />
     <Compile Include="Extensions\SequentialGuid.cs" />
     <Compile Include="T4TS\TypeScriptEnumAttribute.cs" />
     <Compile Include="T4TS\TypeScriptInterfaceAttribute.cs" />
@@ -793,6 +795,9 @@
     </Content>
     <Content Include="app\services\SamAreasService.js">
       <DependentUpon>SamAreasService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamEmployeeCardsService.js">
+      <DependentUpon>SamEmployeeCardsService.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamEmployeesService.js">
       <DependentUpon>SamEmployeesService.ts</DependentUpon>
@@ -2306,6 +2311,9 @@
     </Content>
     <Content Include="app\routes\User\lostCard.js.map">
       <DependentUpon>lostCard.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamEmployeeCardsService.js.map">
+      <DependentUpon>SamEmployeeCardsService.ts</DependentUpon>
     </Content>
     <None Include="app\views\Admin\Customers\customers.less" />
     <Content Include="app\web.config" />

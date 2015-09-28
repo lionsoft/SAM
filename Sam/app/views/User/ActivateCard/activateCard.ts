@@ -37,7 +37,7 @@ module App.Controllers {
                         else if (card.Status !== CardStatus.Inactive)
                             this.popupService.warning("The card cannot be activated. It is already actived or lost.");
                         else {
-                            this.samCards.Activate(card.Id, app.$auth.LoggedUser.Employee.Id).then(() => success('Your card has been successfully activated.'));
+                            this.samCards.Activate(card.Id).then(() => success('Your card has been successfully activated.'));
                         }
                     });
                 }
