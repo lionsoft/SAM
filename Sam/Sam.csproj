@@ -202,7 +202,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\CardsApi\CardAccess.cs" />
+    <Compile Include="Api\CardsApi\CardAccessController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Api\CustomersApi\DepartmentListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorsController.cs" />
@@ -687,6 +689,12 @@
     <Content Include="app\directives\smart-table\sam-tables-pagination-tmpl.html" />
     <Content Include="app\directives\smart-table\st-sort-default.js">
       <DependentUpon>st-sort-default.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ExceptOfFilter.js">
+      <DependentUpon>ExceptOfFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\PropsFilter.js">
+      <DependentUpon>PropsFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\YesNoFilter.js">
       <DependentUpon>YesNoFilter.ts</DependentUpon>
@@ -1949,6 +1957,8 @@
     <TypeScriptCompile Include="app\directives\smart-table\st-sort-default.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\smart-table.d.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\sam-st-table.ts" />
+    <TypeScriptCompile Include="app\filters\ExceptOfFilter.ts" />
+    <TypeScriptCompile Include="app\filters\PropsFilter.ts" />
     <TypeScriptCompile Include="app\filters\YesNoFilter.ts" />
     <TypeScriptCompile Include="app\filters\CardNumberFilter.ts" />
     <TypeScriptCompile Include="app\filters\ApprovalLevelFilter.ts" />
@@ -2314,6 +2324,12 @@
     </Content>
     <Content Include="app\services\SamEmployeeCardsService.js.map">
       <DependentUpon>SamEmployeeCardsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\PropsFilter.js.map">
+      <DependentUpon>PropsFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ExceptOfFilter.js.map">
+      <DependentUpon>ExceptOfFilter.ts</DependentUpon>
     </Content>
     <None Include="app\views\Admin\Customers\customers.less" />
     <Content Include="app\web.config" />

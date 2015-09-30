@@ -22,12 +22,14 @@ module App {
     export interface IAreasApi extends IResourceClass<IArea> { }
     export interface IDoorsApi extends IResourceClass<IDoor> { }
     export interface ICardsApi extends IResourceClass<ICard> {
-        Activate(cardId: string, employeeId: string): IPromise<void>;
+        Activate(cardId: string, employeeId?: string): IPromise<void>;
         LostCardRequest(explanation: string, employeeId?: string): IPromise<void>;
     }
     export interface IDoorListsApi extends IResourceClass<IDoorList> { }
     export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
-    export interface ICardAccessApi extends IResourceClass<ICardAccess> { }
+    export interface ICardAccessApi extends IResourceClass<ICardAccess> {
+        RequestAccess(doorIds: string[], note: string, employeeId?: string);
+    }
  
 
     export interface IApiService {
@@ -54,11 +56,6 @@ module App {
 
     export class ApiService extends ApiServiceBase implements IApiService {
 
-        Cards: ICardsApi = {
-            Activate: <any>{ method: "POST", route: "Activate/:cardId/:employeeId" },
-            LostCardRequest: <any>{ method: "POST", route: "LostCardRequest", params: { EmployeeId: null, Explanation: null } },
-        };
-
         Account: IAccountApi = {
             Register: <any>{ method: "POST", route: "Register", params: { Login: null, Password: null } },
             Login: <any>{ method: "POST", route: "Login", params: { Login: null, Password: null, RememberMe: null } },
@@ -80,7 +77,15 @@ module App {
         Doors: IDoorsApi = {};
         DoorLists: IDoorListsApi = {};
 
-        CardAccess: ICardAccessApi = {};
+        Cards: ICardsApi = {
+            Activate: <any>{ method: "POST", route: "Activate", params: { CardId: null, EmployeeId: null } },
+            LostCardRequest: <any>{ method: "POST", route: "LostCardRequest", params: { EmployeeId: null, Explanation: null } },
+        };
+
+
+        CardAccess: ICardAccessApi = {
+            RequestAccess: <any>{ method: "POST", route: "RequestAccess", params: { DoorIds: null, Note: null, EmployeeId: null } },
+        };
 
         Init() {
             super.Init(URL.API);

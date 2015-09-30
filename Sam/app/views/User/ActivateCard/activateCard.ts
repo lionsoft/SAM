@@ -34,8 +34,10 @@ module App.Controllers {
                         var card = c.firstOrDefault();
                         if (!card)
                             this.popupService.warning("There is no card with this activation code.");
-                        else if (card.Status !== CardStatus.Inactive)
-                            this.popupService.warning("The card cannot be activated. It is already actived or lost.");
+                        else if (card.Status === CardStatus.Lost)
+                            this.popupService.warning("The card is lost and cannot be activated.");
+                        else if (card.Status === CardStatus.Active)
+                            this.popupService.warning("The card is already active.");
                         else {
                             this.samCards.Activate(card.Id).then(() => success('Your card has been successfully activated.'));
                         }

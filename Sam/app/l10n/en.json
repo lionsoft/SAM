@@ -60,6 +60,10 @@
         "YouHaveNoPinCode": "You have no Pin Code defined. Please <a href='/#/setPinCode'>set it up</a> before."
     },
 
+    "applyAccess": { 
+        "YouHaveNoActivatedCard": "You have no activated card. Please get it and <a href='/#/activateCard'>activate the card</a> before."
+    },
+
     "setPinCode": {
         "EnterNewPin": "enter new PIN code",
         "ConfirmPin": "confirm your new PIN"

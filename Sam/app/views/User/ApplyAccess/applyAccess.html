@@ -6,37 +6,100 @@
                     <div class="row">
                         <h2 translate>Apply to get access</h2>
                     </div>
-                    <!--
-                            <pre class="mark" translate ng-show="$.noPinCode">You has no Pin Code defined. Ask your administrator to set it up.</pre>
-                            <div class="row">
-                                <form class="form-horizontal" novalidate role="form" name="form">
-                                    <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.activationCode.$invalid && form.activationCode.$touched }">
-                                        <label translate class="col-sm-4 control-label">ActivationCode</label>
-                                        <div class="col-sm-6 col-md-4">
-                                            <input ng-model="$.activationCode" class="form-control" name="activationCode" required translate translate-attr-translate translate-attr-placeholder="required">
-                                            <span ng-show="form.activationCode.$invalid && form.activationCode.$touched" class="red" translate>MustBeSet</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.pinCode.$invalid && form.pinCode.$touched }">
-                                        <label translate class="col-sm-4 control-label">PinCode</label>
-                                        <div class="col-sm-6 col-md-4">
-                                            <input ng-model="$.pinCode" class="form-control" name="pinCode" required translate translate-attr-translate translate-attr-placeholder="required">
-                                            <span ng-show="form.pinCode.$invalid && form.pinCode.$touched" class="red" translate>MustBeSet</span>
-                                        </div>
-                                    </div>
-                                    <p>
-                                        For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.
-                                    </p>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-4 col-sm-6 col-md-4 text-right">
-                                            <button translate type="submit" ng-disabled="$.noPinCode" ng-click="$.Activate(form)" class="btn btn-default">Activate</button>
-                                        </div>
-                                    </div>
-                                </form>
+                    <pre class="bg-danger" translate ng-show="$.noActivatedCard">YouHaveNoActivatedCard</pre>
+                    <div class="row">
+                        <form class="form-horizontal" novalidate role="form" name="form">
+                            <!-- #region - Country - -->
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                                    <ui-select class="form-control" ng-model="$.selectedCountryId" ng-disabled="$.countries.length === 0">
+                                        <ui-select-match allow-clear="false" placeholder="SelectCountry">
+                                            {{$select.selected.Name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in $.countries | filter: $select.search track by item.Id">
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
                             </div>
-                -->
+                            <!-- #endregion -->
+
+                            <!-- #region - City - -->
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                                    <ui-select class="form-control" ng-model="$.selectedCityId" ng-disabled="$.cities.length === 0">
+                                        <ui-select-match allow-clear="false" placeholder="SelectCity">
+                                            {{$select.selected.Name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in $.cities | filter: $select.search track by item.Id">
+                                            <div ng-bind-html="item.Name + ' (' + item.ZipCode + ')' | highlight: $select.search"></div>
+                                        </ui-select-choices>
+
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+
+                            <!-- #region - Building - -->
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                                    <ui-select class="form-control" ng-model="$.selectedBuildingId" ng-disabled="$.buildings.length === 0">
+                                        <ui-select-match allow-clear="false" placeholder="SelectBuilding">
+                                            {{$select.selected.Name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in $.buildings | filter: $select.search track by item.Id">
+                                            <div ng-bind-html="item.Name + ' - ' + item.Address1 || item.Address2 | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+
+                            <!-- #region - Area - -->
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                                    <ui-select class="form-control" ng-model="$.selectedAreaId" ng-disabled="$.areas.length === 0">
+                                        <ui-select-match allow-clear="false" placeholder="SelectArea">
+                                            {{$select.selected.Name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in $.areas | filter: $select.search track by item.Id">
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+
+                            <!-- #region - Doors - -->
+                            <div class="form-group has-validation" ng-class="{ 'has-error' : $.selectedDoorIds.length === 0 && form.doors.$touched }">
+                                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                                    <ui-select class="form-control" multiple ng-model="$.selectedDoorIds" name="doors">
+                                        <ui-select-match allow-clear="false" placeholder="SelectDoors">
+                                            {{$item.Name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="door.Id as door in $.doors | exceptOf: $.selectedDoorIds : 'Id' | propsFilter: {Name: $select.search}">
+                                            <div ng-bind-html="door.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span ng-show="$.selectedDoorIds.length === 0 && form.doors.$touched" class="red" translate>MustBeSet</span>
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+
+                            <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.note.$invalid && form.note.$touched }">
+                                <textarea ng-model="$.note" class="form-control" name="note" required translate translate-attr-translate translate-attr-placeholder="NotesResonsForApplyingAccess"></textarea>
+                                <span ng-show="form.note.$invalid && form.note.$touched" class="red" translate>MustBeSet</span>
+                            </div>
+                            <div class="form-group">
+                                <div class="text-right">
+                                    <button translate type="submit" ng-disabled="$.noActivatedCard" ng-click="$.Submit(form)" class="btn btn-default">SendApplication</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-</section>
+    </section>
 </section>

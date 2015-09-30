@@ -157,6 +157,9 @@
   .sidebar .sidebar-inner {
     height: inherit;
   }
+  .mainbar {
+    margin-left: 0;
+  }
 }
 @media (max-width: 320px) {
   .today-datas li {

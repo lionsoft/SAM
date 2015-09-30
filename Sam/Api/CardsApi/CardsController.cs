@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Sam.DbContext;
@@ -10,6 +11,12 @@ namespace Sam.Api
     [Authorize, RoutePrefix("api/Cards")]
     public class CardsController : CRUDController<Card>
     {
+        public class ActivateCardModel
+        {
+            public string CardId { get; set; }
+            public string EmployeeId { get; set; }
+
+        }
         public class LostCardRequestModel
         {
             public string EmployeeId { get; set; }
@@ -28,22 +35,22 @@ namespace Sam.Api
 
         #endregion
 
-        [HttpPost, Route("Activate/{cardId}/{*employeeId}")]
-        public async Task ActivateAsync(string cardId, string employeeId)
+        [HttpPost, Route("Activate")]
+        public async Task ActivateAsync(ActivateCardModel model)
         {
-            var c = await GetAsync(cardId);
+            var c = await GetAsync(model.CardId);
             if (c == null) throw new ApplicationException("Card not found.");
             if (c.Status == CardStatus.Inactive)
             {
 #if !DEBUG
-                c.Status = CardStatus.Active;
                 c.ActivationCode = null;
 #endif
-                employeeId = employeeId ?? CurrentEmployee.Id;
-                var e = Db.Employees.Find(employeeId);
+                c.Status = CardStatus.Active;
+                model.EmployeeId = model.EmployeeId ?? CurrentEmployee.Id;
+                var e = await Db.Employees.FirstOrDefaultAsync(x => x.Id == model.EmployeeId);
                 if (e == null) throw new ApplicationException("Employee not found.");
-                e.CardId = cardId;
-                Db.EmployeeCards.Add(new EmployeeCard { CardId = cardId, EmployeeId = employeeId });
+                e.CardId = model.CardId;
+                Db.EmployeeCards.Add(new EmployeeCard { CardId = model.CardId, EmployeeId = model.EmployeeId });
                 await Db.SaveChangesAsync();
             }
         }
@@ -52,11 +59,17 @@ namespace Sam.Api
         public async Task LostCardRequestAsync(LostCardRequestModel model)
         {
             model.EmployeeId = model.EmployeeId ?? CurrentEmployee.Id;
-            var e = Db.Employees.Find(model.EmployeeId);
+            var e = await Db.Employees.Include(x => x.Card).FirstOrDefaultAsync(x => x.Id == model.EmployeeId);
             if (e == null) throw new ApplicationException("Employee not found.");
+            if (e.Card != null)
+            {
+                e.Card.Status = CardStatus.Lost;
+                e.CardId = null;
+            }
             var emails = new List<string>();
             if (e.Manager != null && e.Manager.Email != null)
                 emails.Add(e.Manager.Email);
+            await Db.SaveChangesAsync();
             await MailService.SendMailAsync(e.Email, emails, e.Name + ": I lost my card", model.Explanation);
         }
     }

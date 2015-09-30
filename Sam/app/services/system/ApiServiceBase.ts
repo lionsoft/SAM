@@ -188,7 +188,7 @@ module App {
                 }
                 // ReSharper restore SuspiciousThisUsage
                 // Преобразование списка необъектных параметров в объект с именами по умолчанию
-                else if (arguments.length > 0 && typeof arguments[0] !== "object") {
+                else if (arguments.length > 0 && (angular.isArray(arguments[0]) || !angular.isObject(arguments[0]))) {
                     // По умолчанию будем считать, что есть как минимум один параметр с наименованием id.
                     if ((!defaultParamNames || defaultParamNames.length === 0) && (methodName === "get" || methodName === "delete")) {
                         defaultParamNames = ["id"];
@@ -198,7 +198,7 @@ module App {
                     for (var idx in arguments) {
                         if (arguments.hasOwnProperty(idx)) {
                             var arg = arguments[idx];
-                            stop = stop || idx >= defaultParamNames.length || typeof arguments[0] === "object" || typeof arguments[0] === "function";
+                            stop = stop || idx >= defaultParamNames.length || (!angular.isArray(arguments[0]) && angular.isObject(arguments[0])) || typeof arguments[0] === "function";
                             if (stop)
                                 args.push(arg);
                             else {

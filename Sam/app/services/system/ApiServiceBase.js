@@ -133,7 +133,7 @@ var App;
                     params = arguments[0].replace(/(^\?)/, "").split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1].trim(), this; }.bind({}))[0];
                     args.push(params);
                 }
-                else if (arguments.length > 0 && typeof arguments[0] !== "object") {
+                else if (arguments.length > 0 && (angular.isArray(arguments[0]) || !angular.isObject(arguments[0]))) {
                     // По умолчанию будем считать, что есть как минимум один параметр с наименованием id.
                     if ((!defaultParamNames || defaultParamNames.length === 0) && (methodName === "get" || methodName === "delete")) {
                         defaultParamNames = ["id"];
@@ -143,7 +143,7 @@ var App;
                     for (var idx in arguments) {
                         if (arguments.hasOwnProperty(idx)) {
                             var arg = arguments[idx];
-                            stop = stop || idx >= defaultParamNames.length || typeof arguments[0] === "object" || typeof arguments[0] === "function";
+                            stop = stop || idx >= defaultParamNames.length || (!angular.isArray(arguments[0]) && angular.isObject(arguments[0])) || typeof arguments[0] === "function";
                             if (stop)
                                 args.push(arg);
                             else {

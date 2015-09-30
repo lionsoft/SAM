@@ -3,11 +3,7 @@
 module App.Services {
 
     export interface ICardAccessService extends ICRUDService<ICardAccess> {
-        /**
-         * Load employees for the specified customer only
-         * @param customerId customer Id
-         */
-        LoadByCustomer(customerId: string, ...expands: string[]): IPromise<ICardAccess[]>;
+        RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void>;
     }
 
     class CardAccessService extends CRUDService<ICardAccess> implements ICardAccessService {
@@ -22,10 +18,8 @@ module App.Services {
             odata.$expand("CreatedBy");
         }
 
-
-
-        LoadByCustomer(customerId: string, ...expands: string[]): IPromise<ICardAccess[]> {
-            return super.Load(OData.create.$expand(...expands).eq("CustomerId", customerId));
+        RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void> {
+            return this.ApiService.RequestAccess(doorIds, note, employeeId).HandleError();
         }
     }
 

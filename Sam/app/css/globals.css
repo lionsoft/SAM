@@ -1969,10 +1969,9 @@
 }
 .form-group.has-error span.red {
   position: absolute;
-  margin-top: -3px;
-}
-.has-validation.form-group {
-  margin-bottom: 20px;
+  margin-top: -6px;
+  font-size: smaller;
+  font-weight: bolder;
 }
 span.invalid-control-info {
   color: red;
