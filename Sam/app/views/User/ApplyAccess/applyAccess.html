@@ -87,6 +87,7 @@
                             <!-- #endregion -->
 
                             <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.note.$invalid && form.note.$touched }">
+                                <label class="control-label" translate>Explanation / Reason</label>
                                 <textarea ng-model="$.note" class="form-control" name="note" required translate translate-attr-translate translate-attr-placeholder="NotesResonsForApplyingAccess"></textarea>
                                 <span ng-show="form.note.$invalid && form.note.$touched" class="red" translate>MustBeSet</span>
                             </div>

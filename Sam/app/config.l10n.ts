@@ -33,8 +33,8 @@ module App {
             $translateProvider
                 .registerAvailableLanguageKeys(availableLangKeys, langKeyAliases)
                 .useSanitizeValueStrategy(null)
-                .useStaticFilesLoader({ prefix: URL.API + "/l10n/", suffix: ".json" })
-                //.useStaticFilesLoader({ prefix: URL.APP_ROOT + "/l10n/", suffix: ".json" })
+                //.useStaticFilesLoader({ prefix: URL.API + "/l10n/", suffix: ".json" })
+                .useStaticFilesLoader({ prefix: URL.APP_ROOT + "/l10n/", suffix: ".json" })
                 .determinePreferredLanguage()
             ;
 
