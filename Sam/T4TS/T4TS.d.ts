@@ -11,6 +11,12 @@ declare module App {
         Area = 3,
         Door = 4,
     }
+    /** Generated from Sam.DbContext.ApprovalStatus **/
+    const enum ApprovalStatus {
+        WaitingForApproval = 0,
+        Approved = 1,
+        Rejected = 2,
+    }
     /** Generated from Sam.DbContext.CardStatus **/
     const enum CardStatus {
         Active = 0,
@@ -58,6 +64,7 @@ declare module App {
         ApprovedBy: App.IEmployee;
         ApprovedDate?: string;
         ApprovalLevel: App.ApprovalLevel;
+        ApprovalStatus: App.ApprovalStatus;
         Note: string;
     }
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/

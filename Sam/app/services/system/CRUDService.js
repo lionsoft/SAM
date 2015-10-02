@@ -178,7 +178,7 @@ var App;
                 var _this = this;
                 var odata = query instanceof Services.OData ? query : new Services.OData(query);
                 this.prepareQuery(odata, isSmartLoad);
-                var res = this.afterQuery(this.ApiService.query(odata));
+                var res = odata.$empty ? this.promiseFromResult([]) : this.afterQuery(this.ApiService.query(odata));
                 if (!this.prepareResult.isEmpty()) {
                     res = res.then(function (r) {
                         if (angular.isArray(r))

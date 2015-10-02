@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using System.Web.Http.OData;
+using System.Web.Http.OData.Formatter;
+using System.Web.Http.OData.Formatter.Deserialization;
+using System.Web.Http.OData.Formatter.Serialization;
 using System.Web.Http.Routing;
 using Microsoft.AspNet.Identity;
+using Microsoft.Data.Edm;
+using Microsoft.Data.OData;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 
@@ -37,6 +44,8 @@ namespace Sam
 //            config.MapHttpAttributeRoutes();
             config.MapHttpAttributeRoutes(new CustomDirectRouteProvider());
 
+            var odataFormatters = ODataMediaTypeFormatters.Create(new JsonODataSerializerProvider(), DefaultODataDeserializerProvider.Instance);
+            config.Formatters.InsertRange(0, odataFormatters);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -68,5 +77,20 @@ namespace Sam
             }
         }
 
+        public class JsonODataSerializerProvider : DefaultODataSerializerProvider
+        {
+            public override ODataSerializer GetODataPayloadSerializer(IEdmModel model, Type type, HttpRequestMessage request)
+            {
+/*
+                if (type)
+                {
+                    // entity type serializer
+                    return new CustomEntityTypeSerializer(edmType.AsEntity(), this);
+                }
+*/
+                return base.GetODataPayloadSerializer(model, type, request);
+            }
+        }
     }
 }
+

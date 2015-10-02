@@ -19,6 +19,8 @@ namespace Sam.DbContext
 
         public ApprovalLevel ApprovalLevel { get; set; }
 
+        public ApprovalStatus ApprovalStatus { get; set; }
+
         public string Note { get; set; }
     }
 }

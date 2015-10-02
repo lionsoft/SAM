@@ -57,6 +57,8 @@ var App;
                 get: function () {
                     // update filter from current filter creator
                     this.prop(undefined);
+                    if (this.$empty)
+                        return "$top=0&$filter=1 eq 0";
                     var resArray = [];
                     if (angular.isArray(this._expands) && this._expands.length > 0)
                         resArray.push("$expand=" + this._expands.distinct().toJoinedString(','));

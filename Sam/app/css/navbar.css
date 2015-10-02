@@ -73,7 +73,7 @@
 }
 .sidebar {
   margin-top: -2px;
-  width: 160px;
+  width: 180px;
 }
 .sidebar .sidebar-inner {
   background-color: #333;
@@ -85,10 +85,10 @@
   left: 0;
   height: 100%;
   background-color: #333;
-  width: 160px;
+  width: 180px;
 }
 .mainbar {
-  margin-left: 160px;
+  margin-left: 180px;
 }
 .navbar .navbar-brand {
   background: url(/content/images/icon.png) no-repeat left center !important;

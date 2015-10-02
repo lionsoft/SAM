@@ -283,6 +283,7 @@
     <Compile Include="DbContext\Migrations\Configuration.cs" />
     <Compile Include="DbContext\ApplicationDbContext.cs" />
     <Compile Include="DbContext\Models\Cards\ApprovalLevel.cs" />
+    <Compile Include="DbContext\Models\Cards\ApprovalStatus.cs" />
     <Compile Include="DbContext\Models\Employees\EmployeeCard.cs" />
     <Compile Include="DbContext\Models\Cards\CardAccess.cs" />
     <Compile Include="DbContext\Models\Customers\DepartmentList.cs" />
@@ -690,6 +691,9 @@
     <Content Include="app\directives\smart-table\st-sort-default.js">
       <DependentUpon>st-sort-default.ts</DependentUpon>
     </Content>
+    <Content Include="app\filters\ApprovalStatusFilter.js">
+      <DependentUpon>ApprovalStatusFilter.ts</DependentUpon>
+    </Content>
     <Content Include="app\filters\ExceptOfFilter.js">
       <DependentUpon>ExceptOfFilter.ts</DependentUpon>
     </Content>
@@ -758,6 +762,12 @@
     </Content>
     <Content Include="app\routes\login.js">
       <DependentUpon>login.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\myApplications.js">
+      <DependentUpon>myApplications.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\myApprovals.js">
+      <DependentUpon>myApprovals.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\User\lostCard.js">
       <DependentUpon>lostCard.ts</DependentUpon>
@@ -966,6 +976,20 @@
     </Content>
     <Content Include="app\views\User\LostCard\lostCard.js">
       <DependentUpon>lostCard.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyApplications\myApplications.css">
+      <DependentUpon>myApplications.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyApplications\myApplications.html" />
+    <Content Include="app\views\User\MyApplications\myApplications.js">
+      <DependentUpon>myApplications.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyApprovals\myApprovals.css">
+      <DependentUpon>myApprovals.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyApprovals\myApprovals.html" />
+    <Content Include="app\views\User\MyApprovals\myApprovals.js">
+      <DependentUpon>myApprovals.ts</DependentUpon>
     </Content>
     <Content Include="app\views\User\SetPinCode\setPinCode.css">
       <DependentUpon>setPinCode.less</DependentUpon>
@@ -1957,6 +1981,7 @@
     <TypeScriptCompile Include="app\directives\smart-table\st-sort-default.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\smart-table.d.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\sam-st-table.ts" />
+    <TypeScriptCompile Include="app\filters\ApprovalStatusFilter.ts" />
     <TypeScriptCompile Include="app\filters\ExceptOfFilter.ts" />
     <TypeScriptCompile Include="app\filters\PropsFilter.ts" />
     <TypeScriptCompile Include="app\filters\YesNoFilter.ts" />
@@ -1974,6 +1999,8 @@
     <TypeScriptCompile Include="app\routes\Admin\lists.ts" />
     <TypeScriptCompile Include="app\routes\Admin\employees.ts" />
     <TypeScriptCompile Include="app\routes\Admin\doors.ts" />
+    <TypeScriptCompile Include="app\routes\User\myApplications.ts" />
+    <TypeScriptCompile Include="app\routes\User\myApprovals.ts" />
     <TypeScriptCompile Include="app\routes\User\lostCard.ts" />
     <TypeScriptCompile Include="app\routes\User\setPinCode.ts" />
     <TypeScriptCompile Include="app\routes\User\applyAccess.ts" />
@@ -2331,6 +2358,15 @@
     <Content Include="app\filters\ExceptOfFilter.js.map">
       <DependentUpon>ExceptOfFilter.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\User\myApplications.js.map">
+      <DependentUpon>myApplications.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\myApprovals.js.map">
+      <DependentUpon>myApprovals.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ApprovalStatusFilter.js.map">
+      <DependentUpon>ApprovalStatusFilter.ts</DependentUpon>
+    </Content>
     <None Include="app\views\Admin\Customers\customers.less" />
     <Content Include="app\web.config" />
     <Content Include="package.json" />
@@ -2431,6 +2467,14 @@
     </Content>
     <Content Include="app\views\User\SetPinCode\setPinCode.js.map">
       <DependentUpon>setPinCode.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyApplications\myApplications.less" />
+    <Content Include="app\views\User\MyApprovals\myApprovals.less" />
+    <Content Include="app\views\User\MyApplications\myApplications.js.map">
+      <DependentUpon>myApplications.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyApprovals\myApprovals.js.map">
+      <DependentUpon>myApprovals.ts</DependentUpon>
     </Content>
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
@@ -2576,6 +2620,8 @@
     <TypeScriptCompile Include="app\views\Admin\Lists\editDepartmentList.ts" />
     <TypeScriptCompile Include="app\views\Admin\Lists\editDoorList.ts" />
     <TypeScriptCompile Include="app\views\Admin\Lists\lists.ts" />
+    <TypeScriptCompile Include="app\views\User\MyApplications\myApplications.ts" />
+    <TypeScriptCompile Include="app\views\User\MyApprovals\myApprovals.ts" />
     <TypeScriptCompile Include="app\views\User\SetPinCode\setPinCode.ts" />
     <TypeScriptCompile Include="app\views\User\LostCard\lostCard.ts" />
     <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />

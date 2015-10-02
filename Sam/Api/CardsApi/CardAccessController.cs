@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Sam.DbContext;
+using Sam.Extensions.ErrorManager;
 
 namespace Sam.Api
 {
@@ -28,7 +29,7 @@ namespace Sam.Api
             foreach (var doorId in model.DoorIds)
             {
                 var id = doorId;
-                var door = await Db.Doors.FirstOrDefaultAsync(d => d.Id == id);
+                var door = await Db.Doors.Include(d => d.Area).Include(d => d.Area.Building).FirstOrDefaultAsync(d => d.Id == id);
                 if (door == null) continue;
                 if (door.PreApproved)
                 {
@@ -36,17 +37,25 @@ namespace Sam.Api
                 }
                 // This door doesn't need to be approved
                 if (door.ApprovalLevel == ApprovalLevel.Nobody) continue;
+
                 // Door must be approved by Manager
-                Db.CardAccesses.Add(new CardAccess { ApprovalLevel = ApprovalLevel.Manager, CardId = e.CardId, DoorId = id, Note = model.Note });
+                if (e.ManagerId == null) throw new ApplicationException("{0}: Card Access has to be approved by employee's manager, but the employee has no manager set.".Fmt(door.Name));
+                Db.CardAccesses.Add(new CardAccess { ApprovedById = e.ManagerId, ApprovalLevel = ApprovalLevel.Manager, CardId = e.CardId, DoorId = id, Note = model.Note });
                 if (door.ApprovalLevel == ApprovalLevel.Manager) continue;
+                
                 // Door must be approved by BuildingOwner
-                Db.CardAccesses.Add(new CardAccess { ApprovalLevel = ApprovalLevel.Building, CardId = e.CardId, DoorId = id, Note = model.Note });
+                if (door.Area == null || door.Area.Building == null || door.Area.Building.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by building owner, but the building has no owner set.".Fmt(door.Name));
+                Db.CardAccesses.Add(new CardAccess { ApprovedById = door.Area.Building.OwnerId, ApprovalLevel = ApprovalLevel.Building, CardId = e.CardId, DoorId = id, Note = model.Note });
                 if (door.ApprovalLevel == ApprovalLevel.Building) continue;
+                
                 // Door must be approved by AreaOwner
-                Db.CardAccesses.Add(new CardAccess { ApprovalLevel = ApprovalLevel.Area, CardId = e.CardId, DoorId = id, Note = model.Note });
+                if (door.Area == null || door.Area.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by area owner, but the area has no owner set.".Fmt(door.Name));
+                Db.CardAccesses.Add(new CardAccess { ApprovedById = door.Area.OwnerId, ApprovalLevel = ApprovalLevel.Area, CardId = e.CardId, DoorId = id, Note = model.Note });
                 if (door.ApprovalLevel == ApprovalLevel.Area) continue;
+                
                 // Door must be approved by DoorOwner
-                Db.CardAccesses.Add(new CardAccess { ApprovalLevel = ApprovalLevel.Door, CardId = e.CardId, DoorId = id, Note = model.Note });
+                if (door.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by door owner, but the door has no owner set.".Fmt(door.Name));
+                Db.CardAccesses.Add(new CardAccess { ApprovedById = door.OwnerId, ApprovalLevel = ApprovalLevel.Door, CardId = e.CardId, DoorId = id, Note = model.Note });
             }
             await Db.SaveChangesAsync();
         }

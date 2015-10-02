@@ -1,9 +1,13 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.OData;
 using System.Web.Http.OData.Extensions;
+using System.Web.Http.OData.Formatter;
+using System.Web.Http.OData.Formatter.Deserialization;
 using System.Web.Http.OData.Query;
 using Sam.DbContext;
 using Sam.Extensions.EntityFramework;
@@ -28,6 +32,19 @@ namespace Sam.Api
         }
     }
 
+
+    public class CustomODataFormattingAttribute : ODataFormattingAttribute
+    {
+        public override IList<ODataMediaTypeFormatter> CreateODataFormatters()
+        {
+            IList<ODataMediaTypeFormatter> formatters = ODataMediaTypeFormatters.Create(new WebApiConfig.JsonODataSerializerProvider(), new DefaultODataDeserializerProvider());
+            return formatters;
+        }
+    }
+
+
+    [CustomODataFormatting]
+    [ODataRouting]
     public class CRUDController<TEntity, T> : AppController where TEntity : class, IEntityObjectId<T>
     {
         protected virtual IQueryable<TEntity> PrepareQuery(IDbSet<TEntity> dbSet)

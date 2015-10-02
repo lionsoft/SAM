@@ -279,7 +279,7 @@ module App.Services {
         protected $query(query?: OData | IODataParams, isSmartLoad?: boolean): IPromise<T[]> {
             var odata = query instanceof OData ? query : new OData(<IODataParams>query);
             this.prepareQuery(odata, isSmartLoad);
-            var res = this.afterQuery(this.ApiService.query(odata));
+            var res = odata.$empty ? this.promiseFromResult([]) : this.afterQuery(this.ApiService.query(odata));
             if (!this.prepareResult.isEmpty()) {
                 res = res.then(r => {
                     if (angular.isArray(r))

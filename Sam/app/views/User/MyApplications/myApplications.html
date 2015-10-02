@@ -1,0 +1,48 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container">
+            <div class="row">
+                <h2 translate>Status of applications</h2>
+            </div>
+            <div class="row">
+                <!-- #region - Applications - -->
+                <div st-table
+                     st-items-by-page
+                     sam-st-table="{service: 'samCardAccess', prepareQuery: $.prepareQuery}">
+                    <div class="st-table-search">
+                        <h3 style="display: inline-block">
+                            <span translate>Applications</span>
+                        </h3>
+<!--
+                        <input st-search="Card.Number:i,Employee.Name,Door.Name" class="form-control" translate translate-attr-placeholder="Search..." />
+-->
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th translate>ApprovalLevel</th>
+                                <th translate auto-size st-sort="Door.Name">Door</th>
+                                <th nowrap translate st-sort="CreatedDate" st-sort-default>CreatedDate</th>
+                                <th nowrap translate>Status</th>
+                                <th nowrap translate st-sort="ApprovedBy.Name">ApprovedBy</th>
+                                <th nowrap translate st-sort="ApprovedDate">ApprovedDate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="cardAccess in $items track by cardAccess.Id">
+                                <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>
+                                <td tooltip="{{cardAccess.Door.Name}}">{{cardAccess.Door.Name}}</td>
+                                <td class="col-created-date">{{::cardAccess.CreatedDate | date}}</td>
+                                <td><div class="nowrap label" ng-class="{'label-warning': cardAccess.ApprovalStatus === 0, 'label-success': cardAccess.ApprovalStatus === 1, 'label-important': cardAccess.ApprovalStatus === 2}">{{cardAccess.ApprovalStatus | ApprovalStatus}}</div></td>
+                                <td class="nowrap" tooltip="{{cardAccess.ApprovedBy.Name}}">{{cardAccess.ApprovedBy.Name}}</td>
+                                <td class="text-center">{{cardAccess.ApprovedDate | date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- #endregion -->
+            </div>
+            </div>
+    </section>
+</section>
