@@ -8,7 +8,7 @@ module App {
             title: 'MyApprovals',
             url: '/myApprovals',
             auth: true,
-            //roles: [UserRole.Normal],
+            roles: [UserRole.Admin, UserRole.AreaOwner, UserRole.BuildingOwner, UserRole.DoorOwner, UserRole.Manager],
             templateUrl: '/app/views/User/MyApprovals/myApprovals.html',
             settings: {
                 topMenu: 'MENU.10.USER',
