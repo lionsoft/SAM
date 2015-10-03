@@ -65,7 +65,7 @@ module App.Controllers {
         }
 
         prepareQuery(odata: Services.OData) {
-            odata.$expand("Manager", "Department", "User").eq("Department.Company.CustomerId", this.selectedCustomerId);
+            odata.$expand("Manager", "Department", "User", "Card").eq("Department.Company.CustomerId", this.selectedCustomerId);
             return "selectedCustomerId";
         }
 

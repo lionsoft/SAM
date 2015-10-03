@@ -15,9 +15,14 @@ var App;
                 _super.apply(this, arguments);
             }
             CardNumberFilter.prototype.Execute = function (value) {
-                var str = "" + value;
-                var pad = "00000000";
-                return pad.substring(0, pad.length - str.length) + str;
+                if (value) {
+                    var str = "" + value;
+                    var pad = "00000000";
+                    return pad.substring(0, pad.length - str.length) + str;
+                }
+                else {
+                    return "";
+                }
             };
             return CardNumberFilter;
         })(App.Filter);

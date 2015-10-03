@@ -1,3 +1,8 @@
-﻿#myApprovals form {
+﻿#myApprovals td.col-sm {
+  padding: 0 4px 3px !important;
+}
+#myApprovals .btn-sm {
   margin: 0;
+  padding: 2px 4px;
+  width: auto;
 }

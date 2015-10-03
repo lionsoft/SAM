@@ -13,12 +13,17 @@ declare module angular
     interface IWindowService {
         navigate: (url: string) => void;
     }
+
+    interface IFilterFunc {
+        (value: any, ...params: any[]): any;
+    }
 }
 
 interface IKeyValue {
     Key: any;
     Value: any;
 }
+
 
 module LionSoftAngular {
     "use strict";

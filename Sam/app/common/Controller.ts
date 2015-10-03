@@ -85,7 +85,7 @@ module App {
             var controllerAs = this.$route.current.controllerAs;
             $('body').attr("id", this.ngName);
             this.$rootScope['title'] = undefined;
-            var appTitle = this.$filter("translate")(Site.TITLE);
+            var appTitle = this.Translate(Site.TITLE);
             this.$scope.$watch((controllerAs ? controllerAs + "." : "") + "title", (newVal: string) => {
                 if (newVal)
                     this.$rootScope['title'] = this.Translate(newVal) + " - " + appTitle;

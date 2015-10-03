@@ -32,7 +32,7 @@ module App.Services {
         }
 
         protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
-            odata.$expand("CreatedBy");
+            odata.$expand("CreatedBy, CreatedBy.Employees");
             if (!isSmartLoad)
                 odata.$orderBy("Number");
         }

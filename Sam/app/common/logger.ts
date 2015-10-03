@@ -35,14 +35,18 @@ module App.Shared{
             logWarning: this.logWarning
         };
         //#endregion
+
+        Translate(langKey: string): string {
+            return this.$filter("translate")(langKey);
+        }
         
         constructor(private $log: ng.ILogService, private $filter: ng.IFilterService) {
             this.$log = $log;
-            window.alert = (msg) => this.getLogFn("")($filter('translate')(msg), "", true);
+            window.alert = (msg) => this.getLogFn("")(this.Translate(msg), "", true);
             window.info = window.alert;
-            window.success = (msg) => this.getLogFn("", "success")($filter('translate')(msg), "", true);
-            window.error = (msg) => this.getLogFn("", "error")($filter('translate')(msg), "", true);
-            window.warning = (msg) => this.getLogFn("", "warning")($filter('translate')(msg), "", true);
+            window.success = (msg) => this.getLogFn("", "success")(this.Translate(msg), "", true);
+            window.error = (msg) => this.getLogFn("", "error")(this.Translate(msg), "", true);
+            window.warning = (msg) => this.getLogFn("", "warning")(this.Translate(msg), "", true);
         }
         
         //#region Public Methods

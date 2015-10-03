@@ -61,7 +61,7 @@ var App;
              * @param odata параметры запроса
              */
             CRUDService.prototype.prepareQuery = function (odata, isSmartLoad) {
-                odata.$expand("CreatedBy");
+                odata.$expand("CreatedBy, CreatedBy.Employees");
                 if (!isSmartLoad)
                     odata.$orderBy("Name");
             };
@@ -80,20 +80,21 @@ var App;
              * @param query промис запроса
              */
             CRUDService.prototype.afterQuery = function (query) {
-                var _this = this;
-                this._samUsers = this._samUsers || this.get("samUsers");
-                return query.HandleError().then(function (x) {
-                    var d = _this.defer();
-                    if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results'])) {
-                        _this._samUsers.UpdateEmployee(x[0]['Results'].select(function (r) { return r["CreatedBy"]; }).toArray()).finally(function () { return d.resolve(x); });
-                    }
-                    else if (x && x.length > 0) {
-                        _this._samUsers.UpdateEmployee(x.select(function (r) { return r["CreatedBy"]; }).toArray()).finally(function () { return d.resolve(x); });
-                    }
-                    else
-                        d.resolve(x);
-                    return d.promise;
-                });
+                return query.HandleError();
+                /*
+                            this._samUsers = this._samUsers || this.get("samUsers");
+                            return query.HandleError().then(x => {
+                                var d = this.defer();
+                                if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results'])) {
+                                    this._samUsers.UpdateEmployee(x[0]['Results'].select(r => r && r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
+                                }
+                                else if (x && x.length > 0) {
+                                    this._samUsers.UpdateEmployee(x.select(r => r && r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
+                                } else
+                                    d.resolve(x);
+                                return d.promise;
+                            });
+                */
             };
             /**
              * Этот метод вызывается ПЕРЕД отправкой запроса get на сервер.

@@ -102,9 +102,9 @@
                                     <button ng-click="$delete(cardAccess)" class="btn btn-icon"><i class="fa fa-trash-o fa-lg red"></i></button>
                                 </td>
                                 <td class="text-center" nowrap>{{cardAccess.Card.Number|CardNumber}}</td>
-                                <td class="max-truncate-10em" tooltip="{{cardAccess.Employee.Name}}">{{cardAccess.Employee.Name}}</td>
+                                <td class="max-truncate-10em" tooltip="{{cardAccess.Card.Employee.Name}}">{{cardAccess.Card.Employee.Name}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Door.Name}}">{{cardAccess.Door.Name}}</td>
-                                <td class="max-truncate-10em" tooltip="{{cardAccess.Employee.Department.Name}}">{{cardAccess.Employee.Department.Name}}</td>
+                                <td class="max-truncate-10em" tooltip="{{cardAccess.Card.Employee.Department.Name}}">{{cardAccess.Card.Employee.Department.Name}}</td>
                                 <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.ApprovedBy.Name}}">{{cardAccess.ApprovedBy.Name}}</td>
                                 <td class="text-center">{{cardAccess.ApprovedDate | date}}</td>

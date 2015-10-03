@@ -15,7 +15,7 @@ module App.Services {
         }
 
         protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
-            odata.$expand("CreatedBy");
+            odata.$expand("CreatedBy, CreatedBy.Employees");
         }
 
         RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void> {

@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.OData;
 using System.Web.Http.OData.Extensions;
-using System.Web.Http.OData.Formatter;
-using System.Web.Http.OData.Formatter.Deserialization;
 using System.Web.Http.OData.Query;
 using Sam.DbContext;
 using Sam.Extensions.EntityFramework;
@@ -19,43 +16,40 @@ namespace Sam.Api
         public static async Task<object> CreateODataResponse<TEntity>(IQueryable<TEntity> query, HttpRequestMessage request, ODataQueryOptions<TEntity> queryOptions) where TEntity : class
         {
             var results = queryOptions.ApplyTo(query);
+            var res = await results.ToListAsync();
             if (queryOptions.InlineCount != null && queryOptions.InlineCount.Value == InlineCountValue.AllPages)
             {
-                var res = await results.ToListAsync();
                 var odataProperties = request.ODataProperties();
-                return new[] { new ODataMetadata<object>(res, odataProperties.TotalCount) };
+                return new[] { new ODataMetadata<TEntity>(res, odataProperties.TotalCount) };
             }
             else
             {
-                return results;
+                return new ODataMetadata<TEntity>(res, 0).Results;
             }
         }
     }
 
 
-    public class CustomODataFormattingAttribute : ODataFormattingAttribute
-    {
-        public override IList<ODataMediaTypeFormatter> CreateODataFormatters()
-        {
-            IList<ODataMediaTypeFormatter> formatters = ODataMediaTypeFormatters.Create(new WebApiConfig.JsonODataSerializerProvider(), new DefaultODataDeserializerProvider());
-            return formatters;
-        }
-    }
-
-
-    [CustomODataFormatting]
-    [ODataRouting]
     public class CRUDController<TEntity, T> : AppController where TEntity : class, IEntityObjectId<T>
     {
-        protected virtual IQueryable<TEntity> PrepareQuery(IDbSet<TEntity> dbSet)
+        protected virtual IQueryable<TEntity> PrepareQuery(DbQuery<TEntity> dbSet)
         {
             return dbSet;
         }
 
         [HttpGet]
-        public virtual Task<object> Get(ODataQueryOptions<TEntity> queryOptions)
+        public async virtual Task<object> Get(ODataQueryOptions<TEntity> queryOptions)
         {
-            return CRUDController.CreateODataResponse(PrepareQuery(Db.Set<TEntity>()), Request, queryOptions);
+            var includes = queryOptions.SelectExpand == null ? new string[0] : queryOptions.SelectExpand.RawExpand.Split(',');
+            DbQuery<TEntity> query = Db.Set<TEntity>();
+/*
+            if (includes.Contains("CreatedBy"))
+            {
+                query = query.Include("CreatedBy.Employees");
+            }
+*/
+            var res = await CRUDController.CreateODataResponse(PrepareQuery(query), Request, queryOptions);
+            return res;
         }
 
         [HttpGet, Route("{id}")]

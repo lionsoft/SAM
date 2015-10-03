@@ -24,16 +24,12 @@ namespace Sam.Api
 
         }
 
-        #region Overrides of CRUDController<Card,string>
-
         protected override void PrepareSave(Card entity, bool isNew)
         {
             base.PrepareSave(entity, isNew);
             if (isNew)
                 entity.Number = Db.SequentialIdProvider.GetNextId(Card.NumberSeq);
         }
-
-        #endregion
 
         [HttpPost, Route("Activate")]
         public async Task ActivateAsync(ActivateCardModel model)

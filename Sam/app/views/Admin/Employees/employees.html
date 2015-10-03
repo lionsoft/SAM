@@ -37,6 +37,7 @@
                                 <th translate st-sort="Name">Email</th>
                                 <th translate st-sort="Department.Name">Department</th>
                                 <th translate st-sort="Manager.Name">Manager</th>
+                                <th translate st-sort="Card.Number">CurrentCard</th>
                                 <th translate class="text-center" st-sort="PinCode">PinCode</th>
                                 <th translate st-sort="Image">Image</th>
                                 <th translate st-sort="Status">Status</th>
@@ -56,6 +57,7 @@
                                 <td class="max-truncate-10em" tooltip="{{employee.Email}}">{{employee.Email}}</td>
                                 <td class="max-truncate-10em" tooltip="{{employee.Department.Name}}">{{employee.Department.Name}}</td>
                                 <td class="max-truncate-10em" tooltip="{{employee.Manager.Name}}">{{employee.Manager.Name}}</td>
+                                <td class="text-center">{{employee.Card.Number | CardNumber}}</td>
                                 <td nowrap class="text-center">{{employee.PinCode}}</td>
                                 <td class="max-truncate-15em"
                                     popover-template="employee.Image ? 'EmployeeImagePopoverTemplate.html' : ''"
@@ -70,10 +72,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!--
-                                <div class="text-right" st-pagination st-items-by-page="20"></div>
-                            </div>
-        -->
                 </div>
             </div>
 

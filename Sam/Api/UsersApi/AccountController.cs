@@ -8,7 +8,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -57,20 +56,40 @@ namespace Sam.Api
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        private User ClearUserFields(User u)
+        public static User ClearUserFields(User u)
         {
             u.PasswordHash = null;
             u.Email = null;
             u.SecurityStamp = null;
+/*
+            if (u.Employees != null)
+                u.Employees.ForEach(e => ClearUserEmployeeFields(e));
+*/
             return u;
         }
+/*
+        public static Employee ClearUserEmployeeFields(Employee e, bool removeCreators = true)
+        {
+            if (e != null)
+            {
+                if (removeCreators)
+                {
+                    e.CreatedBy = null;
+                    e.ModifiedBy = null;
+                }
+            }
+            return e;
+        }
+*/
 
         [HttpGet]
         public async Task<object> Get(ODataQueryOptions<User> queryOptions)
         {
             var res = await CRUDController.CreateODataResponse(Db.Users.Include(u => u.Employees), Request, queryOptions);
-            var users = (IEnumerable<object>)((res is ODataMetadata<object>[]) ? (res as ODataMetadata<object>[])[0].Results : res);
-            users.OfType<User>().ForEach(u => ClearUserFields(u));
+/*
+            var users = (IEnumerable<User>)((res is ODataMetadata<User>[]) ? (res as ODataMetadata<User>[])[0].Results : res);
+            users.ForEach(u => ClearUserFields(u));
+*/
             return res;
         }
 

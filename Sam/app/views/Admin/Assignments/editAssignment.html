@@ -6,7 +6,7 @@
             <label class="control-label" translate>CardNumber</label>
             <ui-select class="form-control" ng-model="$item.CardId" ng-disabled="!$.cards.length">
                 <ui-select-match allow-clear="false">
-                    {{$select.selected.Number | CardNumber}}
+                    {{($item.Card = $select.selected).Number | CardNumber}}
                 </ui-select-match>
                 <ui-select-choices repeat="card.Id as card in ::$.cards track by card.Id">
                     {{::card.Number | CardNumber}}
@@ -15,22 +15,11 @@
         </div>
     </div>
     <!-- #endregion -->
-    <pre>{{$item | json}}</pre>
     <!-- #region - Employee - -->
     <div class="col-xs-6">
         <div class="form-group">
             <label class="control-label" translate>Employee</label>
-            <input class="form-control" readonly ng-model="$item.Employee.Name" />
-<!--
-            <ui-select class="form-control" ng-model="$item.EmployeeId" ng-disabled="!$.employees.length">
-                <ui-select-match allow-clear="false">
-                    {{$select.selected.Name}}
-                </ui-select-match>
-                <ui-select-choices repeat="employee.Id as employee in ::$.employees track by employee.Id">
-                    {{::employee.Name}}
-                </ui-select-choices>
-            </ui-select>
--->
+            <input class="form-control" readonly ng-model="$item.Card.Employee.Name" />
         </div>
     </div>
     <!-- #endregion -->

@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Sam.DbContext.Hooks;
 using T4TS;
 
@@ -24,7 +25,10 @@ namespace Sam.DbContext
         [FillWithCurrentUser(OnCreateOnly = true)]
         public string CreatedById { get; set; }
         [TypeScriptMember(Type = "App.IUser")]
+        [JsonIgnore]
         public User CreatedBy { get; set; }
+        [JsonProperty("CreatedBy")]
+        public JsonUser JsonCreatedBy { get { return JsonUser.Create(CreatedBy); } }
 
 
         [FillWithCurrentDate(OnCreateOnly = false)]
@@ -33,7 +37,10 @@ namespace Sam.DbContext
         [FillWithCurrentUser(OnCreateOnly = false)]
         public string ModifiedById { get; set; }
         [TypeScriptMember(Type = "App.IUser")]
+        [JsonIgnore]
         public User ModifiedBy { get; set; }
+        [JsonProperty("ModifiedBy")]
+        public JsonUser JsonModifiedBy { get { return JsonUser.Create(ModifiedBy); } }
     }
 
 

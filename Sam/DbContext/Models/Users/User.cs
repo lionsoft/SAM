@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
+using Sam.Api;
 using Sam.Extensions;
 using T4TS;
 
@@ -40,9 +41,16 @@ namespace Sam.DbContext
         }
 
         [NotMapped]
+        [JsonIgnore]
         public Employee Employee
         {
             get { return Employees != null ? Employees.FirstOrDefault() : null; }
+        }
+        
+        [JsonProperty("Employee")]
+        public JsonEmployee JsonEmployee
+        {
+            get { return JsonEmployee.Create(Employee); }
         }
 
         [NotMapped]

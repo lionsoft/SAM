@@ -43,6 +43,14 @@ namespace Sam.DbContext
         /// Employee who has the card currently active.
         /// A card can belong to an only employee in the moment.
         /// </summary>
+        [NotMapped]
+        [JsonIgnore]
         public Employee Employee { get { return Employees == null ? null : Employees.FirstOrDefault(); } }
+
+        [JsonProperty("Employee")]
+        public JsonEmployee JsonEmployee
+        {
+            get { return JsonEmployee.Create(Employee); }
+        }
     }
 }
