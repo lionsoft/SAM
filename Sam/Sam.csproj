@@ -599,10 +599,6 @@
     <Content Include="app\css\smart-tables.css">
       <DependentUpon>smart-tables.less</DependentUpon>
     </Content>
-    <Content Include="app\css\tables.css">
-      <DependentUpon>tables.less</DependentUpon>
-    </Content>
-    <Content Include="app\css\tables.less" />
     <Content Include="app\css\smart-tables.less" />
     <None Include="app\css\toastr.less" />
     <Content Include="app\config.route.js">
@@ -2630,6 +2626,8 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="gulp-install.bat" />
+    <Content Include="gulp-start.bat" />
     <None Include="Properties\PublishProfiles\sam-azure.pubxml" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />
     <Content Include="Scripts\angular-file-upload.min.js.map" />

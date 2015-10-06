@@ -42,6 +42,7 @@ module App.Controllers {
         }
 
         $submit(item: IEmployee): IPromise<boolean> {
+            var res = this.promiseFromResult(true);
             if (this.uploader.queue.length > 0) {
                 var d = this.defer<boolean>();
                 this.uploader.onSuccessItem = (x, response) => {
@@ -59,9 +60,9 @@ module App.Controllers {
                     this.uploader.onErrorItem = undefined;
                 };
                 this.uploader.queue[0].upload();
-                return <any>d.promise;
+                res = <any>d.promise;
             }
-            return this.promiseFromResult(true);
+            return res.then(() => this.samEmployees.Save(item)).then(() => true);
         }
 
         prepareQuery(odata: Services.OData) {

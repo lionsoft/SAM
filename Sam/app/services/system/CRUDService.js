@@ -81,20 +81,6 @@ var App;
              */
             CRUDService.prototype.afterQuery = function (query) {
                 return query.HandleError();
-                /*
-                            this._samUsers = this._samUsers || this.get("samUsers");
-                            return query.HandleError().then(x => {
-                                var d = this.defer();
-                                if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results'])) {
-                                    this._samUsers.UpdateEmployee(x[0]['Results'].select(r => r && r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
-                                }
-                                else if (x && x.length > 0) {
-                                    this._samUsers.UpdateEmployee(x.select(r => r && r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
-                                } else
-                                    d.resolve(x);
-                                return d.promise;
-                            });
-                */
             };
             /**
              * Этот метод вызывается ПЕРЕД отправкой запроса get на сервер.
@@ -103,17 +89,18 @@ var App;
              * @param query промис запроса
              */
             CRUDService.prototype.afterGet = function (query) {
-                var _this = this;
-                this._samUsers = this._samUsers || this.get("samUsers");
-                return query.then(function (r) {
-                    if (r) {
-                        var d = _this.defer();
-                        _this._samUsers.UpdateEmployee(r["CreatedBy"]).finally(function () { return d.resolve(r); });
-                        return d.promise;
-                    }
-                    else
-                        return r;
-                });
+                /*
+                            this._samUsers = this._samUsers || this.get("samUsers");
+                            return query.then(r => {
+                                if (r) {
+                                    var d = this.defer();
+                                    this._samUsers.UpdateEmployee(r["CreatedBy"]).finally(() => d.resolve(r));
+                                    return d.promise;
+                                } else
+                                    return r;
+                            });
+                */
+                return query;
             };
             /**
              * Этот метод вызывается ПОСЛЕ получения объекта или объектов с сервера.
@@ -182,8 +169,12 @@ var App;
                 var res = odata.$empty ? this.promiseFromResult([]) : this.afterQuery(this.ApiService.query(odata));
                 if (!this.prepareResult.isEmpty()) {
                     res = res.then(function (r) {
-                        if (angular.isArray(r))
-                            r.forEach(function (x) { return _this.prepareResult(x); });
+                        if (r.length && angular.isArray(r)) {
+                            var results = r;
+                            if (angular.isArray(results[0].Results))
+                                results = results[0].Results;
+                            results.forEach(function (x) { return _this.prepareResult(x); });
+                        }
                         return r;
                     });
                 }
@@ -379,6 +370,10 @@ var App;
              * Объект доступен в скоупе диалога как $item.
              * Дополнительно можно передать свой скоуп, который будет доступен в скоупе диалога как $scope.
              * Также из исходного скоупа будут скопированы в скоуп диалога все поля, начинающиеся на $.
+             * В контроллере дополнительного скоупа могут быть реализованы методы, которые будут автоматически вызваны в нужный момент:
+             *     PrepareSave($item): IPromise<boolean> | boolean - вызывается ПЕРЕД сохранением объекта. Если возвращает false - автоматическое сохранение не вызовется.
+             * Стандартный алгоритм сохранения может быть полностью перекрыт, если в переданном скоупе будет реализован метод
+             *     $submit($item): IPromise<boolean>
              * Возвращает промис окончания сохранения объекта.
              * @param entity редактируемый объект
              * @param editTemplateUrl ссылка на шаблон формы редактирования
@@ -404,8 +399,43 @@ var App;
                     scope.$templateUrl = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
                     scope.$entityTypeName = this.TypeDescription;
                 }
+                if (!scope.$submit) {
+                    scope.$submit = function (item) {
+                        var needSave = true;
+                        if (typeof scope.$.PrepareSave === "function")
+                            needSave = scope.$.PrepareSave(item);
+                        if (needSave === undefined)
+                            needSave = true;
+                        if (needSave) {
+                            return _this.Save(item).then(function (res) {
+                                scope.$item = res;
+                                return true;
+                            });
+                        }
+                        else {
+                            scope.$item = item;
+                        }
+                        return _this.promiseFromResult(true);
+                    };
+                }
                 var res = App.app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
-                    .then(function () { return _this.Save(scope['$item']); });
+                    .then(function (r) { return scope.$item; });
+                /*
+                                .then(() => {
+                                    var needSave = true;
+                                    if (typeof scope['$'].PrepareSave === "function")
+                                        needSave = scope['$'].PrepareSave(scope['$item']);
+                                    if (needSave === undefined)
+                                        needSave = true;
+                                    return needSave;
+                                })
+                                .then(r => {
+                                    if (r)
+                                        return this.Save(scope['$item']);
+                                    else
+                                        return scope['$item'];
+                                });
+                */
                 if (updateAfterSave === undefined || updateAfterSave) {
                     res = res
                         .then(function (res) { return _this.Load(res.Id); })

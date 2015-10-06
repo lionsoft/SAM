@@ -180,20 +180,6 @@ module App.Services {
          */
         protected afterQuery(query: IPromise<T[]>): IPromise<T[]> {
             return query.HandleError();
-/*
-            this._samUsers = this._samUsers || this.get("samUsers");
-            return query.HandleError().then(x => {
-                var d = this.defer();
-                if (angular.isArray(x) && x[0] && angular.isArray(x[0]['Results'])) {
-                    this._samUsers.UpdateEmployee(x[0]['Results'].select(r => r && r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
-                }
-                else if (x && x.length > 0) {
-                    this._samUsers.UpdateEmployee(x.select(r => r && r["CreatedBy"]).toArray()).finally(() => d.resolve(x));
-                } else
-                    d.resolve(x);
-                return d.promise;
-            });
-*/
         }
 
         /**
@@ -203,6 +189,7 @@ module App.Services {
          * @param query промис запроса
          */
         protected afterGet(query: IPromise<T>): IPromise<T> {
+/*
             this._samUsers = this._samUsers || this.get("samUsers");
             return query.then(r => {
                 if (r) {
@@ -212,6 +199,9 @@ module App.Services {
                 } else
                     return r;
             });
+*/
+
+            return query;
         }
 
         /**
@@ -285,8 +275,13 @@ module App.Services {
             var res = odata.$empty ? this.promiseFromResult([]) : this.afterQuery(this.ApiService.query(odata));
             if (!this.prepareResult.isEmpty()) {
                 res = res.then(r => {
-                    if (angular.isArray(r))
-                        r.forEach((x: any) => this.prepareResult(x));
+                    if (r.length && angular.isArray(r)) {
+                        var results : any = r;
+                        if (angular.isArray(results[0].Results))
+                            results = results[0].Results;
+                        results.forEach((x: any) => this.prepareResult(x));
+                    }
+                        
                     return r;
                 });
             }
@@ -513,6 +508,10 @@ module App.Services {
          * Объект доступен в скоупе диалога как $item.
          * Дополнительно можно передать свой скоуп, который будет доступен в скоупе диалога как $scope.
          * Также из исходного скоупа будут скопированы в скоуп диалога все поля, начинающиеся на $.
+         * В контроллере дополнительного скоупа могут быть реализованы методы, которые будут автоматически вызваны в нужный момент: 
+         *     PrepareSave($item): IPromise<boolean> | boolean - вызывается ПЕРЕД сохранением объекта. Если возвращает false - автоматическое сохранение не вызовется.
+         * Стандартный алгоритм сохранения может быть полностью перекрыт, если в переданном скоупе будет реализован метод
+         *     $submit($item): IPromise<boolean> 
          * Возвращает промис окончания сохранения объекта.
          * @param entity редактируемый объект
          * @param editTemplateUrl ссылка на шаблон формы редактирования
@@ -536,14 +535,49 @@ module App.Services {
                 scope.$templateUrl = editTemplateUrl.ExpandPath(LionSoftAngular.popupDefaults.templateUrlBase);
                 scope.$entityTypeName = this.TypeDescription;
             }
-            var res = <IPromise<T>>app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
-                .then(() => this.Save(scope['$item']));
+
+            if (!scope.$submit) {
+                scope.$submit = (item) => {
+                    var needSave = true;
+                    if (typeof scope.$.PrepareSave === "function")
+                        needSave = scope.$.PrepareSave(item);
+                    if (needSave === undefined)
+                        needSave = true;
+                    if (needSave) {
+                        return this.Save(item).then(res => {
+                            scope.$item = res;
+                            return true;
+                        });
+                    } else {
+                        scope.$item = item;
+                    }
+                    return this.promiseFromResult(true);
+                };
+            }
+            var res = app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
+                .then(r => scope.$item);
+/*
+                .then(() => {
+                    var needSave = true;
+                    if (typeof scope['$'].PrepareSave === "function")
+                        needSave = scope['$'].PrepareSave(scope['$item']);
+                    if (needSave === undefined)
+                        needSave = true;
+                    return needSave;
+                })
+                .then(r => {
+                    if (r)
+                        return this.Save(scope['$item']);
+                    else
+                        return scope['$item'];
+                });
+*/
             if (updateAfterSave === undefined || updateAfterSave) {
                 res = res
                     .then(res => this.Load(res.Id))
                     .then(res => this.Update(entity, res));
             }
-            return res;
+            return <any>res;
         }
 
         /**
