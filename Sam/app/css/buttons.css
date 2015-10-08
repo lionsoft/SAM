@@ -11,3 +11,9 @@
   min-width: 0;
   margin-left: 0;
 }
+.st-table-search .btn.btn-success {
+  background: #59e699!important;
+}
+.st-table-search .btn.btn-success:hover {
+  background: #85edb4 !important;
+}
