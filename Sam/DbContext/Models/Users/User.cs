@@ -45,6 +45,13 @@ namespace Sam.DbContext
         public Employee Employee
         {
             get { return Employees != null ? Employees.FirstOrDefault() : null; }
+            set
+            {
+                if (value == null)
+                    Employees = null;
+                else
+                    Employees = new List<Employee> { value };
+            }
         }
         
         [JsonProperty("Employee")]

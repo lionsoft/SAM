@@ -21,7 +21,7 @@ table[st-table] th.st-action-buttons {
 table[st-table] td.st-action-buttons {
   white-space: nowrap;
   margin: 0!important;
-  padding: 0!important;
+  padding: 0 2px!important;
   width: 52px;
 }
 table[st-table] td.st-action-buttons button {
@@ -179,7 +179,7 @@ table[st-table] tfoot .st-show-page-sizes .pagination {
 [st-table] table td.st-action-buttons {
   white-space: nowrap;
   margin: 0!important;
-  padding: 0!important;
+  padding: 0 2px!important;
   width: 52px;
 }
 [st-table] table td.st-action-buttons button {
