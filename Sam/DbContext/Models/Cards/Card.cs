@@ -45,7 +45,17 @@ namespace Sam.DbContext
         /// </summary>
         [NotMapped]
         [JsonIgnore]
-        public Employee Employee { get { return Employees == null ? null : Employees.FirstOrDefault(); } }
+        public Employee Employee
+        {
+            get { return Employees == null ? null : Employees.FirstOrDefault(); }
+            set
+            {
+                if (value == null)
+                    Employees = null;
+                else
+                    Employees = new HashSet<Employee> { value };
+            }
+        }
 
         [JsonProperty("Employee")]
         public JsonEmployee JsonEmployee

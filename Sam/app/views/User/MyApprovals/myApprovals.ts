@@ -21,16 +21,18 @@ module App.Controllers {
         public prepareQuery(odata: Services.OData) {
             odata.$expand("Door,Card.Employees.Department,ApprovedBy")
                 .eq("ApprovalStatus", ApprovalStatus.WaitingForApproval.toString())
-                .eq("ApprovedBy", app.$auth.LoggedUser.Employee.Id);
+                .eq("ApprovedById", app.$auth.LoggedUser.Employee.Id);
         }
 
         public Approve(cardAccess: ICardAccess) {
             cardAccess.ApprovalStatus = ApprovalStatus.Approved;
+            //cardAccess.ApprovedDate = moment(); // will set in backend
             this.Save(cardAccess);
         }
 
         public Reject(cardAccess: ICardAccess) {
             cardAccess.ApprovalStatus = ApprovalStatus.Rejected;
+            //cardAccess.ApprovedDate = moment(); // will set in backend
             this.Save(cardAccess);
         }
 

@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -1123,7 +1123,6 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="gruntfile.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Scripts\angular-aria.js" />
     <Content Include="Scripts\angular-aria.min.js" />

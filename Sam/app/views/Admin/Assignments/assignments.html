@@ -90,6 +90,7 @@
                                 <th translate>Department</th>
                                 <th translate>ApprovalLevel</th>
                                 <th nowrap translate st-sort="ApprovedBy.Name">ApprovedBy</th>
+                                <th nowrap translate st-sort="ApprovalStatus">ApprovalStatus</th>
                                 <th nowrap translate st-sort="ApprovedDate">ApprovedDate</th>
                                 <th nowrap translate st-sort="CreatedBy.Id">CreatedBy</th>
                                 <th nowrap translate st-sort="CreatedDate">CreatedDate</th>
@@ -107,8 +108,10 @@
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Card.Employee.Department.Name}}">{{cardAccess.Card.Employee.Department.Name}}</td>
                                 <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.ApprovedBy.Name}}">{{cardAccess.ApprovedBy.Name}}</td>
+                                <td class="nowrap text-center">{{cardAccess.ApprovalStatus | ApprovalStatus}}</td>
                                 <td class="text-center">{{cardAccess.ApprovedDate | date}}</td>
-                                <td class="col-created-by">{{::cardAccess.CreatedBy.Name}}</td>
+                                <td class="col-created-by">{{::cardAccess.CreatedBy.Name
+}}</td>
                                 <td class="col-created-date">{{::cardAccess.CreatedDate | date}}</td>
                             </tr>
                         </tbody>

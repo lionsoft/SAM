@@ -34,12 +34,14 @@ namespace Sam.Api
             });
         }
 
-        private TEntity PrepareResultEntity<TEntity>(object p)
+        private TEntity PrepareResultEntity<TEntity>(object p, int level = 0)
         {
             var u = p as User;
             if (u != null)
             {
                 var jsonUser = JsonUser.Create(u);
+                if (level > 0)
+                    jsonUser.Employee = null;
                 if (typeof (TEntity) == typeof (JsonUser))
                     p = jsonUser;
                 else

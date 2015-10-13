@@ -1,4 +1,4 @@
-﻿/// <binding />
+/// <binding ProjectOpened='watch' />
 // <binding BeforeBuild='less' />
 /*
 This file in the main entry point for defining Gulp tasks and using Gulp plugins.

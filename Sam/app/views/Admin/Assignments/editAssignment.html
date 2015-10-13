@@ -61,18 +61,32 @@
 </div>
 <!-- #endregion -->
 
-<!-- #region - ApprovedBy & ApprovedDate - -->
+<!-- #region - ApprovedBy -  -->
+    <div class="form-group">
+        <label class="control-label" translate>ApprovedBy</label>
+        <ui-select class="form-control" ng-model="$item.ApprovedById" ng-disabled="!$.employees.length">
+            <ui-select-match allow-clear="false">
+                {{$select.selected.Name}}
+            </ui-select-match>
+            <ui-select-choices repeat="employee.Id as employee in ::$.employees track by employee.Id">
+                {{::employee.Name}}
+            </ui-select-choices>
+        </ui-select>
+    </div>
+<!-- #endregion -->
+
+<!-- #region - ApprovedDate & ApprovalStatus - -->
 <div class="row">
-    <!-- #region - ApprovedBy - -->
+    <!-- #region - ApprovalStatus - -->
     <div class="col col-xs-6">
         <div class="form-group">
-            <label class="control-label" translate>ApprovedBy</label>
-            <ui-select class="form-control" ng-model="$item.ApprovedById" ng-disabled="!$.employees.length">
+            <label class="control-label" translate>ApprovalStatus</label>
+            <ui-select class="form-control" ng-model="$item.ApprovalStatus">
                 <ui-select-match allow-clear="false">
-                    {{$select.selected.Name}}
+                    {{$select.selected | ApprovalStatus}}
                 </ui-select-match>
-                <ui-select-choices repeat="employee.Id as employee in ::$.employees track by employee.Id">
-                    {{::employee.Name}}
+                <ui-select-choices repeat="status in [] | ApprovalStatus">
+                    {{::status | ApprovalStatus}}
                 </ui-select-choices>
             </ui-select>
         </div>

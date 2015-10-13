@@ -12,7 +12,6 @@ using System.Web.Http.OData.Formatter.Serialization;
 using System.Web.Http.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.Data.Edm;
-using Microsoft.Data.OData;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 

@@ -52,7 +52,7 @@ declare module App {
         CardType?: App.CardType;
         CustomerId: string;
         Customer?: App.ICustomer;
-        Employee: App.IEmployee;
+        JsonEmployee: any;
     }
     /** Generated from Sam.DbContext.CardAccess **/
     export interface ICardAccess extends App.IEntityObjectBaseId {
@@ -62,7 +62,7 @@ declare module App {
         Door: App.IDoor;
         ApprovedById: string;
         ApprovedBy: App.IEmployee;
-        ApprovedDate?: string;
+        ApprovedDate?: Date | moment.Moment | string;
         ApprovalLevel: App.ApprovalLevel;
         ApprovalStatus: App.ApprovalStatus;
         Note: string;
@@ -70,12 +70,12 @@ declare module App {
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {
         Id: any;
-        CreatedDate: string;
+        CreatedDate: Date | moment.Moment | string;
         CreatedById: string;
-        CreatedBy: App.IUser;
-        ModifiedDate: string;
+        JsonCreatedBy: any;
+        ModifiedDate: Date | moment.Moment | string;
         ModifiedById: string;
-        ModifiedBy: App.IUser;
+        JsonModifiedBy: any;
     }
     /** Generated from Sam.DbContext.EntityObjectId **/
     export interface IEntityObjectId extends App.IEntityObjectBaseId {
@@ -106,7 +106,7 @@ declare module App {
         Department: App.IDepartment;
         ApprovedById: string;
         ApprovedBy: App.IEmployee;
-        ApprovedDate?: string;
+        ApprovedDate?: Date | moment.Moment | string;
         DoorLists: App.IDoorList[];
     }
     /** Generated from Sam.DbContext.Area **/

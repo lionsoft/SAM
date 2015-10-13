@@ -29,7 +29,7 @@
                         <tbody>
                             <tr ng-repeat="cardAccess in $items track by cardAccess.Id">
                                 <td class="st-action-buttons col-sm ">
-                                    <button class="btn btn-success btn-sm" ng-click="$.Approve(cardAccess)">Approve</button>
+                                    <button class="btn btn-success btn-sm" tooltip="{{cardAccess.Note}}" ng-click="$.Approve(cardAccess)">Approve</button>
                                     <button class="btn btn-danger btn-sm" ng-click="$.Reject(cardAccess)">Reject</button>
                                 </td>
                                 <td tooltip="{{cardAccess.Card.Employee.Name}}">{{cardAccess.Card.Employee.Name}}</td>

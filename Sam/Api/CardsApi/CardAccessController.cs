@@ -59,5 +59,18 @@ namespace Sam.Api
             }
             await Db.SaveChangesAsync();
         }
+
+        #region Overrides of CRUDController<CardAccess,string>
+
+        protected override void PrepareSave(CardAccess entity, bool isNew)
+        {
+            base.PrepareSave(entity, isNew);
+            if (entity.ApprovalStatus == ApprovalStatus.WaitingForApproval)
+                entity.ApprovedDate = null;
+            else if (!entity.ApprovedDate.HasValue)
+                entity.ApprovedDate = DateTime.Now;
+        }
+
+        #endregion
     }
 }
