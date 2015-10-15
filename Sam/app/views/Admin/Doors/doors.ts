@@ -65,6 +65,7 @@ module App.Controllers
         //#region - City -
 
         prepareCitiesQuery(odata: Services.OData) {
+            odata.$empty = !this.selectedCountryId;
             odata.eq("CountryId", this.selectedCountryId);
             return "selectedCountryId";
         }
@@ -81,6 +82,7 @@ module App.Controllers
         //#region - Building -
 
         prepareBuildingsQuery(odata: Services.OData) {
+            odata.$empty = !this.selectedCityId;
             odata.eq("CityId", this.selectedCityId).eq("CustomerId", this.selectedCustomerId);
             return "selectedCityId,selectedCustomerId";
         }
@@ -99,6 +101,7 @@ module App.Controllers
         //#region - Area -
 
         prepareLoadAreasQuery(odata: Services.OData) {
+            odata.$empty = !this.selectedBuildingId;
             odata.eq("BuildingId", this.selectedBuildingId);
             return "selectedBuildingId";
         }
@@ -116,6 +119,7 @@ module App.Controllers
         //#region - Door -
 
         prepareLoadDoorsQuery(odata: Services.OData) {
+            odata.$empty = !this.selectedAreaId;
             odata.eq("AreaId", this.selectedAreaId);
             return "selectedAreaId";
         }

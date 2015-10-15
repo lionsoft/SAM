@@ -48,4 +48,3 @@ var App;
     })();
     App.Shared.commonModule.service('$auth', AutenticationService);
 })(App || (App = {}));
-//# sourceMappingURL=AutenticationService.js.map

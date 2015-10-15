@@ -28,4 +28,3 @@ var App;
         App.app.service("samDoors", DoorsService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
-//# sourceMappingURL=SamDoorsService.js.map

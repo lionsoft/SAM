@@ -471,4 +471,3 @@ var App;
         Services.CRUDService = CRUDService;
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
-//# sourceMappingURL=CRUDService.js.map

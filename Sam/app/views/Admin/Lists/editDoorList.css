@@ -1,4 +1,4 @@
-﻿#lists .editDoorList input[st-search] {
+#lists .editDoorList input[st-search] {
   width: 150px;
   margin: 0;
   padding-top: 0;
@@ -13,14 +13,14 @@
 }
 #lists .editDoorList ul.doors {
   height: 344px;
-  border: solid 1px #0b4665;
+  border: solid 1px #4c5051;
   overflow: auto;
 }
 #lists .editDoorList ul.doors li {
   padding: 4px 8px;
 }
 #lists .editDoorList ul.doors li:nth-of-type(even) {
-  background: #ffffff;
+  background: #fff;
 }
 #lists .editDoorList ul.doors li:nth-of-type(odd) {
   background: #ecf5fe;

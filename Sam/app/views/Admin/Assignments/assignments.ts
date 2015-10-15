@@ -24,12 +24,10 @@ module App.Controllers {
             this.$scope.$watch("$.selectedCustomerId", (id: string) => {
                 this.loadCards(id);
                 this.loadDoors(id);
-                this.loadEmployees(id);
             });
             this.activate(
                 this.samCustomers.Load().then(res => {
                     this.customers = res;
-                    //this.selectedCustomerId = res.select(x => x.Id).firstOrDefault();
                 })
                 , this.samEmployees.Load().then(res => this.employees = res)
             );
@@ -40,7 +38,6 @@ module App.Controllers {
             this.selectedCardId = undefined;
             this.samCards.Load(Services.OData.create.eq("CustomerId", customerId).$expand("Employees")).then(res => {
                 this.cards = res;
-                //this.selectedCardId = res.select(x => x.Id).firstOrDefault();
             });
         }
         loadDoors(customerId: string) {
@@ -48,7 +45,6 @@ module App.Controllers {
             this.selectedDoorId = undefined;
             this.samDoors.Load(Services.OData.create.eq("Owner.Department.Company.CustomerId", customerId)).then(res => {
                 this.doors = res;
-                //this.selectedDoorId = res.select(x => x.Id).firstOrDefault();
             });
         }
         loadEmployees(customerId: string) {
@@ -56,7 +52,6 @@ module App.Controllers {
             this.selectedEmployeeId = undefined;
             this.samEmployees.Load(Services.OData.create.eq("Department.Company.CustomerId", customerId)).then(res => {
                 this.employees = res;
-                //this.selectedEmployeeId = res.select(x => x.Id).firstOrDefault();
             });
         }
 

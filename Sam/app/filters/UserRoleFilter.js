@@ -26,4 +26,3 @@ var App;
         App.app.filter("UserRole", UserRoleFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
-//# sourceMappingURL=UserRoleFilter.js.map

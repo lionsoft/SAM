@@ -1,4 +1,4 @@
-﻿#lists .editDepartmentList input[st-search] {
+#lists .editDepartmentList input[st-search] {
   width: 150px;
   margin: 0;
   padding-top: 0;
@@ -13,14 +13,14 @@
 }
 #lists .editDepartmentList ul.doors {
   height: 344px;
-  border: solid 1px #0b4665;
+  border: solid 1px #4c5051;
   overflow: auto;
 }
 #lists .editDepartmentList ul.doors li {
   padding: 4px 8px;
 }
 #lists .editDepartmentList ul.doors li:nth-of-type(even) {
-  background: #ffffff;
+  background: #fff;
 }
 #lists .editDepartmentList ul.doors li:nth-of-type(odd) {
   background: #ecf5fe;

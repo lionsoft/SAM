@@ -1,4 +1,4 @@
-﻿#employees .editEmployee {
+#employees .editEmployee {
   /*
         .my-drop-zone {
             border: dotted 3px lightgray;
@@ -20,8 +20,8 @@
   -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
   box-shadow: 3px 3px 3px 0 #e3e3e3;
   border: 1px solid #c3c3c3;
-  height: 151px;
-  width: 151px;
+  height: 149px;
+  width: 149px;
   margin-left: 60px;
   margin-bottom: 7px;
 }

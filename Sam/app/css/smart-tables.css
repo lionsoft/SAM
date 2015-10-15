@@ -1,6 +1,6 @@
-﻿[st-table] table.table-striped tbody tr:nth-of-type(even),
+[st-table] table.table-striped tbody tr:nth-of-type(even),
 table[st-table].table-striped tbody tr:nth-of-type(even) {
-  background: #ffffff;
+  background: #fff;
 }
 [st-table] table.table-striped tbody tr:nth-of-type(odd),
 table[st-table].table-striped tbody tr:nth-of-type(odd) {
@@ -53,7 +53,7 @@ table[st-table] thead th {
   line-height: 1.3;
   cursor: default;
   padding: 0.5em 12px;
-  color: #ffffff;
+  color: #fff;
   background: #8e9899;
   width: 1px;
 }
@@ -117,7 +117,7 @@ table[st-table] tbody tr:last-child td {
   border-bottom: none;
 }
 table[st-table] tbody tr:nth-of-type(even) {
-  background: #ffffff;
+  background: #fff;
 }
 table[st-table] tbody tr:nth-of-type(odd) {
   background: #ecf5fe;
@@ -211,7 +211,7 @@ table[st-table] tfoot .st-show-page-sizes .pagination {
   line-height: 1.3;
   cursor: default;
   padding: 0.5em 12px;
-  color: #ffffff;
+  color: #fff;
   background: #8e9899;
   width: 1px;
 }
@@ -275,7 +275,7 @@ table[st-table] tfoot .st-show-page-sizes .pagination {
   border-bottom: none;
 }
 [st-table] table tbody tr:nth-of-type(even) {
-  background: #ffffff;
+  background: #fff;
 }
 [st-table] table tbody tr:nth-of-type(odd) {
   background: #ecf5fe;

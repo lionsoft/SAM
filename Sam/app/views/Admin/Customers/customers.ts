@@ -22,6 +22,7 @@ module App.Controllers
         //#region - Company -
 
         prepareCompaniesQuery(odata: Services.OData) {
+            odata.$empty = !this.selectedCustomerId;
             odata.eq("CustomerId", this.selectedCustomerId);
             return "selectedCustomerId";
         }
@@ -39,6 +40,7 @@ module App.Controllers
         //#region - Department -
 
         prepareDepartmentsQuery(odata: Services.OData) {
+            odata.$empty = !this.selectedCompanyId;
             odata.eq("CompanyId", this.selectedCompanyId);
             return "selectedCompanyId";
         }
@@ -47,12 +49,6 @@ module App.Controllers
             if (!c.Id)
                 c.CompanyId = this.selectedCompanyId;
         }
-
-/*
-        DepartmentsLoaded(list: IDepartment[]) {
-            this.selectedDepartmentId = list.select(x => x.Id).firstOrDefault();
-        }
-*/
 
         //#endregion 
 

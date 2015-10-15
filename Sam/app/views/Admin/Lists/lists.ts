@@ -22,10 +22,8 @@ module App.Controllers {
         }
 
         Activated() {
-//            this.$scope.$watch("$.customers", () => this.selectedCustomerId = this.customers.select(x => x.Id).firstOrDefault());
             this.$scope.$watch("$.selectedCustomerId", () => this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(res => this.departments = res));
             this.$scope.$watch("$.departments", () => {
-                //this.selectedDepartmentId = this.departments.select(x => x.Id).firstOrDefault();
                 this.selectedDepartmentId = undefined;
             });
         }

@@ -35,4 +35,3 @@ var App;
         App.app.directive("stSortDefault", StSortDefault.Factory());
     })(Directives = App.Directives || (App.Directives = {}));
 })(App || (App = {}));
-//# sourceMappingURL=st-sort-default.js.map

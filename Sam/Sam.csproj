@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -589,6 +589,9 @@
       <DependentUpon>globals.less</DependentUpon>
     </Content>
     <Content Include="app\css\globals.less" />
+    <Content Include="app\css\mixins.css">
+      <DependentUpon>mixins.less</DependentUpon>
+    </Content>
     <Content Include="app\css\mixins.less" />
     <None Include="app\css\navbar.less" />
     <Content Include="app\css\preloader.css">

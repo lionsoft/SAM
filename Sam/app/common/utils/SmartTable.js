@@ -15,4 +15,3 @@ var App;
         })(SmartTable = Utils.SmartTable || (Utils.SmartTable = {}));
     })(Utils = App.Utils || (App.Utils = {}));
 })(App || (App = {}));
-//# sourceMappingURL=SmartTable.js.map

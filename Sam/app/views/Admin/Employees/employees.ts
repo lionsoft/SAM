@@ -11,22 +11,16 @@ module App.Controllers {
     class Employees extends PageController {
 
         samCustomers: Services.ICustomersService;
-        samDepartments: Services.IDepartmentsService;
         samEmployees: Services.IEmployeesService;
-        samUsers: Services.IUsersService;
         FileUploader;
 
         public selectedCustomerId: string;
         public customers: ICustomer[] = [];
-        public customerDepartments: IDepartment[] = [];
-        public employees: IEmployee[] = [];
-        public users: IUser[] = [];
 
         public uploader/*: FileUploader*/;
 
         Init() {
             // Queue all promises and wait for them to finish before loading the view
-            this.samUsers.Load().then(res => this.users = res);
             this.uploader = new this.FileUploader({ url: '/api/Employees/UploadImage' });
             this.uploader.onAfterAddingFile = item => {
                 this.uploader.queue.Remove(x => x !== item);
@@ -37,8 +31,6 @@ module App.Controllers {
         }
 
         Activated() {
-            //this.$scope.$watch("$.customers", () => this.selectedCustomerId = this.customers.select(x => x.Id).firstOrDefault());
-            this.$scope.$watch("$.selectedCustomerId", () => this.LoadEmployees());
         }
 
         $submit(item: IEmployee): IPromise<boolean> {
@@ -79,15 +71,8 @@ module App.Controllers {
 
             }
         }
-
-        LoadEmployees() {
-            this.employees = [];
-            this.customerDepartments = [];
-            this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(res => this.customerDepartments = res);
-            this.samEmployees.LoadByCustomer(this.selectedCustomerId).then(res => this.employees = res);
-        }
     }
 
     // Register with angular
-    app.controller('employees', Employees.Factory("samCustomers", "samEmployees", "samDepartments", "FileUploader", "samUsers"));
+    app.controller('employees', Employees.Factory("samCustomers", "samEmployees", "FileUploader"));
 }

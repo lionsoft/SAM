@@ -294,4 +294,3 @@ var App;
         })();
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
-//# sourceMappingURL=OData.js.map
