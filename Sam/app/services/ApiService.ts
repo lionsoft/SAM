@@ -9,7 +9,9 @@ module App {
         Logout(): IPromise<void>;
     }
 
-    export interface IEmployeeApi extends IResourceClass<IEmployee> { }
+    export interface IEmployeeApi extends IResourceClass<IEmployee> {
+        ResetPin(id?: string): IPromise<void>;
+    }
     export interface IEmployeeCardApi extends IResourceClass<IEmployeeCard> { }
 
     export interface ICustomersApi extends IResourceClass<ICustomer> { }
@@ -28,7 +30,7 @@ module App {
     export interface IDoorListsApi extends IResourceClass<IDoorList> { }
     export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
     export interface ICardAccessApi extends IResourceClass<ICardAccess> {
-        RequestAccess(doorIds: string[], note: string, employeeId?: string);
+        RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void>;
     }
  
 
@@ -62,7 +64,9 @@ module App {
             Logout: <any>{ method: "POST", route: "Logout" },
         };
 
-        Employees: IEmployeeApi = {};
+        Employees: IEmployeeApi = {
+            ResetPin: <any>{ method: "POST", route: "ResetPin/:id" },
+        };
         EmployeeCards: IEmployeeCardApi = {};
 
         Customers: ICustomersApi = {};

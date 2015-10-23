@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.Http;
@@ -8,6 +9,7 @@ using System.Web.Http.OData.Extensions;
 using System.Web.Http.OData.Query;
 using Sam.DbContext;
 using Sam.Extensions.EntityFramework;
+using Sam.Extensions.Expressions;
 
 namespace Sam.Api
 {
@@ -127,6 +129,7 @@ namespace Sam.Api
     }
 
     
+
     public class CRUDController<TEntity> : CRUDController<TEntity, string> where TEntity : class, IEntityObjectId
     {
         protected override bool IsNullId(string id)
@@ -139,12 +142,17 @@ namespace Sam.Api
             PrepareSave(entity, isNew);
             Db.Attach(entity, isNew);
             await Db.SaveChangesAsync();
-            //await Db.Entry(entity).GetDatabaseValuesAsync();
-            entity = Db.Set<TEntity>()
+/*
+            var res = Db.Set<TEntity>()
+                .Include(x => x.CreatedBy)
+                .Include(x => x.ModifiedBy)
+                .First(SimplifyExpression.Predicate<TEntity>(x => x.Id == entity.Id));
+*/
+            var res = (TEntity)((IQueryable<IEntityObjectId>)(Db.Set<TEntity>()))
                 .Include(x => x.CreatedBy)
                 .Include(x => x.ModifiedBy)
                 .First(x => x.Id == entity.Id);
-            return entity;
+            return res;
         }
 
     }

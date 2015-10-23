@@ -17,6 +17,11 @@ declare module App {
         Approved = 1,
         Rejected = 2,
     }
+    /** Generated from Sam.DbContext.AssignmentType **/
+    const enum AssignmentType {
+        Special = 0,
+        Standard = 1,
+    }
     /** Generated from Sam.DbContext.CardStatus **/
     const enum CardStatus {
         Active = 0,
@@ -27,6 +32,8 @@ declare module App {
     const enum CardType {
         Internal = 0,
         Guest = 1,
+        External = 2,
+        Replacement = 3,
     }
     /** Generated from Sam.DbContext.EmployeeStatus **/
     const enum EmployeeStatus {
@@ -52,6 +59,7 @@ declare module App {
         CardType?: App.CardType;
         CustomerId: string;
         Customer?: App.ICustomer;
+        DateExpiration?: Date | moment.Moment | string;
         JsonEmployee: any;
     }
     /** Generated from Sam.DbContext.CardAccess **/
@@ -66,6 +74,7 @@ declare module App {
         ApprovalLevel: App.ApprovalLevel;
         ApprovalStatus: App.ApprovalStatus;
         Note: string;
+        AssignmentType: App.AssignmentType;
     }
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {
@@ -175,6 +184,11 @@ declare module App {
         Card?: App.ICard;
         UserId?: string;
         User: App.IUser;
+        CanApplyAnothersAccess?: boolean;
+        DelegateToId?: string;
+        DelegateTo?: App.IEmployee;
+        DelegateFromDate?: Date | moment.Moment | string;
+        DelegateToDate?: Date | moment.Moment | string;
     }
     /** Generated from Sam.DbContext.EmployeeCard **/
     export interface IEmployeeCard extends App.IEntityObjectBaseId {

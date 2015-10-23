@@ -15,6 +15,8 @@ var App;
                 this.Source = [
                     { Key: 0 /* Internal */, Value: 'Internal' },
                     { Key: 1 /* Guest */, Value: 'Guest' },
+                    { Key: 2 /* External */, Value: 'External' },
+                    { Key: 3 /* Replacement */, Value: 'Replacement' },
                 ];
             }
             return CardTypeFilter;
@@ -22,3 +24,4 @@ var App;
         App.app.filter("CardType", CardTypeFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
+//# sourceMappingURL=CardTypeFilter.js.map

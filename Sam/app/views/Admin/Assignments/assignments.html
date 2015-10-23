@@ -86,6 +86,7 @@
                                 <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
                                 <th translate st-sort="Card.Number">CardNumber</th>
                                 <th translate auto-size>Employee</th>
+                                <th translate>Type</th>
                                 <th translate auto-size st-sort="Door.Name">Door</th>
                                 <th translate>Department</th>
                                 <th translate>ApprovalLevel</th>
@@ -104,6 +105,7 @@
                                 </td>
                                 <td class="text-center" nowrap>{{cardAccess.Card.Number|CardNumber}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Card.Employee.Name}}">{{cardAccess.Card.Employee.Name}}</td>
+                                <td nowrap>{{cardAccess.AssignmentType | AssignmentType}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Door.Name}}">{{cardAccess.Door.Name}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Card.Employee.Department.Name}}">{{cardAccess.Card.Employee.Department.Name}}</td>
                                 <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>

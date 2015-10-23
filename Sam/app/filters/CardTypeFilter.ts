@@ -7,6 +7,8 @@ module App.Filters {
         [
             { Key: CardType.Internal, Value: 'Internal' },
             { Key: CardType.Guest, Value: 'Guest' },
+            { Key: CardType.External, Value: 'External' },
+            { Key: CardType.Replacement, Value: 'Replacement' },
         ];
     }
 

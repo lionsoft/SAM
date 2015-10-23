@@ -7,6 +7,7 @@ namespace Sam.DbContext
     {
         Internal = 0,
         Guest = 1,
-
+        External = 2,
+        Replacement = 3,
     }
 }

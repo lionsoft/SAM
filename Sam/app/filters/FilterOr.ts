@@ -1,17 +1,16 @@
 ﻿'use strict';
 module App.Filters {
 
-    /**
+    /**                                           
      * AngularJS default filter with the following expression:
      * "person in people | filter: {name: $select.search, age: $select.search}"
      * performs a AND between 'name: $select.search' and 'age: $select.search'.
      * We want to perform a OR.
+     * In addition you can pass the second parameter as 'true' if you want to filter by starts with condition.
      */
-    class PropsFilter extends Filter
-    {
-        Execute(items: any[], props: any): any[] {
+    class FilterOr extends Filter {
+        Execute(items: any[], props: any, startsWith?: boolean): any[] {
             var out = [];
-
             if (angular.isArray(items)) {
                 out = items.where(item => {
                     var itemMatches = false;
@@ -20,7 +19,8 @@ module App.Filters {
                     for (var i = 0; i < keys.length; i++) {
                         var prop = keys[i];
                         var text = props[prop].toLowerCase();
-                        if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+                        var idx = item[prop].toString().toLowerCase().indexOf(text);
+                        if (idx !== -1 && (!startsWith || idx === 0)) {
                             itemMatches = true;
                             break;
                         }
@@ -36,5 +36,5 @@ module App.Filters {
         }
     }
 
-    app.filter("propsFilter", PropsFilter.Factory());
+    app.filter("filterOr", FilterOr.Factory());
 }

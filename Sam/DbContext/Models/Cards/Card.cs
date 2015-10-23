@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web.Helpers;
@@ -30,6 +31,7 @@ namespace Sam.DbContext
         [TypeScriptMember(Optional = true)]
         public Customer Customer { get; set; }
 
+        public DateTime? DateExpiration { get; set; }
 
         /// <summary>
         /// Employees who have the card currently active.

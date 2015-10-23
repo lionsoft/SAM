@@ -11,21 +11,25 @@ module App.Controllers {
         samAreas: Services.IAreasService;
         samDoors: Services.IDoorsService;
         samCardAccess: Services.ICardAccessService;
+        samEmployees: Services.IEmployeesService;
 
         public countries: ICountry[] = [];
         public selectedCountryId: string;
 
-        public cities: ICountry[] = [];
+        public cities: ICity[] = [];
         public selectedCityId: string;
 
-        public buildings: ICountry[] = [];
+        public buildings: IBuilding[] = [];
         public selectedBuildingId: string;
 
-        public areas: ICountry[] = [];
+        public areas: IArea[] = [];
         public selectedAreaId: string;
 
-        public doors: ICountry[] = [];
+        public doors: IDoor[] = [];
         public selectedDoorIds: string[] = [];
+
+        public employees: IEmployee[] = [];
+        public whoGetsAccessEmployeeId: string;
 
         public note: string;
 
@@ -34,11 +38,28 @@ module App.Controllers {
         Init() {
             this.samUsers.Update(app.$auth.LoggedUser).then(() => {
                 this.noActivatedCard = !app.$auth.LoggedUser.Employee.CardId;
+                this.updateEmployees();
             });
             this.$scope.$watch("$.selectedCountryId", (val: string) => this.LoadCities(val));
             this.$scope.$watch("$.selectedCityId", (val: string) => this.LoadBuildings(val));
             this.$scope.$watch("$.selectedBuildingId", (val: string) => this.LoadAreas(val));
             this.$scope.$watch("$.selectedAreaId", (val: string) => this.LoadDoors(val));
+        }
+
+        private updateEmployees() {
+            this.employees = [];
+            var customerId = this.buildings.select(b => b.CustomerId).firstOrDefault();
+            var query = customerId ? this.samEmployees.LoadByCustomer(customerId) : this.promiseFromResult([]);
+            query
+                .then(x => this.employees = x)
+                .finally(() => {
+                    if (app.$auth.LoggedUser && app.$auth.LoggedUser.Employee) {
+                        if (this.employees.all(x => x.Id !== app.$auth.LoggedUser.Employee.Id))
+                            this.employees.unshift(app.$auth.LoggedUser.Employee);
+                        if (this.employees.all(x => x.Id !== this.whoGetsAccessEmployeeId))
+                            this.whoGetsAccessEmployeeId = app.$auth.LoggedUser.Employee.Id;
+                    }
+                });
         }
 
         Activated() {
@@ -59,6 +80,7 @@ module App.Controllers {
                 this.samBuildings.Load(Services.OData.create.eq("CityId", cityId)).then(res => this.buildings = res.orderBy(x => x.Name).toArray());
         }
         LoadAreas(buildingId: string) {
+            this.updateEmployees();
             this.selectedAreaId = null;
             this.areas = [];
             if (buildingId)
@@ -72,13 +94,13 @@ module App.Controllers {
 
         public Submit(form) {
             if (LionSoftAngular.ValidateForm(form) && this.selectedDoorIds.length > 0) {
-                this.samCardAccess.RequestAccess(this.selectedDoorIds, this.note).then(() => success('OK'));
+                this.samCardAccess.RequestAccess(this.selectedDoorIds, this.note, this.whoGetsAccessEmployeeId).then(() => success('OK'));
             } else {
                 form.doors.$setTouched();
             }
         }
     }
 
-    app.controller('applyAccess', ApplyAccess.Factory("samUsers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samCardAccess"));
+    app.controller('applyAccess', ApplyAccess.Factory("samUsers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samCardAccess", "samEmployees"));
 
 } 

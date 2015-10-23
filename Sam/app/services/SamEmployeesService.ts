@@ -8,6 +8,12 @@ module App.Services {
          * @param customerId customer Id
          */
         LoadByCustomer(customerId: string, ...expands: string[]): IPromise<IEmployee[]>;
+
+        /**
+         * Reset the employee PIN code of the employee and send it to him by email.
+         * @param id Employee ID or undefined for current logged employee.
+         */
+        ResetPin(id?: string): IPromise<void>;
     }
 
     class EmployeesService extends CRUDService<IEmployee> implements IEmployeesService {
@@ -19,6 +25,11 @@ module App.Services {
         LoadByCustomer(customerId: string, ...expands: string[]): IPromise<IEmployee[]> {
             return super.Load(OData.create.$expand(...expands).eq("Department.Company.CustomerId", customerId));
         }
+
+        ResetPin(id?: string): IPromise<void> {
+            return this.ApiService.ResetPin(id);
+        }
+
 
     }
 

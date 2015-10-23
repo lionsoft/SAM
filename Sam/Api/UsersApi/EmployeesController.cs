@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Sam.DbContext;
+using Sam.Extensions;
+using Sam.Extensions.ErrorManager;
 
 namespace Sam.Api
 {
@@ -31,6 +33,32 @@ namespace Sam.Api
                 if (File.Exists(fileName)) try { File.Delete(fileName); } catch { } 
             }
             return res;
+        }
+
+        [HttpPost, Route("ResetPin/{id?}")]
+        public async Task<IHttpActionResult> ResetPin(string id = null)
+        {
+            var employee = CurrentEmployee;
+            if (id != null)
+                employee = Db.Employees.Find(id);
+            if (employee != null)
+            {
+                if (employee.Email == null)
+                    throw new ApplicationException("EmployeeEmailIsNotSet");
+                employee.PinCode = RegeneratePinCode(employee);
+                await Db.SaveChangesAsync();
+                await MailService.SendMailAsync(employee.Email,
+                    new[] {employee.Email},
+                    "Your New PIN Code",
+                    "Hello, {0}.\r\n\r\nYour new PIN Code: {1}".Fmt(employee.Name, employee.PinCode)
+                    );
+            }
+            return Ok();
+        }
+
+        private int RegeneratePinCode(Employee employee)
+        {
+            return 1111;
         }
     }
 }

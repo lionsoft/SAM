@@ -28,3 +28,4 @@ var App;
         App.app.service("samAreas", AreasService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
+//# sourceMappingURL=SamAreasService.js.map

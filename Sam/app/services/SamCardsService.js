@@ -46,3 +46,4 @@ var App;
         App.app.service("samCards", CardsService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
+//# sourceMappingURL=SamCardsService.js.map

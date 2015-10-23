@@ -59,6 +59,7 @@
                                 <th translate nowrap st-sort="ActivationCode">ActivationCode</th>
                                 <th translate nowrap st-sort="Status">Status</th>
                                 <th translate nowrap st-sort="CardType">CardType</th>
+                                <th translate nowrap st-sort="DateExpiration">ExpirationDate</th>
                                 <th translate nowrap auto-size st-sort="CreatedBy.Id">CreatedBy</th>
                                 <th translate nowrap st-sort="CreatedDate">CreatedDate</th>
                             </tr>
@@ -75,6 +76,7 @@
                                 <td nowrap>{{card.ActivationCode}}</td>
                                 <td nowrap>{{card.Status | CardStatus}}</td>
                                 <td nowrap>{{card.CardType | CardType}}</td>
+                                <td nowrap>{{card.DateExpiration | date}}</td>
                                 <td class="col-created-by">{{::card.CreatedBy.Name}}</td>
                                 <td class="col-created-date">{{::card.CreatedDate | date}}</td>
                             </tr>

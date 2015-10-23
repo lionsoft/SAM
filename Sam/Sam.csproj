@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -115,6 +116,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -124,11 +126,11 @@
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -169,7 +171,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -187,6 +188,7 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivator.1.0.0.0\lib\WebActivator.dll</HintPath>
       <Private>True</Private>
@@ -216,6 +218,8 @@
     <Compile Include="Api\L10NApi\L10NController.cs" />
     <Compile Include="Api\System\ODataMetadata.cs" />
     <Compile Include="Api\System\SequentialIdProvider.cs" />
+    <Compile Include="DbContext\Models\Cards\AssignmentType.cs" />
+    <Compile Include="Extensions\Expressions\SimplifyExpression.cs" />
     <Compile Include="Api\UploadController.cs" />
     <Compile Include="Api\System\AppController.cs" />
     <Compile Include="Api\CustomersApi\CompaniesController.cs">
@@ -423,7 +427,7 @@
     <Content Include="app\common\LionSoftJs\js.net\js.net.string.js" />
     <Content Include="app\common\LionSoftJs\js.net\string.format-1.0.js" />
     <Content Include="app\app.js.map">
-      <DependentUpon>app.ts</DependentUpon>
+      <DependentUpon>app.js</DependentUpon>
     </Content>
     <Content Include="app\common\LionSoftJs\LionSoftJs-0.1.1.js">
       <DependentUpon>LionSoftJs-0.1.1.ts</DependentUpon>
@@ -695,11 +699,17 @@
     <Content Include="app\filters\ApprovalStatusFilter.js">
       <DependentUpon>ApprovalStatusFilter.ts</DependentUpon>
     </Content>
+    <Content Include="app\filters\AssignmentType.js">
+      <DependentUpon>AssignmentType.ts</DependentUpon>
+    </Content>
     <Content Include="app\filters\ExceptOfFilter.js">
       <DependentUpon>ExceptOfFilter.ts</DependentUpon>
     </Content>
-    <Content Include="app\filters\PropsFilter.js">
-      <DependentUpon>PropsFilter.ts</DependentUpon>
+    <Content Include="app\filters\FilterOr.js">
+      <DependentUpon>FilterOr.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\FilterProps.js">
+      <DependentUpon>FilterProps.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\YesNoFilter.js">
       <DependentUpon>YesNoFilter.ts</DependentUpon>
@@ -975,6 +985,9 @@
     <Content Include="app\views\User\ApplyAccess\applyAccess.js">
       <DependentUpon>applyAccess.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\User\LostCard\lostCard.css">
+      <DependentUpon>lostCard.less</DependentUpon>
+    </Content>
     <Content Include="app\views\User\LostCard\lostCard.js">
       <DependentUpon>lostCard.ts</DependentUpon>
     </Content>
@@ -996,9 +1009,6 @@
       <DependentUpon>setPinCode.less</DependentUpon>
     </Content>
     <Content Include="app\views\User\SetPinCode\setPinCode.html" />
-    <Content Include="app\views\User\LostCard\lostCard.css">
-      <DependentUpon>lostCard.less</DependentUpon>
-    </Content>
     <Content Include="app\views\User\LostCard\lostCard.html" />
     <Content Include="app\views\User\ApplyAccess\applyAccess.css">
       <DependentUpon>applyAccess.less</DependentUpon>
@@ -2056,8 +2066,10 @@
     <TypeScriptCompile Include="app\directives\smart-table\smart-table.d.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\sam-st-table.ts" />
     <TypeScriptCompile Include="app\filters\ApprovalStatusFilter.ts" />
+    <TypeScriptCompile Include="app\filters\AssignmentType.ts" />
     <TypeScriptCompile Include="app\filters\ExceptOfFilter.ts" />
-    <TypeScriptCompile Include="app\filters\PropsFilter.ts" />
+    <TypeScriptCompile Include="app\filters\FilterProps.ts" />
+    <TypeScriptCompile Include="app\filters\FilterOr.ts" />
     <TypeScriptCompile Include="app\filters\YesNoFilter.ts" />
     <TypeScriptCompile Include="app\filters\CardNumberFilter.ts" />
     <TypeScriptCompile Include="app\filters\ApprovalLevelFilter.ts" />
@@ -2390,7 +2402,7 @@
     <Content Include="app\views\Admin\Assignments\assignments.less" />
     <Content Include="app\views\Admin\Assignments\editAssignment.less" />
     <Content Include="app\filters\ApprovalLevelFilter.js.map">
-      <DependentUpon>ApprovalLevelFilter.ts</DependentUpon>
+      <DependentUpon>ApprovalLevelFilter.js</DependentUpon>
     </Content>
     <Content Include="app\filters\YesNoFilter.js.map">
       <DependentUpon>YesNoFilter.ts</DependentUpon>
@@ -2420,9 +2432,6 @@
     <Content Include="app\services\SamEmployeeCardsService.js.map">
       <DependentUpon>SamEmployeeCardsService.ts</DependentUpon>
     </Content>
-    <Content Include="app\filters\PropsFilter.js.map">
-      <DependentUpon>PropsFilter.ts</DependentUpon>
-    </Content>
     <Content Include="app\filters\ExceptOfFilter.js.map">
       <DependentUpon>ExceptOfFilter.ts</DependentUpon>
     </Content>
@@ -2433,7 +2442,16 @@
       <DependentUpon>myApprovals.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\ApprovalStatusFilter.js.map">
-      <DependentUpon>ApprovalStatusFilter.ts</DependentUpon>
+      <DependentUpon>ApprovalStatusFilter.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\AssignmentType.js.map">
+      <DependentUpon>AssignmentType.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\FilterOr.js.map">
+      <DependentUpon>FilterOr.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\FilterProps.js.map">
+      <DependentUpon>FilterProps.js</DependentUpon>
     </Content>
     <None Include="app\views\Admin\Customers\customers.less" />
     <Content Include="app\web.config" />
@@ -2522,16 +2540,12 @@
     <Content Include="app\views\Admin\Customers\editCompany.less" />
     <Content Include="app\views\User\ActivateCard\activateCard.less" />
     <Content Include="app\views\User\ApplyAccess\applyAccess.less" />
-    <Content Include="app\views\User\LostCard\lostCard.less" />
     <Content Include="app\views\User\SetPinCode\setPinCode.less" />
     <Content Include="app\views\User\ActivateCard\activateCard.js.map">
       <DependentUpon>activateCard.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\User\ApplyAccess\applyAccess.js.map">
-      <DependentUpon>applyAccess.ts</DependentUpon>
-    </Content>
     <Content Include="app\views\User\LostCard\lostCard.js.map">
-      <DependentUpon>lostCard.ts</DependentUpon>
+      <DependentUpon>lostCard.js</DependentUpon>
     </Content>
     <Content Include="app\views\User\SetPinCode\setPinCode.js.map">
       <DependentUpon>setPinCode.ts</DependentUpon>
@@ -2543,6 +2557,10 @@
     </Content>
     <Content Include="app\views\User\MyApprovals\myApprovals.js.map">
       <DependentUpon>myApprovals.ts</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\LostCard\lostCard.less" />
+    <Content Include="app\views\User\ApplyAccess\applyAccess.js.map">
+      <DependentUpon>applyAccess.js</DependentUpon>
     </Content>
     <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
@@ -2677,6 +2695,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />
+    <TypeScriptCompile Include="T4TS\T4TS.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4TS.tt</DependentUpon>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2706,7 +2730,6 @@
     <TypeScriptCompile Include="app\views\User\MyApprovals\myApprovals.ts" />
     <TypeScriptCompile Include="app\views\User\SetPinCode\setPinCode.ts" />
     <TypeScriptCompile Include="app\views\User\LostCard\lostCard.ts" />
-    <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />
     <TypeScriptCompile Include="app\views\User\ActivateCard\activateCard.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui-router\angular-ui-router.d.ts" />
@@ -2726,11 +2749,6 @@
     <TypeScriptCompile Include="Scripts\typings\q\Q.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\toastr\toastr.d.ts" />
-    <TypeScriptCompile Include="T4TS\T4TS.d.ts">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>T4TS.tt</DependentUpon>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="app\views\Admin\Users\users.ts" />
     <TypeScriptCompile Include="app\app.ts" />
     <TypeScriptCompile Include="app\services\system\AutenticationService.ts" />

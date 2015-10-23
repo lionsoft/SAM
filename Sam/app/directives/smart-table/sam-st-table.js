@@ -214,3 +214,4 @@ var App;
             .directive("samStTable", SamStTable.Factory('stConfig', '$controller'));
     })(Directives = App.Directives || (App.Directives = {}));
 })(App || (App = {}));
+//# sourceMappingURL=sam-st-table.js.map

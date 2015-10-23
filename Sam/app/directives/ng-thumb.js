@@ -96,3 +96,4 @@ var App;
     })(App.Directive);
     App.app.directive('ngThumb', NgThumb.Factory());
 })(App || (App = {}));
+//# sourceMappingURL=ng-thumb.js.map

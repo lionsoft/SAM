@@ -26,3 +26,4 @@ var App;
         App.app.directive(CcSpinner.directiveId, ['$window', function ($window) { return new CcSpinner($window); }]);
     })(Directives = App.Directives || (App.Directives = {}));
 })(App || (App = {}));
+//# sourceMappingURL=cc-spinner.js.map

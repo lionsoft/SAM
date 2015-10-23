@@ -15,6 +15,13 @@
                             <!-- Need to disable password autocomplete in the Chrome -->
                             <input type="password" style="display: none">
                             <!--------------------------------------------------------->
+                            <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.oldPinCode.$invalid && form.oldPinCode.$touched }">
+                                <label translate class="col-sm-4 control-label">OldPinCode</label>
+                                <div class="col-sm-6 col-md-4">
+                                    <input type="password" ng-model="$.oldPinCode" class="form-control" name="oldPinCode" maxlength="4" required translate translate-attr-placeholder="EnterOldPin">
+                                    <span ng-show="form.oldPinCode.$error.required && form.oldPinCode.$touched" class="red" translate>MustBeSet</span>
+                                </div>
+                            </div>
                             <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.pinCode.$invalid && form.pinCode.$touched }">
                                 <label translate class="col-sm-4 control-label">PinCode</label>
                                 <div class="col-sm-6 col-md-4">
@@ -30,8 +37,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-4 col-sm-6 col-md-4 text-right">
-                                    <button translate type="submit" ng-click="$.Submit(form)" class="btn btn-default">Submit</button>
+                                <div class="col-sm-6 col-md-4 text-right">
+                                    <button translate type="button" ng-click="$.RenewPin()" class="btn btn-default">ForgotPin</button>
+                                </div>
+                                <div class="col-sm-6 col-md-4 text-right">
+                                    <button translate type="submit" ng-click="$.Submit(form)" class="btn btn-success btn-default">Submit</button>
                                 </div>
                             </div>
                         </form>

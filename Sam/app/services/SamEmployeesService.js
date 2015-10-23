@@ -28,8 +28,12 @@ var App;
                 return _super.prototype.Load.call(this, (_a = Services.OData.create).$expand.apply(_a, expands).eq("Department.Company.CustomerId", customerId));
                 var _a;
             };
+            EmployeesService.prototype.ResetPin = function (id) {
+                return this.ApiService.ResetPin(id);
+            };
             return EmployeesService;
         })(Services.CRUDService);
         App.app.service("samEmployees", EmployeesService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
+//# sourceMappingURL=SamEmployeesService.js.map

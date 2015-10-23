@@ -13,25 +13,24 @@
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
                                     <ui-select class="form-control" ng-model="$.selectedCountryId" ng-disabled="$.countries.length === 0">
-                                        <ui-select-match allow-clear="false" placeholder="SelectCountry">
+                                        <ui-select-match allow-clear="false" placeholder="{{'SelectCountry' | translate}}">
                                             {{$select.selected.Name}}
                                         </ui-select-match>
-                                        <ui-select-choices repeat="item.Id as item in $.countries | filter: $select.search track by item.Id">
+                                        <ui-select-choices repeat="item.Id as item in $.countries | filterProps: $select.search track by item.Id">
                                             <div ng-bind-html="item.Name | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
                             </div>
                             <!-- #endregion -->
-
                             <!-- #region - City - -->
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
                                     <ui-select class="form-control" ng-model="$.selectedCityId" ng-disabled="$.cities.length === 0">
-                                        <ui-select-match allow-clear="false" placeholder="SelectCity">
+                                        <ui-select-match allow-clear="false" placeholder="{{'SelectCity' | translate}}">
                                             {{$select.selected.Name}}
                                         </ui-select-match>
-                                        <ui-select-choices repeat="item.Id as item in $.cities | filter: $select.search track by item.Id">
+                                        <ui-select-choices repeat="item.Id as item in $.cities | filterProps: $select.search track by item.Id">
                                             <div ng-bind-html="item.Name + ' (' + item.ZipCode + ')' | highlight: $select.search"></div>
                                         </ui-select-choices>
 
@@ -39,45 +38,42 @@
                                 </div>
                             </div>
                             <!-- #endregion -->
-
                             <!-- #region - Building - -->
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
                                     <ui-select class="form-control" ng-model="$.selectedBuildingId" ng-disabled="$.buildings.length === 0">
-                                        <ui-select-match allow-clear="false" placeholder="SelectBuilding">
+                                        <ui-select-match allow-clear="false" placeholder="{{'SelectBuilding' | translate}}">
                                             {{$select.selected.Name}}
                                         </ui-select-match>
-                                        <ui-select-choices repeat="item.Id as item in $.buildings | filter: $select.search track by item.Id">
+                                        <ui-select-choices repeat="item.Id as item in $.buildings | filterProps: $select.search track by item.Id">
                                             <div ng-bind-html="item.Name + ' - ' + item.Address1 || item.Address2 | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
                             </div>
                             <!-- #endregion -->
-
                             <!-- #region - Area - -->
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
                                     <ui-select class="form-control" ng-model="$.selectedAreaId" ng-disabled="$.areas.length === 0">
-                                        <ui-select-match allow-clear="false" placeholder="SelectArea">
+                                        <ui-select-match allow-clear="false" placeholder="{{'SelectArea' | translate}}">
                                             {{$select.selected.Name}}
                                         </ui-select-match>
-                                        <ui-select-choices repeat="item.Id as item in $.areas | filter: $select.search track by item.Id">
+                                        <ui-select-choices repeat="item.Id as item in $.areas | filterProps: $select.search track by item.Id">
                                             <div ng-bind-html="item.Name | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
                             </div>
                             <!-- #endregion -->
-
                             <!-- #region - Doors - -->
                             <div class="form-group has-validation" ng-class="{ 'has-error' : $.selectedDoorIds.length === 0 && form.doors.$touched }">
                                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
                                     <ui-select class="form-control" multiple ng-model="$.selectedDoorIds" name="doors">
-                                        <ui-select-match allow-clear="false" placeholder="SelectDoors">
+                                        <ui-select-match allow-clear="false" placeholder="{{'SelectDoors' | translate}}">
                                             {{$item.Name}}
                                         </ui-select-match>
-                                        <ui-select-choices repeat="door.Id as door in $.doors | exceptOf: $.selectedDoorIds : 'Id' | propsFilter: {Name: $select.search}">
+                                        <ui-select-choices repeat="door.Id as door in $.doors | exceptOf: $.selectedDoorIds : 'Id' | filterProps: $select.search">
                                             <div ng-bind-html="door.Name | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -88,15 +84,29 @@
 
                             <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.note.$invalid && form.note.$touched }">
                                 <label class="control-label" translate>Explanation / Reason</label>
-                                <textarea ng-model="$.note" class="form-control" name="note" required translate translate-attr-translate translate-attr-placeholder="NotesResonsForApplyingAccess"></textarea>
+                                <textarea ng-model="$.note" class="form-control" name="note" required translate translate-attr-placeholder="NotesResonsForApplyingAccess"></textarea>
                                 <span ng-show="form.note.$invalid && form.note.$touched" class="red" translate>MustBeSet</span>
                             </div>
+
                             <div class="form-group">
-                                <div class="text-right">
-                                    <button translate type="submit" ng-disabled="$.noActivatedCard" ng-click="$.Submit(form)" class="btn btn-default">SendApplication</button>
+                                <label class="control-label col-sm-4" translate>WhoGetsAccess</label>
+                                <div class="col-sm-6">
+                                    <ui-select class="form-control" ng-model="$.whoGetsAccessEmployeeId" ng-disabled="!App.app.$auth.LoggedUser.Employee.CanApplyAnothersAccess">
+                                        <ui-select-match allow-clear="false">
+                                            {{$select.selected.Name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in $.employees | filterProps: $select.search track by item.Id">
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <div class="text-right">
+                                    <button translate type="submit" ng-disabled="$.noActivatedCard" ng-click="$.Submit(form)" class="btn btn-success">SendApplication</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using T4TS;
 
 namespace Sam.DbContext
@@ -47,5 +49,21 @@ namespace Sam.DbContext
         public string UserId { get; set; }
         [TypeScriptMember(Type = "App.IUser")]
         public User User { get; set; }
+
+
+        /// <summary>
+        /// The options allows the employee make request to get access on behalf of another employee.
+        /// </summary>
+        [TypeScriptMember(Optional = true)]
+        public bool CanApplyAnothersAccess { get; set; }
+
+
+        [TypeScriptMember(Optional = true)]
+        public string DelegateToId { get; set; }
+        [TypeScriptMember(Optional = true)]
+        public Employee DelegateTo { get; set; }
+
+        public DateTime? DelegateFromDate { get; set; }
+        public DateTime? DelegateToDate { get; set; }
     }
 }

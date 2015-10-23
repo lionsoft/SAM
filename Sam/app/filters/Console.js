@@ -22,3 +22,4 @@ var App;
         App.app.filter("console", ConsoleFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
+//# sourceMappingURL=Console.js.map

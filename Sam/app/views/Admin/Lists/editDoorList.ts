@@ -39,6 +39,11 @@ module App.Controllers {
             if (this.IsDoorInList(door))
                 this.$item.Doors.Remove(door);
         }
+
+        prepareDoorsQuery(odata: Services.OData) {
+            odata.eq("PreApproved", true).eq("Area.Building.CustomerId", this.$item.CustomerId);
+            return "$item.CustomerId";
+        }
     }
 
     // Register with angular

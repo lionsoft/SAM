@@ -22,5 +22,7 @@ namespace Sam.DbContext
         public ApprovalStatus ApprovalStatus { get; set; }
 
         public string Note { get; set; }
+
+        public AssignmentType AssignmentType { get; set; }
     }
 }
