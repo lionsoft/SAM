@@ -60,8 +60,10 @@ namespace Sam.DbContext
 
         [TypeScriptMember(Optional = true)]
         public string DelegateToId { get; set; }
+
         [TypeScriptMember(Optional = true)]
         public Employee DelegateTo { get; set; }
+
 
         public DateTime? DelegateFromDate { get; set; }
         public DateTime? DelegateToDate { get; set; }

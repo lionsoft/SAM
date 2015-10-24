@@ -58,7 +58,8 @@ namespace Sam.Api
 
         private int RegeneratePinCode(Employee employee)
         {
-            return 1111;
+            var rnd = new Random();
+            return rnd.Next(1000, 9999);
         }
     }
 }

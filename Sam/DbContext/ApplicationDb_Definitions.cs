@@ -32,7 +32,6 @@ namespace Sam.DbContext
             modelBuilder.Entity<User>().Property(u => u.Email).HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("IDX_UserEmail", 0) { IsUnique = true }));
 
             modelBuilder.Entity<Employee>().HasOptional(a => a.DelegateTo).WithOptionalDependent();
-            modelBuilder.Entity<Employee>().HasOptional(a => a.Manager).WithOptionalDependent();
         }
 
 

@@ -14,13 +14,21 @@ module App.Controllers {
         samEmployees: Services.IEmployeesService;
         FileUploader;
 
+        // Need for editEmployee dialog
+        samDepartments: Services.IDepartmentsService;
+        samUsers: Services.IUsersService;
+        public customerDepartments: IDepartment[] = [];
+        public users: IUser[] = [];
+
+
         public selectedCustomerId: string;
         public customers: ICustomer[] = [];
+        public employees: IEmployee[] = [];
 
         public uploader/*: FileUploader*/;
 
         Init() {
-            // Queue all promises and wait for them to finish before loading the view
+            this.samUsers.Load().then(res => this.users = res);
             this.uploader = new this.FileUploader({ url: '/api/Employees/UploadImage' });
             this.uploader.onAfterAddingFile = item => {
                 this.uploader.queue.Remove(x => x !== item);
@@ -31,6 +39,12 @@ module App.Controllers {
         }
 
         Activated() {
+            this.$scope.$watch("$.selectedCustomerId", () => {
+                this.employees = [];
+                this.customerDepartments = [];
+                this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(res => this.customerDepartments = res);
+                this.samEmployees.LoadByCustomer(this.selectedCustomerId).then(res => this.employees = res);
+            });
         }
 
         $submit(item: IEmployee): IPromise<boolean> {
@@ -71,8 +85,17 @@ module App.Controllers {
 
             }
         }
+
+/*
+        LoadEmployees() {
+            this.customerDepartments = [];
+            this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(res => this.customerDepartments = res);
+            this.samEmployees.LoadByCustomer(this.selectedCustomerId).then(res => this.employees = res);
+        }
+*/
+
     }
 
     // Register with angular
-    app.controller('employees', Employees.Factory("samCustomers", "samEmployees", "FileUploader"));
+    app.controller('employees', Employees.Factory("FileUploader", "samCustomers", "samEmployees", "samDepartments", "samUsers"));
 }
