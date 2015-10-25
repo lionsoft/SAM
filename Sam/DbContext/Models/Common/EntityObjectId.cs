@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using Sam.DbContext.Hooks;
 using T4TS;
@@ -28,7 +29,8 @@ namespace Sam.DbContext
         [JsonIgnore]
         public User CreatedBy { get; set; }
         [JsonProperty("CreatedBy")]
-        public JsonUser JsonCreatedBy { get { return JsonUser.Create(CreatedBy); } }
+        [NotMapped]
+        public JsonUser JsonCreatedBy { get { return JsonUser.Create(CreatedBy); } set { CreatedBy = value.ToUser(); } }
 
 
         [FillWithCurrentDate(OnCreateOnly = false)]
@@ -40,7 +42,8 @@ namespace Sam.DbContext
         [JsonIgnore]
         public User ModifiedBy { get; set; }
         [JsonProperty("ModifiedBy")]
-        public JsonUser JsonModifiedBy { get { return JsonUser.Create(ModifiedBy); } }
+        [NotMapped]
+        public JsonUser JsonModifiedBy { get { return JsonUser.Create(ModifiedBy); } set { ModifiedBy = value.ToUser(); } }
     }
 
 

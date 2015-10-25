@@ -46,7 +46,7 @@ namespace Sam.DbContext
         /// A card can belong to an only employee in the moment.
         /// </summary>
         [NotMapped]
-        [JsonIgnore]
+//        [JsonIgnore]
         public Employee Employee
         {
             get { return Employees == null ? null : Employees.FirstOrDefault(); }
@@ -59,10 +59,12 @@ namespace Sam.DbContext
             }
         }
 
+/*
         [JsonProperty("Employee")]
         public JsonEmployee JsonEmployee
         {
             get { return JsonEmployee.Create(Employee); }
         }
+*/
     }
 }

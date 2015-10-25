@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
-using Sam.Api;
 using Sam.Extensions;
-using T4TS;
 
 namespace Sam.DbContext
 {
@@ -40,24 +38,19 @@ namespace Sam.DbContext
           this.Id = Guid.NewGuid().ToString();
         }
 
+
         [NotMapped]
-        [JsonIgnore]
         public Employee Employee
         {
             get { return Employees != null ? Employees.FirstOrDefault() : null; }
             set
             {
+                if (Employee == value) return;
                 if (value == null)
-                    Employees = null;
+                    Employees = new List<Employee>();
                 else
                     Employees = new List<Employee> { value };
             }
-        }
-        
-        [JsonProperty("Employee")]
-        public JsonEmployee JsonEmployee
-        {
-            get { return JsonEmployee.Create(Employee); }
         }
 
         [NotMapped]

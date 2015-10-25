@@ -23,7 +23,6 @@ var App;
                 return card.Number ? card.Number.toString() : "";
             };
             CardsService.prototype.prepareQuery = function (odata, isSmartLoad) {
-                odata.$expand("CreatedBy, CreatedBy.Employees");
                 if (!isSmartLoad)
                     odata.$orderBy("Number");
             };

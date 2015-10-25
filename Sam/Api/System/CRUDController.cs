@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,7 +9,6 @@ using System.Web.Http.OData.Extensions;
 using System.Web.Http.OData.Query;
 using Sam.DbContext;
 using Sam.Extensions.EntityFramework;
-using Sam.Extensions.Expressions;
 
 namespace Sam.Api
 {
@@ -26,7 +25,7 @@ namespace Sam.Api
             }
             else
             {
-                return new ODataMetadata<TEntity>(res, 0).Results;
+                return new ODataMetadata<TEntity>(res, null).Results;
             }
         }
         public static async Task<object> CreateODataResponse<TResultEntity, TEntity>(IQueryable<TEntity> query, HttpRequestMessage request, ODataQueryOptions<TEntity> queryOptions) where TEntity : class where TResultEntity: class
@@ -40,7 +39,7 @@ namespace Sam.Api
             }
             else
             {
-                return new ODataMetadata<TResultEntity>(res, 0).Results;
+                return new ODataMetadata<TResultEntity>(res, null).Results;
             }
         }
     }
@@ -48,23 +47,29 @@ namespace Sam.Api
 
     public class CRUDController<TEntity, T> : AppController where TEntity : class, IEntityObjectId<T>
     {
-        protected virtual IQueryable<TEntity> PrepareQuery(DbQuery<TEntity> dbSet)
-        {
-            return dbSet;
-        }
-
         [HttpGet]
         public async virtual Task<object> Get(ODataQueryOptions<TEntity> queryOptions)
         {
-            var includes = queryOptions.SelectExpand == null ? new string[0] : queryOptions.SelectExpand.RawExpand.Split(',');
-            DbQuery<TEntity> query = Db.Set<TEntity>();
-/*
-            if (includes.Contains("CreatedBy"))
+            // extract $expand from request
+            var expands = new HashSet<string>(queryOptions.SelectExpand == null ? new string[0] : queryOptions.SelectExpand.RawExpand.Split(','));
+
+            // Force add CreatedBy and CreatedBy.Employees to request  
+            if (typeof(EntityObjectId).IsAssignableFrom(typeof(TEntity)))
             {
-                query = query.Include("CreatedBy.Employees");
+                expands.Add("CreatedBy");
+                expands.Add("CreatedBy.Employees");
             }
-*/
-            var res = await CRUDController.CreateODataResponse(PrepareQuery(query), Request, queryOptions);
+
+            // regenerate request with new $expand list
+            var ub = new UriBuilder(Request.RequestUri);
+            var prms = ub.Query.Trim('?').Split('&').ToDictionary(x => x.Split('=')[0], x => (x + "=").Split('=')[1]);
+            prms["$expand"] = expands.Aggregate("", (result, item) => result + (result == "" ? "" : ",") + item.Replace('.', '/'));
+            ub.Query = prms.Aggregate("", (result, item) => result + (result == "" ? "" : "&") + item.Key + "=" + item.Value);
+            Request.RequestUri = ub.Uri;
+            var qo = new ODataQueryOptions<TEntity>(queryOptions.Context, Request);
+            queryOptions = qo;
+
+            var res = await CRUDController.CreateODataResponse(Db.Set<TEntity>(), Request, queryOptions);
             return res;
         }
 

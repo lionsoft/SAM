@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 using T4TS;
 
 namespace Sam.DbContext
@@ -48,7 +48,11 @@ namespace Sam.DbContext
         [TypeScriptMember(Optional = true)]
         public string UserId { get; set; }
         [TypeScriptMember(Type = "App.IUser")]
+        [JsonIgnore]
         public User User { get; set; }
+        [JsonProperty("User")]
+        [NotMapped]
+        public JsonUser JsonUser { get { return JsonUser.Create(User); } set { User = value.ToUser(); } }
 
 
         /// <summary>

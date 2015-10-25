@@ -146,6 +146,7 @@ module App.Services {
          *      $orderBy('field1', 'field2 desc', 'Category/Name desc');
          */
         $orderBy(...value: string[]): OData {
+            this._orderBy = [];
             if (value && value[0] !== undefined) {
                 for (let item of value) {
                     item = (item || "").trim();
@@ -157,8 +158,7 @@ module App.Services {
                         }
                     }
                 }
-            } else
-                this._orderBy = [];
+            }
             return this;
         }
 

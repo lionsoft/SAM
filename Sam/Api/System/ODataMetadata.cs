@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Sam.DbContext;
 
 namespace Sam.Api
@@ -8,7 +9,7 @@ namespace Sam.Api
     {
         protected ODataMetadata()
         {
-            
+
         }
         public ODataMetadata(IEnumerable<T> result, long? count)
         {
@@ -19,8 +20,8 @@ namespace Sam.Api
         public ODataMetadata(IEnumerable<object> result, long? count)
         {
             Count = count;
-            if (typeof (T) == typeof (object))
-                Results = (IEnumerable<T>) result;
+            if (typeof(T) == typeof(object))
+                Results = (IEnumerable<T>)result;
             else
                 Results = Convert(result);
         }
@@ -28,8 +29,14 @@ namespace Sam.Api
         {
             return result.Select(x =>
             {
-                var pi = x is T ? null : x.GetType().GetProperty("Instance");
-                var item = PrepareResultEntity<T>(pi == null ? x : pi.GetValue(x));
+                var typ = x.GetType();
+                var pi = x is T || typ.IsPublic ? null : typ.GetProperty("Instance");
+                if (pi != null)
+                {
+                    var json = JsonConvert.SerializeObject(x);
+                    x = JsonConvert.DeserializeObject<T>(json);
+                }
+                var item = PrepareResultEntity<T>(x);
                 return item;
             });
         }
@@ -41,8 +48,8 @@ namespace Sam.Api
             {
                 var jsonUser = JsonUser.Create(u);
                 if (level > 0)
-                    jsonUser.Employee = null;
-                if (typeof (TEntity) == typeof (JsonUser))
+                    jsonUser.Employees = null;
+                if (typeof(TEntity) == typeof(JsonUser))
                     p = jsonUser;
                 else
                     p = jsonUser.ToUser();

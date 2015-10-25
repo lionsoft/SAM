@@ -60,7 +60,8 @@ var App;
              * @param odata параметры запроса
              */
             CRUDService.prototype.prepareQuery = function (odata, isSmartLoad) {
-                odata.$expand("CreatedBy, CreatedBy.Employees");
+                //            odata.$expand("CreatedBy, CreatedBy.Employees");
+                //            odata.$expand("CreatedBy");
                 if (!isSmartLoad)
                     odata.$orderBy("Name");
             };

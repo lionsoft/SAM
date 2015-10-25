@@ -315,7 +315,6 @@
     <Compile Include="DbContext\Models\Employees\Employee.cs" />
     <Compile Include="DbContext\Models\Employees\EmployeeStatus.cs" />
     <Compile Include="DbContext\Models\Employees\UserRole.cs" />
-    <Compile Include="DbContext\Models\Employees\JsonEmployee.cs" />
     <Compile Include="DbContext\Models\Users\TypeScriptUser.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2648,7 +2647,6 @@
     <Content Include="Content\toastr.less" />
     <Content Include="gulp-install.bat" />
     <Content Include="gulp-start.bat" />
-    <None Include="Properties\PublishProfiles\sam-azure.pubxml" />
     <None Include="Properties\PublishProfiles\sam-system.pubxml" />
     <Content Include="Scripts\angular-file-upload.min.js.map" />
     <Content Include="Scripts\errors.json" />

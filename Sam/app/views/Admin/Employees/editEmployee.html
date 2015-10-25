@@ -18,17 +18,38 @@
     </div> <!-- #endregion -->
 </div>
 <!-- #endregion -->
-<!-- #region - User - -->
-<div class="form-group">
-    <label class="control-label" translate>User</label>
-    <ui-select class="form-control" ng-model="$item.UserId" ng-disabled="!$.users.length">
-        <ui-select-match allow-clear="false">
-            {{$select.selected.UserName}}
-        </ui-select-match>
-        <ui-select-choices repeat="user.Id as user in $.users track by user.Id">
-            {{::user.UserName}}
-        </ui-select-choices>
-    </ui-select>
+<!-- #region - User & CanApplyAnothersAccess - -->
+<div class="row">
+    <div class="col col-xs-6">
+        <!-- #region - User - -->
+        <div class="form-group">
+            <label class="control-label" translate>User</label>
+            <ui-select class="form-control" ng-model="$item.UserId" ng-disabled="!$.users.length">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected.UserName}}
+                </ui-select-match>
+                <ui-select-choices repeat="user.Id as user in $.users track by user.Id">
+                    {{::user.UserName}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <!-- #endregion -->
+    </div>
+    <div class="col-xs-6">
+        <!-- #region - CanApplyAnothersAccess - -->
+        <div class="form-group">
+            <label class="control-label" translate>CanApplyAnothersAccess</label>
+            <ui-select class="form-control" ng-model="$item.CanApplyAnothersAccess">
+                <ui-select-match allow-clear="false">
+                    {{$select.selected | YesNo}}
+                </ui-select-match>
+                <ui-select-choices repeat="item in [] | YesNo">
+                    {{::item | YesNo}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <!-- #endregion -->
+    </div>
 </div>
 <!-- #endregion -->
 <!-- #region - Department & Manager - -->

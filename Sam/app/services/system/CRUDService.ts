@@ -156,7 +156,8 @@ module App.Services {
          * @param odata параметры запроса
          */
         protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
-            odata.$expand("CreatedBy, CreatedBy.Employees");
+//            odata.$expand("CreatedBy, CreatedBy.Employees");
+//            odata.$expand("CreatedBy");
             if (!isSmartLoad)
                 odata.$orderBy("Name");
         }

@@ -137,6 +137,7 @@ var App;
                 for (var _i = 0; _i < arguments.length; _i++) {
                     value[_i - 0] = arguments[_i];
                 }
+                this._orderBy = [];
                 if (value && value[0] !== undefined) {
                     for (var _a = 0; _a < value.length; _a++) {
                         var item = value[_a];
@@ -151,8 +152,6 @@ var App;
                         }
                     }
                 }
-                else
-                    this._orderBy = [];
                 return this;
             };
             /**
