@@ -1,0 +1,56 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container">
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-10">
+                <div class="row">
+                    <div class="row">
+                        <h2 translate>My Delegation</h2>
+                    </div>
+                    <div class="row">
+                        <form class="form-horizontal" novalidate role="form" name="form">
+
+                            <!-- #region - DelegateTo - -->
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" translate>DelegateTo</label>
+                                <div class="col-sm-6">
+                                    <ui-select class="form-control" ng-model="$.DelegateToId">
+                                        <ui-select-match allow-clear="true">
+                                            {{$select.selected.Name}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in $.employees | filterProps: $select.search track by item.Id">
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+                            <!-- #region - DelegateFromDate - -->
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" translate>DelegateFromDate</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" ng-disabled="!$.DelegateToId" sam-date-time-picker ng-model="$item.DelegateFromDate" />
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+                            <!-- #region - DelegateToDate - -->
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" translate>DelegateToDate</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" sam-date-time-picker ng-model="$item.DelegateToDate" ng-disabled="!$.DelegateToId" />
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+
+                            <div class="form-group col-sm-10">
+                                <div class="text-right">
+                                    <button translate type="submit" ng-click="$.Clear()" class="btn btn-default">Clear</button>
+                                    <button translate type="submit" ng-click="$.Submit(form)" class="btn btn-success">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

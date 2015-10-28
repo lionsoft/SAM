@@ -36,4 +36,3 @@ var App;
         App.app.service("samDepartments", DepartmentsService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
-//# sourceMappingURL=SamDepartmentsService.js.map

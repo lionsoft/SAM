@@ -23,4 +23,3 @@ var App;
         App.app.filter("CardStatus", CardStatusFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
-//# sourceMappingURL=CardStatusFilter.js.map

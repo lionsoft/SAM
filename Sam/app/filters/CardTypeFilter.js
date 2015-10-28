@@ -24,4 +24,3 @@ var App;
         App.app.filter("CardType", CardTypeFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
-//# sourceMappingURL=CardTypeFilter.js.map

@@ -38,4 +38,3 @@ var App;
         App.app.decorator("$controller", ControllerServiceDecorator.Factory());
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));
-//# sourceMappingURL=controllerService.js.map

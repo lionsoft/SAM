@@ -8,9 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{6C60B8C5-402E-4F2A-A048-A27771B531D0}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\description.JPG = Documentation\description.JPG
-		Documentation\info.txt = Documentation\info.txt
 		Documentation\OverviewSAM.JPG = Documentation\OverviewSAM.JPG
 		Documentation\SAM Estimation.xlsx = Documentation\SAM Estimation.xlsx
+		Documentation\SAM_Update1_ChangeRequests.pdf = Documentation\SAM_Update1_ChangeRequests.pdf
+		Documentation\SAM_Update1_Estimation.xlsx = Documentation\SAM_Update1_Estimation.xlsx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mockups", "Mockups", "{261F684C-9B28-4B39-94E9-FF89EB07BBA1}"

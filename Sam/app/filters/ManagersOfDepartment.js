@@ -26,4 +26,3 @@ var App;
         App.app.filter("ManagersOfDepartment", ManagersOfDepartmentFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
-//# sourceMappingURL=ManagersOfDepartment.js.map

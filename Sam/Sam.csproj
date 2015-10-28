@@ -1004,6 +1004,14 @@
     <Content Include="app\views\User\MyApprovals\myApprovals.js">
       <DependentUpon>myApprovals.ts</DependentUpon>
     </Content>
+    <None Include="app\views\User\MyDelegation\myDelegation.less" />
+    <Content Include="app\views\User\MyDelegation\myDelegation.css">
+      <DependentUpon>myDelegation.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyDelegation\myDelegation.html" />
+    <Content Include="app\views\User\MyDelegation\myDelegation.js">
+      <DependentUpon>myDelegation.ts</DependentUpon>
+    </Content>
     <Content Include="app\views\User\SetPinCode\setPinCode.css">
       <DependentUpon>setPinCode.less</DependentUpon>
     </Content>
@@ -2087,6 +2095,7 @@
     <TypeScriptCompile Include="app\routes\User\myApplications.ts" />
     <TypeScriptCompile Include="app\routes\User\myApprovals.ts" />
     <TypeScriptCompile Include="app\routes\User\lostCard.ts" />
+    <TypeScriptCompile Include="app\routes\User\myDelegation.ts" />
     <TypeScriptCompile Include="app\routes\User\setPinCode.ts" />
     <TypeScriptCompile Include="app\routes\User\applyAccess.ts" />
     <TypeScriptCompile Include="app\routes\User\activateCard.ts" />
@@ -2694,6 +2703,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />
+    <TypeScriptCompile Include="app\views\User\MyDelegation\myDelegation.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

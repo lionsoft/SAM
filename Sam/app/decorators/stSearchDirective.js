@@ -41,4 +41,3 @@ var App;
         App.app.decorator("stSearchDirective", StSearchDirectiveDecorator.Factory());
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));
-//# sourceMappingURL=stSearchDirective.js.map

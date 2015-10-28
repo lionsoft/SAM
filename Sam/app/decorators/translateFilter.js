@@ -45,4 +45,3 @@ var App;
         App.app.decorator("translateFilter", TranslateFilterDecorator.Factory("$delegate", "$route"));
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));
-//# sourceMappingURL=translateFilter.js.map

@@ -256,4 +256,3 @@ var App;
     })(LionSoftAngular.Service);
     App.ApiServiceBase = ApiServiceBase;
 })(App || (App = {}));
-//# sourceMappingURL=ApiServiceBase.js.map

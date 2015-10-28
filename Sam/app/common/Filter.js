@@ -21,4 +21,3 @@ var App;
     })(LionSoftAngular.Filter);
     App.Filter = Filter;
 })(App || (App = {}));
-//# sourceMappingURL=Filter.js.map
