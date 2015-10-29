@@ -773,6 +773,12 @@
     <Content Include="app\routes\login.js">
       <DependentUpon>login.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\User\employeeAccess.js">
+      <DependentUpon>employeeAccess.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\myAccess.js">
+      <DependentUpon>myAccess.ts</DependentUpon>
+    </Content>
     <Content Include="app\routes\User\myApplications.js">
       <DependentUpon>myApplications.ts</DependentUpon>
     </Content>
@@ -781,6 +787,9 @@
     </Content>
     <Content Include="app\routes\User\lostCard.js">
       <DependentUpon>lostCard.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\myDelegation.js">
+      <DependentUpon>myDelegation.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\User\setPinCode.js">
       <DependentUpon>setPinCode.ts</DependentUpon>
@@ -990,6 +999,13 @@
     <Content Include="app\views\User\LostCard\lostCard.js">
       <DependentUpon>lostCard.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\User\MyAccess\myAccess.css">
+      <DependentUpon>myAccess.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyAccess\myAccess.html" />
+    <Content Include="app\views\User\MyAccess\myAccess.js">
+      <DependentUpon>myAccess.ts</DependentUpon>
+    </Content>
     <Content Include="app\views\User\MyApplications\myApplications.css">
       <DependentUpon>myApplications.less</DependentUpon>
     </Content>
@@ -1004,8 +1020,21 @@
     <Content Include="app\views\User\MyApprovals\myApprovals.js">
       <DependentUpon>myApprovals.ts</DependentUpon>
     </Content>
+    <Content Include="app\routes\User\myDelegation.js.map">
+      <DependentUpon>myDelegation.js</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\employeeAccess.js.map">
+      <DependentUpon>employeeAccess.js</DependentUpon>
+    </Content>
+    <Content Include="app\routes\User\myAccess.js.map">
+      <DependentUpon>myAccess.js</DependentUpon>
+    </Content>
     <Content Include="app\views\User\MyDelegation\myDelegation.js.map">
       <DependentUpon>myDelegation.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\MyAccess\myAccess.less" />
+    <Content Include="app\views\User\MyAccess\myAccess.js.map">
+      <DependentUpon>myAccess.js</DependentUpon>
     </Content>
     <None Include="app\views\User\MyDelegation\myDelegation.less" />
     <Content Include="app\views\User\MyDelegation\myDelegation.css">
@@ -2095,9 +2124,11 @@
     <TypeScriptCompile Include="app\routes\Admin\lists.ts" />
     <TypeScriptCompile Include="app\routes\Admin\employees.ts" />
     <TypeScriptCompile Include="app\routes\Admin\doors.ts" />
+    <TypeScriptCompile Include="app\routes\User\employeeAccess.ts" />
     <TypeScriptCompile Include="app\routes\User\myApplications.ts" />
     <TypeScriptCompile Include="app\routes\User\myApprovals.ts" />
     <TypeScriptCompile Include="app\routes\User\lostCard.ts" />
+    <TypeScriptCompile Include="app\routes\User\myAccess.ts" />
     <TypeScriptCompile Include="app\routes\User\myDelegation.ts" />
     <TypeScriptCompile Include="app\routes\User\setPinCode.ts" />
     <TypeScriptCompile Include="app\routes\User\applyAccess.ts" />
@@ -2429,16 +2460,16 @@
     </Content>
     <Content Include="app\views\Admin\Customers\editCustomer.less" />
     <Content Include="app\routes\User\activateCard.js.map">
-      <DependentUpon>activateCard.ts</DependentUpon>
+      <DependentUpon>activateCard.js</DependentUpon>
     </Content>
     <Content Include="app\routes\User\applyAccess.js.map">
-      <DependentUpon>applyAccess.ts</DependentUpon>
+      <DependentUpon>applyAccess.js</DependentUpon>
     </Content>
     <Content Include="app\routes\User\setPinCode.js.map">
-      <DependentUpon>setPinCode.ts</DependentUpon>
+      <DependentUpon>setPinCode.js</DependentUpon>
     </Content>
     <Content Include="app\routes\User\lostCard.js.map">
-      <DependentUpon>lostCard.ts</DependentUpon>
+      <DependentUpon>lostCard.js</DependentUpon>
     </Content>
     <Content Include="app\services\SamEmployeeCardsService.js.map">
       <DependentUpon>SamEmployeeCardsService.ts</DependentUpon>
@@ -2447,10 +2478,10 @@
       <DependentUpon>ExceptOfFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\User\myApplications.js.map">
-      <DependentUpon>myApplications.ts</DependentUpon>
+      <DependentUpon>myApplications.js</DependentUpon>
     </Content>
     <Content Include="app\routes\User\myApprovals.js.map">
-      <DependentUpon>myApprovals.ts</DependentUpon>
+      <DependentUpon>myApprovals.js</DependentUpon>
     </Content>
     <Content Include="app\filters\ApprovalStatusFilter.js.map">
       <DependentUpon>ApprovalStatusFilter.js</DependentUpon>
@@ -2553,21 +2584,21 @@
     <Content Include="app\views\User\ApplyAccess\applyAccess.less" />
     <Content Include="app\views\User\SetPinCode\setPinCode.less" />
     <Content Include="app\views\User\ActivateCard\activateCard.js.map">
-      <DependentUpon>activateCard.ts</DependentUpon>
+      <DependentUpon>activateCard.js</DependentUpon>
     </Content>
     <Content Include="app\views\User\LostCard\lostCard.js.map">
       <DependentUpon>lostCard.js</DependentUpon>
     </Content>
     <Content Include="app\views\User\SetPinCode\setPinCode.js.map">
-      <DependentUpon>setPinCode.ts</DependentUpon>
+      <DependentUpon>setPinCode.js</DependentUpon>
     </Content>
     <Content Include="app\views\User\MyApplications\myApplications.less" />
     <Content Include="app\views\User\MyApprovals\myApprovals.less" />
     <Content Include="app\views\User\MyApplications\myApplications.js.map">
-      <DependentUpon>myApplications.ts</DependentUpon>
+      <DependentUpon>myApplications.js</DependentUpon>
     </Content>
     <Content Include="app\views\User\MyApprovals\myApprovals.js.map">
-      <DependentUpon>myApprovals.ts</DependentUpon>
+      <DependentUpon>myApprovals.js</DependentUpon>
     </Content>
     <Content Include="app\views\User\LostCard\lostCard.less" />
     <Content Include="app\views\User\ApplyAccess\applyAccess.js.map">
@@ -2706,6 +2737,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />
+    <TypeScriptCompile Include="app\views\User\MyAccess\myAccess.ts" />
     <TypeScriptCompile Include="app\views\User\MyDelegation\myDelegation.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">
       <AutoGen>True</AutoGen>

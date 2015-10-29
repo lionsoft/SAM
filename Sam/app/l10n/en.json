@@ -61,6 +61,8 @@
         "MY-APPLICATIONS": "<i class='fa fa-credit-card'></i> My Applications",
         "MY-APPROVALS": "<i class='fa fa-credit-card'></i> My Approvals",
         "MY-DELEGATION": "<i class='fa fa-share'></i> My Delegation",
+        "MY-ACCESS": "<i class='fa fa-lock'></i> My Access",
+        "EMPLOYEE-ACCESS": "<i class='fa fa-lock'></i> Employee Access",
 
         "SignIn": "Sign In",
         "SignOut": "Sign Out"

@@ -1,0 +1,46 @@
+﻿<section class="mainbar">
+    <section class="matter">
+        <div class="container">
+<!--
+            <div class="row">
+                <h2 translate>MyAccess</h2>
+            </div>
+-->
+            <div class="row">
+                <!-- #region - Access Doors - -->
+                <div st-table
+                     st-items-by-page
+                     sam-st-table="{service: 'samCardAccess', prepareQuery: $.prepareQuery}">
+                    <div class="st-table-search">
+                        <h2 style="display: inline-block">
+                            <span translate>MyAccess</span>
+                        </h2>
+                        <input st-search="Door.Area.Building.City.Name,Door.Area.Building.Name,Door.Area.Name,Door.Name" class="form-control" translate translate-attr-placeholder="Search..." />
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th nowrap translate auto-size st-sort-default st-sort="Door.Area.Building.City.Name">City</th>
+                                <th nowrap translate auto-size st-sort="Door.Area.Building.Name">Building</th>
+                                <th nowrap translate auto-size st-sort="Door.Area.Name">Area</th>
+                                <th nowrap translate auto-size st-sort="Door.Name">Door</th>
+                                <th nowrap translate st-sort="ApprovalStatus">Access</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="cardAccess in $items track by cardAccess.Id">
+                                <td>{{cardAccess.Door.Area.Building.City.Name}}</td>
+                                <td>{{cardAccess.Door.Area.Building.Name}}</td>
+                                <td>{{cardAccess.Door.Area.Name}}</td>
+                                <td>{{cardAccess.Door.Name}}</td>
+                                <td><div class="nowrap label" ng-class="{'label-warning': cardAccess.ApprovalStatus === 0, 'label-success': cardAccess.ApprovalStatus === 1, 'label-important': cardAccess.ApprovalStatus === 2}">{{cardAccess.ApprovalStatus | ApprovalStatus}}</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- #endregion -->
+            </div>
+        </div>
+    </section>
+</section>
