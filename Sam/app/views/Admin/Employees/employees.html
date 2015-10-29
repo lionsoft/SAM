@@ -35,6 +35,9 @@
                                 <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
                                 <th translate class="auto-size" st-sort-default st-sort="Name">Name</th>
                                 <th translate st-sort="Email">Email</th>
+                                <th translate st-sort="DelegateTo">DelegateTo</th>
+                                <th translate st-sort="DelegateFromDate">DelegateFromDate</th>
+                                <th translate st-sort="DelegateToDate">DelegateToDate</th>
                                 <th translate st-sort="Department.Name">Department</th>
                                 <th translate st-sort="Manager.Name">Manager</th>
                                 <th translate st-sort="Card.Number">CurrentCard</th>
@@ -55,6 +58,9 @@
                                 </td>
                                 <td class="truncate" tooltip="{{employee.Name}}">{{employee.Name}}</td>
                                 <td class="max-truncate-10em" tooltip="{{employee.Email}}">{{employee.Email}}</td>
+                                <td class="max-truncate-10em" tooltip="{{employee.DelegateTo.Name}}">{{employee.DelegateTo.Name}}</td>
+                                <td nowrap class="text-center">{{employee.DelegateFromDate | date}}</td>
+                                <td nowrap class="text-center">{{employee.DelegateToDate | date}}</td>
                                 <td class="max-truncate-10em" tooltip="{{employee.Department.Name}}">{{employee.Department.Name}}</td>
                                 <td class="max-truncate-10em" tooltip="{{employee.Manager.Name}}">{{employee.Manager.Name}}</td>
                                 <td class="text-center">{{employee.Card.Number | CardNumber}}</td>

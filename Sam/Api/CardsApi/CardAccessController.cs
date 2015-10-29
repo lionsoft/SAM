@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Sam.DbContext;
@@ -41,42 +42,61 @@ namespace Sam.Api
 
                 // Door must be approved by Manager
                 if (e.ManagerId == null) throw new ApplicationException("{0}: Card Access has to be approved by employee's manager, but the employee has no manager set.".Fmt(door.Name));
-                Db.CardAccesses.Add(new CardAccess { ApprovedById = e.ManagerId, ApprovalLevel = ApprovalLevel.Manager, CardId = e.CardId, DoorId = id, Note = model.Note, AssignmentType = AssignmentType.Special });
+                CreateCardAccess(ApprovalLevel.Manager, e.ManagerId, e.CardId, id, model.Note);
 
                 switch (door.ApprovalLevel)
                 {
                     case ApprovalLevel.Building:
                         if (door.Area == null || door.Area.Building == null || door.Area.Building.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by building owner, but the building has no owner set.".Fmt(door.Name));
-                        Db.CardAccesses.Add(new CardAccess { ApprovedById = door.Area.Building.OwnerId, ApprovalLevel = ApprovalLevel.Building, CardId = e.CardId, DoorId = id, Note = model.Note, AssignmentType = AssignmentType.Special });
+                        CreateCardAccess(ApprovalLevel.Building, door.Area.Building.OwnerId, e.CardId, id, model.Note);
                         break;
                     case ApprovalLevel.Area:
                         if (door.Area == null || door.Area.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by area owner, but the area has no owner set.".Fmt(door.Name));
-                        Db.CardAccesses.Add(new CardAccess { ApprovedById = door.Area.OwnerId, ApprovalLevel = ApprovalLevel.Area, CardId = e.CardId, DoorId = id, Note = model.Note, AssignmentType = AssignmentType.Special });
+                        CreateCardAccess(ApprovalLevel.Area, door.Area.OwnerId, e.CardId, id, model.Note);
                         break;
                     case ApprovalLevel.Door:
                         if (door.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by door owner, but the door has no owner set.".Fmt(door.Name));
-                        Db.CardAccesses.Add(new CardAccess { ApprovedById = door.OwnerId, ApprovalLevel = ApprovalLevel.Door, CardId = e.CardId, DoorId = id, Note = model.Note, AssignmentType = AssignmentType.Special });
+                        CreateCardAccess(ApprovalLevel.Door, door.OwnerId, e.CardId, id, model.Note);
                         break;
                 }
-
-/*
-                if (door.ApprovalLevel == ApprovalLevel.Manager) continue;
-                // Door must be approved by BuildingOwner
-                if (door.Area == null || door.Area.Building == null || door.Area.Building.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by building owner, but the building has no owner set.".Fmt(door.Name));
-                Db.CardAccesses.Add(new CardAccess { ApprovedById = door.Area.Building.OwnerId, ApprovalLevel = ApprovalLevel.Building, CardId = e.CardId, DoorId = id, Note = model.Note });
-                if (door.ApprovalLevel == ApprovalLevel.Building) continue;
-
-                // Door must be approved by AreaOwner
-                if (door.Area == null || door.Area.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by area owner, but the area has no owner set.".Fmt(door.Name));
-                Db.CardAccesses.Add(new CardAccess { ApprovedById = door.Area.OwnerId, ApprovalLevel = ApprovalLevel.Area, CardId = e.CardId, DoorId = id, Note = model.Note });
-                if (door.ApprovalLevel == ApprovalLevel.Area) continue;
-
-                // Door must be approved by DoorOwner
-                if (door.OwnerId == null) throw new ApplicationException("{0}: Card Access has to be approved by door owner, but the door has no owner set.".Fmt(door.Name));
-                Db.CardAccesses.Add(new CardAccess { ApprovedById = door.OwnerId, ApprovalLevel = ApprovalLevel.Door, CardId = e.CardId, DoorId = id, Note = model.Note });
-*/
             }
             await Db.SaveChangesAsync();
+        }
+
+        private CardAccess CreateCardAccess(ApprovalLevel approvalLevel, string employeeId, string cardId, string doorId, string note)
+        {
+            var res = Db.CardAccesses.FirstOrDefault(ca => 
+                           ca.CardId == cardId 
+                        && ca.DoorId == doorId 
+                        && ca.ApprovalLevel == approvalLevel 
+                        && ca.ApprovalStatus == ApprovalStatus.WaitingForApproval
+                        && ca.AssignmentType == AssignmentType.Special
+                        )
+                ?? new CardAccess
+                    {
+                        CardId = cardId,
+                        DoorId = doorId,
+                        ApprovalLevel = approvalLevel,
+                        ApprovalStatus = ApprovalStatus.WaitingForApproval,
+                        AssignmentType = AssignmentType.Special
+                    };
+            res.Note = note;
+            res.ApprovedDate = null;
+            var accessor = Db.Employees.Find(employeeId);
+            if (accessor != null 
+                && accessor.DelegateToId != null 
+                && (accessor.DelegateFromDate ?? DateTime.MinValue) <= DateTime.Now 
+                && (accessor.DelegateToDate ?? DateTime.MaxValue) >= DateTime.Now)
+            {
+                res.ApprovedById = accessor.DelegateToId;
+            }
+            else
+            {
+                res.ApprovedById = employeeId;
+            }
+            if (res.Id == null)
+                Db.CardAccesses.Add(res);
+            return res;
         }
 
         #region Overrides of CRUDController<CardAccess,string>

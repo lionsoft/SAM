@@ -29,3 +29,4 @@ var App;
         App.app.decorator("stPaginationDirective", StPaginationDirectiveDecorator.Factory());
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));
+//# sourceMappingURL=stPaginationDirective.js.map

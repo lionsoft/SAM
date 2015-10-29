@@ -22,15 +22,6 @@ namespace Sam
                 , "~/Content/css/select2.css"
                 , "~/Content/select.css"
 
-                , "~/Scripts/DataTables/plugins/bootstrap/datatables.bootstrap.css"
-                , "~/Content/DataTables/css/jquery.dataTables.css"
-                , "~/Content/DataTables/css/dataTables.colVis.css"
-                , "~/Content/DataTables/css/dataTables.tableTools.css"
-                , "~/Content/DataTables/css/dataTables.responsive.css"
-                , "~/Content/DataTables/css/dataTables.scroller.css"
-                , "~/Content/DataTables/css/dataTables.fixedColumns.css"
-                , "~/Content/DataTables/css/dataTables.fixedHeader.css"
-
                 , "~/content/toastr.css"
                 , "~/Content/loading-bar.min.css"
 
@@ -171,21 +162,6 @@ namespace Sam
                     , "~/app/services/system/AutenticationService.js"
                     , "~/app/services/system/CRUDService.js"
                     , "~/app/services/system/ApiServiceBase.js"
-/*
-                    , "~/app/services/ApiService.js"
-
-                    , "~/app/services/SamUsersService.js"
-
-                    , "~/app/services/SamCompaniesService.js"
-                    , "~/app/services/SamCustomersService.js"
-                    , "~/app/services/SamDepartmentsService.js"
-
-                    , "~/app/services/SamCountriesService.js"
-                    , "~/app/services/SamCitiesService.js"
-                    , "~/app/services/SamBuildingsService.js"
-                    , "~/app/services/SamAreasService.js"
-                    , "~/app/services/SamEmployeesService.js"
-*/
                 )
                 .IncludeDirectory("~/app/services", "*.js", false)
             );
@@ -194,12 +170,6 @@ namespace Sam
             bundles.Add(new ScriptBundle("~/bundles/app/routes")
                 .Include(
                       "~/app/routes.js"
-/*
-                    , "~/app/routes/login.js"
-                    , "~/app/routes/customers.js"
-                    , "~/app/routes/doors.js"
-                    , "~/app/routes/users.js"
-*/
                 )
                 .IncludeDirectory("~/app/routes", "*.js", true)
             );
@@ -207,13 +177,7 @@ namespace Sam
             bundles.Add(new ScriptBundle("~/bundles/app/views")
                 .Include(
                       "~/app/layout/shell.js"
-/*
-                    , "~/app/views/customers/customers.js"
-                    , "~/app/views/doors/doors.js"
-                    , "~/app/views/users/users.js"
-*/
                 )
-//                .IncludeDirectory("~/app/views", "*.js", true)
             );
 
         }

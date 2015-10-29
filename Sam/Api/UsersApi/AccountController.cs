@@ -17,7 +17,6 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Sam.DbContext;
-using Sam.Extensions.EntityFramework;
 using Sam.Models;
 using Sam.Providers;
 using Sam.Results;

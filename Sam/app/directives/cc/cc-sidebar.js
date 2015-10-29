@@ -37,3 +37,4 @@ var App;
         App.app.directive(CcSidebar.directiveId, [function () { return new CcSidebar(); }]);
     })(Directives = App.Directives || (App.Directives = {}));
 })(App || (App = {}));
+//# sourceMappingURL=cc-sidebar.js.map

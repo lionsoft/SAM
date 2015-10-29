@@ -24,3 +24,4 @@ var App;
         App.app.service("samCities", CitiesService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
+//# sourceMappingURL=SamCitiesService.js.map

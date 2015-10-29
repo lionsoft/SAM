@@ -6,6 +6,8 @@
                     <div class="row">
                         <h2 translate>My Delegation</h2>
                     </div>
+                    <pre class="bg-danger" translate ng-show="!$.noEmployee && $.noCustomer">You have no department specified. Due this it's impossible to load your customer's employees.</pre>
+                    <pre class="bg-danger" translate ng-show="$.noEmployee">You have no employee specified. Due this it's impossible to load your customer's employees.</pre>
                     <div class="row">
                         <form class="form-horizontal" novalidate role="form" name="form">
 
@@ -13,8 +15,12 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" translate>DelegateTo</label>
                                 <div class="col-sm-6">
-                                    <ui-select class="form-control" ng-model="$.DelegateToId">
-                                        <ui-select-match allow-clear="true">
+                                    <ui-select class="form-control"
+                                               ng-model="$.DelegateToId"
+                                               ng-disabled="$.noCustomer"
+                                               
+                                               >
+                                        <ui-select-match allow-clear="true" placeholder="{{'None' | translate}}">
                                             {{$select.selected.Name}}
                                         </ui-select-match>
                                         <ui-select-choices repeat="item.Id as item in $.employees | filterProps: $select.search track by item.Id">
@@ -28,7 +34,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" translate>DelegateFromDate</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" ng-disabled="!$.DelegateToId" sam-date-time-picker ng-model="$item.DelegateFromDate" />
+                                    <input class="form-control" ng-disabled="!$.DelegateToId" sam-date-time-picker ng-model="$.DelegateFromDate" />
                                 </div>
                             </div>
                             <!-- #endregion -->
@@ -36,15 +42,17 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" translate>DelegateToDate</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" sam-date-time-picker ng-model="$item.DelegateToDate" ng-disabled="!$.DelegateToId" />
+                                    <input class="form-control" sam-date-time-picker ng-model="$.DelegateToDate" ng-disabled="!$.DelegateToId" />
                                 </div>
                             </div>
                             <!-- #endregion -->
 
                             <div class="form-group col-sm-10">
                                 <div class="text-right">
-                                    <button translate type="submit" ng-click="$.Clear()" class="btn btn-default">Clear</button>
-                                    <button translate type="submit" ng-click="$.Submit(form)" class="btn btn-success">Update</button>
+<!--
+                                    <button translate type="submit" ng-click="$.Clear()" class="btn btn-default" ng-disabled="$.noCustomer">Clear</button>
+-->
+                                    <button translate type="submit" ng-click="$.Submit(form)" class="btn btn-success" ng-disabled="$.noCustomer">Update</button>
                                 </div>
                             </div>
                         </form>

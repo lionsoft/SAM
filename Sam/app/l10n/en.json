@@ -60,7 +60,7 @@
         "SET-PIN-CODE": "<i class='fa fa-credit-card'></i> Set PIN",
         "MY-APPLICATIONS": "<i class='fa fa-credit-card'></i> My Applications",
         "MY-APPROVALS": "<i class='fa fa-credit-card'></i> My Approvals",
-
+        "MY-DELEGATION": "<i class='fa fa-share'></i> My Delegation",
 
         "SignIn": "Sign In",
         "SignOut": "Sign Out"
