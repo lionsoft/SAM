@@ -280,6 +280,15 @@ module App.Services {
                         var results : any = r;
                         if (angular.isArray(results[0].Results))
                             results = results[0].Results;
+                        if (odata.$translateResult) {
+                            results = odata.$translateResult(results);
+                            if (angular.isArray(results[0].Results)) {
+                                if (angular.isArray(results))
+                                    results[0].Count = results.length;
+                                else
+                                    results[0].Count = 0;
+                            }
+                        }
                         results.forEach((x: any) => this.prepareResult(x));
                     }
                         
@@ -382,6 +391,7 @@ module App.Services {
 
         SmartLoad(tableState: st.ITableState, dataSource?: T[], odata?: OData): IPromise<T[]> {
             odata = (odata || OData.create).$inlinecount();
+
             if (tableState.sort && angular.isString(tableState.sort.predicate)) {
                 odata.$orderBy(tableState.sort.predicate + (tableState.sort.reverse ? " desc" : ""));
             }
@@ -403,7 +413,24 @@ module App.Services {
                 }
             }
             return this.$query(odata, true).then(res => {
-                var result: IODataMetadata<T> = <any>res[0];
+                var result: IODataMetadata<T> = null;
+                if (angular.isArray(res)) {
+                    result = (<any>res[0]) || [];
+                    if (!angular.isArray(result.Results)) {
+                        result.Results = res;
+                        result.Count = 0;
+                    }
+
+                    if (odata.$translateResult) {
+                        result.Results = odata.$translateResult(result.Results);
+                        if (angular.isArray(result.Results)) 
+                            result.Count = result.Results.length;
+                        else
+                            result.Count = 0;
+                    }
+                }
+
+
                 if (result && angular.isArray(result.Results)) {
                     tableState.pagination.numberOfPages = Math.ceil(result.Count / tableState.pagination.number);//set the number of pages so the pagination can update
                     if (dataSource && angular.isArray(dataSource)) {

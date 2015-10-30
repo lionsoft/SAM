@@ -18,9 +18,22 @@ module App.Controllers {
         prepareQuery(odata: Services.OData) {
             if (!app.$auth.LoggedUser.Employee.CardId)
                 odata.$empty = true;
-            else
+            else {
                 odata.$expand("Door.Area.Building.City")
-                     .eq("CardId", app.$auth.LoggedUser.Employee.CardId);
+                    .eq("CardId", app.$auth.LoggedUser.Employee.CardId);
+
+                odata.$translateResult = (res : ICardAccess[]) => {
+                    return res
+                        .groupBy(ca => ca.DoorId)
+                        .select(g => g
+                            .orderBy(x => x.ApprovalStatus === ApprovalStatus.Rejected ? 1
+                                        : x.ApprovalStatus === ApprovalStatus.WaitingForApproval ? 2
+                                        : 3)
+                            .firstOrDefault())
+                        .toArray();
+                };
+            }
+                
         }
     }
 

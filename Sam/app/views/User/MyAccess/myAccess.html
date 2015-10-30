@@ -9,7 +9,8 @@
             <div class="row">
                 <!-- #region - Access Doors - -->
                 <div st-table
-                     st-items-by-page
+                     st-items-by-page="99999999"
+                     st-show-page-sizes="false"
                      sam-st-table="{service: 'samCardAccess', prepareQuery: $.prepareQuery}">
                     <div class="st-table-search">
                         <h2 style="display: inline-block">
@@ -25,7 +26,7 @@
                                 <th nowrap translate auto-size st-sort="Door.Area.Building.Name">Building</th>
                                 <th nowrap translate auto-size st-sort="Door.Area.Name">Area</th>
                                 <th nowrap translate auto-size st-sort="Door.Name">Door</th>
-                                <th nowrap translate st-sort="ApprovalStatus">Access</th>
+                                <th nowrap translate>Access</th>
                             </tr>
                         </thead>
                         <tbody>

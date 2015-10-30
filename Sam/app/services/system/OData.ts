@@ -307,6 +307,13 @@ module App.Services {
          * Result of the query will be always empty and http request won't be sent.
          */
         $empty: boolean;
+
+
+        /**
+         * Если это свойство установлено - метод будет вызван CRUDService'ом после получения результата.
+         * @param res результат запроса.
+         */
+        $translateResult: (res: any[]) => any[];
     }
 
 
