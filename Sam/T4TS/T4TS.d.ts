@@ -60,7 +60,8 @@ declare module App {
         CustomerId: string;
         Customer?: App.ICustomer;
         DateExpiration?: Date | moment.Moment | string;
-        JsonEmployee: any;
+        Employees?: App.IEmployee[];
+        Employee: App.IEmployee;
     }
     /** Generated from Sam.DbContext.CardAccess **/
     export interface ICardAccess extends App.IEntityObjectBaseId {
@@ -81,10 +82,10 @@ declare module App {
         Id: any;
         CreatedDate: Date | moment.Moment | string;
         CreatedById: string;
-        JsonCreatedBy: any;
+        CreatedBy: any;
         ModifiedDate: Date | moment.Moment | string;
         ModifiedById: string;
-        JsonModifiedBy: any;
+        ModifiedBy: any;
     }
     /** Generated from Sam.DbContext.EntityObjectId **/
     export interface IEntityObjectId extends App.IEntityObjectBaseId {
@@ -171,22 +172,24 @@ declare module App {
     /** Generated from Sam.DbContext.Employee **/
     export interface IEmployee extends App.IEntityObjectBaseId {
         Name: string;
-        Email?: string;
+        Email: string;
         PinCode?: number;
         Status: App.EmployeeStatus;
-        Image?: string;
+        Image: string;
         UserRole: App.UserRole;
-        DepartmentId?: string;
-        Department?: App.IDepartment;
-        ManagerId?: string;
-        Manager?: App.IEmployee;
-        CardId?: string;
-        Card?: App.ICard;
+        DepartmentId: string;
+        Department: App.IDepartment;
+        ManagerId: string;
+        Manager: App.IEmployee;
+        Employees: App.IEmployee[];
+        CardId: string;
+        Card: App.ICard;
         UserId?: string;
-        User: App.IUser;
-        CanApplyAnothersAccess?: boolean;
-        DelegateToId?: string;
-        DelegateTo?: App.IEmployee;
+        User: any;
+        CanApplyAnothersAccess: boolean;
+        DelegateToId: string;
+        DelegateTo: App.IEmployee;
+        Delegaters: App.IEmployee[];
         DelegateFromDate?: Date | moment.Moment | string;
         DelegateToDate?: Date | moment.Moment | string;
     }

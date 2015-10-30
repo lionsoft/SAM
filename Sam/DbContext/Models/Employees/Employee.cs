@@ -48,6 +48,7 @@ namespace Sam.DbContext
         [JsonIgnore]
         public User User { get; set; }
         [JsonProperty("User")]
+        [TypeScriptMember(Name = "User")]
         [NotMapped]
         public JsonUser JsonUser { get { return JsonUser.Create(User); } set { User = value.ToUser(); } }
 

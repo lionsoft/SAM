@@ -993,12 +993,19 @@
     <Content Include="app\views\User\ApplyAccess\applyAccess.js">
       <DependentUpon>applyAccess.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\User\EmployeeAccess\employeeAccess.css">
+      <DependentUpon>employeeAccess.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\EmployeeAccess\employeeAccess.js">
+      <DependentUpon>employeeAccess.ts</DependentUpon>
+    </Content>
     <Content Include="app\views\User\LostCard\lostCard.css">
       <DependentUpon>lostCard.less</DependentUpon>
     </Content>
     <Content Include="app\views\User\LostCard\lostCard.js">
       <DependentUpon>lostCard.ts</DependentUpon>
     </Content>
+    <Content Include="app\views\User\EmployeeAccess\employeeAccess.html" />
     <Content Include="app\views\User\MyAccess\myAccess.css">
       <DependentUpon>myAccess.less</DependentUpon>
     </Content>
@@ -1035,6 +1042,13 @@
     <Content Include="app\views\User\MyAccess\myAccess.less" />
     <Content Include="app\views\User\MyAccess\myAccess.js.map">
       <DependentUpon>myAccess.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\EmployeeAccess\employeeAccess.less" />
+    <Content Include="app\views\User\EmployeeAccess\employeeAccess.js.map">
+      <DependentUpon>employeeAccess.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\User\EmployeeAccess\employeeAccess.js.map">
+      <DependentUpon>employeeAccess.js</DependentUpon>
     </Content>
     <None Include="app\views\User\MyDelegation\myDelegation.less" />
     <Content Include="app\views\User\MyDelegation\myDelegation.css">
@@ -2737,6 +2751,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />
+    <TypeScriptCompile Include="app\views\User\EmployeeAccess\employeeAccess.ts" />
     <TypeScriptCompile Include="app\views\User\MyAccess\myAccess.ts" />
     <TypeScriptCompile Include="app\views\User\MyDelegation\myDelegation.ts" />
     <TypeScriptCompile Include="T4TS\T4TS.d.ts">

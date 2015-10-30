@@ -29,6 +29,7 @@ namespace Sam.DbContext
         [JsonIgnore]
         public User CreatedBy { get; set; }
         [JsonProperty("CreatedBy")]
+        [TypeScriptMember(Name = "CreatedBy")]
         [NotMapped]
         public JsonUser JsonCreatedBy { get { return JsonUser.Create(CreatedBy); } set { CreatedBy = value.ToUser(); } }
 
@@ -42,6 +43,7 @@ namespace Sam.DbContext
         [JsonIgnore]
         public User ModifiedBy { get; set; }
         [JsonProperty("ModifiedBy")]
+        [TypeScriptMember(Name = "ModifiedBy")]
         [NotMapped]
         public JsonUser JsonModifiedBy { get { return JsonUser.Create(ModifiedBy); } set { ModifiedBy = value.ToUser(); } }
     }

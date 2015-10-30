@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web.Helpers;
-using Newtonsoft.Json;
 using T4TS;
 
 namespace Sam.DbContext
@@ -38,7 +36,6 @@ namespace Sam.DbContext
         /// A card can belong to an only employee in the moment, so this list will have only one record.
         /// </summary>
         [TypeScriptMember(Optional = true)]
-        [JsonIgnore]
         public ISet<Employee> Employees { get; set; }
 
         /// <summary>
@@ -46,7 +43,6 @@ namespace Sam.DbContext
         /// A card can belong to an only employee in the moment.
         /// </summary>
         [NotMapped]
-//        [JsonIgnore]
         public Employee Employee
         {
             get { return Employees == null ? null : Employees.FirstOrDefault(); }
@@ -58,13 +54,5 @@ namespace Sam.DbContext
                     Employees = new HashSet<Employee> { value };
             }
         }
-
-/*
-        [JsonProperty("Employee")]
-        public JsonEmployee JsonEmployee
-        {
-            get { return JsonEmployee.Create(Employee); }
-        }
-*/
     }
 }
