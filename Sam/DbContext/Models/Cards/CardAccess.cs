@@ -28,5 +28,8 @@ namespace Sam.DbContext
         public string Note { get; set; }
 
         public AssignmentType AssignmentType { get; set; }
+
+        public string TimeZoneId { get; set; }
+        public TimeZone TimeZone { get; set; }
     }
 }

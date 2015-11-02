@@ -27,6 +27,7 @@
                                 <th nowrap translate auto-size st-sort="Door.Area.Building.Name">Building</th>
                                 <th nowrap translate auto-size st-sort="Door.Area.Name">Area</th>
                                 <th nowrap translate auto-size st-sort="Door.Name">Door</th>
+                                <th nowrap st-sort="TimeZone.Name" translate>TimeZone</th>
                                 <th nowrap translate>Access</th>
                             </tr>
                         </thead>
@@ -37,6 +38,7 @@
                                 <td>{{cardAccess.Door.Area.Building.Name}}</td>
                                 <td>{{cardAccess.Door.Area.Name}}</td>
                                 <td>{{cardAccess.Door.Name}}</td>
+                                <td tooltip="{{cardAccess.TimeZone.Description}}">{{cardAccess.TimeZone.Name}}</td>
                                 <td><div class="nowrap label" ng-class="{'label-warning': cardAccess.ApprovalStatus === 0, 'label-success': cardAccess.ApprovalStatus === 1, 'label-important': cardAccess.ApprovalStatus === 2}">{{cardAccess.ApprovalStatus | ApprovalStatus}}</div></td>
                             </tr>
                         </tbody>

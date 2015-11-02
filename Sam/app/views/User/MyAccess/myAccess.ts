@@ -19,7 +19,7 @@ module App.Controllers {
             if (!app.$auth.LoggedUser.Employee.CardId)
                 odata.$empty = true;
             else {
-                odata.$expand("Door.Area.Building.City")
+                odata.$expand("Door.Area.Building.City,TimeZone")
                     .eq("CardId", app.$auth.LoggedUser.Employee.CardId);
 
                 odata.$translateResult = (res : ICardAccess[]) => {

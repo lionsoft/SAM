@@ -22,7 +22,7 @@ module App.Controllers {
             if (!this.customerId)
                 odata.$empty = true;
             else {
-                odata.$expand("Door.Area.Building.City,Card.Employees").eq("Card.CustomerId", this.customerId);
+                odata.$expand("Door.Area.Building.City,Card.Employees,TimeZone").eq("Card.CustomerId", this.customerId);
 
                 odata.$translateResult = (res: ICardAccess[]) => {
                     return res

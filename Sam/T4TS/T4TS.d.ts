@@ -81,6 +81,8 @@ declare module App {
         ApprovalStatus: App.ApprovalStatus;
         Note: string;
         AssignmentType: App.AssignmentType;
+        TimeZoneId: string;
+        TimeZone: App.ITimeZone;
     }
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {

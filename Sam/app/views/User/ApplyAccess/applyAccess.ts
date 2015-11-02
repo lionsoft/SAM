@@ -12,6 +12,7 @@ module App.Controllers {
         samDoors: Services.IDoorsService;
         samCardAccess: Services.ICardAccessService;
         samEmployees: Services.IEmployeesService;
+        samTimeZones: Services.ITimeZonesService;
 
         public countries: ICountry[] = [];
         public selectedCountryId: string;
@@ -31,6 +32,9 @@ module App.Controllers {
         public employees: IEmployee[] = [];
         public whoGetsAccessEmployeeId: string;
 
+        public timeZones: ITimeZone[] = [];
+        public selectedTimeZoneId: string;
+
         public note: string;
 
         public noActivatedCard: boolean;
@@ -48,6 +52,8 @@ module App.Controllers {
 
         private updateEmployees() {
             this.employees = [];
+            this.timeZones = [];
+            this.selectedTimeZoneId = undefined;
             var customerId = this.buildings.select(b => b.CustomerId).firstOrDefault();
             var query = customerId ? this.samEmployees.LoadByCustomer(customerId) : this.promiseFromResult([]);
             query
@@ -60,6 +66,9 @@ module App.Controllers {
                             this.whoGetsAccessEmployeeId = app.$auth.LoggedUser.Employee.Id;
                     }
                 });
+
+            this.samTimeZones.LoadByCustomer(customerId).then(x => this.timeZones = x);
+
         }
 
         Activated() {
@@ -94,13 +103,13 @@ module App.Controllers {
 
         public Submit(form) {
             if (LionSoftAngular.ValidateForm(form) && this.selectedDoorIds.length > 0) {
-                this.samCardAccess.RequestAccess(this.selectedDoorIds, this.note, this.whoGetsAccessEmployeeId).then(() => success('OK'));
+                this.samCardAccess.RequestAccess(this.selectedTimeZoneId, this.selectedDoorIds, this.note, this.whoGetsAccessEmployeeId).then(() => success('OK'));
             } else {
                 form.doors.$setTouched();
             }
         }
     }
 
-    app.controller('applyAccess', ApplyAccess.Factory("samUsers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samCardAccess", "samEmployees"));
+    app.controller('applyAccess', ApplyAccess.Factory("samUsers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samCardAccess", "samEmployees", "samTimeZones"));
 
 } 

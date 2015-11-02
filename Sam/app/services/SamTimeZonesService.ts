@@ -3,6 +3,11 @@
 module App.Services {
 
     export interface ITimeZonesService extends ICRUDService<ITimeZone> {
+        /**
+         * Load time zones for the specified customer only
+         * @param customerId customer Id
+         */
+        LoadByCustomer(customerId: string, ...expands: string[]): IPromise<ITimeZone[]>;
     }
 
     class TimeZonesService extends CRUDService<ITimeZone> implements ITimeZonesService {
@@ -18,8 +23,12 @@ module App.Services {
             tz.ModifiedBy = undefined;
         }
 
-        protected prepareQuery(odata: OData, isSmartLoad?: boolean): void {
-            super.prepareQuery(odata, isSmartLoad);
+        /**
+         * Load time zones for the specified customer only
+         * @param customerId customer Id
+         */
+        LoadByCustomer(customerId: string, ...expands: string[]): IPromise<ITimeZone[]> {
+            return super.Load(Services.OData.create.eq("CustomerId", customerId).$expand(...expands));
         }
     }
 

@@ -17,7 +17,7 @@ module App.Controllers {
         }
 
         prepareEdit(customer: ICustomer) {
-            this.samTimeZones.Load(Services.OData.create.eq("CustomerId", customer.Id)).then(x => this.timeZones = x);
+            this.samTimeZones.LoadByCustomer(customer.Id).then(x => this.timeZones = x);
             this.samEmployees.LoadByCustomer(customer.Id).then(x => this.employees = x);
             if (!customer.PinCodeLength)
                 customer.PinCodeLength = 4;

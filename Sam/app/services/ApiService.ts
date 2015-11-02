@@ -30,7 +30,7 @@ module App {
     export interface IDoorListsApi extends IResourceClass<IDoorList> { }
     export interface IDepartmentListsApi extends IResourceClass<IDepartmentList> { }
     export interface ICardAccessApi extends IResourceClass<ICardAccess> {
-        RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void>;
+        RequestAccess(timeZoneId: string, doorIds: string[], note: string, employeeId?: string): IPromise<void>;
     }
     export interface ISystemParametersApi extends IResourceClass<ISystemParameter> { }
     export interface ITimeZonesApi extends IResourceClass<ITimeZone> { }
@@ -93,7 +93,7 @@ module App {
 
 
         CardAccess: ICardAccessApi = {
-            RequestAccess: <any>{ method: "POST", route: "RequestAccess", params: { DoorIds: null, Note: null, EmployeeId: null } },
+            RequestAccess: <any>{ method: "POST", route: "RequestAccess", params: { TimeZoneId: null, DoorIds: null, Note: null, EmployeeId: null } },
         };
 
         SystemParameters: ISystemParametersApi = {};

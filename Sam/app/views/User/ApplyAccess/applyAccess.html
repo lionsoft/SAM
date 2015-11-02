@@ -52,6 +52,7 @@
                                 </div>
                             </div>
                             <!-- #endregion -->
+
                             <!-- #region - Area - -->
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
@@ -66,6 +67,7 @@
                                 </div>
                             </div>
                             <!-- #endregion -->
+
                             <!-- #region - Doors - -->
                             <div class="form-group has-validation" ng-class="{ 'has-error' : $.selectedDoorIds.length === 0 && form.doors.$touched }">
                                 <div class="col-xs-12 col-sm-offset-2 col-sm-8">
@@ -81,6 +83,23 @@
                                 </div>
                             </div>
                             <!-- #endregion -->
+
+
+                            <!-- #region - TimeZone - -->
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                                    <ui-select class="form-control" ng-model="$.selectedTimeZoneId" ng-disabled="!$.timeZones.length" name="timeZone">
+                                        <ui-select-match allow-clear="false" placeholder="{{'DefaultTimeZone' | translate}}">
+                                            {{$select.selected.Name}} 
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in $.timeZones track by item.Id">
+                                            {{::item.Name}}
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <!-- #endregion -->
+
 
                             <div class="form-group has-validation has-warning" ng-class="{ 'has-error' : form.note.$invalid && form.note.$touched }">
                                 <label class="control-label" translate>Explanation / Reason</label>

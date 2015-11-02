@@ -3,7 +3,7 @@
 module App.Services {
 
     export interface ICardAccessService extends ICRUDService<ICardAccess> {
-        RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void>;
+        RequestAccess(timeZoneId: string, doorIds: string[], note: string, employeeId?: string): IPromise<void>;
     }
 
     class CardAccessService extends CRUDService<ICardAccess> implements ICardAccessService {
@@ -18,8 +18,8 @@ module App.Services {
 //            odata.$expand("CreatedBy, CreatedBy.Employees");
         }
 
-        RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void> {
-            return this.ApiService.RequestAccess(doorIds, note, employeeId).HandleError();
+        RequestAccess(timeZoneId: string, doorIds: string[], note: string, employeeId?: string): IPromise<void> {
+            return this.ApiService.RequestAccess(timeZoneId, doorIds, note, employeeId).HandleError();
         }
     }
 

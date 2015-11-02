@@ -18,7 +18,7 @@ module App.Controllers {
             if (!app.$auth.LoggedUser.Employee.CardId)
                 odata.$empty = true;
             else
-                odata.$expand("Door,ApprovedBy")
+                odata.$expand("Door,ApprovedBy,TimeZone")
                     .ne("ApprovalStatus", ApprovalStatus.Approved.toString())
                     .eq("CardId", app.$auth.LoggedUser.Employee.CardId);
         }

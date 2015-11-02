@@ -705,12 +705,18 @@
     <Content Include="app\directives\sam-date-picker.js">
       <DependentUpon>sam-date-picker.ts</DependentUpon>
     </Content>
+    <Content Include="app\directives\sam-edit-mask.js">
+      <DependentUpon>sam-edit-mask.ts</DependentUpon>
+    </Content>
     <Content Include="app\directives\smart-table\sam-st-table.js">
       <DependentUpon>sam-st-table.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\smart-table\sam-tables-pagination-tmpl.html" />
     <Content Include="app\directives\smart-table\st-sort-default.js">
       <DependentUpon>st-sort-default.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\sam-edit-mask.js.map">
+      <DependentUpon>sam-edit-mask.js</DependentUpon>
     </Content>
     <None Include="app\directives\time-zone-day\html\time-zone-day.less" />
     <Content Include="app\directives\time-zone-day\html\time-zone-day.css">

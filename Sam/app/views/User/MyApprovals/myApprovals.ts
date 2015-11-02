@@ -19,7 +19,7 @@ module App.Controllers {
         }
 
         public prepareQuery(odata: Services.OData) {
-            odata.$expand("Door,Card.Employees.Department,ApprovedBy")
+            odata.$expand("Door,Card.Employees.Department,ApprovedBy,TimeZone")
                 .eq("ApprovalStatus", ApprovalStatus.WaitingForApproval.toString())
                 .eq("ApprovedById", app.$auth.LoggedUser.Employee.Id);
         }

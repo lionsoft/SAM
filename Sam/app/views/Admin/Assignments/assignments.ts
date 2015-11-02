@@ -57,7 +57,7 @@ module App.Controllers {
 
         prepareQuery(odata: Services.OData) {
             odata
-                .$expand("Card, Door, Card.Employees, Card.Employees.Department, ApprovedBy")
+                .$expand("Card, Door, Card.Employees, Card.Employees.Department, ApprovedBy,TimeZone")
                 .eq("Card.CustomerId", this.selectedCustomerId)
                 .eq("CardId", this.selectedCardId)
                 .eq("DoorId", this.selectedDoorId)

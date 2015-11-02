@@ -21,6 +21,7 @@
                             <tr>
                                 <th translate>ApprovalLevel</th>
                                 <th translate auto-size st-sort="Door.Name">Door</th>
+                                <th nowrap st-sort="TimeZone.Name" translate>TimeZone</th>
                                 <th nowrap translate st-sort="CreatedDate" st-sort-default>CreatedDate</th>
                                 <th nowrap translate>Status</th>
                                 <th nowrap translate st-sort="ApprovedBy.Name">ApprovedBy</th>
@@ -31,6 +32,7 @@
                             <tr ng-repeat="cardAccess in $items track by cardAccess.Id">
                                 <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>
                                 <td tooltip="{{cardAccess.Door.Name}}">{{cardAccess.Door.Name}}</td>
+                                <td tooltip="{{cardAccess.TimeZone.Description}}">{{cardAccess.TimeZone.Name}}</td>
                                 <td class="col-created-date">{{::cardAccess.CreatedDate | date}}</td>
                                 <td><div class="nowrap label" ng-class="{'label-warning': cardAccess.ApprovalStatus === 0, 'label-success': cardAccess.ApprovalStatus === 1, 'label-important': cardAccess.ApprovalStatus === 2}">{{cardAccess.ApprovalStatus | ApprovalStatus}}</div></td>
                                 <td class="nowrap" tooltip="{{cardAccess.ApprovedBy.Name}}">{{cardAccess.ApprovedBy.Name}}</td>

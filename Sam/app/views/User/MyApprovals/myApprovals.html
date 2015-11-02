@@ -23,6 +23,7 @@
                                 <th translate auto-size>ApplicantDepartment</th>
                                 <th translate>ApprovalLevel</th>
                                 <th translate auto-size st-sort-default st-sort="Door.Name">DoorName</th>
+                                <th nowrap st-sort="TimeZone.Name" translate>TimeZone</th>
                                 <th nowrap translate st-sort="CreatedDate">DateApplied</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                                 <td tooltip="{{cardAccess.Card.Employee.Department.Name}}">{{cardAccess.Card.Employee.Department.Name}}</td>
                                 <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>
                                 <td tooltip="{{cardAccess.Door.Name}}">{{cardAccess.Door.Name}}</td>
+                                <td tooltip="{{cardAccess.TimeZone.Description}}">{{cardAccess.TimeZone.Name}}</td>
                                 <td class="col-created-date">{{::cardAccess.CreatedDate | date}}</td>
                             </tr>
                         </tbody>

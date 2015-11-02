@@ -88,6 +88,7 @@
                                 <th translate auto-size>Employee</th>
                                 <th translate>Type</th>
                                 <th translate auto-size st-sort="Door.Name">Door</th>
+                                <th nowrap st-sort="TimeZone.Name" translate>TimeZone</th>
                                 <th translate>Department</th>
                                 <th translate>ApprovalLevel</th>
                                 <th nowrap translate st-sort="ApprovedBy.Name">ApprovedBy</th>
@@ -107,6 +108,7 @@
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Card.Employee.Name}}">{{cardAccess.Card.Employee.Name}}</td>
                                 <td nowrap>{{cardAccess.AssignmentType | AssignmentType}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Door.Name}}">{{cardAccess.Door.Name}}</td>
+                                <td tooltip="{{cardAccess.TimeZone.Description}}">{{cardAccess.TimeZone.Name}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.Card.Employee.Department.Name}}">{{cardAccess.Card.Employee.Department.Name}}</td>
                                 <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>
                                 <td class="max-truncate-10em" tooltip="{{cardAccess.ApprovedBy.Name}}">{{cardAccess.ApprovedBy.Name}}</td>
