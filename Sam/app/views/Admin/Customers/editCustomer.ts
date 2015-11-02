@@ -7,11 +7,17 @@ module App.Controllers {
         $item: ICustomer;
 
         samEmployees: Services.IEmployeesService;
-        public employees: IEmployee[] = [];
+        samTimeZones: Services.ITimeZonesService;
 
-        Init() {  }
+        public employees: IEmployee[] = [];
+        public timeZones: ITimeZone[] = [];
+
+        Init() {
+            
+        }
 
         prepareEdit(customer: ICustomer) {
+            this.samTimeZones.Load(Services.OData.create.eq("CustomerId", customer.Id)).then(x => this.timeZones = x);
             this.samEmployees.LoadByCustomer(customer.Id).then(x => this.employees = x);
             if (!customer.PinCodeLength)
                 customer.PinCodeLength = 4;
@@ -19,5 +25,5 @@ module App.Controllers {
     }
 
     // Register with angular
-    app.controller('editCustomer', EditCustomer.Factory("samEmployees"));
+    app.controller('editCustomer', EditCustomer.Factory("samEmployees", "samTimeZones"));
 } 

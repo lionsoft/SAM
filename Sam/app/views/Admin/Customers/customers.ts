@@ -3,17 +3,16 @@ module App.Controllers
 {
     class Customers extends PageController
     {
-        samTimeZones: Services.ITimeZonesService;
-        samEmployees: Services.IEmployeesService;
+//        samTimeZones: Services.ITimeZonesService;
+//        samEmployees: Services.IEmployeesService;
 
         public selectedCustomerId: string;
         public selectedCompanyId: string;
         public selectedDepartmentId: string;
 
-        public timeZones: ITimeZone[] = [];
+//        public timeZones: ITimeZone[] = [];
 
         Init() {
-            this.samTimeZones.Load().then(x => this.timeZones = x);
         }
 
         
@@ -61,5 +60,5 @@ module App.Controllers
     }
 
     // register controller with angular
-    app.controller('customers', Customers.Factory("samTimeZones", "samEmployees"));
+    app.controller('customers', Customers.Factory());
 }

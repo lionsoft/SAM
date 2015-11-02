@@ -25,7 +25,7 @@ module App.Directives {
 
 
         get from(): string {
-            var res = "01.01.2000 " + this.$scope.$parent.$item[this.$scope.timeZoneDay + "From"];
+            var res = "01.01.0001 " + (this.$scope.$parent.$item[this.$scope.timeZoneDay + "From"] || "");
             return res;
         }
         set from(value: string) {
@@ -33,7 +33,7 @@ module App.Directives {
         }
 
         get to(): DateTime {
-            var res = "01.01.2000 " + this.$scope.$parent.$item[this.$scope.timeZoneDay + "To"];
+            var res = "01.01.0001 " + (this.$scope.$parent.$item[this.$scope.timeZoneDay + "To"] || "");
             return res;
         }
         set to(value: DateTime) {

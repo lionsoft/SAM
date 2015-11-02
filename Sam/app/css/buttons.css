@@ -1,8 +1,8 @@
 /*
     Глобальная настройка стилей кнопок и ссылок кнопочного типа
 */
-.panel a.btn,
-.panel button.btn {
+.panel a.btn-dialog,
+.panel button.btn-dialog {
   min-width: 90px;
   margin-left: 4px;
 }
