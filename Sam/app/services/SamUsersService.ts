@@ -59,7 +59,6 @@ module App.Services {
                 });
             }
         }
-
     }
 
     app.service("samUsers", UsersService.Factory());

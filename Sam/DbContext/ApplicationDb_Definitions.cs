@@ -58,5 +58,9 @@ namespace Sam.DbContext
 
         public IDbSet<CardAccess> CardAccesses { get; set; }
         public IDbSet<EmployeeCard> EmployeeCards { get; set; }
+
+        public IDbSet<SystemParameter> SystemParameters { get; set; }
+
+        public IDbSet<TimeZone> TimeZones { get; set; }
     }
 }

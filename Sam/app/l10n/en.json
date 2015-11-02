@@ -53,6 +53,7 @@
         "EMPLOYEES": "<i class='fa fa-users'></i> Employees",
         "LISTS": "<i class='fa fa-list'></i> Lists",
         "USERS": "<i class='fa fa-user'></i> Users",
+        "TIME-ZONES": "<i class='fa fa-clock-o'></i> Time Zones",
 
         "ACTIVATE-MY-CARD": "<i class='fa fa-credit-card'></i> Activate Card",
         "APPLY-TO-GET-ACCESS": "<i class='fa fa-credit-card'></i> Get Access",

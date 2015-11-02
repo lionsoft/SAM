@@ -1,0 +1,23 @@
+﻿<!-- #region - Name - -->
+<div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
+    <label class="control-label" x-translate>Name</label>
+    <input class="form-control" type="text" x-translate translate-attr-placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+    <span ng-show="form.name.$invalid && form.name.$touched" class="red" x-translate>MustBeSet</span>
+</div>
+<!-- #endregion -->
+
+<!-- #region - Description - -->
+<div class="form-group">
+    <label class="control-label" x-translate>Description</label>
+    <input class="form-control" x-translate ng-model="$item.Description" />
+</div>
+<!-- #endregion -->
+
+
+<div time-zone-day="Sun"></div>
+<div time-zone-day="Mon"></div>
+<div time-zone-day="Tue"></div>
+<div time-zone-day="Wed"></div>
+<div time-zone-day="Thu"></div>
+<div time-zone-day="Fri"></div>
+<div time-zone-day="Sat"></div>

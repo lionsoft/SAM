@@ -12,8 +12,8 @@ module App.Controllers {
         public noEmployee: boolean;
 
         public DelegateToId: string;
-        public DelegateFromDate: Date | moment.Moment | string;
-        public DelegateToDate: Date | moment.Moment | string;
+        public DelegateFromDate: DateTime;
+        public DelegateToDate: DateTime;
 
 
         Init() {

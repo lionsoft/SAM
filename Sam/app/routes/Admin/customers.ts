@@ -16,6 +16,7 @@ module App {
                     content: 'MENU.CUSTOMERS|<i class="fa fa-briefcase"></i> Customers'
                 },
                 files: [
+                    'editCustomer'
                 ]
             }
         );

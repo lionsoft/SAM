@@ -12,6 +12,10 @@ namespace Sam.DbContext
         public string DoorId { get; set; }
         public Door Door { get; set; }
 
+
+        public string OriginApproverId { get; set; }
+        public Employee OriginApprover { get; set; }
+
         public string ApprovedById { get; set; }
         public Employee ApprovedBy { get; set; }
 

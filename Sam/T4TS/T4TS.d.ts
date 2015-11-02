@@ -51,6 +51,9 @@ declare module App {
         Manager = 16,
         Admin = 32,
     }
+    /** Generated from Sam.DbContext.Parameter **/
+    const enum Parameter {
+    }
     /** Generated from Sam.DbContext.Card **/
     export interface ICard extends App.IEntityObjectBaseId {
         Number?: number;
@@ -59,7 +62,7 @@ declare module App {
         CardType?: App.CardType;
         CustomerId: string;
         Customer?: App.ICustomer;
-        DateExpiration?: Date | moment.Moment | string;
+        DateExpiration?: DateTime;
         Employees?: App.IEmployee[];
         Employee: App.IEmployee;
     }
@@ -69,9 +72,11 @@ declare module App {
         Card: App.ICard;
         DoorId: string;
         Door: App.IDoor;
+        OriginApproverId: string;
+        OriginApprover: App.IEmployee;
         ApprovedById: string;
         ApprovedBy: App.IEmployee;
-        ApprovedDate?: Date | moment.Moment | string;
+        ApprovedDate?: DateTime;
         ApprovalLevel: App.ApprovalLevel;
         ApprovalStatus: App.ApprovalStatus;
         Note: string;
@@ -80,10 +85,10 @@ declare module App {
     /** Generated from Sam.DbContext.EntityObjectId<TKey> **/
     export interface IEntityObjectBaseId {
         Id: any;
-        CreatedDate: Date | moment.Moment | string;
+        CreatedDate: DateTime;
         CreatedById: string;
         CreatedBy: any;
-        ModifiedDate: Date | moment.Moment | string;
+        ModifiedDate: DateTime;
         ModifiedById: string;
         ModifiedBy: any;
     }
@@ -102,6 +107,11 @@ declare module App {
     /** Generated from Sam.DbContext.Customer **/
     export interface ICustomer extends App.IEntityObjectBaseId {
         Name: string;
+        PinCodeLength?: number;
+        DefaultTimeZoneId: string;
+        DefaultTimeZone: App.ITimeZone;
+        DefaultApproverId: string;
+        DefaultApprover: App.IEmployee;
     }
     /** Generated from Sam.DbContext.Department **/
     export interface IDepartment extends App.IEntityObjectBaseId {
@@ -116,7 +126,7 @@ declare module App {
         Department: App.IDepartment;
         ApprovedById: string;
         ApprovedBy: App.IEmployee;
-        ApprovedDate?: Date | moment.Moment | string;
+        ApprovedDate?: DateTime;
         DoorLists: App.IDoorList[];
     }
     /** Generated from Sam.DbContext.Area **/
@@ -190,8 +200,8 @@ declare module App {
         DelegateToId: string;
         DelegateTo: App.IEmployee;
         Delegaters: App.IEmployee[];
-        DelegateFromDate?: Date | moment.Moment | string;
-        DelegateToDate?: Date | moment.Moment | string;
+        DelegateFromDate?: DateTime;
+        DelegateToDate?: DateTime;
     }
     /** Generated from Sam.DbContext.EmployeeCard **/
     export interface IEmployeeCard extends App.IEntityObjectBaseId {
@@ -199,6 +209,40 @@ declare module App {
         Card: App.ICard;
         EmployeeId: string;
         Employee: App.IEmployee;
+    }
+    /** Generated from Sam.DbContext.SystemParameter **/
+    export interface ISystemParameter {
+        Id: App.Parameter;
+        UserId?: string;
+        Value: string;
+    }
+    /** Generated from Sam.DbContext.TimeZone **/
+    export interface ITimeZone extends App.IEntityObjectBaseId {
+        Name: string;
+        Description: string;
+        CustomerId: string;
+        Customer: App.ICustomer;
+        SunIsActive: boolean;
+        SunFrom: DateTime;
+        SunTo: DateTime;
+        MonIsActive: boolean;
+        MonFrom: DateTime;
+        MonTo: DateTime;
+        TueIsActive: boolean;
+        TueFrom: DateTime;
+        TueTo: DateTime;
+        WedIsActive: boolean;
+        WedFrom: DateTime;
+        WedTo: DateTime;
+        ThuIsActive: boolean;
+        ThuFrom: DateTime;
+        ThuTo: DateTime;
+        FriIsActive: boolean;
+        FriFrom: DateTime;
+        FriTo: DateTime;
+        SatIsActive: boolean;
+        SatFrom: DateTime;
+        SatTo: DateTime;
     }
     /** Generated from Sam.DbContext.TypeScriptUser **/
     export interface IUser {

@@ -32,6 +32,8 @@ module App {
     export interface ICardAccessApi extends IResourceClass<ICardAccess> {
         RequestAccess(doorIds: string[], note: string, employeeId?: string): IPromise<void>;
     }
+    export interface ISystemParametersApi extends IResourceClass<ISystemParameter> { }
+    export interface ITimeZonesApi extends IResourceClass<ITimeZone> { }
  
 
     export interface IApiService {
@@ -54,6 +56,9 @@ module App {
 
         Cards: ICardsApi;
         CardAccess: ICardAccessApi;
+
+        SystemParameters: ISystemParametersApi;
+        TimeZones: ITimeZonesApi;
     }                                                 
 
     export class ApiService extends ApiServiceBase implements IApiService {
@@ -90,6 +95,10 @@ module App {
         CardAccess: ICardAccessApi = {
             RequestAccess: <any>{ method: "POST", route: "RequestAccess", params: { DoorIds: null, Note: null, EmployeeId: null } },
         };
+
+        SystemParameters: ISystemParametersApi = {};
+
+        TimeZones: ITimeZonesApi = {};
 
         Init() {
             super.Init(URL.API);

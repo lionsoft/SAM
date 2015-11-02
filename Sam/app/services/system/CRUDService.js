@@ -407,7 +407,7 @@ var App;
                 var _this = this;
                 entity = entity || {};
                 scope = scope || App.app.$rootScope;
-                if (scope.__customController) {
+                if (scope && scope.__customController) {
                     scope.$item = angular.copy(entity);
                     scope.$.$item = scope.$item;
                     if (!scope.$templateUrl)
@@ -442,7 +442,7 @@ var App;
                     };
                 }
                 var res = App.app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
-                    .then(function (r) { return scope.$item; });
+                    .then(function () { return scope.$item; });
                 /*
                                 .then(() => {
                                     var needSave = true;

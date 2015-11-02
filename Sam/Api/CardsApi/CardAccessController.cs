@@ -82,6 +82,8 @@ namespace Sam.Api
                     };
             res.Note = note;
             res.ApprovedDate = null;
+            res.OriginApproverId = employeeId;
+/*
             var accessor = Db.Employees.Find(employeeId);
             if (accessor != null 
                 && accessor.DelegateToId != null 
@@ -94,6 +96,8 @@ namespace Sam.Api
             {
                 res.ApprovedById = employeeId;
             }
+*/
+            res.ApprovedById = employeeId;
             if (res.Id == null)
                 Db.CardAccesses.Add(res);
             return res;

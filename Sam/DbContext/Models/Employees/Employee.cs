@@ -68,5 +68,11 @@ namespace Sam.DbContext
 
         public DateTime? DelegateFromDate { get; set; }
         public DateTime? DelegateToDate { get; set; }
+
+
+        [JsonIgnore]
+        [TypeScriptMember(Ignore = true)]
+        [InverseProperty("DefaultApprover")]
+        public ICollection<Customer> DefaultApproverCustomers { get; set; }
     }
 }

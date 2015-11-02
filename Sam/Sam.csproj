@@ -86,6 +86,14 @@
       <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.OData.Core, Version=6.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OData.Core.6.13.0\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.OData.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.OData.Edm, Version=6.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OData.Edm.6.13.0\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.OData.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -108,6 +116,10 @@
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=6.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.6.13.0\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.Spatial.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -207,6 +219,7 @@
     <Compile Include="Api\CardsApi\CardAccessController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Api\CustomersApi\TimeZonesController.cs" />
     <Compile Include="Api\CustomersApi\DepartmentListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorListsController.cs" />
     <Compile Include="Api\DoorsApi\DoorsController.cs" />
@@ -216,9 +229,13 @@
     <Compile Include="Api\DoorsApi\BuildingsController.cs" />
     <Compile Include="Api\CardsApi\CardsController.cs" />
     <Compile Include="Api\L10NApi\L10NController.cs" />
+    <Compile Include="Api\SystemParamsApi\SystemParametersController.cs" />
     <Compile Include="Api\System\ODataMetadata.cs" />
     <Compile Include="Api\System\SequentialIdProvider.cs" />
     <Compile Include="DbContext\Models\Cards\AssignmentType.cs" />
+    <Compile Include="DbContext\Models\SystemParameters\Parameter.cs" />
+    <Compile Include="DbContext\Models\SystemParameters\SystemParameter.cs" />
+    <Compile Include="DbContext\Models\TimeZones\TimeZone.cs" />
     <Compile Include="Extensions\Expressions\SimplifyExpression.cs" />
     <Compile Include="Api\UploadController.cs" />
     <Compile Include="Api\System\AppController.cs" />
@@ -695,6 +712,13 @@
     <Content Include="app\directives\smart-table\st-sort-default.js">
       <DependentUpon>st-sort-default.ts</DependentUpon>
     </Content>
+    <None Include="app\directives\time-zone-day\html\time-zone-day.less" />
+    <Content Include="app\directives\time-zone-day\html\time-zone-day.css">
+      <DependentUpon>time-zone-day.less</DependentUpon>
+    </Content>
+    <Content Include="app\directives\time-zone-day\timeZoneDay.js">
+      <DependentUpon>timeZoneDay.ts</DependentUpon>
+    </Content>
     <Content Include="app\filters\ApprovalStatusFilter.js">
       <DependentUpon>ApprovalStatusFilter.ts</DependentUpon>
     </Content>
@@ -760,6 +784,9 @@
     </Content>
     <Content Include="app\routes\Admin\lists.js">
       <DependentUpon>lists.ts</DependentUpon>
+    </Content>
+    <Content Include="app\routes\Admin\timeZones.js">
+      <DependentUpon>timeZones.ts</DependentUpon>
     </Content>
     <Content Include="app\routes\Admin\users.js">
       <DependentUpon>users.ts</DependentUpon>
@@ -839,6 +866,12 @@
     <Content Include="app\services\SamEmployeesService.js">
       <DependentUpon>SamEmployeesService.ts</DependentUpon>
     </Content>
+    <Content Include="app\services\SamSysParamsService.js">
+      <DependentUpon>SamSysParamsService.ts</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamTimeZonesService.js">
+      <DependentUpon>SamTimeZonesService.ts</DependentUpon>
+    </Content>
     <Content Include="app\services\SamUsersService.js">
       <DependentUpon>SamUsersService.ts</DependentUpon>
     </Content>
@@ -886,6 +919,9 @@
     <Content Include="app\views\Admin\Cards\editCard.html" />
     <Content Include="app\views\Admin\Customers\editCompany.css">
       <DependentUpon>editCompany.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\Customers\editCustomer.js">
+      <DependentUpon>editCustomer.ts</DependentUpon>
     </Content>
     <Content Include="app\views\Admin\Customers\editDepartment.css">
       <DependentUpon>editDepartment.less</DependentUpon>
@@ -941,6 +977,17 @@
       <DependentUpon>editDoorList.less</DependentUpon>
     </Content>
     <Content Include="app\views\Admin\Lists\editDoorList.html" />
+    <Content Include="app\views\Admin\TimeZones\editTimeZone.css">
+      <DependentUpon>editTimeZone.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\TimeZones\editTimeZone.html" />
+    <Content Include="app\views\Admin\TimeZones\timeZones.css">
+      <DependentUpon>timeZones.less</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\TimeZones\timeZones.html" />
+    <Content Include="app\views\Admin\TimeZones\timeZones.js">
+      <DependentUpon>timeZones.ts</DependentUpon>
+    </Content>
     <Content Include="app\views\Admin\Users\editUser.css">
       <DependentUpon>editUser.less</DependentUpon>
     </Content>
@@ -952,9 +999,6 @@
     <Content Include="app\common\LionSoft.Angular\html\ng-prompt-dialog.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tag.html" />
     <Content Include="app\common\LionSoft.Angular\html\ng-tags.html" />
-    <Content Include="app\views\Admin\Users\users.js">
-      <DependentUpon>users.ts</DependentUpon>
-    </Content>
     <Content Include="app\views\Admin\Users\editUser.html" />
     <Content Include="app\views\Admin\Customers\customers.css">
       <DependentUpon>customers.less</DependentUpon>
@@ -980,6 +1024,9 @@
     <Content Include="app\views\Admin\Doors\editArea.html" />
     <Content Include="app\views\Admin\Doors\editCountry.html" />
     <Content Include="app\views\Admin\Doors\editCity.html" />
+    <Content Include="app\views\Admin\Users\users.js">
+      <DependentUpon>users.ts</DependentUpon>
+    </Content>
     <Content Include="app\views\login\login.css">
       <DependentUpon>login.less</DependentUpon>
     </Content>
@@ -1049,6 +1096,38 @@
     </Content>
     <Content Include="app\views\User\EmployeeAccess\employeeAccess.js.map">
       <DependentUpon>employeeAccess.js</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamSysParamsService.js.map">
+      <DependentUpon>SamSysParamsService.js</DependentUpon>
+    </Content>
+    <Content Include="app\services\SamTimeZonesService.js.map">
+      <DependentUpon>SamTimeZonesService.js</DependentUpon>
+    </Content>
+    <Content Include="app\routes\Admin\timeZones.js.map">
+      <DependentUpon>timeZones.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\Customers\editCustomer.js.map">
+      <DependentUpon>editCustomer.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\TimeZones\timeZones.less" />
+    <Content Include="app\views\Admin\TimeZones\editTimeZone.less" />
+    <Content Include="app\views\Admin\TimeZones\timeZones.js.map">
+      <DependentUpon>timeZones.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\TimeZones\timeZones.js.map">
+      <DependentUpon>timeZones.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\TimeZones\timeZones.js.map">
+      <DependentUpon>timeZones.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\Users\users.js.map">
+      <DependentUpon>users.js</DependentUpon>
+    </Content>
+    <Content Include="app\views\Admin\Users\users.js.map">
+      <DependentUpon>users.js</DependentUpon>
+    </Content>
+    <Content Include="app\directives\time-zone-day\timeZoneDay.js.map">
+      <DependentUpon>timeZoneDay.js</DependentUpon>
     </Content>
     <None Include="app\views\User\MyDelegation\myDelegation.less" />
     <Content Include="app\views\User\MyDelegation\myDelegation.css">
@@ -2115,9 +2194,12 @@
     <TypeScriptCompile Include="app\directives\autofocus.ts" />
     <TypeScriptCompile Include="app\directives\ng-thumb.ts" />
     <TypeScriptCompile Include="app\directives\sam-date-picker.ts" />
+    <TypeScriptCompile Include="app\directives\sam-edit-mask.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\st-sort-default.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\smart-table.d.ts" />
     <TypeScriptCompile Include="app\directives\smart-table\sam-st-table.ts" />
+    <Content Include="app\directives\time-zone-day\html\time-zone-day.html" />
+    <TypeScriptCompile Include="app\directives\time-zone-day\timeZoneDay.ts" />
     <TypeScriptCompile Include="app\filters\ApprovalStatusFilter.ts" />
     <TypeScriptCompile Include="app\filters\AssignmentType.ts" />
     <TypeScriptCompile Include="app\filters\ExceptOfFilter.ts" />
@@ -2138,6 +2220,7 @@
     <TypeScriptCompile Include="app\routes\Admin\lists.ts" />
     <TypeScriptCompile Include="app\routes\Admin\employees.ts" />
     <TypeScriptCompile Include="app\routes\Admin\doors.ts" />
+    <TypeScriptCompile Include="app\routes\Admin\timeZones.ts" />
     <TypeScriptCompile Include="app\routes\User\employeeAccess.ts" />
     <TypeScriptCompile Include="app\routes\User\myApplications.ts" />
     <TypeScriptCompile Include="app\routes\User\myApprovals.ts" />
@@ -2158,6 +2241,8 @@
     <TypeScriptCompile Include="app\services\SamAreasService.ts" />
     <TypeScriptCompile Include="app\services\SamEmployeeCardsService.ts" />
     <TypeScriptCompile Include="app\services\SamEmployeesService.ts" />
+    <TypeScriptCompile Include="app\services\SamSysParamsService.ts" />
+    <TypeScriptCompile Include="app\services\SamTimeZonesService.ts" />
     <TypeScriptCompile Include="app\services\SamUsersService.ts" />
     <TypeScriptCompile Include="app\services\SamCompaniesService.ts">
       <SubType>Code</SubType>
@@ -2548,9 +2633,6 @@
     <Content Include="app\services\system\ODataFilterCreator.js.map">
       <DependentUpon>ODataFilterCreator.ts</DependentUpon>
     </Content>
-    <Content Include="app\views\Admin\Users\users.js.map">
-      <DependentUpon>users.ts</DependentUpon>
-    </Content>
     <Content Include="app\views\Admin\Customers\customers.js.map">
       <DependentUpon>customers.ts</DependentUpon>
     </Content>
@@ -2750,6 +2832,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <TypeScriptCompile Include="app\views\Admin\Customers\editCustomer.ts" />
+    <TypeScriptCompile Include="app\views\Admin\Users\users.ts" />
     <TypeScriptCompile Include="app\views\User\ApplyAccess\applyAccess.ts" />
     <TypeScriptCompile Include="app\views\User\EmployeeAccess\employeeAccess.ts" />
     <TypeScriptCompile Include="app\views\User\MyAccess\myAccess.ts" />
@@ -2807,7 +2891,7 @@
     <TypeScriptCompile Include="Scripts\typings\q\Q.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\toastr\toastr.d.ts" />
-    <TypeScriptCompile Include="app\views\Admin\Users\users.ts" />
+    <TypeScriptCompile Include="app\views\Admin\TimeZones\timeZones.ts" />
     <TypeScriptCompile Include="app\app.ts" />
     <TypeScriptCompile Include="app\services\system\AutenticationService.ts" />
     <TypeScriptCompile Include="app\common\bootstrap\bootstrap.dialog.ts" />

@@ -3,7 +3,7 @@
 module App.Services {
 
     export interface IEntityObjectId {
-        Id: string;
+        Id: string | any;
     }
 
     export interface ICRUDService<T extends IEntityObjectId> {
@@ -549,7 +549,7 @@ module App.Services {
         EditModal(entity: T, editTemplateUrl: string, scope?: ng.IScope | any, updateAfterSave?: boolean): IPromise<T> {
             entity = entity || <any>{};
             scope = scope || app.$rootScope;
-            if (scope.__customController) {
+            if (scope && scope.__customController) {
                 scope.$item = angular.copy(<any>entity);
                 scope.$.$item = scope.$item;
                 if (!scope.$templateUrl)
@@ -583,7 +583,7 @@ module App.Services {
                 };
             }
             var res = app.popup.popupModal("html/edit-form.html".ExpandPath(LionSoftAngular.rootFolder), scope)
-                .then(r => scope.$item);
+                .then(() => scope.$item);
 /*
                 .then(() => {
                     var needSave = true;

@@ -4,7 +4,7 @@
             <!-- #region Customers -->
             <div st-table class="sam-b-space"
                  st-items-by-page="5"
-                 sam-st-table="{service: 'samCustomers', editTemplate: 'editCustomer.html', onLoad: $.CustomersLoaded}">
+                 sam-st-table="{service: 'samCustomers', controller: 'editCustomer', editTemplate: 'editCustomer.html', onLoad: $.CustomersLoaded, prepareEdit: $.prepareEdit}">
 
                 <!-- #region - Title / Search - -->
                 <div class="st-table-search">

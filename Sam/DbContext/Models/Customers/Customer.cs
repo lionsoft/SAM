@@ -8,5 +8,12 @@ namespace Sam.DbContext
     {
         public string Name { get; set; }
 
+        public int? PinCodeLength { get; set; }
+
+        public string DefaultTimeZoneId { get; set; }
+        public TimeZone DefaultTimeZone { get; set; }
+
+        public string DefaultApproverId { get; set; }
+        public Employee DefaultApprover { get; set; }
     }
 }

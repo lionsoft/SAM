@@ -58,7 +58,21 @@ namespace Sam.Api
         [HttpGet]
         public async Task<object> Get(ODataQueryOptions<User> queryOptions)
         {
-            var res = await CRUDController.CreateODataResponse<JsonUser, User>(Db.Users.Include(u => u.Employees), Request, queryOptions);
+            var query = Db.Users.Include(u => u.Employees);
+            var filters = queryOptions.Filter == null ? "" : queryOptions.Filter.RawValue ?? "";
+            if (filters.StartsWith("CustomerId eq "))
+            {
+                // Filter users by CustomerId
+                var customerId = filters.Split(new [] {" eq "}, StringSplitOptions.RemoveEmptyEntries)[1];
+                var ub = new UriBuilder(Request.RequestUri);
+                var prms = ub.Query.Trim('?').Split('&').ToDictionary(x => x.Split('=')[0], x => (x + "=").Split('=')[1]);
+                prms.Remove("$filter");
+                ub.Query = prms.Aggregate("", (result, item) => result + (result == "" ? "" : "&") + item.Key + "=" + item.Value);
+                Request.RequestUri = ub.Uri;
+                var qo = new ODataQueryOptions<User>(queryOptions.Context, Request);
+                queryOptions = qo;
+            }
+            var res = await CRUDController.CreateODataResponse<JsonUser, User>(query, Request, queryOptions);
             return res;
         }
 

@@ -1,0 +1,14 @@
+﻿<div>
+    <label class="title">
+        <span>{{$item.title | translate}}</span>
+        <input type="checkbox" ng-model="$item.isActive" />
+    </label>
+    <span class="time">
+        <input type="text" sam-time-picker ng-model="$item.from" />
+    </span>
+    <span class="separator">-</span>
+    <span class="time">
+        <input type="text" sam-time-picker ng-model="$item.to" />
+    </span>
+    <div class="clearfix"></div>
+</div>

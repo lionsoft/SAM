@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
@@ -12,6 +14,8 @@ using System.Web.Http.OData.Formatter.Serialization;
 using System.Web.Http.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.Data.Edm;
+using Microsoft.Data.OData;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 
@@ -44,7 +48,9 @@ namespace Sam
             config.MapHttpAttributeRoutes(new CustomDirectRouteProvider());
 
             var odataFormatters = ODataMediaTypeFormatters.Create(new JsonODataSerializerProvider(), DefaultODataDeserializerProvider.Instance);
+//            var odataFormatters = ODataMediaTypeFormatters.Create(new NullSerializerProvider(), DefaultODataDeserializerProvider.Instance);
             config.Formatters.InsertRange(0, odataFormatters);
+
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -76,6 +82,11 @@ namespace Sam
             }
         }
 
+
+
+
+
+
         public class JsonODataSerializerProvider : DefaultODataSerializerProvider
         {
             public override ODataSerializer GetODataPayloadSerializer(IEdmModel model, Type type, HttpRequestMessage request)
@@ -88,6 +99,60 @@ namespace Sam
                 }
 */
                 return base.GetODataPayloadSerializer(model, type, request);
+            }
+        }
+        public class NullEntityTypeSerializer : ODataEntityTypeSerializer
+        {
+            public NullEntityTypeSerializer(ODataSerializerProvider serializerProvider)
+                : base(serializerProvider)
+            { }
+
+            public override void WriteObjectInline(object graph, IEdmTypeReference expectedType, ODataWriter writer, ODataSerializerContext writeContext)
+            {
+                if (graph != null)
+                {
+                    base.WriteObjectInline(graph, expectedType, writer, writeContext);
+                }
+            }
+        }
+        public class NullSerializerProvider : DefaultODataSerializerProvider
+        {
+            private readonly NullEntityTypeSerializer _nullEntityTypeSerializer;
+
+            public NullSerializerProvider()
+            {
+                _nullEntityTypeSerializer = new NullEntityTypeSerializer(this);
+            }
+
+            public override ODataSerializer GetODataPayloadSerializer(IEdmModel model, Type type, HttpRequestMessage request)
+            {
+                var serializer = base.GetODataPayloadSerializer(model, type, request);
+                if (serializer == null)
+                {
+                    var functions = model.SchemaElements.Where(s => s.SchemaElementKind == EdmSchemaElementKind.Function);
+                    var isFunctionCall = false;
+                    foreach (var f in functions)
+                    {
+                        var fname = string.Format("{0}.{1}", f.Namespace, f.Name);
+                        if (request.RequestUri.OriginalString.Contains(fname))
+                        {
+                            isFunctionCall = true;
+                            break;
+                        }
+                    }
+
+                    // only, if it is not a function call
+                    if (!isFunctionCall)
+                    {
+                        var response = request.GetOwinContext().Response;
+                        response.OnSendingHeaders(state =>
+                        {
+                            ((IOwinResponse)state).StatusCode = (int)HttpStatusCode.NotFound;
+                        }, response);
+                    }
+                    return _nullEntityTypeSerializer;
+                }
+                return serializer;
             }
         }
     }

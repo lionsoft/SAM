@@ -1,7 +1,59 @@
-﻿<!-- #region - Name - -->
-<div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
-    <label class="control-label" translate>Name</label>
-    <input class="form-control" type="text" translate translate-attr-placeholder="required" autofocus required ng-model="$item.Name" name="name" />
-    <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
+﻿<!-- #region - Name & PinLength - -->
+<div class="row">
+    <div class="col col-xs-6">
+        <!-- #region - Name - -->
+        <div class="form-group has-warning" ng-class="{ 'has-error' : form.name.$invalid && form.name.$touched }">
+            <label class="control-label" translate>Name</label>
+            <input class="form-control" type="text" translate translate-attr-placeholder="required" autofocus required ng-model="$item.Name" name="name" />
+            <span ng-show="form.name.$invalid && form.name.$touched" class="red" translate>MustBeSet</span>
+        </div>
+        <!-- #endregion -->
+    </div>
+    <!-- #endregion -->
+    <div class="col-xs-6">
+        <!-- #region - PinLength - -->
+        <div class="form-group has-warning" ng-class="{ 'has-error' : form.pinLength.$invalid && form.pinLength.$touched }">
+            <label class="control-label" translate>PinCodeLength</label>
+            <input class="form-control" type="number" translate translate-attr-placeholder="required" required ng-model="$item.PinCodeLength" name="pinLength" />
+            <span ng-show="form.pinLength.$invalid && form.pinLength.$touched" class="red" translate>MustBeSet</span>
+        </div>
+        <!-- #endregion -->
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region - DefApprover & DefTimeZone - -->
+<div class="row">
+    <div class="col col-xs-6">
+        <!-- #region - DefApprover - -->
+        <div class="form-group">
+            <label class="control-label" translate>DefApprover</label>
+            <ui-select class="form-control" ng-model="$item.DefaultApproverId" ng-disabled="!$.employees.length">
+                <ui-select-match allow-clear="true">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="item.Id as item in $.employees track by item.Id">
+                    {{::item.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <!-- #endregion -->
+    </div>
+    <!-- #endregion -->
+    <div class="col-xs-6">
+        <!-- #region - DefTimeZone - -->
+        <div class="form-group">
+            <label class="control-label" translate>DefTimeZone</label>
+            <ui-select class="form-control" ng-model="$item.DefaultTimeZoneId" ng-disabled="!$.timeZones.length">
+                <ui-select-match allow-clear="true">
+                    {{$select.selected.Name}}
+                </ui-select-match>
+                <ui-select-choices repeat="item.Id as item in $.timeZones track by item.Id">
+                    {{::item.Name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <!-- #endregion -->
+    </div>
 </div>
 <!-- #endregion -->
