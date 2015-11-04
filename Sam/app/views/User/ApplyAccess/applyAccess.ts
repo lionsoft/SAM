@@ -41,6 +41,7 @@ module App.Controllers {
         public noActivatedCard: boolean;
 
         customerId: string;
+        companyId: string;
 
         Init() {
             this.samUsers.Update(app.$auth.LoggedUser)
@@ -49,7 +50,14 @@ module App.Controllers {
                     this.updateEmployees();
                     return this.samDepartments.Load(app.$auth.LoggedUser.Employee.DepartmentId, "Company");
                 })
-                .then(dep => this.customerId = dep.Company.CustomerId);
+                .then(dep => {
+                    this.customerId = dep.Company ? dep.Company.CustomerId : undefined;
+                    return this.samBuildings.Load(Services.OData.create.eq("CustomerId", this.customerId).$top(1).$expand("City"));
+                })
+                .then(b => {
+                    this.selectedCountryId = b.select(x => x.City.CountryId).firstOrDefault();
+                    this.selectedCityId = b.select(x => x.CityId).firstOrDefault();
+                });
             this.$scope.$watch("$.selectedCountryId", (val: string) => this.LoadCities(val));
             this.$scope.$watch("$.selectedCityId", (val: string) => this.LoadBuildings(val));
             this.$scope.$watch("$.selectedBuildingId", (val: string) => this.LoadAreas(val));
@@ -83,10 +91,15 @@ module App.Controllers {
 
 
         LoadCities(countryId: string) {
+            var savedCityId = this.selectedCityId;
             this.selectedCityId = null;
             this.cities = [];
             if (countryId)
-                this.samCities.Load(Services.OData.create.eq("CountryId", countryId)).then(res => this.cities = res.orderBy(x => x.Name).toArray());
+                this.samCities.Load(Services.OData.create.eq("CountryId", countryId)).then(res => {
+                    this.cities = res.orderBy(x => x.Name).toArray();
+                    if (this.cities.any(x => x.Id === savedCityId))
+                        this.selectedCityId = savedCityId;
+                });
         }
         LoadBuildings(cityId: string) {
             this.selectedBuildingId = null;

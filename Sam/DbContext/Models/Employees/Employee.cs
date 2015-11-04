@@ -52,6 +52,9 @@ namespace Sam.DbContext
         [NotMapped]
         public JsonUser JsonUser { get { return JsonUser.Create(User); } set { User = value.ToUser(); } }
 
+        [JsonIgnore]
+        [InverseProperty("Employee")]
+        public ICollection<User> Users { get; set; }
 
         /// <summary>
         /// The options allows the employee make request to get access on behalf of another employee.
@@ -74,5 +77,7 @@ namespace Sam.DbContext
         [TypeScriptMember(Ignore = true)]
         [InverseProperty("DefaultApprover")]
         public ICollection<Customer> DefaultApproverCustomers { get; set; }
+
+
     }
 }

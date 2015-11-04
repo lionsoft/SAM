@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -38,20 +37,8 @@ namespace Sam.DbContext
           this.Id = Guid.NewGuid().ToString();
         }
 
-
-        [NotMapped]
-        public Employee Employee
-        {
-            get { return Employees != null ? Employees.FirstOrDefault() : null; }
-            set
-            {
-                if (Employee == value) return;
-                if (value == null)
-                    Employees = new List<Employee>();
-                else
-                    Employees = new List<Employee> { value };
-            }
-        }
+        public string EmployeeId { get; set; }
+        public Employee Employee { get; set; }
 
         [NotMapped]
         public string Name

@@ -3,6 +3,22 @@
         <div class="container-fluid">
             <div class="row">
 
+                <!-- #region - Customer - -->
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label" translate>Customer</label>
+                        <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
+                            <ui-select-match allow-clear="true" placeholder="All Customers">
+                                {{$select.selected.Name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
+                                {{customer.Name}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <!-- #endregion -->
+
                 <div st-table
                      st-items-by-page="20"
                      sam-st-table="{service: 'samUsers', editTemplate: 'editUser.html', prepareQuery: $.prepareQuery, prepareEdit: $.prepareEdit}">
@@ -13,7 +29,7 @@
                             <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
                             <span>Users</span>
                         </h3>
-                        <input st-search="UserName" class="form-control" translate translate-attr-placeholder="Search..." />
+                        <input st-search="UserName,Employee.Name" class="form-control" translate translate-attr-placeholder="Search..." />
                     </div>
                     <!-- #endregion -->
 
@@ -23,7 +39,7 @@
                             <tr>
                                 <th class="st-action-buttons"><i class="fa fa-cogs fa-lg"></i></th>
                                 <th translate class="truncate-to-20em" st-sort-default st-sort="UserName">Login</th>
-                                <th translate auto-size>Employee</th>
+                                <th translate auto-size st-sort="Employee.Name">Employee</th>
                             </tr>
                         </thead>
                         <!-- #endregion -->
