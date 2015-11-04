@@ -126,7 +126,10 @@ module App.Controllers {
 
         public Submit(form) {
             if (LionSoftAngular.ValidateForm(form) && this.selectedDoorIds.length > 0) {
-                this.samCardAccess.RequestAccess(this.selectedTimeZoneId, this.selectedDoorIds, this.note, this.whoGetsAccessEmployeeId).then(() => success('OK'));
+                this.samCardAccess.RequestAccess(this.selectedTimeZoneId, this.selectedDoorIds, this.note, this.whoGetsAccessEmployeeId).then(() => {
+                    this.selectedDoorIds = [];
+                    success('OK');
+                });
             } else {
                 form.doors.$setTouched();
             }

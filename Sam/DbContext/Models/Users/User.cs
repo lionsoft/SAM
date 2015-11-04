@@ -34,7 +34,7 @@ namespace Sam.DbContext
 
         public User(string userName) : base(userName)
         {
-          this.Id = Guid.NewGuid().ToString();
+          this.Id = Guid.NewGuid().ToString().ToLower();
         }
 
         public string EmployeeId { get; set; }

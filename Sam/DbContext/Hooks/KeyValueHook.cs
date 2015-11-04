@@ -11,7 +11,7 @@ namespace Sam.DbContext.Hooks
         {
             var entityId = entity as IEntityObjectId<string>;
             if (entityId != null && entityId.Id.IsEmpty())
-                entityId.Id = SequentialGuid.NewGuid().ToString();
+                entityId.Id = SequentialGuid.NewGuid().ToString().ToLower();
         }
 
         public EntityState HookStates

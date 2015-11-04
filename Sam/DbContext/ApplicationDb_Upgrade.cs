@@ -26,13 +26,13 @@ namespace Sam.DbContext
             if (fromVersion == 0)
             {
                 SequentialIdProvider.Create(Card.NumberSeq);
-                FillWithCurrentUserHook.DefaultUserId = SequentialGuid.NewGuid().ToString();
+                FillWithCurrentUserHook.DefaultUserId = SequentialGuid.NewGuid().ToString().ToLower();
                 Users.Add(new User
                 {
                     Id = FillWithCurrentUserHook.DefaultUserId,
                     UserName = "1",
                     Email = "user0@mail.com",
-                    SecurityStamp = Guid.NewGuid().ToString(),
+                    SecurityStamp = Guid.NewGuid().ToString().ToLower(),
                     PasswordHash = _userManager.PasswordHasher.HashPassword("1")
                 });
 
@@ -40,10 +40,10 @@ namespace Sam.DbContext
                 {
                     Users.Add(new User
                     {
-                        Id = SequentialGuid.NewGuid().ToString(),
+                        Id = SequentialGuid.NewGuid().ToString().ToLower(),
                         UserName = "user" + i,
                         Email = "user" + i + "@mail.com",
-                        SecurityStamp = Guid.NewGuid().ToString(),
+                        SecurityStamp = Guid.NewGuid().ToString().ToLower(),
                         PasswordHash = _userManager.PasswordHasher.HashPassword("1")
                     });
                 }
