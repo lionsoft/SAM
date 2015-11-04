@@ -85,7 +85,17 @@ var App;
                                 res = args ? this.opName + "(" + propName + "," + args + ")" : this.opName + "(" + propName + ")";
                         }
                         else {
-                            res = propName + " " + this.opName + " " + this.args;
+                            if (propName.Contains("[any]")) {
+                                propName = propName.replace("[any]", "/any(_:_");
+                                res = propName + " " + this.opName + " " + this.args + ")";
+                            }
+                            else if (propName.Contains("[all]")) {
+                                propName = propName.replace("[all]", "/all(_:_");
+                                res = propName + " " + this.opName + " " + this.args + ")";
+                            }
+                            else {
+                                res = propName + " " + this.opName + " " + this.args;
+                            }
                         }
                     }
                     else {

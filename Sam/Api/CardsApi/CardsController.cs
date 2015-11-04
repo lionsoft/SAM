@@ -43,6 +43,9 @@ namespace Sam.Api
 #endif
                 c.Status = CardStatus.Active;
                 model.EmployeeId = model.EmployeeId ?? CurrentEmployee.Id;
+                var oldEmployee = await Db.Employees.FirstOrDefaultAsync(x => x.CardId == model.CardId);
+                if (oldEmployee != null && oldEmployee.Id != model.EmployeeId)
+                    oldEmployee.CardId = null;
                 var e = await Db.Employees.FirstOrDefaultAsync(x => x.Id == model.EmployeeId);
                 if (e == null) throw new ApplicationException("Employee not found.");
                 e.CardId = model.CardId;

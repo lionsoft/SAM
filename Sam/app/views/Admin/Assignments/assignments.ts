@@ -61,7 +61,7 @@ module App.Controllers {
                 .eq("Card.CustomerId", this.selectedCustomerId)
                 .eq("CardId", this.selectedCardId)
                 .eq("DoorId", this.selectedDoorId)
-                .eq("Card.Employee.Id", this.selectedEmployeeId)
+                .eq("Card.Employees[any].Id", this.selectedEmployeeId)
             ;
             return "selectedCustomerId,selectedCardId,selectedDoorId,selectedEmployeeId";
         }
