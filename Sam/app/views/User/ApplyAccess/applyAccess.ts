@@ -7,6 +7,7 @@ module App.Controllers {
         samUsers: Services.IUsersService;
         samCountries: Services.ICountriesService;
         samCities: Services.ICitiesService;
+        samDepartments: Services.IDepartmentsService;
         samBuildings: Services.IBuildingsService;
         samAreas: Services.IAreasService;
         samDoors: Services.IDoorsService;
@@ -39,11 +40,16 @@ module App.Controllers {
 
         public noActivatedCard: boolean;
 
+        customerId: string;
+
         Init() {
-            this.samUsers.Update(app.$auth.LoggedUser).then(() => {
-                this.noActivatedCard = !app.$auth.LoggedUser.Employee.CardId;
-                this.updateEmployees();
-            });
+            this.samUsers.Update(app.$auth.LoggedUser)
+                .then(() => {
+                    this.noActivatedCard = !app.$auth.LoggedUser.Employee.CardId;
+                    this.updateEmployees();
+                    return this.samDepartments.Load(app.$auth.LoggedUser.Employee.DepartmentId, "Company");
+                })
+                .then(dep => this.customerId = dep.Company.CustomerId);
             this.$scope.$watch("$.selectedCountryId", (val: string) => this.LoadCities(val));
             this.$scope.$watch("$.selectedCityId", (val: string) => this.LoadBuildings(val));
             this.$scope.$watch("$.selectedBuildingId", (val: string) => this.LoadAreas(val));
@@ -86,7 +92,11 @@ module App.Controllers {
             this.selectedBuildingId = null;
             this.buildings = [];
             if (cityId)
-                this.samBuildings.Load(Services.OData.create.eq("CityId", cityId)).then(res => this.buildings = res.orderBy(x => x.Name).toArray());
+                this.samBuildings.Load(Services.OData.create
+                    .eq("CityId", cityId)
+                    .eq("CustomerId", this.customerId)
+                )
+                    .then(res => this.buildings = res.orderBy(x => x.Name).toArray());
         }
         LoadAreas(buildingId: string) {
             this.updateEmployees();
@@ -110,6 +120,6 @@ module App.Controllers {
         }
     }
 
-    app.controller('applyAccess', ApplyAccess.Factory("samUsers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samCardAccess", "samEmployees", "samTimeZones"));
+    app.controller('applyAccess', ApplyAccess.Factory("samUsers", "samCountries", "samCities", "samBuildings", "samAreas", "samDoors", "samCardAccess", "samEmployees", "samTimeZones", "samDepartments"));
 
 } 
