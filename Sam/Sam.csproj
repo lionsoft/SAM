@@ -687,9 +687,6 @@
     <Content Include="app\decorators\translateService.js">
       <DependentUpon>translateService.ts</DependentUpon>
     </Content>
-    <Content Include="app\directives\autofocus.js">
-      <DependentUpon>autofocus.ts</DependentUpon>
-    </Content>
     <Content Include="app\directives\cc\cc-menu-item-rendered.js">
       <DependentUpon>cc-menu-item-rendered.ts</DependentUpon>
     </Content>
@@ -699,17 +696,11 @@
     <Content Include="app\directives\cc\cc-spinner.js">
       <DependentUpon>cc-spinner.ts</DependentUpon>
     </Content>
-    <Content Include="app\directives\ng-thumb.js">
-      <DependentUpon>ng-thumb.ts</DependentUpon>
-    </Content>
     <Content Include="app\directives\sam-date-picker.js">
       <DependentUpon>sam-date-picker.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\sam-edit-mask.js">
       <DependentUpon>sam-edit-mask.ts</DependentUpon>
-    </Content>
-    <Content Include="app\directives\smart-table\sam-st-table.js">
-      <DependentUpon>sam-st-table.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\smart-table\sam-tables-pagination-tmpl.html" />
     <Content Include="app\directives\smart-table\st-sort-default.js">
@@ -2451,9 +2442,6 @@
     <Content Include="app\routes\Admin\employees.js.map">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
-    <Content Include="app\directives\autofocus.js.map">
-      <DependentUpon>autofocus.ts</DependentUpon>
-    </Content>
     <Content Include="app\directives\cc\cc-menu-item-rendered.js.map">
       <DependentUpon>cc-menu-item-rendered.ts</DependentUpon>
     </Content>
@@ -2478,9 +2466,6 @@
     <Content Include="app\filters\ManagersOfDepartment.js.map">
       <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
     </Content>
-    <Content Include="app\directives\ng-thumb.js.map">
-      <DependentUpon>ng-thumb.ts</DependentUpon>
-    </Content>
     <Content Include="app\routes\Admin\cards.js.map">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
@@ -2497,9 +2482,6 @@
     </Content>
     <Content Include="app\filters\CardTypeFilter.js.map">
       <DependentUpon>CardTypeFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\directives\smart-table\sam-st-table.js.map">
-      <DependentUpon>sam-st-table.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\smart-table\st-sort-default.js.map">
       <DependentUpon>st-sort-default.ts</DependentUpon>
@@ -2561,7 +2543,7 @@
       <DependentUpon>assignments.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\sam-date-picker.js.map">
-      <DependentUpon>sam-date-picker.ts</DependentUpon>
+      <DependentUpon>sam-date-picker.js</DependentUpon>
     </Content>
     <Content Include="app\views\Admin\Customers\editCustomer.less" />
     <Content Include="app\routes\User\activateCard.js.map">
