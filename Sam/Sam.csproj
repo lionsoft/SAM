@@ -687,6 +687,9 @@
     <Content Include="app\decorators\translateService.js">
       <DependentUpon>translateService.ts</DependentUpon>
     </Content>
+    <Content Include="app\directives\autofocus.js">
+      <DependentUpon>autofocus.ts</DependentUpon>
+    </Content>
     <Content Include="app\directives\cc\cc-menu-item-rendered.js">
       <DependentUpon>cc-menu-item-rendered.ts</DependentUpon>
     </Content>
@@ -696,11 +699,17 @@
     <Content Include="app\directives\cc\cc-spinner.js">
       <DependentUpon>cc-spinner.ts</DependentUpon>
     </Content>
+    <Content Include="app\directives\ng-thumb.js">
+      <DependentUpon>ng-thumb.ts</DependentUpon>
+    </Content>
     <Content Include="app\directives\sam-date-picker.js">
       <DependentUpon>sam-date-picker.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\sam-edit-mask.js">
       <DependentUpon>sam-edit-mask.ts</DependentUpon>
+    </Content>
+    <Content Include="app\directives\smart-table\sam-st-table.js">
+      <DependentUpon>sam-st-table.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\smart-table\sam-tables-pagination-tmpl.html" />
     <Content Include="app\directives\smart-table\st-sort-default.js">
@@ -708,6 +717,15 @@
     </Content>
     <Content Include="app\directives\sam-edit-mask.js.map">
       <DependentUpon>sam-edit-mask.js</DependentUpon>
+    </Content>
+    <Content Include="app\directives\smart-table\sam-st-table.js.map">
+      <DependentUpon>sam-st-table.js</DependentUpon>
+    </Content>
+    <Content Include="app\directives\autofocus.js.map">
+      <DependentUpon>autofocus.js</DependentUpon>
+    </Content>
+    <Content Include="app\directives\ng-thumb.js.map">
+      <DependentUpon>ng-thumb.js</DependentUpon>
     </Content>
     <None Include="app\directives\time-zone-day\html\time-zone-day.less" />
     <Content Include="app\directives\time-zone-day\html\time-zone-day.css">
