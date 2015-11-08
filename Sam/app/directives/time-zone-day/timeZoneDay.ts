@@ -57,5 +57,6 @@ module App.Directives {
         }
     }
 
+
     app.directive("timeZoneDay", TimeZoneDay.Factory());
 }
