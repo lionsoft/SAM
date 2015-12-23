@@ -96,12 +96,14 @@ namespace Sam
                     , "~/app/common/LionSoft.Angular/ng-match.js"
                     , "~/app/common/LionSoft.Angular/nv-fill-container.js"
             ));
+
             bundles.Add(new ScriptBundle("~/bundles/app")
                 .IncludeDirectory("~/app/consts", "*.js")
                 .Include(
                       "~/app/l10n.js"
                     , "~/app/app.js"
-            ));
+                )
+            );
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap")
                 .Include(
@@ -120,7 +122,8 @@ namespace Sam
 
                     // !--common.bootstrap Modules-- >
                     , "~/app/common/bootstrap/bootstrap.dialog.js"
-                ));
+                )
+            );
 
             bundles.Add(new ScriptBundle("~/bundles/app/common")
                 .Include(
@@ -150,7 +153,6 @@ namespace Sam
                       "~/app/directives/cc/cc-menu-item-rendered.js"
                     , "~/app/directives/cc/cc-sidebar.js"
                     , "~/app/directives/cc/cc-spinner.js"
-//                  , "~/app/directives/autofocus.js"
                 )
                 .IncludeDirectory("~/app/directives", "*.js", true)
             );
@@ -176,8 +178,13 @@ namespace Sam
 
             bundles.Add(new ScriptBundle("~/bundles/app/views")
                 .Include(
-                      "~/app/layout/shell.js"
+                        "~/app/layout/shell.js"
                 )
+/*
+                .Include(
+                      "~/Scripts/app/app.min.js"
+                )
+*/
             );
 
         }

@@ -1274,7 +1274,6 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="gulpfile.js" />
     <Content Include="Scripts\angular-aria.js" />
     <Content Include="Scripts\angular-aria.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -2706,7 +2705,6 @@
     <Content Include="app\views\User\ApplyAccess\applyAccess.js.map">
       <DependentUpon>applyAccess.js</DependentUpon>
     </Content>
-    <None Include="compilerconfig.json" />
     <Content Include="Sam.csproj.DotSettings" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
