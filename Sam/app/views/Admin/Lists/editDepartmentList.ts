@@ -8,11 +8,20 @@ module App.Controllers {
         $item: IDepartmentList;
 
         samDepartmentLists: Services.IDepartmentListsService;
+        samDepartments: Services.IDepartmentsService;
 
-        public selectedCustomerId: string;
+        selectedCustomerId: string;
 
 
         Init() {
+            this.$scope.$watch("$item.DepartmentId", (depId: string) => {
+                this.selectedCustomerId = undefined;
+                if (depId)
+                    this.samDepartments.Load(depId, "Company").then(res => {
+                        if (res.Company)
+                            this.selectedCustomerId = res.Company.CustomerId;
+                    });
+            });
         }
 
         prepareEdit(departmentList: IDepartmentList) {
@@ -39,8 +48,17 @@ module App.Controllers {
             if (this.IsDoorListInList(doorList))
                 this.$item.DoorLists.Remove(doorList);
         }
+
+        prepareDoorListsQuery(odata: Services.OData) {
+            if (!this.selectedCustomerId)
+                odata.$empty = true;
+            else
+                odata.eq("CustomerId", this.selectedCustomerId);
+            return "selectedCustomerId";
+        }
+        
     }
 
     // Register with angular
-    app.controller('editDepartmentList', EditDepartmentList.Factory("samDepartmentLists"));
+    app.controller('editDepartmentList', EditDepartmentList.Factory("samDepartmentLists", "samDepartments"));
 } 

@@ -718,6 +718,15 @@
     <Content Include="app\directives\sam-edit-mask.js.map">
       <DependentUpon>sam-edit-mask.js</DependentUpon>
     </Content>
+    <Content Include="app\directives\smart-table\sam-st-table.js.map">
+      <DependentUpon>sam-st-table.js</DependentUpon>
+    </Content>
+    <Content Include="app\directives\autofocus.js.map">
+      <DependentUpon>autofocus.js</DependentUpon>
+    </Content>
+    <Content Include="app\directives\ng-thumb.js.map">
+      <DependentUpon>ng-thumb.js</DependentUpon>
+    </Content>
     <None Include="app\directives\time-zone-day\html\time-zone-day.less" />
     <Content Include="app\directives\time-zone-day\html\time-zone-day.css">
       <DependentUpon>time-zone-day.less</DependentUpon>
@@ -2450,9 +2459,6 @@
     <Content Include="app\routes\Admin\employees.js.map">
       <DependentUpon>employees.ts</DependentUpon>
     </Content>
-    <Content Include="app\directives\autofocus.js.map">
-      <DependentUpon>autofocus.ts</DependentUpon>
-    </Content>
     <Content Include="app\directives\cc\cc-menu-item-rendered.js.map">
       <DependentUpon>cc-menu-item-rendered.ts</DependentUpon>
     </Content>
@@ -2477,9 +2483,6 @@
     <Content Include="app\filters\ManagersOfDepartment.js.map">
       <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
     </Content>
-    <Content Include="app\directives\ng-thumb.js.map">
-      <DependentUpon>ng-thumb.ts</DependentUpon>
-    </Content>
     <Content Include="app\routes\Admin\cards.js.map">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
@@ -2496,9 +2499,6 @@
     </Content>
     <Content Include="app\filters\CardTypeFilter.js.map">
       <DependentUpon>CardTypeFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\directives\smart-table\sam-st-table.js.map">
-      <DependentUpon>sam-st-table.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\smart-table\st-sort-default.js.map">
       <DependentUpon>st-sort-default.ts</DependentUpon>
@@ -2560,7 +2560,7 @@
       <DependentUpon>assignments.ts</DependentUpon>
     </Content>
     <Content Include="app\directives\sam-date-picker.js.map">
-      <DependentUpon>sam-date-picker.ts</DependentUpon>
+      <DependentUpon>sam-date-picker.js</DependentUpon>
     </Content>
     <Content Include="app\views\Admin\Customers\editCustomer.less" />
     <Content Include="app\routes\User\activateCard.js.map">
