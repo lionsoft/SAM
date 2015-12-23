@@ -18,7 +18,7 @@ var App;
                 _super.apply(this, arguments);
             }
             TranslateFilterDecorator.prototype.Execute = function (translationId, params) {
-                var defValue = translationId;
+                var defValue = "*" + translationId + "*";
                 var currentView = "";
                 if (translationId) {
                     if (this.$route.current)

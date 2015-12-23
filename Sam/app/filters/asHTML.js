@@ -21,4 +21,4 @@ var App;
         App.app.filter("asHtml", AsHtmlFilter.Factory('$sce'));
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
-//# sourceMappingURL=asHtml.js.map
+//# sourceMappingURL=asHTML.js.map

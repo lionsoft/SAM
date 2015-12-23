@@ -33,7 +33,7 @@ module App.Decorators {
                 }
                 return this.$q.all(results);
             } else if (angular.isString(translationId)) {
-                var defValue = translationId;
+                var defValue = "*" + translationId + "*";
                 var currentView = "";
                 if (translationId) {
                     if (this.$route.current) currentView = this.$route.current.name;

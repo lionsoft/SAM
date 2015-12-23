@@ -14,7 +14,7 @@ module App.Controllers {
 
         public Submit(form) {
             if (LionSoftAngular.ValidateForm(form)) {
-                this.samCards.LostCardRequest(this.explanation).then(() => alert('Your card has been locked.'));
+                this.samCards.LostCardRequest(this.explanation).then(() => alert('CardIsLocked'));
             }
         }
     }

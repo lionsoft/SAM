@@ -13,7 +13,7 @@ module App.Decorators {
         $route: angular.route.IRouteService;
 
         Execute(translationId: string, params?: any): string {
-            var defValue = translationId;
+            var defValue = "*" + translationId + "*";
             var currentView = "";
             if (translationId) {
                 if (this.$route.current) currentView = this.$route.current.name;

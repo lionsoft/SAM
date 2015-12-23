@@ -1,12 +1,11 @@
 ﻿{
     "APP_TITLE": "SAM System",
 
-    "SaveChanges": "Save Changes",
-    "Cancel": "Cancel",
-    "AskDelete": "{1}: Delete {0}?",
-
     "Name": "Name",
-
+    "CreatedBy": "Created By",
+    "CreatedDate": "Created Date",
+    "ApprovedBy": "Approved By",
+    "ApprovedDate": "Approved Date",
 
     "NoTableData": "No data available in table",
     "LoadingTable": "Loading ...",
@@ -15,20 +14,21 @@
     "TablePaginationShowEntriesPostfix": " entries",
     "TablePaginationShowOf": " of ",
 
+    "SaveChanges": "Save Changes",
+    "Submit": "Submit",
+    "OK": "OK",
+    "Cancel": "Cancel",
+    "Yes": "Yes",
+    "No": "No",
+
+    "Warning": "Warning",
+    "Information": "Information",
+    "Confirmation": "Confirmation",
+    "AskDelete": "{1}: Delete {0}?",
+
     "required": "required",
     "MustBeSet": "Field must be set",
     "PasswordsDoNotMatch": "Password doesn't match",
-
-    "InvalidPinCode": "Invalid Pin Code.",
-    "Activate": "Activate",
-    "Submit": "Submit",
-    "Name": "Name",
-    "PinCode": "PIN Code",
-    "ConfirmPinCode": "Confirm PIN Code",
-    "CreatedBy": "Created By",
-    "CreatedDate": "Created Date",
-    "ApprovedBy": "Approved By",
-    "ApprovedDate": "Approved Date",
 
     "Customers": "Customers",
     "Companies": "Companies",
@@ -39,6 +39,14 @@
     "WaitingForApproval": "Waiting for Approval",
     "Approved": "Approved",
     "Rejected": "Rejected",
+
+    "SelectCountry": "select country",
+    "SelectCity": "select city",
+    "SelectBuilding": "select building",
+    "SelectArea": "select area",
+    "SelectDoors": "select doors",
+    "DefaultTimeZone": "default time zone",
+
 
 
     "MENU": {
@@ -70,21 +78,52 @@
     },
 
     "activateCard": {
-        "YouHaveNoPinCode": "You have no Pin Code defined. Please <a href='/#/setPinCode'>set it up</a> before."
+        "ActivateCard": "Make active id-card",
+        "DESCRIPTION": "For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.",
+        "YouHaveNoPinCode": "You have no Pin Code defined. Please <a href='/#/setPinCode'>set it up</a> before.",
+        "ActivationCode": "Activation Code",
+        "PinCode": "PIN Code",
+        "InvalidPinCode": "Invalid Pin Code.",
+        "Activate": "Activate",
+        "NoCardWithCode": "There is no card with this activation code.",
+        "CardIsLost": "The card is lost and cannot be activated.",
+        "CardIsAlreadyActive": "The card is already active.",
+        "CardHasBeenActivated": "Your card has been successfully activated."
     },
 
     "applyAccess": {
+        "ApplyToGetAccess": "Apply to get access",
         "YouHaveNoActivatedCard": "You have no activated card. Please get it and <a href='/#/activateCard'>activate the card</a> before.",
-        "NotesResonsForApplyingAccess": "Notes, resons for applying to get access"
+        "NotesResonsForApplyingAccess": "Notes, resons for applying to get access",
+        "Explanation/Reason": "Explanation / Reason",
+        "WhoGetsAccess": "Who Gets Access",
+        "SendApplication": "Send Application"
+    },
+
+    "lostCard": {
+        "IfILostMyCard": "If I lost my card",
+        "DESCRIPTION": "For renew your card you have to inform your.......... and after .........",
+        "Explanation": "Explanation",
+        "ILostMyCardExplanation": "please, enter details how did you lost your card. Your card will be blocked immediately.",
+        "CardIsLocked": "Your card has been locked."
     },
 
     "setPinCode": {
+        "IfIForgotPIN": "If I forgot my PIN code",
+        "DESCRIPTION": "For set or renew your personal PIN code you need to set it below.",
+        "NeverGiveItAnyone": "Never give it to anyone.",
+        "OldPinCode": "Old PIN Code",
+        "EnterOldPin": "enter old PIN code",
+        "ForgotPin": "Forgot Pin",
         "EnterNewPin": "enter new PIN code",
-        "ConfirmPin": "confirm your new PIN"
-    },
-
-    "lostCard": { 
-        "ILostMyCardExplanation":  "please, enter details how did you lost your card. Your card will be blocked immediately."
+        "ConfirmPin": "confirm your new PIN",
+        "PinCode": "PIN Code",
+        "ConfirmPinCode": "Confirm PIN Code",
+        "OldPinIsInvalid": "The old PIN code is invalid.",
+        "PinHasBeenChanged": "PIN code has been successfully changed.",
+        "ConfirmationResetPin": "We will reset your current PIN and send it on your email. Are you sure?",
+        "EmployeeEmailIsNotSet": "Employee email is not set.",
+        "PinHasBeenSent": "The new PIN code has been sent on youe email."
     }
 
 

@@ -33,13 +33,13 @@ module App.Controllers {
                     this.samCards.Load(Services.OData.create.eq("ActivationCode", this.activationCode).$top(1)).then(c => {
                         var card = c.firstOrDefault();
                         if (!card)
-                            this.popupService.warning("There is no card with this activation code.");
+                            this.popupService.warning("NoCardWithCode");
                         else if (card.Status === CardStatus.Lost)
-                            this.popupService.warning("The card is lost and cannot be activated.");
+                            this.popupService.warning("CardIsLost");
                         else if (card.Status === CardStatus.Active)
-                            this.popupService.warning("The card is already active.");
+                            this.popupService.warning("CardIsAlreadyActive");
                         else {
-                            this.samCards.Activate(card.Id).then(() => success('Your card has been successfully activated.'));
+                            this.samCards.Activate(card.Id).then(() => success('CardHasBeenActivated'));
                         }
                     });
                 }

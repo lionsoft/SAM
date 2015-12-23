@@ -17,7 +17,7 @@ module App.Controllers {
         public Submit(form) {
             if (LionSoftAngular.ValidateForm(form)) {
                 if (app.$auth.LoggedUser.Employee.PinCode !== parseInt(this.oldPinCode)) {
-                    this.popupService.error("Old Pin Code is Invalid.");
+                    this.popupService.error("OldPinIsInvalid");
                 } else {
                     this.samEmployees.Load(app.$auth.LoggedUser.Employee.Id).then(e => {
                         e.PinCode = parseInt(this.pinCode);
@@ -25,7 +25,7 @@ module App.Controllers {
                             this.oldPinCode = "";
                             this.pinCode = "";
                             this.confirmPinCode = "";
-                            success("PIN code has been successfully changed.");
+                            success("PinHasBeenChanged");
                         });
                     });
                 }
@@ -33,7 +33,7 @@ module App.Controllers {
         }
 
         public RenewPin() {
-            this.popupService.ask("We will reset your current PIN ans send it on your email. Are you sure?", false).then(res => {
+            this.popupService.ask("ConfirmationResetPin", false).then(res => {
                 if (res) {
                     if (!app.$auth.LoggedUser.Employee.Email) {
                         this.popupService.error("EmployeeEmailIsNotSet");
@@ -42,7 +42,7 @@ module App.Controllers {
                             this.oldPinCode = "";
                             this.pinCode = "";
                             this.confirmPinCode = "";
-                            success("The new PIN code has been sent on youe email.");
+                            success("PinHasBeenSent");
                         });
                     }
                 }

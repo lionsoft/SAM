@@ -38,7 +38,7 @@ var App;
                     return this.$q.all(results);
                 }
                 else if (angular.isString(translationId)) {
-                    var defValue = translationId;
+                    var defValue = "*" + translationId + "*";
                     var currentView = "";
                     if (translationId) {
                         if (this.$route.current)
