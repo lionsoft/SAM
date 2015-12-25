@@ -13,10 +13,10 @@ var App;
             function CardTypeFilter() {
                 _super.apply(this, arguments);
                 this.Source = [
-                    { Key: 0 /* Internal */, Value: 'Internal' },
-                    { Key: 1 /* Guest */, Value: 'Guest' },
-                    { Key: 2 /* External */, Value: 'External' },
-                    { Key: 3 /* Replacement */, Value: 'Replacement' },
+                    { Key: 0 /* Internal */, Value: 'cardType.Internal' },
+                    { Key: 1 /* Guest */, Value: 'cardType.Guest' },
+                    { Key: 2 /* External */, Value: 'cardType.External' },
+                    { Key: 3 /* Replacement */, Value: 'cardType.Replacement' },
                 ];
             }
             return CardTypeFilter;

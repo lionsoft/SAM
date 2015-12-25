@@ -5,9 +5,9 @@ module App.Filters {
     {
         Source =
         [
-            { Key: CardStatus.Active, Value: 'Active' },
-            { Key: CardStatus.Inactive, Value: 'Inactive' },
-            { Key: CardStatus.Lost, Value: 'Lost' },
+            { Key: CardStatus.Active, Value: 'cardStatus.Active' },
+            { Key: CardStatus.Inactive, Value: 'cardStatus.Inactive' },
+            { Key: CardStatus.Lost, Value: 'cardStatus.Lost' },
         ];
     }
 

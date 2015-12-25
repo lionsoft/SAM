@@ -5,7 +5,7 @@ module App {
     Routes.push(
         {
             name: 'myApplications',
-            title: 'MyApplications',
+            title: 'MyApplicationsTitle',
             url: '/myApplications',
             auth: true,
             //roles: [UserRole.Normal],

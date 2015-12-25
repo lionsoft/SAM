@@ -13,6 +13,13 @@ module App.Decorators {
         $route: angular.route.IRouteService;
 
         protected getFactoryResult(): any {
+            if (App.app.isDebugMode) {
+                this.$delegate['__makeNonLocalizedDefValue'] = s => `?${s}?`;
+                this.$delegate['__formatLocalizedValue'] = s => `[${s.TrimRight('`')}]`;
+            } else {
+                this.$delegate['__makeNonLocalizedDefValue'] = s => s;
+                this.$delegate['__formatLocalizedValue'] = s => s;
+            }
             var res = (translationId, interpolateParams?, interpolationId?, defaultTranslationText?) => this.Execute(translationId, interpolateParams, interpolationId, defaultTranslationText);
             for (var idx in this.$delegate) {
                 if (this.$delegate.hasOwnProperty(idx)) {
@@ -33,7 +40,7 @@ module App.Decorators {
                 }
                 return this.$q.all(results);
             } else if (angular.isString(translationId)) {
-                var defValue = "*" + translationId + "*";
+                var defValue = this.$delegate['__makeNonLocalizedDefValue'](translationId);
                 var currentView = "";
                 if (translationId) {
                     if (this.$route.current) currentView = this.$route.current.name;
@@ -54,9 +61,11 @@ module App.Decorators {
                         })
                         .catch(() => {
                             return this.$delegate(translationId, interpolateParams, interpolationId, defaultTranslationText);
-                        });
+                        })
+                        .then(res => this.$delegate['__formatLocalizedValue'](res));
                 } else {
-                    return this.$delegate(translationId, interpolateParams, interpolationId, defaultTranslationText);
+                    return this.$delegate(translationId, interpolateParams, interpolationId, defaultTranslationText)
+                        .then(res => this.$delegate['__formatLocalizedValue'](res));
                 }
             } else {
                 return this.promiseFromResult("");

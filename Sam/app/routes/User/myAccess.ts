@@ -5,7 +5,7 @@ module App {
         Routes.push(
             {
                 name: 'myAccess',
-                title: 'MyAccess',
+                title: 'MyAccessTitle',
                 url: '/myAccess',
                 auth: true,
                 //roles: [UserRole.Normal],

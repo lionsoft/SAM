@@ -70,7 +70,7 @@ module App.Controllers {
                     this.DelegateFromDate = e.DelegateFromDate;
                     this.DelegateToDate = e.DelegateToDate;
                     this.DelegateToId = e.DelegateToId;
-                    success("Your delegation is successfully saved.");
+                    success("DelegationIsSuccess");
                 });
         }
     }

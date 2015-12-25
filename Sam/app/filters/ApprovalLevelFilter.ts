@@ -5,11 +5,11 @@ module App.Filters {
     {
         Source =
         [
-            { Key: ApprovalLevel.Nobody, Value: 'Nobody' },
-            { Key: ApprovalLevel.Manager, Value: 'Manager' },
-            { Key: ApprovalLevel.Building, Value: 'Building' },
-            { Key: ApprovalLevel.Area, Value: 'Area' },
-            { Key: ApprovalLevel.Door, Value: 'Door' },
+            { Key: ApprovalLevel.Nobody, Value: 'approvalLevel.Nobody' },
+            { Key: ApprovalLevel.Manager, Value: 'approvalLevel.Manager' },
+            { Key: ApprovalLevel.Building, Value: 'approvalLevel.Building' },
+            { Key: ApprovalLevel.Area, Value: 'approvalLevel.Area' },
+            { Key: ApprovalLevel.Door, Value: 'approvalLevel.Door' },
         ];
     }
 

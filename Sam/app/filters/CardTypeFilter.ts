@@ -5,10 +5,10 @@ module App.Filters {
     {
         Source =
         [
-            { Key: CardType.Internal, Value: 'Internal' },
-            { Key: CardType.Guest, Value: 'Guest' },
-            { Key: CardType.External, Value: 'External' },
-            { Key: CardType.Replacement, Value: 'Replacement' },
+            { Key: CardType.Internal, Value: 'cardType.Internal' },
+            { Key: CardType.Guest, Value: 'cardType.Guest' },
+            { Key: CardType.External, Value: 'cardType.External' },
+            { Key: CardType.Replacement, Value: 'cardType.Replacement' },
         ];
     }
 

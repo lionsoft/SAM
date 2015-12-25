@@ -2,7 +2,7 @@
     <section class="matter">
         <div class="container">
             <div class="row">
-                <h2 translate>Status of applications</h2>
+                <h2 translate>StatusOfApplications</h2>
             </div>
             <div class="row">
                 <!-- #region - Applications - -->
@@ -11,7 +11,7 @@
                      sam-st-table="{service: 'samCardAccess', prepareQuery: $.prepareQuery}">
                     <div class="st-table-search">
                         <h3 style="display: inline-block">
-                            <span translate>Applications</span>
+                            <span translate>MyApplicationsTitle</span>
                         </h3>
                         <input st-search="ApprovedBy.Name,Door.Name" class="form-control" translate translate-attr-placeholder="Search..." />
                     </div>
@@ -30,7 +30,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="cardAccess in $items track by cardAccess.Id">
-                                <td class="text-center">{{cardAccess.ApprovalLevel|ApprovalLevel}}</td>
+                                <td class="text-center">{{cardAccess.ApprovalLevel | ApprovalLevel}}</td>
                                 <td tooltip="{{cardAccess.Door.Name}}">{{cardAccess.Door.Name}}</td>
                                 <td tooltip="{{cardAccess.TimeZone.Description}}">{{cardAccess.TimeZone.Name}}</td>
                                 <td class="col-created-date">{{::cardAccess.CreatedDate | date}}</td>

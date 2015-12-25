@@ -5,9 +5,9 @@ module App.Filters {
     {
         Source =
         [
-            { Key: ApprovalStatus.WaitingForApproval, Value: 'WaitingForApproval' },
-            { Key: ApprovalStatus.Approved, Value: 'Approved' },
-            { Key: ApprovalStatus.Rejected, Value: 'Rejected' },
+            { Key: ApprovalStatus.WaitingForApproval, Value: 'approvalStatus.WaitingForApproval' },
+            { Key: ApprovalStatus.Approved, Value: 'approvalStatus.Approved' },
+            { Key: ApprovalStatus.Rejected, Value: 'approvalStatus.Rejected' },
         ];
     }
 

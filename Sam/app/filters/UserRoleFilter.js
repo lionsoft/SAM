@@ -13,12 +13,12 @@ var App;
             function UserRoleFilter() {
                 _super.apply(this, arguments);
                 this.Source = [
-                    { Key: 32 /* Admin */, Value: 'Admin' },
-                    { Key: 4 /* AreaOwner */, Value: 'AreaOwner' },
-                    { Key: 2 /* BuildingOwner */, Value: 'BuildingOwner' },
-                    { Key: 8 /* DoorOwner */, Value: 'DoorOwner' },
-                    { Key: 16 /* Manager */, Value: 'Manager' },
-                    { Key: 1 /* Normal */, Value: 'Normal' },
+                    { Key: 32 /* Admin */, Value: 'userRole.Admin' },
+                    { Key: 4 /* AreaOwner */, Value: 'userRole.AreaOwner' },
+                    { Key: 2 /* BuildingOwner */, Value: 'userRole.BuildingOwner' },
+                    { Key: 8 /* DoorOwner */, Value: 'userRole.DoorOwner' },
+                    { Key: 16 /* Manager */, Value: 'userRole.Manager' },
+                    { Key: 1 /* Normal */, Value: 'userRole.Normal' },
                 ];
             }
             return UserRoleFilter;

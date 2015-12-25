@@ -9,11 +9,12 @@ module App.Decorators {
     class TranslateFilterDecorator extends LionSoftAngular.Filter {
 
         $delegate: angular.translate.ITranslateService;
+        $translate: angular.translate.ITranslateService;
 
         $route: angular.route.IRouteService;
 
         Execute(translationId: string, params?: any): string {
-            var defValue = "*" + translationId + "*";
+            var defValue = this.$translate['__makeNonLocalizedDefValue'](translationId);
             var currentView = "";
             if (translationId) {
                 if (this.$route.current) currentView = this.$route.current.name;
@@ -27,15 +28,18 @@ module App.Decorators {
             if (currentView) {
                 res = this.$delegate(currentView + "." + translationId, params);
                 if (res !== currentView + "." + translationId)
-                    return res;
+                    return this.$translate['__formatLocalizedValue'](res);
             }
             res = this.$delegate(translationId, params);
+
             if (res === translationId)
                 res = defValue;
+            else
+                res = this.$translate['__formatLocalizedValue'](res);
             return res;
         }
     }
 
-    app.decorator("translateFilter", TranslateFilterDecorator.Factory("$delegate", "$route"));
+    app.decorator("translateFilter", TranslateFilterDecorator.Factory("$delegate", "$route", "$translate"));
 
 } 

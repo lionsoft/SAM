@@ -1,7 +1,7 @@
 ﻿{
     "APP_TITLE": "SAM System",
 
-    "Name": "Name",
+    "Name": "Name`",
     "CreatedBy": "Created By",
     "CreatedDate": "Created Date",
     "ApprovedBy": "Approved By",
@@ -15,39 +15,107 @@
     "TablePaginationShowOf": " of ",
 
     "SaveChanges": "Save Changes",
-    "Submit": "Submit",
-    "OK": "OK",
-    "Cancel": "Cancel",
-    "Yes": "Yes",
-    "No": "No",
+    "Submit": "Submit`",
+    "Update": "Update`",
+    "OK": "OK`",
+    "Cancel": "Cancel`",
+    "Yes": "Yes`",
+    "No": "No`",
 
-    "Warning": "Warning",
-    "Information": "Information",
-    "Confirmation": "Confirmation",
+    "Warning": "Warning`",
+    "Information": "Information`",
+    "Confirmation": "Confirmation`",
     "AskDelete": "{1}: Delete {0}?",
 
-    "required": "required",
+    "New": "New`",
+    "Edit": "Edit`",
+    "Delete": "Delete`",
+
+    "required": "required`",
     "MustBeSet": "Field must be set",
     "PasswordsDoNotMatch": "Password doesn't match",
 
-    "Customers": "Customers",
-    "Companies": "Companies",
-    "Departments": "Departments",
+    "Customers": "Customers`",
+    "Companies": "Companies`",
+    "Departments": "Departments`",
+    "Employees": "Employees`",
+    "Cards": "Cards`",
+
+
+    "Customer": "Customer`",
+    "Company": "Company`",
+    "Department": "Department`",
+    "Employee": "Employee`",
+    "Card": "Card`",
+    "City": "City`",
+    "Building": "Building`",
+    "Area": "Area`",
+    "Door": "Door`",
+    "TimeZone": "Time Zone",
+    "Access": "Access`",
+    "ApprovalLevel": "Approval Level",
+    "DoorName": "Door Name",
+    "DateApplied": "Date Applied",
+    "ApplicantDepartment": "Applicant Department",
+    "ApplicantName": "Applicant Name",
+    "Status": "Status`",
+    "Manager": "Manager`",
+
+    "Address1": "Address 1",
+    "Address2": "Address 2",
+    "ZipCode": "Zip Code",
+
+    "DelegateTo": "Delegate To",
+    "DelegateFromDate": "From",
+    "DelegateToDate": "Till",
 
 
 
-    "WaitingForApproval": "Waiting for Approval",
-    "Approved": "Approved",
-    "Rejected": "Rejected",
+    "approvalLevel": {
+        "Nobody": "Nobody,",
+        "Manager": "Manager",
+        "Building": "Building",
+        "Area": "Area",
+        "Door": "Door"
+    },
+    "approvalStatus": {
+        "WaitingForApproval": "WaitingForApproval",
+        "Approved": "Approved",
+        "Rejected": "Rejected"
+    },
 
-    "SelectCountry": "select country",
-    "SelectCity": "select city",
-    "SelectBuilding": "select building",
-    "SelectArea": "select area",
-    "SelectDoors": "select doors",
-    "DefaultTimeZone": "default time zone",
+    "assignmentType": {
+        "Special": "Special",
+        "Standard": "Standard"
+    },
 
+    "cardStatus": {
+        "Active": "Active",
+        "Inactive": "Inactive",
+        "Lost": "Lost"
+    },
 
+    "cardType": {
+        "Internal": "Internal",
+        "Guest": "Guest",
+        "External": "External",
+        "Replacement": "Replacement"
+    },
+
+    "employeeStatus": {
+        "Normal": "Normal",
+        "New": "New",
+        "Resigned": "Resigned"
+    },
+
+    "userRole": {
+        "Admin": "Admin",
+        "AreaOwner": "Area Owner",
+        "BuildingOwner": "Building Owner",
+        "DoorOwner": "Door Owner",
+        "Manager": "Manager",
+        "Normal": "Normal"
+    },
 
     "MENU": {
         "20.ADMIN": "<i class='fa fa-cog'></i> Admin Area",
@@ -77,7 +145,27 @@
         "SignOut": "Sign Out"
     },
 
+    "WaitingForApproval": "Waiting for Approval",
+    "Approved": "Approved",
+    "Rejected": "Rejected",
+
+    "SelectCountry": "select country",
+    "SelectCity": "select city",
+    "SelectBuilding": "select building",
+    "SelectArea": "select area",
+    "SelectDoors": "select doors",
+    "DefaultTimeZone": "default time zone",
+
+    "login": {
+        "ShowPassword": "Show password",
+        "RememberMe": "Remember me",
+        "LogIn": "LogIn",
+        "Login": "Login",
+        "Password":  "Password"
+    },
+
     "activateCard": {
+        "ActivateMyCardTitle": "Activate Card",
         "ActivateCard": "Make active id-card",
         "DESCRIPTION": "For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.",
         "YouHaveNoPinCode": "You have no Pin Code defined. Please <a href='/#/setPinCode'>set it up</a> before.",
@@ -92,6 +180,7 @@
     },
 
     "applyAccess": {
+        "GetAccessTitle": "Get Access",
         "ApplyToGetAccess": "Apply to get access",
         "YouHaveNoActivatedCard": "You have no activated card. Please get it and <a href='/#/activateCard'>activate the card</a> before.",
         "NotesResonsForApplyingAccess": "Notes, resons for applying to get access",
@@ -101,6 +190,7 @@
     },
 
     "lostCard": {
+        "LostMyCardTitle": "Lost Card",
         "IfILostMyCard": "If I lost my card",
         "DESCRIPTION": "For renew your card you have to inform your.......... and after .........",
         "Explanation": "Explanation",
@@ -109,6 +199,7 @@
     },
 
     "setPinCode": {
+        "SetPinCodeTitle": "Set PIN",
         "IfIForgotPIN": "If I forgot my PIN code",
         "DESCRIPTION": "For set or renew your personal PIN code you need to set it below.",
         "NeverGiveItAnyone": "Never give it to anyone.",
@@ -124,7 +215,35 @@
         "ConfirmationResetPin": "We will reset your current PIN and send it on your email. Are you sure?",
         "EmployeeEmailIsNotSet": "Employee email is not set.",
         "PinHasBeenSent": "The new PIN code has been sent on youe email."
+    },
+
+    "myApplications": {
+        "StatusOfApplications": "Status of applications",
+        "MyApplicationsTitle": "My Applications"
+    },
+
+    "myDelegation": {
+        "MyDelegationTitle": "My Delegation",
+        "DelegationIsSuccess": "Your delegation is successfully saved."
+    },
+
+    "myAccess": {
+        "MyAccessTitle": "My Access"
+    },
+
+    "myApprovals": {
+        "MyApprovalsTitle": "My Approvals",
+        "ApproveApplications": "Approve applications"
+    },
+
+    "employeeAccess": {
+        "EmployeeAccessTitle": "Employee Access"
+    },
+
+
+    "customers": {
+        "PinCodeLength": "PIN Code Length",
+        "DefApprover": "Default Approver",
+        "DefTimeZone": "Default Time Zone"
     }
-
-
 }

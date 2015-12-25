@@ -5,12 +5,12 @@ module App.Filters {
     {
         Source =
         [
-            { Key: UserRole.Admin, Value: 'Admin' },
-            { Key: UserRole.AreaOwner, Value: 'AreaOwner' },
-            { Key: UserRole.BuildingOwner, Value: 'BuildingOwner' },
-            { Key: UserRole.DoorOwner, Value: 'DoorOwner' },
-            { Key: UserRole.Manager, Value: 'Manager' },
-            { Key: UserRole.Normal, Value: 'Normal' },
+            { Key: UserRole.Admin, Value: 'userRole.Admin' },
+            { Key: UserRole.AreaOwner, Value: 'userRole.AreaOwner' },
+            { Key: UserRole.BuildingOwner, Value: 'userRole.BuildingOwner' },
+            { Key: UserRole.DoorOwner, Value: 'userRole.DoorOwner' },
+            { Key: UserRole.Manager, Value: 'userRole.Manager' },
+            { Key: UserRole.Normal, Value: 'userRole.Normal' },
         ];
     }
 

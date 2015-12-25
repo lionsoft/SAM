@@ -5,9 +5,9 @@ module App.Filters {
     {
         Source =
         [
-            { Key: EmployeeStatus.Normal, Value: 'Normal' },
-            { Key: EmployeeStatus.New, Value: 'New' },
-            { Key: EmployeeStatus.Resigned, Value: 'Resigned' },
+            { Key: EmployeeStatus.Normal, Value: 'employeeStatus.Normal' },
+            { Key: EmployeeStatus.New, Value: 'employeeStatus.New' },
+            { Key: EmployeeStatus.Resigned, Value: 'employeeStatus.Resigned' },
         ];
     }
 

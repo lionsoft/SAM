@@ -13,9 +13,9 @@ var App;
             function CardStatusFilter() {
                 _super.apply(this, arguments);
                 this.Source = [
-                    { Key: 0 /* Active */, Value: 'Active' },
-                    { Key: 1 /* Inactive */, Value: 'Inactive' },
-                    { Key: 2 /* Lost */, Value: 'Lost' },
+                    { Key: 0 /* Active */, Value: 'cardStatus.Active' },
+                    { Key: 1 /* Inactive */, Value: 'cardStatus.Inactive' },
+                    { Key: 2 /* Lost */, Value: 'cardStatus.Lost' },
                 ];
             }
             return CardStatusFilter;

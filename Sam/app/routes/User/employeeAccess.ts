@@ -5,7 +5,7 @@ module App {
         Routes.push(
             {
                 name: 'employeeAccess',
-                title: 'EmployeeAccess',
+                title: 'EmployeeAccessTitle',
                 url: '/employeeAccess',
                 auth: true,
                 roles: [UserRole.Manager, UserRole.Admin],

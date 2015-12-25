@@ -18,7 +18,7 @@ var App;
                 _super.apply(this, arguments);
             }
             TranslateFilterDecorator.prototype.Execute = function (translationId, params) {
-                var defValue = "*" + translationId + "*";
+                var defValue = this.$translate['__makeNonLocalizedDefValue'](translationId);
                 var currentView = "";
                 if (translationId) {
                     if (this.$route.current)
@@ -33,16 +33,18 @@ var App;
                 if (currentView) {
                     res = this.$delegate(currentView + "." + translationId, params);
                     if (res !== currentView + "." + translationId)
-                        return res;
+                        return this.$translate['__formatLocalizedValue'](res);
                 }
                 res = this.$delegate(translationId, params);
                 if (res === translationId)
                     res = defValue;
+                else
+                    res = this.$translate['__formatLocalizedValue'](res);
                 return res;
             };
             return TranslateFilterDecorator;
         })(LionSoftAngular.Filter);
-        App.app.decorator("translateFilter", TranslateFilterDecorator.Factory("$delegate", "$route"));
+        App.app.decorator("translateFilter", TranslateFilterDecorator.Factory("$delegate", "$route", "$translate"));
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));
 //# sourceMappingURL=translateFilter.js.map

@@ -5,7 +5,7 @@ module App {
     Routes.push(
         {
             name: 'lostCard',
-            title: 'LostMyCard',
+            title: 'LostMyCardTitle',
             url: '/lostCard',
             auth: true,
             //roles: [UserRole.Normal],

@@ -13,9 +13,9 @@ var App;
             function EmployeeStatusFilter() {
                 _super.apply(this, arguments);
                 this.Source = [
-                    { Key: 1 /* Normal */, Value: 'Normal' },
-                    { Key: 0 /* New */, Value: 'New' },
-                    { Key: 2 /* Resigned */, Value: 'Resigned' },
+                    { Key: 1 /* Normal */, Value: 'employeeStatus.Normal' },
+                    { Key: 0 /* New */, Value: 'employeeStatus.New' },
+                    { Key: 2 /* Resigned */, Value: 'employeeStatus.Resigned' },
                 ];
             }
             return EmployeeStatusFilter;

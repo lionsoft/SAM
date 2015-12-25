@@ -5,7 +5,7 @@ module App {
     Routes.push(
         {
             name: 'setPinCode',
-            title: 'SetPinCode',
+            title: 'SetPinCodeTitle',
             url: '/setPinCode',
             auth: true,
             //roles: [UserRole.Normal],

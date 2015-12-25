@@ -5,7 +5,7 @@ module App {
         Routes.push(
             {
                 name: 'myDelegation',
-                title: 'MyDelegation',
+                title: 'MyDelegationTitle',
                 url: '/myDelegation',
                 auth: true,
                 //roles: [UserRole.Normal],

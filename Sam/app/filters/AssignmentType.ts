@@ -5,8 +5,8 @@ module App.Filters {
     {
         Source =
         [
-            { Key: AssignmentType.Special, Value: 'Special' },
-            { Key: AssignmentType.Standard, Value: 'Standard' },
+            { Key: AssignmentType.Special, Value: 'assignmentType.Special' },
+            { Key: AssignmentType.Standard, Value: 'assignmentType.Standard' },
         ];
     }
 

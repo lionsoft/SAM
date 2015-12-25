@@ -19,6 +19,14 @@ var App;
             }
             TranslateServiceDecorator.prototype.getFactoryResult = function () {
                 var _this = this;
+                if (App.app.isDebugMode) {
+                    this.$delegate['__makeNonLocalizedDefValue'] = function (s) { return ("?" + s + "?"); };
+                    this.$delegate['__formatLocalizedValue'] = function (s) { return ("[" + s.TrimRight('`') + "]"); };
+                }
+                else {
+                    this.$delegate['__makeNonLocalizedDefValue'] = function (s) { return s; };
+                    this.$delegate['__formatLocalizedValue'] = function (s) { return s; };
+                }
                 var res = function (translationId, interpolateParams, interpolationId, defaultTranslationText) { return _this.Execute(translationId, interpolateParams, interpolationId, defaultTranslationText); };
                 for (var idx in this.$delegate) {
                     if (this.$delegate.hasOwnProperty(idx)) {
@@ -38,7 +46,7 @@ var App;
                     return this.$q.all(results);
                 }
                 else if (angular.isString(translationId)) {
-                    var defValue = "*" + translationId + "*";
+                    var defValue = this.$delegate['__makeNonLocalizedDefValue'](translationId);
                     var currentView = "";
                     if (translationId) {
                         if (this.$route.current)
@@ -60,10 +68,12 @@ var App;
                         })
                             .catch(function () {
                             return _this.$delegate(translationId, interpolateParams, interpolationId, defaultTranslationText);
-                        });
+                        })
+                            .then(function (res) { return _this.$delegate['__formatLocalizedValue'](res); });
                     }
                     else {
-                        return this.$delegate(translationId, interpolateParams, interpolationId, defaultTranslationText);
+                        return this.$delegate(translationId, interpolateParams, interpolationId, defaultTranslationText)
+                            .then(function (res) { return _this.$delegate['__formatLocalizedValue'](res); });
                     }
                 }
                 else {

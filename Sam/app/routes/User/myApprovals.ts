@@ -5,7 +5,7 @@ module App {
     Routes.push(
         {
             name: 'myApprovals',
-            title: 'MyApprovals',
+            title: 'MyApprovalsTitle',
             url: '/myApprovals',
             auth: true,
             roles: [UserRole.Admin, UserRole.AreaOwner, UserRole.BuildingOwner, UserRole.DoorOwner, UserRole.Manager],

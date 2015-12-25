@@ -5,7 +5,7 @@ module App {
     Routes.push(
         {
             name: 'activateCard',
-            title: 'ActivateMyCard',
+            title: 'ActivateMyCardTitle',
             url: '/activateCard',
             auth: true,
             //roles: [UserRole.Normal],
