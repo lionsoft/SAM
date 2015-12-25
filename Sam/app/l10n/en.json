@@ -2,6 +2,7 @@
     "APP_TITLE": "SAM System",
 
     "Name": "Name`",
+    "Description": "Description`",
     "CreatedBy": "Created By",
     "CreatedDate": "Created Date",
     "ApprovedBy": "Approved By",
@@ -45,7 +46,7 @@
     "Buildings": "Buildings`",
     "Areas": "Areas`",
     "Doors": "Doors`",
-
+    "TimeZones": "Time Zones",
 
     "Customer": "Customer`",
     "Company": "Company`",
@@ -82,6 +83,8 @@
     "Number": "Number`",
     "AllCustomers": "All Customers",
     "Owner": "Owner`",
+    "Login": "Login",
+    "Password": "Password",
 
     "approvalLevel": {
         "Nobody": "Nobody,",
@@ -171,9 +174,7 @@
     "login": {
         "ShowPassword": "Show password",
         "RememberMe": "Remember me",
-        "LogIn": "LogIn",
-        "Login": "Login",
-        "Password": "Password"
+        "LogIn": "LogIn"
     },
 
     "activateCard": {
@@ -272,5 +273,17 @@
 
     "doors": {
         "PreApproved": "PreApproved"
+    },
+
+
+
+    "timeZones": {
+        "Sun": "Sunday",
+        "Mon": "Monday",
+        "Tue": "Tuesday",
+        "Wed": "Wednasday",
+        "Thu": "Thursday",
+        "Fri": "Friday",
+        "Sat": "Saturday"
     }
 }
