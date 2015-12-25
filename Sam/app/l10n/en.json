@@ -73,6 +73,8 @@
     "Image": "Image`",
     "Role": "Role`",
     "User": "User`",
+    "Number": "Number`",
+    "AllCustomers": "All Customers",
 
     "approvalLevel": {
         "Nobody": "Nobody,",
@@ -250,9 +252,14 @@
     },
 
     "employees": {
-        "AllCustomers": "All Customers",
         "CurrentCard": "Current Card",
         "CanApplyAnothersAccess": "Can Apply Anothers Access"
+    },
 
+    "cards": {
+        "SelectCardStatus": "select card status",
+        "ActivationCode": "Activation Code",
+        "CardType": "Card Type",
+        "ExpirationDate": "Expiration Date"
     }
 }
