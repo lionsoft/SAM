@@ -40,6 +40,11 @@
     "Departments": "Departments`",
     "Employees": "Employees`",
     "Cards": "Cards`",
+    "Countries": "Countries`",
+    "Cities": "Cities`",
+    "Buildings": "Buildings`",
+    "Areas": "Areas`",
+    "Doors": "Doors`",
 
 
     "Customer": "Customer`",
@@ -47,6 +52,7 @@
     "Department": "Department`",
     "Employee": "Employee`",
     "Card": "Card`",
+    "Country": "Country`",
     "City": "City`",
     "Building": "Building`",
     "Area": "Area`",
@@ -75,6 +81,7 @@
     "User": "User`",
     "Number": "Number`",
     "AllCustomers": "All Customers",
+    "Owner": "Owner`",
 
     "approvalLevel": {
         "Nobody": "Nobody,",
@@ -261,5 +268,9 @@
         "ActivationCode": "Activation Code",
         "CardType": "Card Type",
         "ExpirationDate": "Expiration Date"
+    },
+
+    "doors": {
+        "PreApproved": "PreApproved"
     }
 }

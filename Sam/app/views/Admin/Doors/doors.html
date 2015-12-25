@@ -12,7 +12,7 @@
                         <div class="st-table-search">
                             <h3>
                                 <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                                <span>Countries</span>
+                                <span translate>Countries</span>
                             </h3>
                             <input st-search class="form-control" translate translate-attr-placeholder="Search..." />
                         </div>
@@ -56,7 +56,7 @@
                         <div class="st-table-search">
                             <h3>
                                 <button ng-click="$edit()" ng-disabled="!$.selectedCountryId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                                <span>Cities</span>
+                                <span translate>Cities</span>
                             </h3>
                             <input st-search="Name,ZipCode" class="form-control" translate translate-attr-placeholder="Search..." />
                         </div>
@@ -100,7 +100,7 @@
                     <div class="form-group">
                         <label class="control-label" translate>Customer</label>
                         <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
-                            <ui-select-match allow-clear="true">
+                            <ui-select-match allow-clear="true" placeholder="{{'AllCustomers' | translate}}">
                                 {{$select.selected.Name}}
                             </ui-select-match>
                             <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
@@ -118,7 +118,7 @@
                         <div class="st-table-search">
                             <h3>
                                 <button ng-click="$edit()" ng-disabled="!$.selectedCityId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                                <span>Buildings</span>
+                                <span translate>Buildings</span>
                             </h3>
                             <input st-search="Name,Owner.Name" class="form-control" translate translate-attr-placeholder="Search..." />
                         </div>
@@ -164,7 +164,7 @@
                         <div class="st-table-search">
                             <h3>
                                 <button ng-click="$edit()" ng-disabled="!$.selectedBuildingId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                                <span>Areas</span>
+                                <span translate>Areas</span>
                             </h3>
                             <input st-search="Name,Owner.Name" class="form-control" translate translate-attr-placeholder="Search..." />
                         </div>
@@ -213,7 +213,7 @@
                         <div class="st-table-search">
                             <h3>
                                 <button ng-click="$edit()" ng-disabled="!$.selectedAreaId" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                                <span>Doors</span>
+                                <span translate>Doors</span>
                             </h3>
                             <input st-search="Name,Owner.Name" class="form-control" translate translate-attr-placeholder="Search..." />
                         </div>
