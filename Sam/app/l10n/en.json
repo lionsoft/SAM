@@ -68,8 +68,11 @@
     "DelegateTo": "Delegate To",
     "DelegateFromDate": "From",
     "DelegateToDate": "Till",
-
-
+    "Email": "Email`",
+    "PinCode": "PIN Code",
+    "Image": "Image`",
+    "Role": "Role`",
+    "User": "User`",
 
     "approvalLevel": {
         "Nobody": "Nobody,",
@@ -161,7 +164,7 @@
         "RememberMe": "Remember me",
         "LogIn": "LogIn",
         "Login": "Login",
-        "Password":  "Password"
+        "Password": "Password"
     },
 
     "activateCard": {
@@ -170,7 +173,6 @@
         "DESCRIPTION": "For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.",
         "YouHaveNoPinCode": "You have no Pin Code defined. Please <a href='/#/setPinCode'>set it up</a> before.",
         "ActivationCode": "Activation Code",
-        "PinCode": "PIN Code",
         "InvalidPinCode": "Invalid Pin Code.",
         "Activate": "Activate",
         "NoCardWithCode": "There is no card with this activation code.",
@@ -245,5 +247,12 @@
         "PinCodeLength": "PIN Code Length",
         "DefApprover": "Default Approver",
         "DefTimeZone": "Default Time Zone"
+    },
+
+    "employees": {
+        "AllCustomers": "All Customers",
+        "CurrentCard": "Current Card",
+        "CanApplyAnothersAccess": "Can Apply Anothers Access"
+
     }
 }

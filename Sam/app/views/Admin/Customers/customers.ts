@@ -3,14 +3,9 @@ module App.Controllers
 {
     class Customers extends PageController
     {
-//        samTimeZones: Services.ITimeZonesService;
-//        samEmployees: Services.IEmployeesService;
-
         public selectedCustomerId: string;
         public selectedCompanyId: string;
         public selectedDepartmentId: string;
-
-//        public timeZones: ITimeZone[] = [];
 
         Init() {
         }

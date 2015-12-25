@@ -85,15 +85,6 @@ module App.Controllers {
 
             }
         }
-
-/*
-        LoadEmployees() {
-            this.customerDepartments = [];
-            this.samDepartments.LoadByCustomer(this.selectedCustomerId).then(res => this.customerDepartments = res);
-            this.samEmployees.LoadByCustomer(this.selectedCustomerId).then(res => this.employees = res);
-        }
-*/
-
     }
 
     // Register with angular

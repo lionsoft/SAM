@@ -91,7 +91,7 @@
     <!-- #region - Image - -->
     <div class="col col-xs-6">
         <div class="truncate">
-            <label class="control-label" translate>Image:</label>&nbsp;&nbsp;<span>{{$.uploader.queue[0].file.name || $item.Image}}</span>
+            <label class="control-label" translate>Image</label>&nbsp;&nbsp;<span>{{$.uploader.queue[0].file.name || $item.Image}}</span>
         </div>
         <div class="image-content">
             <div ng-hide="$.uploader.queue[0] || !$item.Image" ng-thumb="{ file: '/images/employees/' + $item.Image, height: 149, width: 149 }"></div>

@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <label class="control-label" translate>Customer</label>
                     <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
-                        <ui-select-match allow-clear="true" placeholder="All Customers">
+                        <ui-select-match allow-clear="true" placeholder="{{'AllCustomers' | translate}}">
                             {{$select.selected.Name}}
                         </ui-select-match>
                         <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
