@@ -737,8 +737,26 @@
     <Content Include="app\filters\ApprovalStatusFilter.js">
       <DependentUpon>ApprovalStatusFilter.ts</DependentUpon>
     </Content>
+    <Content Include="app\filters\asHtml.js">
+      <DependentUpon>asHtml.ts</DependentUpon>
+    </Content>
     <Content Include="app\filters\AssignmentType.js">
       <DependentUpon>AssignmentType.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardNumberFilter.js">
+      <DependentUpon>CardNumberFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardStatusFilter.js">
+      <DependentUpon>CardStatusFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardTypeFilter.js">
+      <DependentUpon>CardTypeFilter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\Console.js">
+      <DependentUpon>Console.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\EmployeeStatusFilter.js">
+      <DependentUpon>EmployeeStatusFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\ExceptOfFilter.js">
       <DependentUpon>ExceptOfFilter.ts</DependentUpon>
@@ -748,6 +766,12 @@
     </Content>
     <Content Include="app\filters\FilterProps.js">
       <DependentUpon>FilterProps.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ManagersOfDepartment.js">
+      <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
+    </Content>
+    <Content Include="app\filters\UserRoleFilter.js">
+      <DependentUpon>UserRoleFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\YesNoFilter.js">
       <DependentUpon>YesNoFilter.ts</DependentUpon>
@@ -1119,6 +1143,30 @@
     </Content>
     <Content Include="app\directives\time-zone-day\timeZoneDay.js.map">
       <DependentUpon>timeZoneDay.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\asHtml.js.map">
+      <DependentUpon>asHtml.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardNumberFilter.js.map">
+      <DependentUpon>CardNumberFilter.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardStatusFilter.js.map">
+      <DependentUpon>CardStatusFilter.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\CardTypeFilter.js.map">
+      <DependentUpon>CardTypeFilter.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\Console.js.map">
+      <DependentUpon>Console.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\EmployeeStatusFilter.js.map">
+      <DependentUpon>EmployeeStatusFilter.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\ManagersOfDepartment.js.map">
+      <DependentUpon>ManagersOfDepartment.js</DependentUpon>
+    </Content>
+    <Content Include="app\filters\UserRoleFilter.js.map">
+      <DependentUpon>UserRoleFilter.js</DependentUpon>
     </Content>
     <None Include="app\views\User\MyDelegation\myDelegation.less" />
     <Content Include="app\views\User\MyDelegation\myDelegation.css">

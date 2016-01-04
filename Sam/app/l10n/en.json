@@ -47,6 +47,9 @@
     "Areas": "Areas`",
     "Doors": "Doors`",
     "TimeZones": "Time Zones",
+    "DoorLists": "Door Lists",
+    "DepartmentLists": "Department Lists",
+
 
     "Customer": "Customer`",
     "Company": "Company`",
@@ -58,6 +61,8 @@
     "Building": "Building`",
     "Area": "Area`",
     "Door": "Door`",
+    "DoorList": "Door List",
+    "DepartmentList": "Department List",
     "TimeZone": "Time Zone",
     "Access": "Access`",
     "ApprovalLevel": "Approval Level",
@@ -275,7 +280,13 @@
         "PreApproved": "PreApproved"
     },
 
-
+    "lists": {
+        "Lists": "Lists",
+        "AllDoors": "All doors",
+        "DoorsInList": "Doors in list",
+        "AllDoorLists": "All door lists",
+        "DoorListsInList": "Door lists in list"
+    },
 
     "timeZones": {
         "Sun": "Sunday",
