@@ -752,32 +752,8 @@
     <Content Include="app\filters\YesNoFilter.js">
       <DependentUpon>YesNoFilter.ts</DependentUpon>
     </Content>
-    <Content Include="app\filters\CardNumberFilter.js">
-      <DependentUpon>CardNumberFilter.ts</DependentUpon>
-    </Content>
     <Content Include="app\filters\ApprovalLevelFilter.js">
       <DependentUpon>ApprovalLevelFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\CardTypeFilter.js">
-      <DependentUpon>CardTypeFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\asHTML.js">
-      <DependentUpon>asHtml.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\Console.js">
-      <DependentUpon>Console.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\CardStatusFilter.js">
-      <DependentUpon>CardStatusFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\ManagersOfDepartment.js">
-      <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\UserRoleFilter.js">
-      <DependentUpon>UserRoleFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\EmployeeStatusFilter.js">
-      <DependentUpon>EmployeeStatusFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\l10n.js">
       <DependentUpon>l10n.ts</DependentUpon>
@@ -2471,18 +2447,6 @@
     <Content Include="app\services\SamDoorsService.js.map">
       <DependentUpon>SamDoorsService.ts</DependentUpon>
     </Content>
-    <Content Include="app\filters\EmployeeStatusFilter.js.map">
-      <DependentUpon>EmployeeStatusFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\UserRoleFilter.js.map">
-      <DependentUpon>UserRoleFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\Console.js.map">
-      <DependentUpon>Console.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\ManagersOfDepartment.js.map">
-      <DependentUpon>ManagersOfDepartment.ts</DependentUpon>
-    </Content>
     <Content Include="app\routes\Admin\cards.js.map">
       <DependentUpon>cards.ts</DependentUpon>
     </Content>
@@ -2494,17 +2458,8 @@
     <Content Include="app\services\SamCardsService.js.map">
       <DependentUpon>SamCardsService.ts</DependentUpon>
     </Content>
-    <Content Include="app\filters\CardStatusFilter.js.map">
-      <DependentUpon>CardStatusFilter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\CardTypeFilter.js.map">
-      <DependentUpon>CardTypeFilter.ts</DependentUpon>
-    </Content>
     <Content Include="app\directives\smart-table\st-sort-default.js.map">
       <DependentUpon>st-sort-default.ts</DependentUpon>
-    </Content>
-    <Content Include="app\filters\CardNumberFilter.js.map">
-      <DependentUpon>CardNumberFilter.ts</DependentUpon>
     </Content>
     <Content Include="app\services\SamDepartmentListsService.js.map">
       <DependentUpon>SamDepartmentListsService.ts</DependentUpon>
@@ -2533,9 +2488,6 @@
     <Content Include="app\decorators\stSearchDirective.js.map">
       <DependentUpon>stSearchDirective.ts</DependentUpon>
     </Content>
-    <Content Include="app\filters\asHTML.js.map">
-      <DependentUpon>asHtml.ts</DependentUpon>
-    </Content>
     <Content Include="app\decorators\qService.js.map">
       <DependentUpon>qService.ts</DependentUpon>
     </Content>
@@ -2551,7 +2503,7 @@
       <DependentUpon>ApprovalLevelFilter.js</DependentUpon>
     </Content>
     <Content Include="app\filters\YesNoFilter.js.map">
-      <DependentUpon>YesNoFilter.ts</DependentUpon>
+      <DependentUpon>YesNoFilter.js</DependentUpon>
     </Content>
     <Content Include="app\services\SamCardAccessService.js.map">
       <DependentUpon>SamCardAccessService.ts</DependentUpon>
@@ -2579,7 +2531,7 @@
       <DependentUpon>SamEmployeeCardsService.ts</DependentUpon>
     </Content>
     <Content Include="app\filters\ExceptOfFilter.js.map">
-      <DependentUpon>ExceptOfFilter.ts</DependentUpon>
+      <DependentUpon>ExceptOfFilter.js</DependentUpon>
     </Content>
     <Content Include="app\routes\User\myApplications.js.map">
       <DependentUpon>myApplications.js</DependentUpon>
