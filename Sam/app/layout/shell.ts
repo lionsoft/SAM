@@ -25,7 +25,7 @@ module App.Controllers
         public static controllerId = 'shell';
         
         //#region Variables
-        busyMessage = 'Please wait...';
+        busyMessage = 'PleaseWait';
         controllerId = Shell.controllerId;
         isBusy= true;
         spinnerOperations = {

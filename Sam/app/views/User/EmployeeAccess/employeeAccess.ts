@@ -12,7 +12,8 @@ module App.Controllers {
 
         Init() {
             this.samEmployees.Load(app.$auth.LoggedUser.Employee.Id, "Department.Company,Employees").then(emp => {
-                this.customerId = emp.Department.Company.CustomerId;
+                if (emp && emp.Department && emp.Department.Company)
+                    this.customerId = emp.Department.Company.CustomerId;
                 this.managerEmployeesIds = emp.Employees.select(x => x.Id).toArray();
                 this.$scope.$broadcast("samStRefresh", "samCardAccess");
             });

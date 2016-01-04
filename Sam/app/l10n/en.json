@@ -7,6 +7,8 @@
     "CreatedDate": "Created Date",
     "ApprovedBy": "Approved By",
     "ApprovedDate": "Approved Date",
+    "None": "None`",
+    "PleaseWait": "Please wait...",
 
     "NoTableData": "No data available in table",
     "LoadingTable": "Loading ...",
@@ -241,7 +243,9 @@
 
     "myDelegation": {
         "MyDelegationTitle": "My Delegation",
-        "DelegationIsSuccess": "Your delegation is successfully saved."
+        "DelegationIsSuccess": "Your delegation is successfully saved.",
+        "NoDeparmentSpecified": "You have no department specified. Due this it's impossible to load your customer's employees.",
+        "NoEmployeeSpecified": "You have no employee specified. Due this it's impossible to load your customer's employees."
     },
 
     "myAccess": {
