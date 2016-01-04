@@ -51,6 +51,8 @@
     "TimeZones": "Time Zones",
     "DoorLists": "Door Lists",
     "DepartmentLists": "Department Lists",
+    "Assignments": "Assignments`",
+    "Users": "Users`",
 
 
     "Customer": "Customer`",
@@ -65,6 +67,8 @@
     "Door": "Door`",
     "DoorList": "Door List",
     "DepartmentList": "Department List",
+    "Assignment": "Assignment`",
+    "User": "User`",
     "TimeZone": "Time Zone",
     "Access": "Access`",
     "ApprovalLevel": "Approval Level",
@@ -86,7 +90,6 @@
     "PinCode": "PIN Code",
     "Image": "Image`",
     "Role": "Role`",
-    "User": "User`",
     "Number": "Number`",
     "AllCustomers": "All Customers",
     "Owner": "Owner`",
@@ -94,7 +97,7 @@
     "Password": "Password",
 
     "approvalLevel": {
-        "Nobody": "Nobody,",
+        "Nobody": "Nobody",
         "Manager": "Manager",
         "Building": "Building",
         "Area": "Area",
@@ -290,6 +293,16 @@
         "DoorsInList": "Doors in list",
         "AllDoorLists": "All door lists",
         "DoorListsInList": "Door lists in list"
+    },
+
+    "assignments": {
+        "AllCards": "All Cards",
+        "AllDoors": "All Doors",
+        "AllEmployees": "All Employees"
+    },
+
+    "users": {
+
     },
 
     "timeZones": {

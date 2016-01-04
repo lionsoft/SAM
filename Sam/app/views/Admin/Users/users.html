@@ -8,7 +8,7 @@
                     <div class="form-group">
                         <label class="control-label" translate>Customer</label>
                         <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="!$.customers">
-                            <ui-select-match allow-clear="true" placeholder="All Customers">
+                            <ui-select-match allow-clear="true" placeholder="{{'AllCustomers' | translate}}">
                                 {{$select.selected.Name}}
                             </ui-select-match>
                             <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
@@ -27,7 +27,7 @@
                     <div class="st-table-search">
                         <h3>
                             <button ng-click="$edit()" class="btn btn-success btn-icon"><i class="fa fa-plus fa-lg nv-l-col"></i></button>
-                            <span>Users</span>
+                            <span translate>Users</span>
                         </h3>
                         <input st-search="UserName,Employee.Name" class="form-control" translate translate-attr-placeholder="Search..." />
                     </div>
