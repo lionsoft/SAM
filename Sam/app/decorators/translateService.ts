@@ -13,12 +13,11 @@ module App.Decorators {
         $route: angular.route.IRouteService;
 
         protected getFactoryResult(): any {
+            this.$delegate['__makeNonLocalizedDefValue'] = s => s;
+            this.$delegate['__formatLocalizedValue'] = s => s;
             if (App.app.isDebugMode) {
                 this.$delegate['__makeNonLocalizedDefValue'] = s => `?${s}?`;
                 this.$delegate['__formatLocalizedValue'] = s => `[${s.TrimRight('`')}]`;
-            } else {
-                this.$delegate['__makeNonLocalizedDefValue'] = s => s;
-                this.$delegate['__formatLocalizedValue'] = s => s;
             }
             var res = (translationId, interpolateParams?, interpolationId?, defaultTranslationText?) => this.Execute(translationId, interpolateParams, interpolationId, defaultTranslationText);
             for (var idx in this.$delegate) {

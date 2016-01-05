@@ -1,0 +1,317 @@
+﻿{
+    "APP_TITLE": "?SAM System?",
+
+    "Name": "?Name?",
+    "Description": "?Description?",
+    "CreatedBy": "?Created By?",
+    "CreatedDate": "?Created Date?",
+    "ApprovedBy": "?Approved By?",
+    "ApprovedDate": "?Approved Date?",
+    "None": "?None?",
+    "PleaseWait": "?Please wait...?",
+
+    "NoTableData": "?No data available in table?",
+    "LoadingTable": "?Loading ...?",
+    "Search...": "?Search...?",
+    "TablePaginationShowEntriesPrefix": "?Show ?",
+    "TablePaginationShowEntriesPostfix": "? entries?",
+    "TablePaginationShowOf": "? of ?",
+
+    "SaveChanges": "?Save Changes?",
+    "Submit": "?Submit?",
+    "Update": "?Update?",
+    "OK": "?OK?",
+    "Cancel": "?Cancel?",
+    "Yes": "?Yes?",
+    "No": "?No?",
+
+    "Warning": "?Warning?",
+    "Information": "?Information?",
+    "Confirmation": "?Confirmation?",
+    "AskDelete": "?{1}: Delete {0}??",
+
+    "New": "?New?",
+    "Edit": "?Edit?",
+    "Delete": "?Delete?",
+
+    "required": "?required?",
+    "MustBeSet": "?Field must be set?",
+    "PasswordsDoNotMatch": "?Password doesn't match?",
+
+    "Customers": "?Customers?",
+    "Companies": "?Companies?",
+    "Departments": "?Departments?",
+    "Employees": "?Employees?",
+    "Cards": "?Cards?",
+    "Countries": "?Countries?",
+    "Cities": "?Cities?",
+    "Buildings": "?Buildings?",
+    "Areas": "?Areas?",
+    "Doors": "?Doors?",
+    "TimeZones": "?Time Zones?",
+    "DoorLists": "?Door Lists?",
+    "DepartmentLists": "?Department Lists?",
+    "Assignments": "?Assignments?",
+    "Users": "?Users?",
+
+
+    "Customer": "?Customer?",
+    "Company": "?Company?",
+    "Department": "?Department?",
+    "Employee": "?Employee?",
+    "Card": "?Card?",
+    "Country": "?Country?",
+    "City": "?City?",
+    "Building": "?Building?",
+    "Area": "?Area?",
+    "Door": "?Door?",
+    "DoorList": "?Door List?",
+    "DepartmentList": "?Department List?",
+    "Assignment": "?Assignment?",
+    "User": "?User?",
+    "TimeZone": "?Time Zone?",
+    "Access": "?Access?",
+    "ApprovalLevel": "?Approval Level?",
+    "DoorName": "?Door Name?",
+    "DateApplied": "?Date Applied?",
+    "ApplicantDepartment": "?Applicant Department?",
+    "ApplicantName": "?Applicant Name?",
+    "Status": "?Status?",
+    "Manager": "?Manager?",
+
+    "Address1": "?Address 1?",
+    "Address2": "?Address 2?",
+    "ZipCode": "?Zip Code?",
+
+    "DelegateTo": "?Delegate To?",
+    "DelegateFromDate": "?From?",
+    "DelegateToDate": "?Till?",
+    "Email": "?Email?",
+    "PinCode": "?PIN Code?",
+    "Image": "?Image?",
+    "Role": "?Role?",
+    "Number": "?Number?",
+    "AllCustomers": "?All Customers?",
+    "Owner": "?Owner?",
+    "Login": "?Login?",
+    "Password": "?Password?",
+
+    "SelectCountry": "?select country?",
+    "SelectCity": "?select city?",
+    "SelectBuilding": "?select building?",
+    "SelectArea": "?select area?",
+    "SelectDoors": "?select doors?",
+    "DefaultTimeZone": "?default time zone?",
+
+    "approvalLevel": {
+        "Nobody": "?Nobody?",
+        "Manager": "?Manager?",
+        "Building": "?Building?",
+        "Area": "?Area?",
+        "Door": "?Door"
+    },
+
+    "approvalStatus": {
+        "WaitingForApproval": "?Waiting For Approval?",
+        "Approved": "?Approved?",
+        "Rejected": "?Rejected"
+    },
+
+    "assignmentType": {
+        "Special": "?Special?",
+        "Standard": "?Standard"
+    },
+
+    "cardStatus": {
+        "Active": "?Active?",
+        "Inactive": "?Inactive?",
+        "Lost": "?Lost"
+    },
+
+    "cardType": {
+        "Internal": "?Internal?",
+        "Guest": "?Guest?",
+        "External": "?External?",
+        "Replacement": "?Replacement"
+    },
+
+    "employeeStatus": {
+        "Normal": "?Normal?",
+        "New": "?New?",
+        "Resigned": "?Resigned"
+    },
+
+    "userRole": {
+        "Admin": "?Admin?",
+        "AreaOwner": "?Area Owner?",
+        "BuildingOwner": "?Building Owner?",
+        "DoorOwner": "?Door Owner?",
+        "Manager": "?Manager?",
+        "Normal": "?Normal"
+    },
+
+    "MENU": {
+        "20.ADMIN": "?<i class='fa fa-cog'></i> Admin Area?",
+        "10.USER": "?<i class='fa fa-user'></i> User Area?",
+
+
+        "ASSIGNMENTS": "?<i class='fa fa-gg'></i> Assignments?",
+        "CARDS": "?<i class='fa fa-credit-card'></i> Cards?",
+        "CUSTOMERS": "?<i class='fa fa-briefcase'></i> Customers?",
+        "DOORS": "?<i class='fa fa-lock'></i> Doors?",
+        "EMPLOYEES": "?<i class='fa fa-users'></i> Employees?",
+        "LISTS": "?<i class='fa fa-list'></i> Lists?",
+        "USERS": "?<i class='fa fa-user'></i> Users?",
+        "TIME-ZONES": "?<i class='fa fa-clock-o'></i> Time Zones?",
+
+        "ACTIVATE-MY-CARD": "?<i class='fa fa-credit-card'></i> Activate Card?",
+        "APPLY-TO-GET-ACCESS": "?<i class='fa fa-credit-card'></i> Get Access?",
+        "LOST-MY-CARD": "?<i class='fa fa-credit-card'></i> Lost Card?",
+        "SET-PIN-CODE": "?<i class='fa fa-credit-card'></i> Set PIN?",
+        "MY-APPLICATIONS": "?<i class='fa fa-credit-card'></i> My Applications?",
+        "MY-APPROVALS": "?<i class='fa fa-credit-card'></i> My Approvals?",
+        "MY-DELEGATION": "?<i class='fa fa-share'></i> My Delegation?",
+        "MY-ACCESS": "?<i class='fa fa-lock'></i> My Access?",
+        "EMPLOYEE-ACCESS": "?<i class='fa fa-lock'></i> Employee Access?",
+
+        "SignIn": "?Sign In?",
+        "SignOut": "?Sign Out"
+    },
+
+    "login": {
+        "ShowPassword": "?Show password?",
+        "RememberMe": "?Remember me?",
+        "LogIn": "?LogIn"
+    },
+
+    "activateCard": {
+        "ActivateMyCardTitle": "?Activate Card?",
+        "ActivateCard": "?Make active id-card?",
+        "DESCRIPTION": "?For activating your new id-card first it has to be activated. Type your activating code (from received letter) and your personal PIN code.?",
+        "YouHaveNoPinCode": "?You have no Pin Code defined. Please <a href='/#/setPinCode'>set it up</a> before.?",
+        "ActivationCode": "?Activation Code?",
+        "InvalidPinCode": "?Invalid Pin Code.?",
+        "Activate": "?Activate?",
+        "NoCardWithCode": "?There is no card with this activation code.?",
+        "CardIsLost": "?The card is lost and cannot be activated.?",
+        "CardIsAlreadyActive": "?The card is already active.?",
+        "CardHasBeenActivated": "?Your card has been successfully activated."
+    },
+
+    "applyAccess": {
+        "GetAccessTitle": "?Get Access?",
+        "ApplyToGetAccess": "?Apply to get access?",
+        "YouHaveNoActivatedCard": "?You have no activated card. Please get it and <a href='/#/activateCard'>activate the card</a> before.?",
+        "NotesResonsForApplyingAccess": "?Notes, resons for applying to get access?",
+        "Explanation/Reason": "?Explanation / Reason?",
+        "WhoGetsAccess": "?Who Gets Access?",
+        "SendApplication": "?Send Application"
+    },
+
+    "lostCard": {
+        "LostMyCardTitle": "?Lost Card?",
+        "IfILostMyCard": "?If I lost my card?",
+        "DESCRIPTION": "?For renew your card you have to inform your.......... and after .........?",
+        "Explanation": "?Explanation?",
+        "ILostMyCardExplanation": "?please, enter details how did you lost your card. Your card will be blocked immediately.?",
+        "CardIsLocked": "?Your card has been locked."
+    },
+
+    "setPinCode": {
+        "SetPinCodeTitle": "?Set PIN?",
+        "IfIForgotPIN": "?If I forgot my PIN code?",
+        "DESCRIPTION": "?For set or renew your personal PIN code you need to set it below.?",
+        "NeverGiveItAnyone": "?Never give it to anyone.?",
+        "OldPinCode": "?Old PIN Code?",
+        "EnterOldPin": "?enter old PIN code?",
+        "ForgotPin": "?Forgot Pin?",
+        "EnterNewPin": "?enter new PIN code?",
+        "ConfirmPin": "?confirm your new PIN?",
+        "PinCode": "?PIN Code?",
+        "ConfirmPinCode": "?Confirm PIN Code?",
+        "OldPinIsInvalid": "?The old PIN code is invalid.?",
+        "PinHasBeenChanged": "?PIN code has been successfully changed.?",
+        "ConfirmationResetPin": "?We will reset your current PIN and send it on your email. Are you sure??",
+        "EmployeeEmailIsNotSet": "?Employee email is not set.?",
+        "PinHasBeenSent": "?The new PIN code has been sent on youe email."
+    },
+
+    "myApplications": {
+        "StatusOfApplications": "?Status of applications?",
+        "MyApplicationsTitle": "?My Applications"
+    },
+
+    "myDelegation": {
+        "MyDelegationTitle": "?My Delegation?",
+        "DelegationIsSuccess": "?Your delegation is successfully saved.?",
+        "NoDeparmentSpecified": "?You have no department specified. Due this it's impossible to load your customer's employees.?",
+        "NoEmployeeSpecified": "?You have no employee specified. Due this it's impossible to load your customer's employees."
+    },
+
+    "myAccess": {
+        "MyAccessTitle": "?My Access"
+    },
+
+    "myApprovals": {
+        "MyApprovalsTitle": "?My Approvals?",
+        "ApproveApplications": "?Approve applications"
+    },
+
+    "employeeAccess": {
+        "EmployeeAccessTitle": "?Employee Access"
+    },
+
+
+    "customers": {
+        "PinCodeLength": "?PIN Code Length?",
+        "DefApprover": "?Default Approver?",
+        "DefTimeZone": "?Default Time Zone"
+    },
+
+    "employees": {
+        "CurrentCard": "?Current Card?",
+        "CanApplyAnothersAccess": "?Can Apply Anothers Access"
+    },
+
+    "cards": {
+        "SelectCardStatus": "?select card status?",
+        "ActivationCode": "?Activation Code?",
+        "CardType": "?Card Type?",
+        "ExpirationDate": "?Expiration Date"
+    },
+
+    "doors": {
+        "PreApproved": "?PreApproved"
+    },
+
+    "lists": {
+        "Lists": "?Lists?",
+        "AllDoors": "?All doors?",
+        "DoorsInList": "?Doors in list?",
+        "AllDoorLists": "?All door lists?",
+        "DoorListsInList": "?Door lists in list"
+    },
+
+    "assignments": {
+        "AllCards": "?All Cards?",
+        "AllDoors": "?All Doors?",
+        "AllEmployees": "?All Employees?",
+        "CardNumber": "?Card Number?",
+        "Type": "?Type?",
+        "ApprovalStatus": "?Approval Status"
+    },
+
+    "users": {
+
+    },
+
+    "timeZones": {
+        "Sun": "?Sunday?",
+        "Mon": "?Monday?",
+        "Tue": "?Tuesday?",
+        "Wed": "?Wednasday?",
+        "Thu": "?Thursday?",
+        "Fri": "?Friday?",
+        "Sat": "?Saturday"
+    }
+}

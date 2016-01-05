@@ -1168,6 +1168,8 @@
     <Content Include="app\filters\UserRoleFilter.js.map">
       <DependentUpon>UserRoleFilter.js</DependentUpon>
     </Content>
+    <Content Include="app\l10n\da.json" />
+    <Content Include="app\l10n\de.json" />
     <None Include="app\views\User\MyDelegation\myDelegation.less" />
     <Content Include="app\views\User\MyDelegation\myDelegation.css">
       <DependentUpon>myDelegation.less</DependentUpon>
@@ -2603,7 +2605,7 @@
     <Content Include="app\web.config" />
     <Content Include="package.json" />
     <Content Include="app\l10n.js.map">
-      <DependentUpon>l10n.ts</DependentUpon>
+      <DependentUpon>l10n.js</DependentUpon>
     </Content>
     <Content Include="app\routes.js.map">
       <DependentUpon>routes.ts</DependentUpon>
