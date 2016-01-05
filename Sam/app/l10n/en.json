@@ -96,6 +96,13 @@
     "Login": "Login",
     "Password": "Password",
 
+    "SelectCountry": "select country",
+    "SelectCity": "select city",
+    "SelectBuilding": "select building",
+    "SelectArea": "select area",
+    "SelectDoors": "select doors",
+    "DefaultTimeZone": "default time zone",
+
     "approvalLevel": {
         "Nobody": "Nobody",
         "Manager": "Manager",
@@ -103,8 +110,9 @@
         "Area": "Area",
         "Door": "Door"
     },
+
     "approvalStatus": {
-        "WaitingForApproval": "WaitingForApproval",
+        "WaitingForApproval": "Waiting For Approval",
         "Approved": "Approved",
         "Rejected": "Rejected"
     },
@@ -169,17 +177,6 @@
         "SignIn": "Sign In",
         "SignOut": "Sign Out"
     },
-
-    "WaitingForApproval": "Waiting for Approval",
-    "Approved": "Approved",
-    "Rejected": "Rejected",
-
-    "SelectCountry": "select country",
-    "SelectCity": "select city",
-    "SelectBuilding": "select building",
-    "SelectArea": "select area",
-    "SelectDoors": "select doors",
-    "DefaultTimeZone": "default time zone",
 
     "login": {
         "ShowPassword": "Show password",
@@ -298,7 +295,10 @@
     "assignments": {
         "AllCards": "All Cards",
         "AllDoors": "All Doors",
-        "AllEmployees": "All Employees"
+        "AllEmployees": "All Employees",
+        "CardNumber": "Card Number",
+        "Type": "Type",
+        "ApprovalStatus": "Approval Status"
     },
 
     "users": {
