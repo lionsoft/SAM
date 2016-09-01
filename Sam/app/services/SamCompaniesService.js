@@ -20,7 +20,7 @@ var App;
                 configurable: true
             });
             return CompaniesService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samCompanies", CompaniesService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

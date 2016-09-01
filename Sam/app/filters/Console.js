@@ -18,7 +18,7 @@ var App;
                 return "";
             };
             return ConsoleFilter;
-        })(App.Filter);
+        }(App.Filter));
         App.app.filter("console", ConsoleFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));

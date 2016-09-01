@@ -41,7 +41,7 @@ var App;
             }
         };
         return EnumFilter;
-    })(App.Filter);
+    }(App.Filter));
     App.EnumFilter = EnumFilter;
 })(App || (App = {}));
 //# sourceMappingURL=EnumFilter.js.map

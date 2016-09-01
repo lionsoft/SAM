@@ -19,7 +19,7 @@ var App;
                 ];
             }
             return CardStatusFilter;
-        })(App.EnumFilter);
+        }(App.EnumFilter));
         App.app.filter("CardStatus", CardStatusFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));

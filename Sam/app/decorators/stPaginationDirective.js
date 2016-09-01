@@ -25,7 +25,7 @@ var App;
                 scope.stGetPageSizes = function (current) { return [current, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].distinct().orderBy(function (x) { return x; }).toArray(); };
             };
             return StPaginationDirectiveDecorator;
-        })(LionSoftAngular.DirectiveDecorator);
+        }(LionSoftAngular.DirectiveDecorator));
         App.app.decorator("stPaginationDirective", StPaginationDirectiveDecorator.Factory());
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));

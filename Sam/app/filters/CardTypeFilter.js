@@ -20,7 +20,7 @@ var App;
                 ];
             }
             return CardTypeFilter;
-        })(App.EnumFilter);
+        }(App.EnumFilter));
         App.app.filter("CardType", CardTypeFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));

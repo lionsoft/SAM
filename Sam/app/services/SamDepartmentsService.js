@@ -32,7 +32,7 @@ var App;
                 var _a;
             };
             return DepartmentsService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samDepartments", DepartmentsService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

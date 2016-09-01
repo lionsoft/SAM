@@ -22,7 +22,7 @@ var App;
                 return res.toArray();
             };
             return ManagersOfDepartmentFilter;
-        })(App.Filter);
+        }(App.Filter));
         App.app.filter("ManagersOfDepartment", ManagersOfDepartmentFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));

@@ -34,7 +34,7 @@ var App;
                 };
             };
             return ControllerServiceDecorator;
-        })(LionSoftAngular.ServiceDecorator);
+        }(LionSoftAngular.ServiceDecorator));
         App.app.decorator("$controller", ControllerServiceDecorator.Factory());
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));

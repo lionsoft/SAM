@@ -18,7 +18,7 @@ var App;
             return this.$filter("translate")(langKey);
         };
         return Filter;
-    })(LionSoftAngular.Filter);
+    }(LionSoftAngular.Filter));
     App.Filter = Filter;
 })(App || (App = {}));
 //# sourceMappingURL=Filter.js.map

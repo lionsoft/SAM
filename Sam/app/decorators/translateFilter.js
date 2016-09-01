@@ -43,7 +43,7 @@ var App;
                 return res;
             };
             return TranslateFilterDecorator;
-        })(LionSoftAngular.Filter);
+        }(LionSoftAngular.Filter));
         App.app.decorator("translateFilter", TranslateFilterDecorator.Factory("$delegate", "$route", "$translate"));
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));

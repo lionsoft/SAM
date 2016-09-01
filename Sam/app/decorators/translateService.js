@@ -81,7 +81,7 @@ var App;
                 }
             };
             return TranslateServiceDecorator;
-        })(LionSoftAngular.NgObject);
+        }(LionSoftAngular.NgObject));
         App.app.decorator("$translate", TranslateServiceDecorator.Factory("$delegate", "$route"));
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));

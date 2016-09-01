@@ -58,8 +58,13 @@ namespace Sam.Api
         }
 
 
+        [JsonProperty("value")]
         public IEnumerable<T> Results { get; protected set; }
 
+        [JsonProperty("odata.count")]
         public long? Count { get; protected set; }
+
+        [JsonProperty("odata.metadata")]
+        public string MetadataUrl { get; protected set; }
     }
 }

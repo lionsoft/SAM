@@ -45,7 +45,7 @@ var App;
         };
         AutenticationService.$inject = ['$rootScope', '$location', '$route', 'samUsers'];
         return AutenticationService;
-    })();
+    }());
     App.Shared.commonModule.service('$auth', AutenticationService);
 })(App || (App = {}));
 //# sourceMappingURL=AutenticationService.js.map

@@ -17,8 +17,8 @@ var App;
                 return this.$sce.trustAsHtml(value);
             };
             return AsHtmlFilter;
-        })(App.Filter);
+        }(App.Filter));
         App.app.filter("asHtml", AsHtmlFilter.Factory('$sce'));
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));
-//# sourceMappingURL=asHTML.js.map
+//# sourceMappingURL=asHtml.js.map

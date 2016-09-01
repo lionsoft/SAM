@@ -19,7 +19,7 @@ var App;
                 ];
             }
             return EmployeeStatusFilter;
-        })(App.EnumFilter);
+        }(App.EnumFilter));
         App.app.filter("EmployeeStatus", EmployeeStatusFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));

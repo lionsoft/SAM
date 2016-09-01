@@ -24,7 +24,7 @@ var App;
                 }
             };
             return CardNumberFilter;
-        })(App.Filter);
+        }(App.Filter));
         App.app.filter("CardNumber", CardNumberFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));

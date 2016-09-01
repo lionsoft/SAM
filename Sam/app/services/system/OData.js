@@ -109,8 +109,8 @@ var App;
                         value.push(p1.toString());
                 }
                 if (addExpand) {
-                    for (var _a = 0; _a < value.length; _a++) {
-                        var item = value[_a];
+                    for (var _a = 0, value_1 = value; _a < value_1.length; _a++) {
+                        var item = value_1[_a];
                         item = (item || "").trim();
                         if (item) {
                             for (var _b = 0, _c = item.split(','); _b < _c.length; _b++) {
@@ -139,8 +139,8 @@ var App;
                 }
                 this._orderBy = [];
                 if (value && value[0] !== undefined) {
-                    for (var _a = 0; _a < value.length; _a++) {
-                        var item = value[_a];
+                    for (var _a = 0, value_2 = value; _a < value_2.length; _a++) {
+                        var item = value_2[_a];
                         item = (item || "").trim();
                         if (item) {
                             for (var _b = 0, _c = item.split(','); _b < _c.length; _b++) {
@@ -277,7 +277,7 @@ var App;
                 return this;
             };
             return OData;
-        })();
+        }());
         Services.OData = OData;
         var ODataEnum = (function () {
             function ODataEnum(name, value) {
@@ -290,7 +290,7 @@ var App;
                 return this.name + "'" + this.value + "'";
             };
             return ODataEnum;
-        })();
+        }());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
 //# sourceMappingURL=OData.js.map

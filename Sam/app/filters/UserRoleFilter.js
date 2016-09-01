@@ -22,7 +22,7 @@ var App;
                 ];
             }
             return UserRoleFilter;
-        })(App.EnumFilter);
+        }(App.EnumFilter));
         App.app.filter("UserRole", UserRoleFilter.Factory());
     })(Filters = App.Filters || (App.Filters = {}));
 })(App || (App = {}));

@@ -24,7 +24,7 @@ var App;
                 odata.$expand("Owner");
             };
             return DoorsService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samDoors", DoorsService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

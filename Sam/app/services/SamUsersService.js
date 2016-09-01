@@ -43,7 +43,7 @@ var App;
                 }
             };
             return UsersService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samUsers", UsersService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));
