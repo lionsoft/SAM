@@ -1,12 +1,14 @@
 ﻿{
     "APP_TITLE": "SAM System",
 
-    "Name": "Name`",
-    "Description": "Description`",
+    "Name": "Name",
+    "Description": "Description",
     "CreatedBy": "Created By",
     "CreatedDate": "Created Date",
     "ApprovedBy": "Approved By",
     "ApprovedDate": "Approved Date",
+    "None": "None",
+    "PleaseWait": "Please wait...",
 
     "NoTableData": "No data available in table",
     "LoadingTable": "Loading ...",
@@ -16,57 +18,66 @@
     "TablePaginationShowOf": " of ",
 
     "SaveChanges": "Save Changes",
-    "Submit": "Submit`",
-    "Update": "Update`",
-    "OK": "OK`",
-    "Cancel": "Cancel`",
-    "Yes": "Yes`",
-    "No": "No`",
+    "Submit": "Submit",
+    "Update": "Update",
+    "OK": "OK",
+    "Cancel": "Cancel",
+    "Yes": "Yes",
+    "No": "No",
 
-    "Warning": "Warning`",
-    "Information": "Information`",
-    "Confirmation": "Confirmation`",
+    "Warning": "Warning",
+    "Information": "Information",
+    "Confirmation": "Confirmation",
     "AskDelete": "{1}: Delete {0}?",
 
-    "New": "New`",
-    "Edit": "Edit`",
-    "Delete": "Delete`",
+    "New": "New",
+    "Edit": "Edit",
+    "Delete": "Delete",
 
-    "required": "required`",
+    "required": "required",
     "MustBeSet": "Field must be set",
     "PasswordsDoNotMatch": "Password doesn't match",
 
-    "Customers": "Customers`",
-    "Companies": "Companies`",
-    "Departments": "Departments`",
-    "Employees": "Employees`",
-    "Cards": "Cards`",
-    "Countries": "Countries`",
-    "Cities": "Cities`",
-    "Buildings": "Buildings`",
-    "Areas": "Areas`",
-    "Doors": "Doors`",
+    "Customers": "Customers",
+    "Companies": "Companies",
+    "Departments": "Departments",
+    "Employees": "Employees",
+    "Cards": "Cards",
+    "Countries": "Countries",
+    "Cities": "Cities",
+    "Buildings": "Buildings",
+    "Areas": "Areas",
+    "Doors": "Doors",
     "TimeZones": "Time Zones",
+    "DoorLists": "Door Lists",
+    "DepartmentLists": "Department Lists",
+    "Assignments": "Assignments",
+    "Users": "Users",
 
-    "Customer": "Customer`",
-    "Company": "Company`",
-    "Department": "Department`",
-    "Employee": "Employee`",
-    "Card": "Card`",
-    "Country": "Country`",
-    "City": "City`",
-    "Building": "Building`",
-    "Area": "Area`",
-    "Door": "Door`",
+
+    "Customer": "Customer",
+    "Company": "Company",
+    "Department": "Department",
+    "Employee": "Employee",
+    "Card": "Card",
+    "Country": "Country",
+    "City": "City",
+    "Building": "Building",
+    "Area": "Area",
+    "Door": "Door",
+    "DoorList": "Door List",
+    "DepartmentList": "Department List",
+    "Assignment": "Assignment",
+    "User": "User",
     "TimeZone": "Time Zone",
-    "Access": "Access`",
+    "Access": "Access",
     "ApprovalLevel": "Approval Level",
     "DoorName": "Door Name",
     "DateApplied": "Date Applied",
     "ApplicantDepartment": "Applicant Department",
     "ApplicantName": "Applicant Name",
-    "Status": "Status`",
-    "Manager": "Manager`",
+    "Status": "Status",
+    "Manager": "Manager",
 
     "Address1": "Address 1",
     "Address2": "Address 2",
@@ -75,26 +86,33 @@
     "DelegateTo": "Delegate To",
     "DelegateFromDate": "From",
     "DelegateToDate": "Till",
-    "Email": "Email`",
+    "Email": "Email",
     "PinCode": "PIN Code",
-    "Image": "Image`",
-    "Role": "Role`",
-    "User": "User`",
-    "Number": "Number`",
+    "Image": "Image",
+    "Role": "Role",
+    "Number": "Number",
     "AllCustomers": "All Customers",
-    "Owner": "Owner`",
+    "Owner": "Owner",
     "Login": "Login",
     "Password": "Password",
 
+    "SelectCountry": "select country",
+    "SelectCity": "select city",
+    "SelectBuilding": "select building",
+    "SelectArea": "select area",
+    "SelectDoors": "select doors",
+    "DefaultTimeZone": "default time zone",
+
     "approvalLevel": {
-        "Nobody": "Nobody,",
+        "Nobody": "Nobody",
         "Manager": "Manager",
         "Building": "Building",
         "Area": "Area",
         "Door": "Door"
     },
+
     "approvalStatus": {
-        "WaitingForApproval": "WaitingForApproval",
+        "WaitingForApproval": "Waiting For Approval",
         "Approved": "Approved",
         "Rejected": "Rejected"
     },
@@ -159,17 +177,6 @@
         "SignIn": "Sign In",
         "SignOut": "Sign Out"
     },
-
-    "WaitingForApproval": "Waiting for Approval",
-    "Approved": "Approved",
-    "Rejected": "Rejected",
-
-    "SelectCountry": "select country",
-    "SelectCity": "select city",
-    "SelectBuilding": "select building",
-    "SelectArea": "select area",
-    "SelectDoors": "select doors",
-    "DefaultTimeZone": "default time zone",
 
     "login": {
         "ShowPassword": "Show password",
@@ -236,7 +243,9 @@
 
     "myDelegation": {
         "MyDelegationTitle": "My Delegation",
-        "DelegationIsSuccess": "Your delegation is successfully saved."
+        "DelegationIsSuccess": "Your delegation is successfully saved.",
+        "NoDeparmentSpecified": "You have no department specified. Due this it's impossible to load your customer's employees.",
+        "NoEmployeeSpecified": "You have no employee specified. Due this it's impossible to load your customer's employees."
     },
 
     "myAccess": {
@@ -275,7 +284,26 @@
         "PreApproved": "PreApproved"
     },
 
+    "lists": {
+        "Lists": "Lists",
+        "AllDoors": "All doors",
+        "DoorsInList": "Doors in list",
+        "AllDoorLists": "All door lists",
+        "DoorListsInList": "Door lists in list"
+    },
 
+    "assignments": {
+        "AllCards": "All Cards",
+        "AllDoors": "All Doors",
+        "AllEmployees": "All Employees",
+        "CardNumber": "Card Number",
+        "Type": "Type",
+        "ApprovalStatus": "Approval Status"
+    },
+
+    "users": {
+
+    },
 
     "timeZones": {
         "Sun": "Sunday",

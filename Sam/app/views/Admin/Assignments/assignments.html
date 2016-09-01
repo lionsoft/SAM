@@ -7,7 +7,7 @@
                     <div class="form-group">
                         <label class="control-label" translate>Customer</label>
                         <ui-select class="form-control" ng-model="$.selectedCustomerId" ng-disabled="$.customers.length===0">
-                            <ui-select-match allow-clear="true" placeholder="All Customers">
+                            <ui-select-match allow-clear="true" placeholder="{{'AllCustomers' | translate}}">
                                 {{$select.selected.Name}}
                             </ui-select-match>
                             <ui-select-choices repeat="customer.Id as customer in $.customers track by customer.Id">
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label class="control-label" translate>Card</label>
                         <ui-select class="form-control" ng-model="$.selectedCardId" ng-disabled="$.cards.length===0">
-                            <ui-select-match allow-clear="true" placeholder="All Cards">
+                            <ui-select-match allow-clear="true" placeholder="{{'AllCards' | translate}}">
                                 {{$select.selected.Number|CardNumber}}
                             </ui-select-match>
                             <ui-select-choices repeat="card.Id as card in $.cards track by card.Id">
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label class="control-label" translate>Door</label>                      
                         <ui-select class="form-control" ng-model="$.selectedDoorId" ng-disabled="$.doors.length===0">
-                            <ui-select-match allow-clear="true" placeholder="All Doors">
+                            <ui-select-match allow-clear="true" placeholder="{{'AllDoors' | translate}}">
                                 {{$select.selected.Name}}
                             </ui-select-match>
                             <ui-select-choices repeat="door.Id as door in $.doors track by door.Id">
@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label class="control-label" translate>Employee</label>
                         <ui-select class="form-control" ng-model="$.selectedEmployeeId" ng-disabled="$.employees.length===0">
-                            <ui-select-match allow-clear="true" placeholder="All Employees">
+                            <ui-select-match allow-clear="true" placeholder="{{'AllEmployees' | translate}}">
                                 {{$select.selected.Name}}
                             </ui-select-match>
                             <ui-select-choices repeat="employee.Id as employee in $.employees track by employee.Id">

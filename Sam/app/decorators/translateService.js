@@ -19,13 +19,11 @@ var App;
             }
             TranslateServiceDecorator.prototype.getFactoryResult = function () {
                 var _this = this;
+                this.$delegate['__makeNonLocalizedDefValue'] = function (s) { return s; };
+                this.$delegate['__formatLocalizedValue'] = function (s) { return s; };
                 if (App.app.isDebugMode) {
                     this.$delegate['__makeNonLocalizedDefValue'] = function (s) { return ("?" + s + "?"); };
                     this.$delegate['__formatLocalizedValue'] = function (s) { return ("[" + s.TrimRight('`') + "]"); };
-                }
-                else {
-                    this.$delegate['__makeNonLocalizedDefValue'] = function (s) { return s; };
-                    this.$delegate['__formatLocalizedValue'] = function (s) { return s; };
                 }
                 var res = function (translationId, interpolateParams, interpolationId, defaultTranslationText) { return _this.Execute(translationId, interpolateParams, interpolationId, defaultTranslationText); };
                 for (var idx in this.$delegate) {
