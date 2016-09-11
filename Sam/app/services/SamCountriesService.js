@@ -20,7 +20,7 @@ var App;
                 configurable: true
             });
             return CountriesService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samCountries", CountriesService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

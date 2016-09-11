@@ -21,7 +21,7 @@ var App;
             }
             CcSpinner.directiveId = 'ccSpinner';
             return CcSpinner;
-        })();
+        }());
         // Register in angular app
         App.app.directive(CcSpinner.directiveId, ['$window', function ($window) { return new CcSpinner($window); }]);
     })(Directives = App.Directives || (App.Directives = {}));

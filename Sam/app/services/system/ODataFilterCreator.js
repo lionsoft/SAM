@@ -228,7 +228,7 @@ var App;
                 }
             };
             return ODataFilterCreator;
-        })();
+        }());
         Services.ODataFilterCreator = ODataFilterCreator;
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

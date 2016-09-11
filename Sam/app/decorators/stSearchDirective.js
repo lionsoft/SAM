@@ -37,7 +37,7 @@ var App;
                 _super.prototype.Link.call(this, scope, element, attrs, controllers, transclude);
             };
             return StSearchDirectiveDecorator;
-        })(LionSoftAngular.DirectiveDecorator);
+        }(LionSoftAngular.DirectiveDecorator));
         App.app.decorator("stSearchDirective", StSearchDirectiveDecorator.Factory());
     })(Decorators = App.Decorators || (App.Decorators = {}));
 })(App || (App = {}));

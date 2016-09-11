@@ -35,7 +35,7 @@ var App;
             }
             CcMenuItemRendered.directiveId = 'ccMenuItemRendered';
             return CcMenuItemRendered;
-        })();
+        }());
         // register in angular app
         App.app.directive(CcMenuItemRendered.directiveId, ['$timeout', function ($timeout) { return new CcMenuItemRendered($timeout); }]);
     })(Directives = App.Directives || (App.Directives = {}));

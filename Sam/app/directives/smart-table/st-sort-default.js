@@ -31,7 +31,7 @@ var App;
                     attrs.stSortDefault = "reverse";
             };
             return StSortDefault;
-        })(LionSoftAngular.Directive);
+        }(LionSoftAngular.Directive));
         App.app.directive("stSortDefault", StSortDefault.Factory());
     })(Directives = App.Directives || (App.Directives = {}));
 })(App || (App = {}));

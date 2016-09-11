@@ -41,7 +41,7 @@ var App;
                 return this.ApiService.LostCardRequest(employeeId, explanation).HandleError();
             };
             return CardsService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samCards", CardsService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

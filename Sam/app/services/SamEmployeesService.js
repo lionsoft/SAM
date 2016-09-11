@@ -32,7 +32,7 @@ var App;
                 return this.ApiService.ResetPin(id);
             };
             return EmployeesService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samEmployees", EmployeesService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

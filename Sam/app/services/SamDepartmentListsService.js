@@ -29,7 +29,7 @@ var App;
                 }
             };
             return DepartmentListsService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samDepartmentLists", DepartmentListsService.Factory("samDoorLists"));
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

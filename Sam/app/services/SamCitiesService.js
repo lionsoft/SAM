@@ -20,7 +20,7 @@ var App;
                 configurable: true
             });
             return CitiesService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samCities", CitiesService.Factory());
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

@@ -491,7 +491,7 @@ var App;
                 return def.promise;
             };
             return CRUDService;
-        })(App.Service);
+        }(App.Service));
         Services.CRUDService = CRUDService;
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

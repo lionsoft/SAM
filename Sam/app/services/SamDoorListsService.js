@@ -29,7 +29,7 @@ var App;
                 }
             };
             return DoorListsService;
-        })(Services.CRUDService);
+        }(Services.CRUDService));
         App.app.service("samDoorLists", DoorListsService.Factory("samDoors"));
     })(Services = App.Services || (App.Services = {}));
 })(App || (App = {}));

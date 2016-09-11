@@ -32,7 +32,7 @@ var App;
             }
             CcSidebar.directiveId = 'ccSidebar';
             return CcSidebar;
-        })();
+        }());
         //References angular app
         App.app.directive(CcSidebar.directiveId, [function () { return new CcSidebar(); }]);
     })(Directives = App.Directives || (App.Directives = {}));

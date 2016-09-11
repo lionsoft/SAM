@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -13,6 +15,46 @@ namespace Sam
 
     public class ApplicationUserManager : UserManager<User>
     {
+        class Md5PasswordHasher : IPasswordHasher
+        {
+            static string GetMd5Hash(byte[] bytes)
+            {
+                if (bytes == null)
+                    return "";
+                var x = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                var bs = x.ComputeHash(bytes);
+                var s = new StringBuilder();
+                foreach (var b in bs)
+                {
+                    s.Append(b.ToString("x2").ToLower());
+                }
+                return s.ToString();
+            }
+            static string GetMd5Hash(string str)
+            {
+                return string.IsNullOrEmpty(str) ? "" : GetMd5Hash(Encoding.UTF8.GetBytes(str));
+            }
+
+
+            /// <summary>Hash a password</summary>
+            /// <param name="password"></param>
+            /// <returns></returns>
+            public virtual string HashPassword(string password)
+            {
+                return GetMd5Hash(password);
+            }
+
+            /// <summary>Verify that a password matches the hashedPassword</summary>
+            /// <param name="hashedPassword"></param>
+            /// <param name="providedPassword"></param>
+            /// <returns></returns>
+            public virtual PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
+            {
+                return GetMd5Hash(providedPassword) == hashedPassword ? PasswordVerificationResult.Success : PasswordVerificationResult.Failed;
+            }
+        }
+
+
         public ApplicationUserManager(IUserStore<User> store)
             : base(store)
         {
@@ -37,6 +79,7 @@ namespace Sam
 //                RequireLowercase = true,
 //                RequireUppercase = true,
             };
+            manager.PasswordHasher = new Md5PasswordHasher();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
