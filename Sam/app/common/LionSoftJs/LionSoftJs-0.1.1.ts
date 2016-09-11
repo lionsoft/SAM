@@ -569,8 +569,10 @@ module LionSoftJs {
     scriptFolder = path.join('/');
 
     // Set window.location.origin
-    if (!window.location.origin)
-        window.location.origin = window.location.protocol + "//" + window.location.host;
+    if (!window.location.origin) {
+        (<any>window).location.origin = window.location.protocol + "//" + window.location.host;
+    }
+        
 
     // Set manually to correct working minfication
     scriptFolder = "/app/common/LionSoft.Js/";

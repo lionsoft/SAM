@@ -38,31 +38,36 @@ module App {
                 .determinePreferredLanguage()
             ;
 
-                if (location.pathname.Trim('/'))
-                    $l10n.$defaultLanguage = location.pathname.Trim('/');
-                $l10n.$defaultLanguage = $l10n.$defaultLanguage || "ru";
-                $l10n.$languages = $l10n.$languages || <any>{};
-                var defLangName = $l10n.$defaultLanguage;
+            var lang = ((<any>navigator).userLanguage || (<any>navigator).language || "en").toLowerCase();
+            lang = Enumerable.from($l10n.$languages)
+                .where(l => l.value.browser.any(bl => bl.toLowerCase() === lang))
+                .select(x => x.key)
+                .firstOrDefault()
+                || "en";
+            if (location.pathname.Trim('/'))
+                $l10n.$defaultLanguage = location.pathname.Trim('/');
+            $l10n.$defaultLanguage = $l10n.$defaultLanguage || lang;
+            $l10n.$languages = $l10n.$languages || <any>{};
+            var defLangName = $l10n.$defaultLanguage;
 
-                var defLang = Enumerable.from($l10n.$languages).firstOrDefault(x => x.key === defLangName);
+            var defLang = Enumerable.from($l10n.$languages).firstOrDefault(x => x.key === defLangName);
 
-                if (defLang) {
-                    var langId = defLang.key;
-                    $translateProvider.preferredLanguage(langId);
-                    $translateProvider.use(langId);
-                    document.documentElement.lang = langId;
+            if (defLang) {
+                var langId = defLang.key;
+                $translateProvider.preferredLanguage(langId);
+                $translateProvider.use(langId);
+                document.documentElement.lang = langId;
 
-                    if (defLang.value.fallbackLangId)
-                        $translateProvider.fallbackLanguage(defLang.value.fallbackLangId);
+                if (defLang.value.fallbackLangId)
+                    $translateProvider.fallbackLanguage(defLang.value.fallbackLangId);
 
-                    if (defLang.value.angular)
-                        $.getScript("/Scripts/i18n/angular-locale_{0}.js".format(defLang.value.angular));
-                    if (defLang.value.momentjs)
-                        moment.locale(defLang.value.momentjs);
-                    if (defLang.value.select2)
-                        $.getScript("/Scripts/i18n/{0}.js".format(defLang.value.select2));
-                }
-
+                if (defLang.value.angular)
+                    $.getScript("/Scripts/i18n/angular-locale_{0}.js".format(defLang.value.angular));
+                if (defLang.value.momentjs)
+                    moment.locale(defLang.value.momentjs);
+                if (defLang.value.select2)
+                    $.getScript("/Scripts/i18n/{0}.js".format(defLang.value.select2));
+            }
         }])
     ;
 

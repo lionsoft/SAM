@@ -142,7 +142,7 @@ module LionSoftAngular {
      */
     export function getClassName(obj: Object) {
         var funcNameRegex = /function (.{1,})\(/;
-        var results = (funcNameRegex).exec(typeof obj === "function" ? obj.toString() : obj.constructor.toString());
+        var results = (funcNameRegex).exec(typeof obj === "function" ? (<any>obj).toString() : obj.constructor.toString());
         var res = (results && results.length > 1) ? results[1] : "";
         return res;
     }
