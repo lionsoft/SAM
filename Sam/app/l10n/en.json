@@ -302,7 +302,7 @@
     },
 
     "users": {
-
+        "* current password *": "* current password *"
     },
 
     "timeZones": {

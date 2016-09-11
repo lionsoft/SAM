@@ -100,7 +100,8 @@ namespace Sam.Api
                 var currentUser = Db.Users.Include(u => u.Employees).First(x => x.Id == user.Id);
                 currentUser.UserName = user.UserName;
                 currentUser.Email = user.Email;
-                currentUser.PasswordHash = user.PasswordHash ?? currentUser.PasswordHash;
+                if (user.PasswordHash != null)
+                    currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(user.PasswordHash);
                 await Db.SaveChangesAsync();
                 user = currentUser;
             }

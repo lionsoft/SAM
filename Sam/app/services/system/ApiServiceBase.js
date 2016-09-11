@@ -17,22 +17,31 @@ var App;
          */
         ApiServiceBase.ExctractError = function (err) {
             var error = (err || "Fatal error").toString();
-            if (typeof err.data === "object") {
+            if (angular.isArray(err.data)) {
+                error = (err.data).select(function (x) { return ApiServiceBase.ExctractError(x); }).aggregate("", function (prev, current) { return prev ? prev + "\r\n" + current : current; });
+            }
+            else if (typeof err.data === "object") {
                 if (err.data.ModelState && typeof err.data.ModelState === "object")
-                    error = err.data.ModelState[""];
+                    //error = err.data.ModelState[""];
+                    error = Enumerable.from(err.data.ModelState).select(function (kv) { return kv.value; }).toArray().join("<br/>");
                 else
                     error = (err.data.ExceptionMessage == undefined) ? err.data.Message : err.data.ExceptionMessage;
-                if (!error && err.data.result && typeof err.data.result === "object") {
-                    error = (err.data.result.ExceptionMessage == undefined) ? err.data.result.Message : err.data.result.ExceptionMessage;
+                if (!error && err.data.result) {
+                    if (typeof err.data.result === "string")
+                        error = err.data.result;
+                    else if (typeof err.data.result === "object")
+                        error = (err.data.result.ExceptionMessage == undefined) ? err.data.result.Message : err.data.result.ExceptionMessage;
                 }
             }
+            else if (err.ExceptionMessage != undefined)
+                error = err.ExceptionMessage.toString();
             else if (err.statusText != undefined)
                 error = err.statusText.toString();
             else if (err.data != undefined)
                 error = err.data.toString().substr(0, 100);
             else if (err.Message != undefined)
                 error = err.Message.toString();
-            return error;
+            return (error || "").replace(/(?:\r\n|\r|\n)/g, '<br/>');
         };
         /**
          * Обрабатывает ошибку, возникшую при вызове методов сервиса.
@@ -46,7 +55,8 @@ var App;
             LionSoftAngular.Service.addFactoryInjections(injects);
             this.addInjection(injects, "$location");
         };
-        ApiServiceBase.prototype.transformServiceResponse = function (data, headers) {
+        ApiServiceBase.prototype.transformServiceResponse = function (data, headers, isArray) {
+            if (isArray === void 0) { isArray = false; }
             // Copied from Angular default transform method
             if (angular.isString(data)) {
                 // Strip json vulnerability protection prefix and trim whitespace
@@ -55,6 +65,8 @@ var App;
                     var contentType = headers('Content-Type');
                     if ((contentType && (contentType.indexOf(App.Utils.Json.APPLICATION_JSON) === 0)) || App.Utils.Json.IsJsonLike(tempData)) {
                         data = App.Utils.Json.ResolveReferences(angular.fromJson(tempData));
+                        if (isArray && !angular.isArray(data))
+                            data = [data];
                     }
                 }
             }
@@ -117,15 +129,6 @@ var App;
                 if (arguments.length > 0 && arguments[0] instanceof App.Services.OData) {
                     arguments[0] = arguments[0].query;
                 }
-                /*
-                                for (let i = 0; i < arguments.length; i++) {
-                                    if (arguments[i] instanceof Services.OData) {
-                                        var query = arguments[i].query;
-                                        if (query)
-                                            arguments[i] = query.replace(/(^\?)/, "").split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1].trim(), this; }.bind({}))[0];
-                                    }
-                                }
-                */
                 // Преобразование строки параметров в объект
                 // ReSharper disable SuspiciousThisUsage
                 if (arguments.length > 0 && typeof arguments[0] == "string" && (arguments[0].StartsWith("?") || arguments[0].StartsWith("&") || arguments[0].StartsWith("$"))) {
@@ -142,12 +145,23 @@ var App;
                     for (var idx in arguments) {
                         if (arguments.hasOwnProperty(idx)) {
                             var arg = arguments[idx];
-                            stop = stop || idx >= defaultParamNames.length || (!angular.isArray(arguments[0]) && angular.isObject(arguments[0])) || typeof arguments[0] === "function";
-                            if (stop)
-                                args.push(arg);
+                            // Если параметр это объект OData - заполняем параметры запроса его значениями
+                            if (arg instanceof App.Services.OData) {
+                                var odataArgs = arg.query.replace(/(^\?)/, "").split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1].trim(), this; }.bind({}))[0];
+                                for (var paramName in odataArgs) {
+                                    if (odataArgs.hasOwnProperty(paramName)) {
+                                        params[paramName] = odataArgs[paramName];
+                                    }
+                                }
+                            }
                             else {
-                                var paramName = defaultParamNames[idx];
-                                params[paramName] = arg;
+                                stop = stop || idx >= defaultParamNames.length || (!angular.isArray(arguments[0]) && angular.isObject(arguments[0])) || typeof arguments[0] === "function";
+                                if (stop)
+                                    args.push(arg);
+                                else {
+                                    var paramName = defaultParamNames[idx];
+                                    params[paramName] = arg;
+                                }
                             }
                         }
                     }
@@ -156,7 +170,6 @@ var App;
                 // строку запроса - формируется запрос с параметрами в теле.
                 // Для этого тупо добавим ещё один пустой параметр.
                 // По хорошему неплохо бы проверить, что action это действительно POST, PUT, PATCH, но я не нашёл как это сделать
-                //                if (args.length === defaultParamNames.length && args.length > 0) {
                 if (defaultParamNames.$$params$$ > 0) {
                     args.push(undefined);
                 }
@@ -198,7 +211,7 @@ var App;
                     query: {
                         method: "GET",
                         isArray: true,
-                        transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); }
+                        transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers, true); },
                     },
                     // получение  объекта по его Id
                     get: { method: "GET", transformResponse: function (data, headers) { return _this.transformServiceResponse(data, headers); } },

@@ -93,7 +93,7 @@ module App.Services {
         /**
          * При использовании фильтров по перечислениям необходимо использовать эту функцию,
          * для того, чтобы задать значение перечисления.
-         * @param enumName полное название перечисления. Если задано коротуое (без точек) - к нему будет добавлен префикс NavisWeb.Models.
+         * @param enumName полное название перечисления. Если задано короткое (без точек) - к нему будет добавлен префикс BillingManager.Models.
          * @param enumValue числовое значение перечисления
          */
         static enum(enumName: string, enumValue: number): Object {
@@ -106,6 +106,7 @@ module App.Services {
          */
         $inlinecount(): OData {
             this._extra.push("$inlinecount=allpages");
+            this._extra.push("$format=json");
             return this;
         }
 
@@ -175,6 +176,11 @@ module App.Services {
          */
         $skip(value: number): OData {
             this._skip = value;
+            return this;
+        }
+
+        $addExtra(value: string): OData {
+            this._extra.push(value);
             return this;
         }
 

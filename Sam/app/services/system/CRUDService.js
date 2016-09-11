@@ -171,15 +171,28 @@ var App;
                     res = res.then(function (r) {
                         if (r.length && angular.isArray(r)) {
                             var results = r;
-                            if (angular.isArray(results[0].Results))
-                                results = results[0].Results;
+                            /*
+                                                    if (angular.isArray(results[0].Results))
+                                                        results = results[0].Results;
+                                                    if (odata.$translateResult) {
+                                                        results = odata.$translateResult(results);
+                                                        if (angular.isArray(results[0].Results)) {
+                                                            if (angular.isArray(results))
+                                                                results[0].Count = results.length;
+                                                            else
+                                                                results[0].Count = 0;
+                                                        }
+                                                    }
+                            */
+                            if (angular.isArray(results[0]['value']))
+                                results = results[0]['value'];
                             if (odata.$translateResult) {
                                 results = odata.$translateResult(results);
-                                if (angular.isArray(results[0].Results)) {
+                                if (angular.isArray(results[0]['value'])) {
                                     if (angular.isArray(results))
-                                        results[0].Count = results.length;
+                                        results[0]['odata.count'] = results.length;
                                     else
-                                        results[0].Count = 0;
+                                        results[0]['odata.count'] = 0;
                                 }
                             }
                             results.forEach(function (x) { return _this.prepareResult(x); });
@@ -304,25 +317,51 @@ var App;
                     var result = null;
                     if (angular.isArray(res)) {
                         result = res[0] || [];
-                        if (!angular.isArray(result.Results)) {
-                            result.Results = res;
-                            result.Count = 0;
+                        /*
+                                            if (!angular.isArray(result.Results)) {
+                                                result.Results = res;
+                                                result.Count = 0;
+                                            }
+                        
+                                            if (odata.$translateResult) {
+                                                result.Results = odata.$translateResult(result.Results);
+                                                if (angular.isArray(result.Results))
+                                                    result.Count = result.Results.length;
+                                                else
+                                                    result.Count = 0;
+                                            }
+                        */
+                        if (!angular.isArray(result['value'])) {
+                            result['value'] = res;
+                            result['odata.count'] = 0;
                         }
                         if (odata.$translateResult) {
-                            result.Results = odata.$translateResult(result.Results);
-                            if (angular.isArray(result.Results))
-                                result.Count = result.Results.length;
+                            result['value'] = odata.$translateResult(result['value']);
+                            if (angular.isArray(result['value']))
+                                result['odata.count'] = result['value'].length;
                             else
-                                result.Count = 0;
+                                result['odata.count'] = 0;
                         }
                     }
-                    if (result && angular.isArray(result.Results)) {
-                        tableState.pagination.numberOfPages = Math.ceil(result.Count / tableState.pagination.number); //set the number of pages so the pagination can update
+                    /*
+                                    if (result && angular.isArray(result.Results)) {
+                                        tableState.pagination.numberOfPages = Math.ceil(result.Count / tableState.pagination.number);//set the number of pages so the pagination can update
+                                        if (dataSource && angular.isArray(dataSource)) {
+                                            dataSource.Clear();
+                                            dataSource.AddRange(result.Results);
+                                        }
+                                        res = result.Results;
+                                    } else {
+                                        tableState.pagination.numberOfPages = 0;
+                                    }
+                    */
+                    if (result && angular.isArray(result['value'])) {
+                        tableState.pagination.numberOfPages = Math.ceil(result['odata.count'] / tableState.pagination.number); //set the number of pages so the pagination can update
                         if (dataSource && angular.isArray(dataSource)) {
                             dataSource.Clear();
-                            dataSource.AddRange(result.Results);
+                            dataSource.AddRange(result['value']);
                         }
-                        res = result.Results;
+                        res = result['value'];
                     }
                     else {
                         tableState.pagination.numberOfPages = 0;
@@ -331,7 +370,7 @@ var App;
                         dataSource.Clear();
                         dataSource.AddRange(res);
                     }
-                    return res;
+                    return dataSource || res;
                 });
             };
             CRUDService.prototype.Load = function (p, p1) {

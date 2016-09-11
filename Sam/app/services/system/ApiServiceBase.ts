@@ -57,22 +57,31 @@ module App {
          */
         static ExctractError(err: any): string {
             var error = (err || "Fatal error").toString();
-            if (typeof err.data === "object") {
+            if (angular.isArray(err.data)) {
+                error = (<any[]>(err.data)).select(x => ApiServiceBase.ExctractError(x)).aggregate("", (prev, current) => prev ? prev + "\r\n" + current : current);
+                }
+            else if (typeof err.data === "object") {
                 if (err.data.ModelState && typeof err.data.ModelState === "object")
-                    error = err.data.ModelState[""];
+                    //error = err.data.ModelState[""];
+                    error = Enumerable.from(err.data.ModelState).select(kv => kv.value).toArray().join("<br/>");
                 else
                     error = (err.data.ExceptionMessage == undefined) ? err.data.Message : err.data.ExceptionMessage;
-                if (!error && err.data.result && typeof err.data.result === "object") {
+                if (!error && err.data.result) {
+                    if (typeof err.data.result === "string")
+                        error = err.data.result;
+                    else if (typeof err.data.result === "object") 
                     error = (err.data.result.ExceptionMessage == undefined) ? err.data.result.Message : err.data.result.ExceptionMessage;
                 }
             }
+            else if (err.ExceptionMessage != undefined)
+                error = err.ExceptionMessage.toString();
             else if (err.statusText != undefined) 
                 error = err.statusText.toString();
             else if (err.data != undefined) 
                 error = err.data.toString().substr(0, 100);
             else if (err.Message != undefined) 
                 error = err.Message.toString();
-            return error;
+            return (error || "").replace(/(?:\r\n|\r|\n)/g, '<br/>');
         }
 
         /**
@@ -93,7 +102,7 @@ module App {
         
 
 
-        private transformServiceResponse(data: any, headers: any): any {
+        private transformServiceResponse(data: any, headers: any, isArray: boolean = false): any {
             // Copied from Angular default transform method
             if (angular.isString(data)) {
                 // Strip json vulnerability protection prefix and trim whitespace
@@ -103,6 +112,8 @@ module App {
                     var contentType = headers('Content-Type');
                     if ((contentType && (contentType.indexOf(Utils.Json.APPLICATION_JSON) === 0)) || Utils.Json.IsJsonLike(tempData)) {
                         data = Utils.Json.ResolveReferences(angular.fromJson(tempData));
+                        if (isArray && !angular.isArray(data))
+                            data = [data];
                     }
                 }
             }
@@ -170,15 +181,6 @@ module App {
                 if (arguments.length > 0 && arguments[0] instanceof Services.OData) {
                     arguments[0] = arguments[0].query;
                 }
-/*
-                for (let i = 0; i < arguments.length; i++) {
-                    if (arguments[i] instanceof Services.OData) {
-                        var query = arguments[i].query;
-                        if (query)
-                            arguments[i] = query.replace(/(^\?)/, "").split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1].trim(), this; }.bind({}))[0];
-                    }
-                }
-*/
 
                 // Преобразование строки параметров в объект
                 // ReSharper disable SuspiciousThisUsage
@@ -186,6 +188,7 @@ module App {
                     params = arguments[0].replace(/(^\?)/, "").split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1].trim(), this; }.bind({}))[0];
                     args.push(params);
                 }
+
                 // ReSharper restore SuspiciousThisUsage
                 // Преобразование списка необъектных параметров в объект с именами по умолчанию
                 else if (arguments.length > 0 && (angular.isArray(arguments[0]) || !angular.isObject(arguments[0]))) {
@@ -198,14 +201,23 @@ module App {
                     for (var idx in arguments) {
                         if (arguments.hasOwnProperty(idx)) {
                             var arg = arguments[idx];
+                            // Если параметр это объект OData - заполняем параметры запроса его значениями
+                            if (arg instanceof Services.OData) {
+                                var odataArgs = arg.query.replace(/(^\?)/, "").split("&").map(function(n) { return n = n.split("="), this[n[0]] = n[1].trim(), this; }.bind({}))[0];
+                                for (let paramName in odataArgs) {
+                                    if (odataArgs.hasOwnProperty(paramName)) {
+                                        params[paramName] = odataArgs[paramName];
+                                    }
+                                }
+                            } else {
                             stop = stop || idx >= defaultParamNames.length || (!angular.isArray(arguments[0]) && angular.isObject(arguments[0])) || typeof arguments[0] === "function";
                             if (stop)
                                 args.push(arg);
                             else {
-                                var paramName = defaultParamNames[idx];
+                                    let paramName = defaultParamNames[idx];
                                 params[paramName] = arg;
                             }
-
+                            }
                         }
                     }
                 }
@@ -214,11 +226,9 @@ module App {
                 // строку запроса - формируется запрос с параметрами в теле.
                 // Для этого тупо добавим ещё один пустой параметр.
                 // По хорошему неплохо бы проверить, что action это действительно POST, PUT, PATCH, но я не нашёл как это сделать
-//                if (args.length === defaultParamNames.length && args.length > 0) {
                 if (defaultParamNames.$$params$$ > 0) {
                     args.push(undefined);
                 }
-
                 var oldResult = serviceFactory["__" + methodName].apply(_this, args.length === 0 ? arguments : <any>args);
                 // Преобразование старого результата в нормальный промис
                 return _this.configServiceResult(oldResult);
@@ -262,7 +272,7 @@ module App {
                         query: {
                             method: "GET",
                             isArray: true,
-                            transformResponse: (data, headers) => this.transformServiceResponse(data, headers) 
+                            transformResponse: (data, headers) => this.transformServiceResponse(data, headers, true),
                         },
                         // получение  объекта по его Id
                         get:    { method: "GET", transformResponse: (data, headers) => this.transformServiceResponse(data, headers) },

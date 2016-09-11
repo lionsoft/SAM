@@ -157,17 +157,17 @@ module App.Services {
 
         protected child: ODataFilterCreator;
         protected get lastChild(): ODataFilterCreator {
-            var res = this;
+            var res: ODataFilterCreator = this;
             while (res.child) {
-                res = <any>res.child;
+                res = res.child;
             }
             return res;
         }
 
         protected getPropName() {
-            var res = this;
+            var res: ODataFilterCreator = this;
             while (res && !res.propName) {
-                res = <any>res.parent;
+                res = res.parent;
             }
             return res ? res.propName : undefined;
         }

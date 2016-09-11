@@ -81,7 +81,7 @@ var App;
             /**
              * При использовании фильтров по перечислениям необходимо использовать эту функцию,
              * для того, чтобы задать значение перечисления.
-             * @param enumName полное название перечисления. Если задано коротуое (без точек) - к нему будет добавлен префикс NavisWeb.Models.
+             * @param enumName полное название перечисления. Если задано короткое (без точек) - к нему будет добавлен префикс BillingManager.Models.
              * @param enumValue числовое значение перечисления
              */
             OData.enum = function (enumName, enumValue) {
@@ -93,6 +93,7 @@ var App;
              */
             OData.prototype.$inlinecount = function () {
                 this._extra.push("$inlinecount=allpages");
+                this._extra.push("$format=json");
                 return this;
             };
             OData.prototype.$expand = function (p1) {
@@ -166,6 +167,10 @@ var App;
              */
             OData.prototype.$skip = function (value) {
                 this._skip = value;
+                return this;
+            };
+            OData.prototype.$addExtra = function (value) {
+                this._extra.push(value);
                 return this;
             };
             /**
